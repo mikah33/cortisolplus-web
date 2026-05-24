@@ -40,6 +40,11 @@ const fullTitle = title === SITE.title ? title : `${title} | ${SITE.name}`;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
+<!-- Smart App Banner — Safari on iOS auto-renders a native banner at the top
+     of the page with our icon, name, App Store rating, and Install / View
+     button that deep-links to the App Store. -->
+<meta name="apple-itunes-app" content="app-id=6759510126, app-argument=https://cortisolplus.com" />
+
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
