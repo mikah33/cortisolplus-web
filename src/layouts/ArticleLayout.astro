@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import AppStoreBadge from '../components/AppStoreBadge.astro';
 import RatingBadge from '../components/RatingBadge.astro';
+import NewsletterCTA from '../components/NewsletterCTA.astro';
 import { SITE, PUBLISHER } from '../consts';
 
 interface Props {
@@ -84,6 +85,8 @@ const combinedSchema = schema
         <RatingBadge size="sm" />
       </div>
     </aside>
+
+    <NewsletterCTA variant="card" />
   </article>
 
   <script>

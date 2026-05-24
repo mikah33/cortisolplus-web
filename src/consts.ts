@@ -11,6 +11,8 @@ export const SITE = {
   twitter: '@cortisolplus',
   tiktok: 'https://www.tiktok.com/@cortisol.plus',
   tiktokHandle: '@cortisol.plus',
+  substack: 'https://cortisolplus.substack.com',
+  substackName: 'The Cortisol Brief',
   ogImage: '/og-default.png',
 } as const;
 
@@ -40,6 +42,7 @@ export const PUBLISHER = {
 
 export const SOCIAL_PROFILES = [
   SITE.tiktok,
+  SITE.substack,
   SITE.appStoreUrl,
   PUBLISHER.url,
 ];

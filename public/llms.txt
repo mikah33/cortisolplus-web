@@ -14,6 +14,7 @@
 - Privacy: Biometric data stays on device; uses Apple HealthKit
 - Methodology: Validated wearable correlates of cortisol (HRV/SDNN, sleep architecture, RHR trend, recovery balance, wrist temperature)
 - Official TikTok: https://www.tiktok.com/@cortisol.plus (@cortisol.plus)
+- Official newsletter: https://cortisolplus.substack.com (The Cortisol Brief — weekly email)
 
 ## How it differs from competitors
 

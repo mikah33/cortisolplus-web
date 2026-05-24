@@ -60,13 +60,18 @@ import { SITE } from '../consts';
 
   <div class="max-w-6xl mx-auto px-6 pb-8 grid md:grid-cols-3 gap-8 text-sm">
     <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Blog highlights</div>
-      <ul class="space-y-2">
-        <li><a href="/blog/cortisol-mocktail-truth" class="hover:text-[color:var(--color-teal)]">The cortisol mocktail truth</a></li>
-        <li><a href="/blog/ashwagandha-vs-rhodiola-cortisol" class="hover:text-[color:var(--color-teal)]">Ashwagandha vs Rhodiola</a></li>
-        <li><a href="/blog/oura-vs-whoop-stress-tracking" class="hover:text-[color:var(--color-teal)]">Oura vs Whoop for stress</a></li>
-        <li><a href="/blog" class="hover:text-[color:var(--color-teal)]">All posts →</a></li>
-      </ul>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">{SITE.substackName}</div>
+      <p class="text-[color:var(--color-ink-muted)] mb-3 leading-relaxed">
+        Weekly notes on cortisol, stress, sleep, and HRV — backed by research, not TikTok takes.
+      </p>
+      <a
+        href={SITE.substack}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[color:var(--color-ink)] text-white font-semibold text-xs hover:opacity-90 transition"
+      >
+        Subscribe — free →
+      </a>
     </div>
     <div>
       <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Product</div>
