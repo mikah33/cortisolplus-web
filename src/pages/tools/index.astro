@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RatingBadge from '../../components/RatingBadge.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import { SITE } from '../../consts';
+
+const tools = [
+  {
+    href: '/tools/cortisol-calculator',
+    title: 'Cortisol risk calculator',
+    body: 'Estimate your cortisol risk based on 8 stress, sleep, and lifestyle signals. Most-used tool on the site.',
+    duration: '8 Q · 60 sec',
+    color: 'teal',
+  },
+  {
+    href: '/tools/morning-cortisol-test',
+    title: 'Morning cortisol test',
+    body: 'Symptom-based check for your morning Cortisol Awakening Response (CAR). Catch a blunted or disrupted morning curve.',
+    duration: '6 Q · 60 sec',
+    color: 'coral',
+  },
+  {
+    href: '/tools/stress-score',
+    title: 'Stress score quiz',
+    body: 'How much stress are you actually carrying day-to-day? Score your daily load and chronic allostatic build-up.',
+    duration: '6 Q · 60 sec',
+    color: 'mint',
+  },
+  {
+    href: '/tools/burnout-risk',
+    title: 'Burnout risk assessment',
+    body: 'Three-dimension burnout check — exhaustion, cynicism, and efficacy. Inspired by the Maslach model.',
+    duration: '7 Q · 90 sec',
+    color: 'coral',
+  },
+  {
+    href: '/tools/sleep-debt-cortisol',
+    title: 'Sleep debt × cortisol',
+    body: 'How much is your sleep deficit driving your cortisol up? Score the cortisol-sleep loop and find the leverage point.',
+    duration: '6 Q · 60 sec',
+    color: 'teal',
+  },
+];
+
+const colorMap: Record<string, string> = {
+  teal: 'from-[color:var(--color-teal)]/12 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-teal)]/20 hover:border-[color:var(--color-teal)]/50 hover:shadow-[color:var(--color-teal)]/25',
+  coral: 'from-[color:var(--color-coral)]/12 via-[color:var(--color-coral)]/5 to-white border-[color:var(--color-coral)]/20 hover:border-[color:var(--color-coral)]/50 hover:shadow-[color:var(--color-coral)]/25',
+  mint: 'from-[color:var(--color-mint)]/40 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-mint)]/40 hover:border-[color:var(--color-teal)]/50 hover:shadow-[color:var(--color-mint)]/40',
+};
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Are these cortisol tests real?',
+    a: 'They are symptom-based quizzes — they capture self-reported signals associated with elevated cortisol. They\'re useful for flagging whether you should pursue clinical testing (saliva, blood, urine) or continuous biometric tracking. They are not diagnostic.',
+  },
+  {
+    q: 'How long does each quiz take?',
+    a: 'All five quizzes take 60–90 seconds. They\'re intentionally short so you actually finish them. Most cortisol-assessment scales used in research are 20+ questions; we found the marginal accuracy past 6–8 questions wasn\'t worth the drop-off.',
+  },
+  {
+    q: 'Which quiz should I take first?',
+    a: 'Start with the cortisol risk calculator — it\'s the broadest assessment. Then layer the morning-CAR quiz if you have wake-up issues, the sleep-debt quiz if you have sleep concerns, or the burnout assessment if you suspect occupational burnout.',
+  },
+  {
+    q: 'Do I need to sign up?',
+    a: 'No. Every quiz is free and runs entirely in your browser — no email gate, no account, no tracking. Results aren\'t stored anywhere; refresh the page and they\'re gone.',
+  },
+  {
+    q: 'What if I score "high" on the quizzes?',
+    a: 'A high score is worth taking seriously, especially if symptoms have been present 3+ months. Consider getting clinical cortisol testing (see our testing guide) and tracking your pattern continuously with Cortisol+ on Apple Watch — quizzes capture a snapshot; biometric tracking shows the trend over weeks.',
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Free cortisol & stress tools',
+    url: `${SITE.url}/tools/`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: tools.map((t, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE.url}${t.href}/`,
+        name: t.title,
+      })),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Free cortisol & stress tools — calculators and quizzes (2026)"
+  description="5 free cortisol and stress assessment tools. Cortisol risk calculator, morning CAR test, stress score quiz, burnout risk assessment, sleep-debt calculator. No signup, instant results."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-5xl mx-auto px-6 py-16">
+    <div class="max-w-3xl mb-12">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Free tools · Updated 2026</div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+        <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">5 free</span> cortisol &amp; stress tools
+      </h1>
+      <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed">
+        Quick assessments based on symptoms, sleep, and lifestyle patterns. Free, no signup, instant results. Each takes under 90 seconds.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5 mb-20">
+      {tools.map((t) => (
+        <a href={t.href} class={`group relative block p-7 rounded-3xl bg-gradient-to-br ${colorMap[t.color]} border hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px] transition-all duration-300 overflow-hidden`}>
+          <div class="relative">
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white/60 text-[color:var(--color-ink)] backdrop-blur">{t.duration}</span>
+              <span class="text-[color:var(--color-ink-muted)] group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 group-hover:text-[color:var(--color-teal-dark)] transition-colors">{t.title}</h2>
+            <p class="text-[color:var(--color-ink-muted)] leading-relaxed">{t.body}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <aside class="p-8 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20 mb-16">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Beyond quizzes</div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3">Track your real cortisol pattern</h2>
+      <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl">
+        Symptom quizzes are a snapshot. For continuous, biometric-based cortisol pattern tracking, Cortisol+ runs on your Apple Watch — measuring HRV, sleep stages, and recovery against your personal baseline.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="/" class="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)] text-white font-semibold text-sm shadow-sm hover:brightness-110 transition">
+          See how Cortisol+ works →
+        </a>
+        <RatingBadge size="sm" />
+      </div>
+    </aside>
+
+    <FAQ items={faqs} title="Tool FAQs" />
+  </article>
+</BaseLayout>

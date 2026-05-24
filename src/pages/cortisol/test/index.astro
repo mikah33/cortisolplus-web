@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'How to test cortisol at home, saliva, blood, urine',
+  condition: 'Cortisol testing',
+  pathname: '/cortisol/test/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How do you test cortisol at home?',
+    a: 'The most accurate at-home cortisol test is a 4-point salivary cortisol kit (Everlywell, Eli Health, ZRT Labs). You spit into vials at wake, +30 min, afternoon, and bedtime, then mail the kit back. Results map your full diurnal curve. A single morning saliva test is cheaper but only captures the peak, not the pattern. Cost: $90–250 USD.',
+  },
+  {
+    q: 'Saliva vs blood vs urine cortisol — which is best?',
+    a: 'Saliva (4-point): best for circadian pattern, the Cortisol Awakening Response, and chronic stress assessment. Blood (serum): single snapshot — used clinically for diagnosing Cushing\'s, Addison\'s, and acute issues. 24-hour urinary free cortisol: integrates total daily output, useful for diagnosing endogenous Cushing\'s. For most consumer health questions, salivary is the right choice.',
+  },
+  {
+    q: 'Does Apple Watch measure cortisol?',
+    a: 'No consumer wearable, including Apple Watch, measures cortisol directly. Cortisol is a hormone that must be measured in blood, saliva, or urine. Wearables can estimate cortisol patterns from validated correlates — primarily HRV, sleep stages, resting heart rate, and recovery balance. Cortisol+ on Apple Watch combines those signals into a continuous cortisol-pattern estimate.',
+  },
+  {
+    q: 'When should I get a cortisol test?',
+    a: 'Consider testing if you have symptoms of chronic cortisol elevation (poor sleep despite exhaustion, 3-5 AM wake-ups, midsection weight gain, sugar cravings, mood disruption) lasting 3+ months. Also if symptoms of Cushing\'s (rapid weight gain, easy bruising, purple stretch marks, facial rounding) or Addison\'s (chronic fatigue, low blood pressure, salt cravings, hyperpigmentation) are present — these are clinical and require a doctor.',
+  },
+  {
+    q: 'How much does a cortisol test cost?',
+    a: 'Single blood cortisol: $30–80 USD with a doctor\'s order. 4-point salivary: $90–250 USD (at-home kits). 24-hour urinary free cortisol: $50–150 USD with order. Insurance often covers testing when ordered by a doctor for symptoms. At-home consumer kits are out-of-pocket but don\'t require an order.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/levels', title: 'Cortisol levels reference', hint: 'Normal ranges' },
+  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'When to test' },
+  { href: '/how-it-works', title: 'How Cortisol+ estimates cortisol', hint: 'Methodology' },
+];
+---
+
+<BaseLayout
+  title="How to test cortisol: at-home, saliva, blood & urine tests (2026)"
+  description="Complete guide to cortisol testing. Compare 4-point salivary, blood, 24-hour urine, and wearable-based pattern tracking. When to test and how to read results."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Testing guide</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How to test your cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Four ways to measure cortisol, what each one actually tells you, and how to choose.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Four ways to measure cortisol</h2>
+
+      <h3>1. Salivary cortisol (4-point) — best for pattern</h3>
+      <p>You collect saliva at four points across the day: wake, +30 minutes (CAR), afternoon, and bedtime. Maps your full diurnal curve. This is the gold standard for assessing chronic stress and the Cortisol Awakening Response.</p>
+      <p><strong>Cost:</strong> $90–250 USD at-home (Everlywell, Eli Health, ZRT). <strong>Order:</strong> not required for at-home consumer kits. <strong>Best for:</strong> chronic stress, burnout assessment, CAR evaluation.</p>
+
+      <h3>2. Blood (serum) cortisol — best for clinical diagnosis</h3>
+      <p>A single blood draw, usually morning. Used clinically to diagnose Cushing's syndrome, Addison's disease, and other adrenal pathology. Highly time-dependent — your number is meaningless without knowing what time it was drawn.</p>
+      <p><strong>Cost:</strong> $30–80 USD with order; often insurance-covered. <strong>Order:</strong> required. <strong>Best for:</strong> clinical workup, suspected adrenal disease.</p>
+
+      <h3>3. 24-hour urinary free cortisol — best for total daily output</h3>
+      <p>You collect all urine for 24 hours. The lab measures total cortisol excreted, giving an integrated read of your day's output. Often used to diagnose endogenous Cushing's.</p>
+      <p><strong>Cost:</strong> $50–150 USD. <strong>Order:</strong> required. <strong>Best for:</strong> suspected hypercortisolism.</p>
+
+      <h3>4. Wearable / biometric estimation — best for continuous trend</h3>
+      <p>No wearable measures cortisol directly. They estimate the pattern using HRV, sleep stages, resting heart rate, and recovery balance — all validated correlates. The advantage: continuous data, every day, no needles or vials. The trade-off: estimation, not measurement.</p>
+      <p><strong>Cost:</strong> $0 (with Apple Watch you already own) + free or subscription app. <strong>Order:</strong> none. <strong>Best for:</strong> tracking your pattern over weeks and months, surfacing trends, measuring response to interventions.</p>
+
+      <h2>Which test should you choose?</h2>
+      <p>The honest answer: if you have severe symptoms, see a doctor and get clinical testing. For most people surveilling their stress and cortisol pattern, the right stack is:</p>
+      <ol>
+        <li><strong>Wearable tracking</strong> (continuous, free) for the daily pattern</li>
+        <li><strong>4-point salivary test once</strong> ($150ish) to baseline your actual curve</li>
+        <li><strong>Blood test annually</strong> if your doctor orders it during routine work</li>
+      </ol>
+
+      <h2>How to read your results</h2>
+      <p>See <a href="/cortisol/levels">the cortisol levels reference</a> for normal ranges by time of day, age, and gender. A reading is only meaningful in context of when it was taken and what your baseline pattern looks like.</p>
+
+      <h2>How Cortisol+ fits in</h2>
+      <p><a href="/">Cortisol+</a> doesn't replace a lab test — it gives you the daily pattern that a single test can't show. Most users combine: a one-time saliva test to establish their baseline, then continuous Cortisol+ tracking to watch the trend respond to interventions.</p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

@@ -1,0 +1,90 @@
+---
+title: "Oura vs Whoop for stress and cortisol tracking (2026)"
+description: "Oura, Whoop, and Apple Watch all track stress signals. None measure cortisol directly. Which gets closest — and why none of them tell you the cortisol story specifically."
+pubDate: 2026-05-23
+tags: ["wearables", "cortisol", "stress", "comparisons"]
+---
+
+## The honest answer
+
+**No consumer wearable measures cortisol.** Oura, Whoop, Apple Watch, and Garmin all measure *correlates* of cortisol — primarily HRV and sleep. They differ in how they present the data, what they emphasize, and what their hardware/business model is.
+
+## What each actually tracks
+
+### Oura (Ring)
+- HRV (averaged overnight)
+- Sleep stages + skin temperature deviation
+- Daytime "stress" via HRV during sedentary windows
+- Calls it: "Resilience" and "Stress"
+- Strength: Best-in-class sleep tracking; small form factor; long battery life (4–7 days)
+- Weakness: Daytime HRV samples are sparse; ring doesn't catch all activity; cost includes $5.99/mo subscription on top of hardware
+
+### Whoop (Strap)
+- Continuous HRV (RMSSD)
+- Sleep stages + recovery score
+- Strain and recovery balance
+- Calls it: "Recovery" (composite metric)
+- Strength: Continuous HRV is more granular than Oura; explicit strain-recovery balance for athletes
+- Weakness: No stress-specific metric; recovery is a composite; subscription-only model ($30/mo) means high lifetime cost; no display on strap
+
+### Apple Watch (with Cortisol+)
+- HRV (SDNN), heart rate, sleep stages
+- Wrist temperature, blood oxygen, activity rings
+- Calls it: nothing native — Apple Health has no stress score
+- With Cortisol+: explicit cortisol score and pattern
+- Strength: Best sensor suite; you already own it (most readers); Cortisol+ adds the cortisol-specific layer Apple won't ship; standalone display
+- Weakness: 18-hour battery vs Oura/Whoop; requires the right app (native Apple Health is weak here)
+
+## Detailed comparison
+
+| | Oura Ring 4 | Whoop 5.0 | Apple Watch + Cortisol+ |
+|---|---|---|---|
+| HRV granularity | Overnight averaged | Continuous (RMSSD) | Continuous (SDNN) |
+| Sleep stages | Excellent | Very good | Very good |
+| Temperature trend | Yes (skin) | No (wrist) | Yes (Series 8+ wrist) |
+| Cortisol-specific framing | No | No | Yes |
+| Hardware cost | $349–$549 | $0 (with subscription) | $249+ (most readers own one) |
+| Subscription | $5.99/mo | $30/mo | $0–$10/mo (Cortisol+ premium) |
+| Battery life | 4–7 days | 4–5 days | 18 hours |
+| Standalone display | No | No | Yes |
+| Lifetime 3-year cost (est.) | $565 | $1,080 | $370 |
+| Best for | Sleep-focused users | Athletes / recovery | Mainstream + cortisol focus |
+
+## Methodology notes
+
+All three platforms use photoplethysmography (PPG) for heart rate and HRV. Accuracy validation varies:
+- **Apple Watch**: most-studied wearable HRV. SDNN correlations with ECG are well-published.
+- **Oura**: published validation studies, particularly strong for sleep stages.
+- **Whoop**: marketing emphasizes accuracy; independent peer-reviewed validation is more limited than the other two, though still positive.
+
+Bottom line: all three are accurate enough for trend tracking. Differences in cortisol estimation come from how they synthesize multiple signals, not from raw sensor accuracy.
+
+## What none of them tell you
+
+None of these wearables, no matter how marketed, can:
+- Diagnose Cushing's, Addison's, or any endocrine disorder
+- Replace a saliva or blood cortisol test
+- Tell you your absolute cortisol level in ng/mL
+
+What they CAN do: surface trends, show you what raises/lowers your cortisol patterns over time, and flag pre-burnout trajectories before subjective symptoms peak.
+
+## When each wins
+
+**Oura wins if:** your primary interest is sleep quality, you want a ring vs strap, you value battery life, and $349 hardware + $6/mo subscription fits your budget.
+
+**Whoop wins if:** you're an athlete focused on training load vs recovery, you don't mind the $30/mo, and you don't need a screen.
+
+**Apple Watch + Cortisol+ wins if:** you already own an Apple Watch (most readers do), you specifically care about cortisol framing, you value on-device privacy, you want a screen on your wrist, or you want the lowest lifetime cost.
+
+## Our take
+
+If you don't own a wearable: Apple Watch + Cortisol+ has the best price-to-utility ratio for most people because the Watch does a thousand other things beyond cortisol tracking. Oura is the right specialist pick if you'll wear it primarily for sleep. Whoop is a real performance tool for serious athletes, but the subscription model is expensive over multi-year ownership.
+
+If you already own a wearable: don't switch unless it's broken. The marginal accuracy difference between platforms is small compared to the cost of buying new hardware. Add Cortisol+ (free) to whatever you have if it's Apple Watch; otherwise enjoy what you've got.
+
+## Related
+- [How Cortisol+ works](/how-it-works)
+- [Cortisol risk calculator](/tools/cortisol-calculator)
+- [Welltory vs Cortisol+](/blog/welltory-vs-cortisol-plus)
+- [Sleep debt × cortisol](/tools/sleep-debt-cortisol)
+- [Cortisol for athletes FAQ](/faq-athletes)

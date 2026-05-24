@@ -1,0 +1,5 @@
+Contact: mailto:admin@elevatedsystems.info
+Expires: 2027-05-23T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://cortisolplus.com/.well-known/security.txt
+Policy: https://cortisolplus.com/privacy

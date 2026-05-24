@@ -1,0 +1,29 @@
+---
+import AudienceFAQPage from '../components/AudienceFAQPage.astro';
+
+const faqs = [
+  { q: 'What\'s the cortisol pattern in burnout?', a: 'Early burnout: chronically elevated cortisol throughout the day, with a blunted morning peak. Late-stage burnout: often a "flat" cortisol curve — the HPA axis becomes hypoactive and stops responding normally. Both patterns disrupt sleep and recovery. Continuous tracking catches the shift before subjective symptoms peak.' },
+  { q: 'How long does it take to recover from burnout?', a: 'Mild burnout: 4–8 weeks of structured recovery (sleep, reduced load, recovery practices). Moderate burnout: 3–6 months. Severe burnout often requires workplace changes and 6–12 months. The cortisol pattern usually normalizes BEFORE subjective recovery — tracking it helps you know progress is real.' },
+  { q: 'Can I recover from burnout without quitting my job?', a: 'Most people can — but only if you can reduce load, not just "manage" it. The minimum effective dose: 8+ hours of sleep, one full disconnected day per week, daily morning sunlight, and one weekly "do nothing" block. If those aren\'t possible in your current role, the role itself is the intervention needed.' },
+  { q: 'Why is sleep so hard during burnout?', a: 'Burnout disrupts sleep through chronically elevated cortisol (delayed sleep onset, 3–5 AM awakening), hyperarousal (racing thoughts at bedtime), and HRV suppression (poor parasympathetic recovery). It\'s a self-perpetuating loop — poor sleep raises cortisol, raised cortisol fragments sleep. Breaking the loop usually starts with reducing the input load.' },
+  { q: 'Does exercise help or hurt burnout?', a: 'Moderate exercise helps. Intense exercise during deep burnout can deepen the hole — your cortisol-elevated body can\'t recover from the additional stress load. The signal: if exercise leaves you wiped for the next 24 hours, you\'re in burnout territory. Switch to walking, yoga, or light resistance until recovery returns.' },
+  { q: 'How can Cortisol+ help during burnout recovery?', a: 'Cortisol+ tracks the biomarkers that matter most for burnout — HRV trend, cortisol pattern, sleep quality, recovery score. You can see whether interventions are actually moving your physiology vs. just changing how you feel day-to-day. Many users find the data motivating during the slow recovery phase when subjective improvement is invisible.' },
+  { q: 'Is burnout the same as depression?', a: 'They overlap but are distinct. Burnout is occupational — driven by chronic workplace stress, with cynicism toward work as the differentiator. Depression is broader and persists outside the work context. If symptoms include hopelessness, anhedonia, or thoughts of self-harm, treat it as depression and seek help immediately.' },
+];
+
+const related = [
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+  { href: '/tools/sleep-debt-cortisol', title: 'Sleep debt × cortisol', hint: 'Sleep deficit impact' },
+  { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
+];
+---
+
+<AudienceFAQPage
+  audience="Burnout"
+  title="Burnout & cortisol FAQ (2026)"
+  description="Cortisol pattern, recovery timelines, and what actually helps — answered with current research."
+  intro="Burnout is a measurable physiological state, not a vague label. Here's the science on the cortisol pattern and what reverses it."
+  image="/screenshots/ai-coach.png"
+  {faqs}
+  {related}
+/>

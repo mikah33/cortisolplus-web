@@ -1,0 +1,28 @@
+---
+import AudienceFAQPage from '../components/AudienceFAQPage.astro';
+
+const faqs = [
+  { q: 'Does cortisol rise during perimenopause?', a: 'Yes — declining progesterone removes one of cortisol\'s natural brakes, and disrupted sleep (a hallmark of perimenopause) further elevates morning cortisol. Studies show women in late perimenopause have measurably higher 24-hour cortisol than premenopausal women, particularly in the evening.' },
+  { q: 'Why am I waking at 3 AM during perimenopause?', a: 'Early-morning awakening is one of the most consistent perimenopause complaints. It\'s driven by the combination of falling progesterone (less GABA support), nocturnal hot flashes, and elevated nocturnal cortisol. Tracking sleep stages alongside cortisol pattern helps confirm whether it\'s primarily hormonal vs. lifestyle-driven.' },
+  { q: 'Does HRT lower cortisol?', a: 'Hormone replacement therapy (specifically estradiol + progesterone) does measurably improve sleep and can lower nocturnal cortisol in symptomatic women. It\'s not a "cortisol drug," but the downstream effect on sleep and stress reactivity is well-documented. Discuss with your doctor.' },
+  { q: 'Are cortisol-lowering supplements safe during perimenopause?', a: 'Ashwagandha has some evidence of mild estrogenic and thyroid effects — discuss with your doctor before adding it, especially if you\'re on HRT or have thyroid issues. Magnesium glycinate is generally safe and helpful for perimenopausal sleep. L-theanine is well-tolerated.' },
+  { q: 'How does Apple Watch + Cortisol+ help during perimenopause?', a: 'Cortisol+ surfaces the cortisol-sleep-HRV pattern that perimenopause disrupts. Many women find the cyclical nature of their symptoms easier to see in continuous tracking data than from daily memory. The app does NOT track menstrual cycles (use Apple Health for that) but the combined view is powerful.' },
+  { q: 'Why is my weight gain in midsection during perimenopause cortisol-related?', a: 'Cortisol drives fat distribution toward the abdomen. Perimenopause-related cortisol elevation, combined with declining estradiol (which had been protecting visceral fat distribution), accelerates the shift. Lowering cortisol — through sleep, exercise, and stress management — measurably affects body composition over 3–6 months.' },
+];
+
+const related = [
+  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'Full symptom guide' },
+  { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+];
+---
+
+<AudienceFAQPage
+  audience="Perimenopause"
+  title="Cortisol & perimenopause FAQ (2026)"
+  description="The most common questions about cortisol, sleep, and stress during perimenopause — answered with current science."
+  intro="Perimenopause amplifies the cortisol-sleep loop. Here's the honest science on what's happening and what helps."
+  image="/screenshots/sleep-analysis.png"
+  {faqs}
+  {related}
+/>

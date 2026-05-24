@@ -1,0 +1,92 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import FAQ, { type FAQItem } from '../components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Does Cortisol+ actually measure cortisol?',
+    a: 'No. No consumer wearable measures cortisol directly — cortisol is a hormone measured only in blood, saliva, or urine. Cortisol+ estimates your cortisol pattern using validated biometric correlates: heart rate variability, sleep architecture, resting heart rate trend, recovery balance, and wrist temperature. The output is a research-grade pattern indicator, not a diagnostic value.',
+  },
+  {
+    q: 'How accurate is HRV-based cortisol estimation?',
+    a: 'HRV is the most validated wearable correlate of autonomic stress and cortisol pattern. Peer-reviewed literature consistently shows strong inverse correlation between SDNN (the HRV metric Apple Watch records) and cortisol elevation. The estimation is accurate for trend tracking — not for absolute values. Use Cortisol+ to spot patterns and changes; use a saliva test for absolute numbers.',
+  },
+  {
+    q: 'What sensors does Cortisol+ use?',
+    a: 'Heart rate (continuous), HRV (SDNN, sampled overnight and during low-movement windows), sleep stages (REM, deep, core, awake), resting heart rate trend, wrist temperature deviation (Apple Watch Series 8+), blood oxygen, and activity rings. All data is pulled from Apple HealthKit and stays on your device.',
+  },
+  {
+    q: 'Is my health data private?',
+    a: 'Yes. All biometric processing happens on-device. Cortisol+ uses Apple HealthKit standards — your health data is never uploaded to our servers unless you explicitly opt in to cloud sync. The cortisol estimation runs locally on your iPhone.',
+  },
+  {
+    q: 'Can Cortisol+ diagnose Cushing\'s or Addison\'s?',
+    a: 'No. Cortisol+ is not a medical device and cannot diagnose endocrine disorders. If you suspect Cushing\'s syndrome (rapid weight gain, easy bruising, purple stretch marks, facial rounding) or Addison\'s disease (chronic fatigue, low blood pressure, salt cravings, hyperpigmentation), see a doctor for clinical testing.',
+  },
+];
+---
+
+<ArticleLayout
+  title="How Cortisol+ works: HRV and sleep-based cortisol tracking"
+  description="The science behind real-time cortisol estimation from Apple Watch biometrics — the sensors used, the validation literature, and the honest limits of what wearables can measure."
+  updated="2026-05-23"
+>
+  <h2>The short version</h2>
+  <p>Cortisol+ does not measure cortisol directly. No consumer wearable can — cortisol is a hormone measured in blood, saliva, or urine. Instead, Cortisol+ <strong>estimates your cortisol pattern</strong> from validated biometric correlates collected by Apple Watch.</p>
+
+  <h2>The signals we use</h2>
+  <h3>Heart rate variability (HRV / SDNN)</h3>
+  <p>HRV is the variation between successive heartbeats. It's the most direct wearable proxy for autonomic stress and shows strong inverse correlation with cortisol in peer-reviewed research. Apple Watch records SDNN (standard deviation of normal-to-normal intervals) — the HRV metric with the largest evidence base for stress assessment.</p>
+
+  <h3>Sleep architecture</h3>
+  <p>REM and deep sleep deficits raise next-morning cortisol. The relationship is bidirectional: high cortisol fragments sleep, and fragmented sleep raises cortisol the next day. Cortisol+ tracks sleep stage transitions from Apple Watch's sleep classification model and surfaces the correlation explicitly.</p>
+
+  <h3>Resting heart rate trend</h3>
+  <p>Chronic elevation in resting heart rate (5+ bpm above your 30-day average for 5+ days) is one of the cleanest signals of chronic stress load and is a leading indicator of HPA axis strain.</p>
+
+  <h3>Activity and recovery balance</h3>
+  <p>Cumulative training load without recovery raises chronic cortisol. We track the balance between strain and recovery using activity ring data and HRV recovery patterns.</p>
+
+  <h3>Wrist temperature</h3>
+  <p>On Apple Watch Series 8+, wrist temperature deviation surfaces circadian disruption — a strong indicator of cortisol-rhythm disturbance, particularly in shift workers and perimenopause.</p>
+
+  <h3>Blood oxygen</h3>
+  <p>Secondary signal — drops in nocturnal SpO₂ correlate with sleep apnea and fragmented sleep, both of which drive cortisol up.</p>
+
+  <h2>How the cortisol score is calculated</h2>
+  <p>Cortisol+ combines these signals into a 0–100 cortisol score, updated continuously throughout the day, and mapped to four bands (Low, Normal, Elevated, High). The score reflects your <em>pattern</em> — how your current biometric state compares to your personal baseline established over your first 7 days of wearing the watch.</p>
+
+  <p>This means your score is personalized to YOU. A 45 on your account doesn't mean the same as 45 on another account — it means something specific about how you are right now compared to how you usually are.</p>
+
+  <h2>How accurate is the estimation?</h2>
+  <p>Honest assessment: Cortisol+ is accurate for <strong>trend tracking</strong> — catching changes in your cortisol pattern over days and weeks. It is NOT accurate for absolute cortisol values in ng/mL or mcg/dL. The underlying HRV-cortisol correlation in the literature is strong enough to detect meaningful changes (elevated/depressed states) but not precise enough to replace a lab test.</p>
+
+  <p>For absolute values, get a one-time 4-point salivary cortisol test (see <a href="/cortisol/test">our testing guide</a>). For continuous pattern tracking and response to interventions, Cortisol+ is the right tool.</p>
+
+  <h2>What we explicitly don't do</h2>
+  <ul>
+    <li>We don't diagnose Cushing's syndrome, Addison's disease, or any endocrine disorder</li>
+    <li>We don't replace a saliva, blood, or urine cortisol test</li>
+    <li>We don't make medical claims about your cortisol level — only about your pattern</li>
+    <li>We don't sell your health data; everything runs on-device</li>
+  </ul>
+
+  <h2>The right use case</h2>
+  <p>Use Cortisol+ to:</p>
+  <ul>
+    <li>See how your sleep last night affected your cortisol today</li>
+    <li>Identify what raises and lowers your specific cortisol pattern</li>
+    <li>Measure whether a supplement, lifestyle change, or intervention is actually moving your trend</li>
+    <li>Catch overtraining or burnout trajectory weeks before subjective symptoms peak</li>
+    <li>Build a baseline before a saliva test so the results are interpretable</li>
+  </ul>
+
+  <p>Use a doctor and clinical testing for:</p>
+  <ul>
+    <li>Diagnosing suspected adrenal disease</li>
+    <li>Absolute cortisol values</li>
+    <li>Any persistent symptom that worries you</li>
+  </ul>
+
+  <FAQ items={faqs} />
+</ArticleLayout>

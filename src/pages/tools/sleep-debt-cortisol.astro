@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Quiz, { type QuizQuestion, type QuizBand } from '../../components/Quiz.tsx';
+
+const questions: QuizQuestion[] = [
+  {
+    id: 'avg-hours',
+    prompt: 'Average hours of sleep on a weeknight?',
+    options: [
+      { label: '8+ hours', weight: 0 },
+      { label: '7–8 hours', weight: 1 },
+      { label: '6–7 hours', weight: 2 },
+      { label: 'Under 6 hours', weight: 3 },
+    ],
+  },
+  {
+    id: 'weekend-recovery',
+    prompt: 'Do you "catch up" on sleep on weekends?',
+    options: [
+      { label: "I don’t need to", weight: 0 },
+      { label: '1 extra hour', weight: 1 },
+      { label: '2–3 extra hours', weight: 2 },
+      { label: '4+ extra hours / sleep until noon', weight: 3 },
+    ],
+  },
+  {
+    id: 'fall-asleep',
+    prompt: 'How long does it take you to fall asleep?',
+    options: [
+      { label: 'Under 15 min', weight: 0 },
+      { label: '15–30 min', weight: 1 },
+      { label: '30–60 min', weight: 2 },
+      { label: '60+ min / racing thoughts', weight: 3 },
+    ],
+  },
+  {
+    id: 'middle-night',
+    prompt: 'Do you wake during the night?',
+    options: [
+      { label: 'Rarely', weight: 0 },
+      { label: 'Once briefly', weight: 1 },
+      { label: 'Multiple times', weight: 2 },
+      { label: 'Awake 3–5 AM regularly', weight: 3 },
+    ],
+  },
+  {
+    id: 'alcohol',
+    prompt: 'Alcohol within 3 hours of bed?',
+    options: [
+      { label: 'Never', weight: 0 },
+      { label: 'Occasionally', weight: 1 },
+      { label: '2–3 nights/week', weight: 2 },
+      { label: 'Most nights', weight: 3 },
+    ],
+  },
+  {
+    id: 'screens',
+    prompt: 'Screens within 30 min of sleep?',
+    options: [
+      { label: 'Never', weight: 0 },
+      { label: 'Sometimes', weight: 1 },
+      { label: 'Most nights', weight: 2 },
+      { label: 'Phone in bed until I pass out', weight: 3 },
+    ],
+  },
+];
+
+const bands: QuizBand[] = [
+  { threshold: 0.25, band: 'Low sleep debt', tone: 'low', body: 'Your sleep is supporting cortisol regulation. Keep the routine.' },
+  { threshold: 0.5, band: 'Mild sleep debt', tone: 'normal', body: 'Small deficits accumulating. Even 30 min less sleep can raise next-morning cortisol 10–15%.' },
+  { threshold: 0.75, band: 'Significant sleep debt', tone: 'elevated', body: 'Your sleep deficit is meaningfully driving cortisol up. Fixing sleep is the single highest-leverage cortisol intervention.' },
+  { threshold: 1.01, band: 'Severe sleep debt / cortisol cycle', tone: 'high', body: 'You\'re likely in a cortisol-sleep doom loop: high cortisol fragments sleep → poor sleep raises cortisol. Breaking the cycle usually requires changing one input first (alcohol, screens, or schedule).' },
+];
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How much does sleep deprivation raise cortisol?',
+    a: 'Studies show even one night of partial sleep restriction (4–5 hours) can raise next-day cortisol 30–50% in the afternoon. Chronic sleep restriction (5–6 hours/night) shifts the entire cortisol curve — higher evening cortisol, blunted morning peak. Both fragment subsequent sleep.',
+  },
+  {
+    q: 'Why does alcohol disrupt sleep cortisol?',
+    a: 'Alcohol initially sedates but metabolizes within 3–4 hours. As blood alcohol drops, the body triggers a stress response — heart rate rises, cortisol spikes, REM rebound fragments sleep. This is why you wake at 3 AM after drinking and feel wrecked even after 8 hours in bed.',
+  },
+  {
+    q: 'Can I "catch up" on sleep at weekends?',
+    a: 'Partially. Research shows weekend recovery sleep restores SOME cognitive performance but does NOT fully reverse metabolic and cortisol effects of weekday restriction. Consistent sleep timing is more important than total hours.',
+  },
+  {
+    q: 'How does Cortisol+ use sleep data?',
+    a: 'Cortisol+ pulls sleep stage data from Apple Watch (REM, deep, core, awake time). REM and deep sleep deficits are the strongest predictors of next-morning cortisol elevation. The app surfaces this correlation so you can see exactly which sleep nights spike your cortisol the next day.',
+  },
+];
+
+const related = [
+  { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: 'Full 8-Q assessment' },
+  { href: '/tools/morning-cortisol-test', title: 'Morning cortisol test', hint: 'CAR pattern' },
+  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'Evidence-ranked tactics' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Sleep Debt × Cortisol Calculator',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Web',
+  description: 'Estimate how much your sleep debt is driving your cortisol up. 6 questions, instant interpretation.',
+};
+---
+
+<BaseLayout
+  title="Sleep debt and cortisol calculator (2026)"
+  description="How much is your sleep deficit driving your cortisol? 6-question quiz with instant interpretation."
+  image="/screenshots/sleep-analysis.png"
+  schema={schema}
+>
+  <section class="max-w-2xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Calculator</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Sleep debt × cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
+      Poor sleep raises cortisol. High cortisol fragments sleep. 6 questions to score the loop.
+    </p>
+
+    <Quiz client:idle questions={questions} bands={bands} scoreLabel="Your sleep-cortisol load" />
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Quiz, { type QuizQuestion, type QuizBand } from '../../components/Quiz.tsx';
+
+const questions: QuizQuestion[] = [
+  {
+    id: 'exhausted',
+    prompt: 'Do you feel emotionally exhausted by the end of most workdays?',
+    options: [
+      { label: 'Never', weight: 0 },
+      { label: 'Sometimes', weight: 1 },
+      { label: 'Often', weight: 2 },
+      { label: 'Always', weight: 3 },
+    ],
+  },
+  {
+    id: 'cynical',
+    prompt: 'Have you become more cynical or detached about your work?',
+    options: [
+      { label: 'No', weight: 0 },
+      { label: 'A little', weight: 1 },
+      { label: 'Noticeably', weight: 2 },
+      { label: 'I\'m completely checked out', weight: 3 },
+    ],
+  },
+  {
+    id: 'effective',
+    prompt: 'Do you feel you\'re accomplishing meaningful things?',
+    options: [
+      { label: 'Yes, regularly', weight: 0 },
+      { label: 'Some weeks', weight: 1 },
+      { label: 'Rarely', weight: 2 },
+      { label: 'No, just going through motions', weight: 3 },
+    ],
+  },
+  {
+    id: 'tired-rested',
+    prompt: 'Do you feel tired even after a full night of sleep?',
+    options: [
+      { label: 'Rarely', weight: 0 },
+      { label: 'Sometimes', weight: 1 },
+      { label: 'Most days', weight: 2 },
+      { label: 'Always', weight: 3 },
+    ],
+  },
+  {
+    id: 'getting-sick',
+    prompt: 'Are you getting sick more often than you used to?',
+    options: [
+      { label: 'No', weight: 0 },
+      { label: 'Slightly more', weight: 1 },
+      { label: 'Noticeably more', weight: 2 },
+      { label: 'Constantly run down', weight: 3 },
+    ],
+  },
+  {
+    id: 'weekends',
+    prompt: 'Do weekends or time off restore you?',
+    options: [
+      { label: 'Yes', weight: 0 },
+      { label: 'Somewhat', weight: 1 },
+      { label: 'Barely', weight: 2 },
+      { label: 'Not at all', weight: 3 },
+    ],
+  },
+  {
+    id: 'dreading',
+    prompt: 'Do you dread Mondays (or the start of your work week)?',
+    options: [
+      { label: 'No', weight: 0 },
+      { label: 'A bit', weight: 1 },
+      { label: 'Yes, regularly', weight: 2 },
+      { label: 'Severe Sunday dread', weight: 3 },
+    ],
+  },
+];
+
+const bands: QuizBand[] = [
+  { threshold: 0.25, band: 'Low burnout risk', tone: 'low', body: 'You\'re holding up well. Maintain your recovery habits — burnout creeps in when they slip.' },
+  { threshold: 0.5, band: 'Mild burnout signals', tone: 'normal', body: 'Early signs worth taking seriously. The earlier you intervene, the less it costs to recover.' },
+  { threshold: 0.75, band: 'Moderate burnout', tone: 'elevated', body: 'You\'re in the zone where chronic cortisol elevation, HRV suppression, and sleep disruption start cascading. A 2–4 week recovery sprint can reverse it.' },
+  { threshold: 1.01, band: 'High burnout / consider professional help', tone: 'high', body: 'Most burnout indicators are firing. This is past lifestyle-tweak territory — consider talking to a doctor, therapist, or coach. Cortisol+ can help you track the recovery curve.' },
+];
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Is burnout the same as depression?',
+    a: 'They share symptoms (exhaustion, low mood, anhedonia) but are distinct. Burnout is occupational — caused by chronic workplace stress, with cynicism toward work as a hallmark. Depression is broader and persists outside the work context. A doctor can help distinguish them; if symptoms are severe or you have thoughts of self-harm, seek immediate help.',
+  },
+  {
+    q: 'How long does burnout recovery take?',
+    a: 'Research suggests mild burnout can resolve in 4–8 weeks of structured recovery (sleep, reduced load, recovery practices). Moderate-to-severe burnout often takes 6+ months, and 1 in 4 require workplace changes. Tracking HRV and cortisol patterns lets you measure recovery instead of guessing.',
+  },
+  {
+    q: 'What is the cortisol pattern in burnout?',
+    a: 'Early burnout: chronically elevated cortisol. Late-stage burnout: often a "flat" or blunted cortisol curve — the HPA axis becomes dysregulated and stops responding normally. Both patterns disrupt sleep and recovery. Continuous biometric tracking catches the shift.',
+  },
+  {
+    q: 'Can Cortisol+ predict burnout?',
+    a: 'Cortisol+ surfaces the biomarker patterns associated with burnout risk (HRV decline, RHR drift, sleep stage disruption, blunted morning cortisol surge). It can\'t diagnose burnout, but it can flag the trajectory weeks before subjective symptoms peak.',
+  },
+];
+
+const related = [
+  { href: '/tools/stress-score', title: 'Stress score quiz', hint: 'Day-to-day load' },
+  { href: '/tools/sleep-debt-cortisol', title: 'Sleep debt × cortisol', hint: 'Sleep deficit impact' },
+  { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Recovery interventions' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Burnout Risk Assessment',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Web',
+  description: 'Free 7-question burnout risk assessment based on the Maslach exhaustion-cynicism-efficacy model.',
+};
+---
+
+<BaseLayout
+  title="Burnout risk assessment — 7-question quiz (2026)"
+  description="Are you burning out? Free 7-question burnout risk quiz with cortisol-pattern interpretation. Maslach-inspired."
+  image="/screenshots/ai-coach.png"
+  schema={schema}
+>
+  <section class="max-w-2xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral)] font-medium mb-3">Assessment</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Burnout risk assessment</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
+      Three dimensions: exhaustion, cynicism, efficacy. 7 questions to flag your trajectory.
+    </p>
+
+    <Quiz client:idle questions={questions} bands={bands} scoreLabel="Your burnout risk" />
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

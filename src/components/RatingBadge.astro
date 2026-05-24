@@ -1,0 +1,46 @@
+---
+import { APP_RATING, SITE } from '../consts';
+
+interface Props {
+  /** Visual size variant. */
+  size?: 'sm' | 'md' | 'lg';
+  /** If true, links to the App Store. */
+  link?: boolean;
+  /** Inline label override (default: "App Store"). */
+  label?: string;
+}
+
+const { size = 'md', link = true, label = 'App Store' } = Astro.props;
+
+const fullStars = Math.floor(APP_RATING.value);
+const hasHalf = APP_RATING.value - fullStars >= 0.5;
+
+const sizes = {
+  sm: { star: 'w-3 h-3', text: 'text-xs', gap: 'gap-1.5', pad: 'px-2 py-1' },
+  md: { star: 'w-4 h-4', text: 'text-sm', gap: 'gap-2', pad: 'px-3 py-1.5' },
+  lg: { star: 'w-5 h-5', text: 'text-base', gap: 'gap-2.5', pad: 'px-4 py-2' },
+};
+const s = sizes[size];
+
+const Tag = link ? 'a' : 'div';
+const linkProps = link ? { href: SITE.appStoreUrl, target: '_blank', rel: 'noopener' } : {};
+---
+
+<Tag
+  {...linkProps}
+  class={`inline-flex items-center ${s.gap} ${s.pad} rounded-full bg-[color:var(--color-surface)] border border-[color:var(--color-border)] ${link ? 'hover:border-[color:var(--color-teal)]/40 transition' : ''}`}
+  aria-label={`Rated ${APP_RATING.value} out of 5 stars on the App Store, from ${APP_RATING.count} ratings`}
+>
+  <div class="flex items-center gap-0.5" aria-hidden="true">
+    {Array.from({ length: 5 }).map((_, i) => {
+      const filled = i < fullStars || (i === fullStars && hasHalf);
+      return (
+        <svg viewBox="0 0 24 24" class={`${s.star} ${filled ? 'text-[color:var(--color-warn,#fbbf24)]' : 'text-[color:var(--color-border)]'}`} fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
+        </svg>
+      );
+    })}
+  </div>
+  <span class={`${s.text} font-semibold tabular-nums`}>{APP_RATING.value}</span>
+  <span class={`${s.text} text-[color:var(--color-ink-muted)]`}>· {APP_RATING.count} ratings · {label}</span>
+</Tag>

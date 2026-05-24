@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Breathing exercises that lower cortisol',
+  pathname: '/cortisol/lower/breathing-exercises/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How quickly does breathing lower cortisol?',
+    a: 'Slow, paced breathing (5–6 breaths per minute) activates the vagus nerve and shifts the autonomic balance toward parasympathetic within minutes. Studies show measurable cortisol reductions within 10–20 minutes of structured breathwork. Effects compound with daily practice.',
+  },
+  {
+    q: 'What is the best breathing exercise for cortisol?',
+    a: 'Three with the strongest evidence: (1) box breathing (4-4-4-4) — Navy SEAL stress technique; (2) physiological sigh (double inhale, long exhale) — fastest acute calming, popularized by Huberman; (3) 4-7-8 breathing — strong for sleep onset and evening cortisol. For continuous regulation, slow paced breathing at 6 breaths per minute (5 seconds in, 5 seconds out) is the most studied.',
+  },
+  {
+    q: 'How often should I do breathing exercises?',
+    a: 'Two to three structured sessions per day of 5–10 minutes each shows the strongest cortisol effects. Many people get 80% of the benefit from a single morning session (sets the day) and a single bedtime session (lowers nocturnal cortisol). Acute "fire-fighting" sessions when stress spikes are bonus.',
+  },
+  {
+    q: 'Does the physiological sigh actually work?',
+    a: 'Yes — the double inhale + long exhale pattern is one of the fastest evidence-based stress de-escalators. Two short inhales fully inflate alveoli; the extended exhale strongly activates the vagus nerve. Effects show within 1–3 cycles. Useful for acute stress (the moment before a meeting, mid-anxiety), not chronic regulation.',
+  },
+  {
+    q: 'Can Cortisol+ track my breathing session results?',
+    a: 'Yes. Cortisol+ surfaces the HRV recovery that happens after a Zen mode breathing session — you can see the actual physiological signal of your nervous system shifting. Over weeks, the magnitude of post-session HRV recovery improves; that\'s your nervous system getting more resilient.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'The biggest lever' },
+  { href: '/cortisol/lower', title: 'Full how-to-lower guide', hint: 'All tactics' },
+  { href: '/tools/sleep-debt-cortisol', title: 'Sleep debt × cortisol quiz', hint: 'Sleep deficit impact' },
+];
+---
+
+<BaseLayout
+  title="Breathing exercises that lower cortisol"
+  description="Box breathing, 4-7-8, physiological sigh, and paced breathing — the breathwork protocols with the strongest cortisol-lowering evidence. How to do each, when, and why. Updated 2026."
+  image="/screenshots/ai-coach.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Lower cortisol</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Breathing exercises that lower cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      The fastest evidence-based intervention. Cortisol can drop measurably within minutes of structured breathwork.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The mechanism in one paragraph</h2>
+      <p>Cortisol is regulated by the HPA axis, which is influenced by autonomic nervous system balance. Slow, structured breathing — especially with extended exhales — activates the vagus nerve and shifts you from sympathetic (fight-or-flight) to parasympathetic (rest-and-digest). This shift measurably reduces cortisol, raises HRV, and lowers heart rate within minutes.</p>
+
+      <h2>Four protocols with the best evidence</h2>
+
+      <h3>1. Box breathing (4-4-4-4)</h3>
+      <p>Inhale 4 seconds → hold 4 → exhale 4 → hold 4 → repeat. Used by Navy SEALs for stress regulation. Best for general acute stress, focus before meetings, and consistent daily practice. 5 minutes is the practical floor.</p>
+
+      <h3>2. The physiological sigh (Huberman)</h3>
+      <p>Two short inhales through the nose (fully inflating the lungs in two steps) → one long exhale through the mouth. The fastest acute stress de-escalator with peer-reviewed support. Effects within 1–3 cycles. Use it when you feel acute stress hit, not for chronic regulation.</p>
+
+      <h3>3. 4-7-8 breathing</h3>
+      <p>Inhale 4 → hold 7 → exhale 8. Popularized by Dr. Andrew Weil. The extended exhale strongly activates parasympathetic response. Strongest evidence for sleep onset and evening cortisol reduction. Best done in bed before sleep.</p>
+
+      <h3>4. Resonance breathing (6 breaths per minute)</h3>
+      <p>5 seconds in, 5 seconds out, no holds. This pace matches your heart rate variability "resonance frequency" — your HRV peaks during practice. The most studied protocol for chronic cortisol regulation and long-term autonomic health. 10–20 minutes daily.</p>
+
+      <h2>When to use which</h2>
+      <table>
+        <thead>
+          <tr><th>Situation</th><th>Protocol</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Acute stress hit (right now)</td><td>Physiological sigh</td><td>30 seconds</td></tr>
+          <tr><td>Before a meeting / performance</td><td>Box breathing</td><td>3–5 minutes</td></tr>
+          <tr><td>Before sleep</td><td>4-7-8</td><td>5–10 minutes</td></tr>
+          <tr><td>Daily HRV / cortisol practice</td><td>Resonance (6 bpm)</td><td>10–20 minutes</td></tr>
+        </tbody>
+      </table>
+
+      <h2>What to expect</h2>
+      <p>Subjectively: a calm settling within 1–3 minutes. Physiologically: HRV rises within 5 minutes, heart rate drops 5–15 bpm, salivary cortisol drops measurably within 10–20 minutes of consistent practice. With chronic daily practice (4+ weeks), your <em>baseline</em> HRV improves and your stress response amplitude shrinks.</p>
+
+      <h2>How Cortisol+ helps</h2>
+      <p>Cortisol+ includes Zen mode — guided breathing sessions integrated with HRV tracking. After each session, you see the actual recovery in your biometrics (HRV recovery, RHR drop). Over weeks, the size of your post-session recovery grows — that's your nervous system getting more resilient.</p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

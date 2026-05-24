@@ -1,0 +1,102 @@
+---
+import { SITE } from '../consts';
+
+// Auto-generates breadcrumb trail from URL path.
+// Renders nothing on the home page.
+// Emits BreadcrumbList JSON-LD + visual nav.
+
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+
+// Per-segment label map. Add new segments here when you add new pillar slugs.
+const LABEL_MAP: Record<string, string> = {
+  cortisol: 'Cortisol',
+  symptoms: 'Symptoms',
+  lower: 'Lower cortisol',
+  levels: 'Levels',
+  test: 'Testing',
+  foods: 'Foods',
+  tools: 'Tools',
+  blog: 'Blog',
+  'how-it-works': 'How it works',
+  about: 'About',
+  download: 'Download',
+  privacy: 'Privacy',
+  terms: 'Terms',
+  'faq-perimenopause': 'Perimenopause FAQ',
+  'faq-burnout': 'Burnout FAQ',
+  'faq-shift-workers': 'Shift workers FAQ',
+  'faq-athletes': 'Athletes FAQ',
+  'cortisol-calculator': 'Cortisol calculator',
+  'morning-cortisol-test': 'Morning cortisol test',
+  'stress-score': 'Stress score',
+  'burnout-risk': 'Burnout risk',
+  'sleep-debt-cortisol': 'Sleep debt × cortisol',
+  'breathing-exercises': 'Breathing exercises',
+  exercise: 'Exercise',
+  sleep: 'Sleep',
+  supplements: 'Supplements',
+  ashwagandha: 'Ashwagandha',
+  'cortisol-face': 'Cortisol face',
+  'cortisol-mocktail-truth': 'Cortisol mocktail truth',
+  'ashwagandha-vs-rhodiola-cortisol': 'Ashwagandha vs rhodiola',
+  'ashwagandha-vs-magnesium-cortisol': 'Ashwagandha vs magnesium',
+  'cortisol-manager-vs-magnesium': 'Cortisol Manager vs magnesium',
+  'oura-vs-whoop-stress-tracking': 'Oura vs Whoop',
+  'welltory-vs-cortisol-plus': 'Welltory vs Cortisol+',
+};
+
+function humanize(slug: string): string {
+  if (LABEL_MAP[slug]) return LABEL_MAP[slug];
+  return slug
+    .split('-')
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join(' ');
+}
+
+const segments = pathname.split('/').filter(Boolean);
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  ...segments.map((seg, idx) => ({
+    name: humanize(seg),
+    href: '/' + segments.slice(0, idx + 1).join('/'),
+  })),
+];
+
+const isHome = segments.length === 0;
+
+const schema = !isHome
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: new URL(c.href, SITE.url).toString(),
+      })),
+    }
+  : null;
+---
+
+{!isHome && (
+  <>
+    <nav aria-label="Breadcrumb" class="max-w-6xl mx-auto px-6 pt-4 text-xs text-[color:var(--color-ink-muted)]">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        {crumbs.map((c, i) => (
+          <li class="flex items-center gap-1.5">
+            {i < crumbs.length - 1 ? (
+              <>
+                <a href={c.href} class="hover:text-[color:var(--color-teal)] transition-colors">{c.name}</a>
+                <span class="text-[color:var(--color-ink-muted)]/40">/</span>
+              </>
+            ) : (
+              <span aria-current="page" class="text-[color:var(--color-ink)] font-medium">{c.name}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </>
+)}

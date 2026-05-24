@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Brand — pulled from Shared/Utilities/Constants.swift Theme enum */
+  --color-teal: #00bfa6;
+  --color-teal-dark: #009985;
+  --color-coral: #ff7061;
+  --color-coral-light: #ff8f80;
+  --color-mint: #9dd8cd;        /* LaunchBg.colorset */
+  --color-mint-soft: #e6f5f1;   /* mint tinted to near-white for backgrounds */
+
+  /* Light surfaces (default — matches iOS .systemBackground) */
+  --color-bg: #ffffff;
+  --color-surface: #f7f9f9;
+  --color-surface-2: #eef2f2;
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-ink: #0f1419;
+  --color-ink-muted: #5b6770;
+
+  /* Aliases used throughout the site */
+  --color-accent: var(--color-teal);
+  --color-accent-hover: var(--color-teal-dark);
+  --color-accent-2: var(--color-coral);
+
+  /* Level colors (from CortisolLevel.colorName) */
+  --color-level-low: #34c759;       /* iOS green */
+  --color-level-normal: #007aff;    /* iOS blue */
+  --color-level-elevated: #ff9500;  /* iOS orange */
+  --color-level-high: #ff3b30;      /* iOS red */
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+}
+
+html {
+  color-scheme: light;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+}
+
+::selection {
+  background: var(--color-teal);
+  color: white;
+}

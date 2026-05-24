@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppStoreBadge from '../../components/AppStoreBadge.astro';
+import RatingBadge from '../../components/RatingBadge.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Sleep × cortisol tracking on Apple Watch',
+  pathname: '/features/sleep-cortisol-tracking/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How does sleep affect cortisol?',
+    a: 'One night of partial sleep restriction (4–5 hours) raises next-day cortisol 30–50%, particularly evening cortisol. Chronic short sleep flattens the entire diurnal cortisol curve — blunted morning peak, elevated evening, fragmented night. It\'s a self-reinforcing loop: high cortisol fragments sleep, fragmented sleep raises cortisol.',
+  },
+  {
+    q: 'Which sleep stages matter most for cortisol?',
+    a: 'REM and deep (slow-wave) sleep deficits have the strongest correlation with elevated next-morning cortisol. Light sleep matters less. Cortisol+ tracks all four stages (REM, deep, core, awake) from Apple Watch and surfaces which deficits correlate with your cortisol pattern.',
+  },
+  {
+    q: 'Why do I wake at 3 AM?',
+    a: 'Early-morning awakening between 3–5 AM is strongly associated with elevated nocturnal cortisol. Common drivers: alcohol metabolism (cortisol rebound 3–4 hours after drinking), low blood sugar, perimenopause, chronic stress, and sleep apnea. Cortisol+ surfaces the HRV pattern showing whether wake-ups correlate with elevated cortisol or other factors.',
+  },
+  {
+    q: 'Does Cortisol+ track naps?',
+    a: 'Apple Watch detects most naps over 20 minutes; Cortisol+ ingests them. Strategic naps (under 30 min, before 3 PM) can lower afternoon cortisol; long late naps fragment night sleep and raise cortisol. The app surfaces both patterns.',
+  },
+  {
+    q: 'How long until I see the sleep-cortisol pattern?',
+    a: 'Most users see clear sleep × next-day cortisol correlation within 2 weeks. Within 4 weeks, you can isolate which specific sleep behaviors (alcohol, late screens, irregular wake time) drive your cortisol the most.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'Full guide' },
+  { href: '/tools/sleep-debt-cortisol', title: 'Sleep debt × cortisol quiz', hint: 'Score your debt' },
+  { href: '/features/hrv-stress-monitoring', title: 'HRV-based cortisol score', hint: 'Companion feature' },
+];
+---
+
+<BaseLayout
+  title="Sleep × cortisol tracking on Apple Watch"
+  description="See how every night of sleep drives next-morning cortisol. REM, deep, and core sleep stage analysis correlated with your HRV-derived cortisol pattern."
+  image="/screenshots/sleep-analysis.png"
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral)] font-medium mb-3">Feature</div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+      Sleep × <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">cortisol</span>
+    </h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10 max-w-2xl leading-relaxed">
+      See how sleep stages drive next-morning cortisol — and what to fix tonight. Full REM, deep, and core stage analysis from Apple Watch.
+    </p>
+    <div class="flex flex-wrap items-center gap-4 mb-16">
+      <AppStoreBadge size="lg" />
+      <RatingBadge size="sm" />
+    </div>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The sleep-cortisol loop</h2>
+      <p>Sleep and cortisol are tied together more tightly than almost any other biomarker pair. Specifically:</p>
+      <ul>
+        <li>Even one night of short sleep raises next-day cortisol 30–50%</li>
+        <li>Chronic short sleep flattens the diurnal cortisol curve</li>
+        <li>Elevated cortisol fragments REM and deep sleep the next night</li>
+        <li>Fragmented sleep raises tomorrow's cortisol</li>
+      </ul>
+      <p>This is a self-reinforcing loop. People often spend years in it without seeing the connection, because daily fatigue is hard to attribute to specific causes without data. Cortisol+ makes the loop visible.</p>
+
+      <h2>What we track</h2>
+      <ul>
+        <li><strong>Sleep stages</strong> — REM, deep, core, awake, sampled from Apple Watch</li>
+        <li><strong>Sleep duration</strong> — total time in bed vs total time asleep</li>
+        <li><strong>Sleep efficiency</strong> — percentage of in-bed time actually sleeping</li>
+        <li><strong>Wake-after-sleep-onset (WASO)</strong> — middle-of-night wake-ups</li>
+        <li><strong>Sleep timing consistency</strong> — variability in bed/wake times</li>
+        <li><strong>Wrist temperature</strong> (Apple Watch Series 8+) — circadian disruption signal</li>
+        <li><strong>Blood oxygen</strong> — nocturnal dips that fragment sleep</li>
+      </ul>
+
+      <h2>The correlations you'll see</h2>
+      <p>Within 2–4 weeks of consistent wear, Cortisol+ surfaces YOUR specific patterns:</p>
+      <ul>
+        <li>How much each hour of sleep deficit moves your next-day cortisol</li>
+        <li>Which sleep stage deficits drive YOUR cortisol most (varies by individual)</li>
+        <li>Whether your 3 AM wake-ups correlate with cortisol elevation or something else</li>
+        <li>How alcohol-affected nights compare to clean nights in your cortisol pattern</li>
+        <li>Which sleep behaviors actually move your trend (vs feel like they should)</li>
+      </ul>
+
+      <h2>What this lets you do</h2>
+      <ul>
+        <li><strong>Stop guessing about your sleep.</strong> See which nights actually wreck you the next day.</li>
+        <li><strong>Quantify alcohol's cost.</strong> The data makes the trade-off concrete — most users cut intake when they see it.</li>
+        <li><strong>Time interventions.</strong> Start magnesium, fix sleep timing, switch to mouth-tape. See the trend respond.</li>
+        <li><strong>Catch perimenopause / burnout early.</strong> Sleep architecture shifts often precede subjective symptoms by weeks.</li>
+        <li><strong>Recover from shift work.</strong> Continuous tracking through rotating schedules surfaces what's actually working.</li>
+      </ul>
+
+      <h2>Honest limits</h2>
+      <ul>
+        <li>Apple Watch sleep stage detection is accurate but not lab-grade (polysomnography is the gold standard)</li>
+        <li>The cortisol correlation is statistical — individual nights may surprise you</li>
+        <li>Sleep apnea requires medical diagnosis, not wearable inference</li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

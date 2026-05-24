@@ -1,0 +1,86 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AppStoreBadge from '../components/AppStoreBadge.astro';
+import RatingBadge from '../components/RatingBadge.astro';
+import { SITE, PUBLISHER } from '../consts';
+
+interface Props {
+  title: string;
+  description: string;
+  updated?: string;
+  image?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  /** If true, omits the YMYL medical disclaimer footer (for legal pages, etc.) */
+  hideDisclaimer?: boolean;
+}
+
+const { title, description, updated, image, schema, noindex, hideDisclaimer } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const heroImage = image ? new URL(image, SITE.url).toString() : new URL(SITE.ogImage, SITE.url).toString();
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: heroImage,
+  datePublished: updated ?? new Date().toISOString(),
+  dateModified: updated ?? new Date().toISOString(),
+  author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  publisher: {
+    '@type': 'Organization',
+    name: PUBLISHER.name,
+    url: PUBLISHER.url,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` },
+  },
+  mainEntityOfPage: canonical,
+};
+
+const combinedSchema = schema
+  ? [articleSchema, ...(Array.isArray(schema) ? schema : [schema])]
+  : articleSchema;
+---
+
+<BaseLayout {title} {description} {image} {noindex} schema={combinedSchema}>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <header class="mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">{title}</h1>
+      <p class="text-xl text-[color:var(--color-ink-muted)]">{description}</p>
+      {updated && (
+        <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
+          Updated {new Date(updated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {' · Reviewed by Cortisol+ Editorial'}
+        </p>
+      )}
+    </header>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-p:text-[color:var(--color-ink)]
+      prose-li:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-[color:var(--color-ink)]">
+      <slot />
+    </div>
+
+    {!hideDisclaimer && (
+      <aside class="mt-12 p-5 rounded-xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+        <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly — we estimate patterns from validated biometric correlates. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
+      </aside>
+    )}
+
+    <aside class="mt-8 p-8 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-[color:var(--color-surface)] border border-[color:var(--color-border)]">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-2">Cortisol+</div>
+      <h2 class="text-2xl font-bold mb-2">See your own cortisol</h2>
+      <p class="text-[color:var(--color-ink-muted)] mb-6">
+        Cortisol+ estimates your cortisol in real time from your Apple Watch — no needles, no labs, no waiting.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <AppStoreBadge size="lg" />
+        <RatingBadge size="sm" />
+      </div>
+    </aside>
+  </article>
+</BaseLayout>

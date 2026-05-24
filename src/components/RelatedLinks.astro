@@ -1,0 +1,26 @@
+---
+interface Link {
+  href: string;
+  title: string;
+  hint?: string;
+}
+
+interface Props {
+  title?: string;
+  links: Link[];
+}
+
+const { title = 'Related', links } = Astro.props;
+---
+
+<aside class="mt-12 pt-8 border-t border-[color:var(--color-border)]">
+  <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-4">{title}</div>
+  <div class="grid sm:grid-cols-3 gap-3">
+    {links.map((l) => (
+      <a href={l.href} class="block p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
+        <div class="font-medium text-sm">{l.title}</div>
+        {l.hint && <div class="text-xs text-[color:var(--color-ink-muted)] mt-1">{l.hint}</div>}
+      </a>
+    ))}
+  </div>
+</aside>

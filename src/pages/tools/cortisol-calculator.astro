@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CortisolCalculator from '../../components/CortisolCalculator.tsx';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How accurate is a cortisol risk quiz?',
+    a: 'Symptom-based quizzes capture self-reported patterns associated with elevated cortisol. They\'re useful for identifying whether you should pursue real testing (saliva, blood) or biometric tracking — but they\'re not diagnostic. The most accurate read on your cortisol pattern comes from continuous HRV and sleep monitoring with a wearable.',
+  },
+  {
+    q: 'Should I take a cortisol test if I score high?',
+    a: 'A high score is worth discussing with a doctor, especially if symptoms have been present 3+ months. The most common cortisol tests are 4-point salivary cortisol (best for circadian pattern) and 24-hour urinary free cortisol. Blood cortisol is less useful because it\'s highly time-dependent.',
+  },
+  {
+    q: 'What are the most common signs of high cortisol?',
+    a: 'The most reliable markers are: difficulty falling asleep despite exhaustion, waking 3–5 AM, weight gain concentrated around the midsection, sugar/salt cravings, and feeling "wired but tired." These are also captured in this quiz.',
+  },
+  {
+    q: 'How long does it take to lower cortisol?',
+    a: 'Acute interventions (breathing, walking, sunlight) can lower cortisol within minutes. Lifestyle changes (better sleep, less alcohol, regular exercise) show measurable changes in cortisol patterns within 2–4 weeks. Severe chronic elevation may take 3–6 months to fully normalize.',
+  },
+];
+
+const related = [
+  { href: '/tools/morning-cortisol-test', title: 'Morning cortisol test', hint: 'CAR pattern' },
+  { href: '/tools/stress-score', title: 'Stress score quiz', hint: 'Day-to-day load' },
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Cortisol Risk Calculator',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Web',
+  description: 'Free 8-question quiz that estimates your cortisol risk based on stress, sleep, and lifestyle signals.',
+};
+---
+
+<BaseLayout
+  title="Cortisol risk calculator — free 60-second quiz (2026)"
+  description="Estimate your cortisol risk in 8 questions. Free, no signup, science-backed scoring."
+  image="/screenshots/track-cortisol-levels.png"
+  schema={schema}
+>
+  <section class="max-w-2xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Calculator</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Cortisol risk calculator</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
+      8 questions. 60 seconds. A rough read on whether your cortisol is likely elevated.
+    </p>
+
+    <CortisolCalculator client:idle />
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

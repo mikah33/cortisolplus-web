@@ -1,0 +1,104 @@
+---
+title: "Welltory vs Cortisol+ — stress tracker comparison"
+description: "Welltory uses your phone camera for spot HRV measurements. Cortisol+ uses Apple Watch for continuous tracking. Side-by-side comparison of accuracy, methodology, pricing, and best use case. Updated 2026."
+pubDate: 2026-05-23
+tags: ["wearables", "cortisol", "stress", "comparisons"]
+---
+
+## The short answer
+
+**Welltory** is great if you don't have an Apple Watch and want occasional HRV spot checks. **Cortisol+** is built around continuous biometric tracking and cortisol-specific framing — and requires an Apple Watch.
+
+## Side-by-side
+
+| | Welltory | Cortisol+ |
+|---|---|---|
+| Hardware required | Phone camera (optional wearable) | Apple Watch |
+| Measurement type | Spot HRV via phone camera | Continuous HRV, sleep, RHR, temp |
+| Primary metric | Stress + energy scores | Cortisol score (0–100) + pattern |
+| Cortisol framing | Generic stress, not cortisol-specific | Cortisol-specific |
+| Sleep tracking | Limited | Full sleep stage analysis |
+| Best for | Quick checks, no wearable | Continuous tracking, Apple Watch owners |
+| Subscription | Free + premium ($10–$15/mo) | Free + premium |
+| Privacy | Cloud-based | On-device |
+| Data ownership | Stored on Welltory servers | Stays on your iPhone (HealthKit) |
+| Works without internet | No (cloud processing) | Yes (on-device processing) |
+
+## How they work — methodology
+
+### Welltory
+Uses the phone's camera to detect blood flow in your fingertip (photoplethysmography, PPG), estimating HRV from a 2–3 minute reading. You take readings throughout the day to build a stress profile. Quality of the reading depends on hand stillness and ambient lighting. Welltory validates against ECG and is reasonably accurate per reading, but each reading is a snapshot — gaps between readings are blind spots.
+
+### Cortisol+
+Pulls continuous data from Apple Watch (heart rate, HRV/SDNN, sleep stages, RHR, wrist temperature, blood oxygen). Computes a rolling cortisol estimate updated throughout the day, with morning/evening pattern visualization. No active measurement needed — runs in the background. The cortisol score combines multiple correlates rather than relying on HRV alone, which improves trend signal at the cost of single-point precision.
+
+## Accuracy comparison
+
+**For HRV specifically**: both methods are reasonably accurate for trend tracking. Welltory's spot measurements have higher per-reading variance (camera quality, finger position, lighting). Cortisol+ inherits Apple Watch's HRV accuracy, which is well-studied and consistent for SDNN — Apple publishes accuracy data per generation of Watch.
+
+**For cortisol estimation**: neither measures cortisol. Cortisol+ explicitly models cortisol patterns from multiple biometric correlates; Welltory presents a generic "stress" score that's HRV-derived. If the question is "what is my cortisol doing," Cortisol+ is the closer answer; if the question is "am I currently stressed," both work.
+
+## Pricing breakdown
+
+| | Welltory | Cortisol+ |
+|---|---|---|
+| Hardware needed | Phone only (free) | Apple Watch ($249+) |
+| Free tier | Limited daily readings | Cortisol score + basic insights |
+| Premium monthly | $10–$15 | TBD (see App Store) |
+| Premium yearly | $80–$120 | TBD |
+| Lifetime / one-time | Not offered | TBD |
+
+If you already own an Apple Watch, Cortisol+ has no hardware cost. If you don't, Welltory is the only path that doesn't require a $250+ purchase.
+
+## Use case fit
+
+**Pick Welltory if:**
+- You don't own an Apple Watch (or any wearable)
+- You want occasional spot checks rather than continuous tracking
+- You prefer measuring on-demand (control over reading timing)
+- Privacy concerns are low (cloud storage is fine for you)
+
+**Pick Cortisol+ if:**
+- You already own an Apple Watch
+- You want continuous tracking without thinking about it
+- You specifically care about cortisol patterns (not just generic stress)
+- You want sleep × cortisol correlation analysis
+- You value on-device privacy
+- You want to track the cortisol pattern through perimenopause, burnout, athletic training, or any chronic condition
+
+## Side effects and limitations
+
+**Welltory limitations:**
+- Cannot capture overnight cortisol patterns (the most interesting time)
+- Cannot track the Cortisol Awakening Response (CAR) without manual morning reading
+- Requires deliberate measurement — you'll miss days when life gets busy
+- Phone camera readings disrupted by tremor, cold hands, dim lighting
+
+**Cortisol+ limitations:**
+- Requires Apple Watch (excludes Android users and watch-less users)
+- Estimates cortisol; cannot replace lab testing
+- Newer app — smaller user community than Welltory's established base
+- Some features require Series 8+ for wrist temperature
+
+## What neither can do
+
+Neither app can:
+- Diagnose Cushing's syndrome, Addison's disease, or any endocrine disorder
+- Replace a 4-point salivary cortisol test for absolute values
+- Tell you your cortisol level in mcg/dL
+
+For diagnostic-grade absolute values, see [our cortisol testing guide](/cortisol/test).
+
+## Can you use both?
+
+Yes — they don't conflict. Some users run Welltory for spot-check confirmation and Cortisol+ for continuous trend tracking. The two together provide better data than either alone, though the marginal value of adding a second app is usually low once one is established.
+
+## Our recommendation
+
+If you have an Apple Watch: Cortisol+ wins on continuous tracking, cortisol-specific framing, and on-device privacy. If you don't and don't want to buy one: Welltory is the right tool. If you're choosing whether to buy an Apple Watch primarily for cortisol tracking, the answer depends on what else you'd use it for — the Watch's broader utility (calls, notifications, fitness, sleep) justifies the cost for most users; cortisol tracking is a bonus.
+
+## Related
+- [How Cortisol+ works](/how-it-works)
+- [Oura vs Whoop for cortisol](/blog/oura-vs-whoop-stress-tracking)
+- [Cortisol risk calculator](/tools/cortisol-calculator)
+- [Cortisol testing guide](/cortisol/test)

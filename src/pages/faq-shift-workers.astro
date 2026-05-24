@@ -1,0 +1,28 @@
+---
+import AudienceFAQPage from '../components/AudienceFAQPage.astro';
+
+const faqs = [
+  { q: 'What does shift work do to cortisol?', a: 'Shift work — especially rotating shifts and night shifts — disrupts the circadian cortisol rhythm. Instead of the normal morning peak and evening trough, shift workers often show a flattened curve with delayed and reduced peaks. This is associated with increased cardiovascular and metabolic risk over years of exposure.' },
+  { q: 'How do night shift workers regulate cortisol?', a: 'The most effective interventions are: light management (bright light at the start of your "day," blackout shades for sleep), consistent meal timing aligned with your work schedule, and short strategic naps (20–30 min) before shifts. Many shift workers find that maintaining the SAME shift schedule (vs. rotating) is the single biggest cortisol-pattern improvement.' },
+  { q: 'Will my cortisol normalize on days off?', a: 'Partially. Single days off don\'t fully reset circadian patterns. Research suggests 3+ consecutive days are needed to begin restoring a normal cortisol curve. Frequent shift rotations (back-and-forth between day and night) prevent any pattern from establishing.' },
+  { q: 'What supplements help shift workers?', a: 'Melatonin (0.3–1 mg, taken at the start of your "night") is the best-studied. Magnesium glycinate helps sleep onset regardless of timing. Avoid caffeine within 6 hours of your sleep window. Ashwagandha may help blunt cortisol elevation but isn\'t shift-specific.' },
+  { q: 'Can a wearable track my cortisol pattern through shifts?', a: 'Yes — and shift workers often get more value from tracking than 9-to-5 workers because their patterns are more variable and harder to feel. Cortisol+ tracks the actual HRV/sleep-derived cortisol curve through any schedule, not assuming a 9-to-5 chronotype.' },
+  { q: 'I\'m an ER nurse / doctor / first responder — what should I prioritize?', a: 'For high-acuity shift work, three priorities: (1) Sleep hygiene aggressive enough to actually sleep 7+ hours after night shifts (blackout, white noise, no caffeine after midnight). (2) Recovery time between rotations — push for 48+ hours between night-to-day transitions. (3) Active monitoring of cortisol/HRV trend — clinicians often have early HRV decline before subjective burnout.' },
+];
+
+const related = [
+  { href: '/tools/sleep-debt-cortisol', title: 'Sleep debt × cortisol', hint: 'Sleep deficit impact' },
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'Evidence-ranked tactics' },
+];
+---
+
+<AudienceFAQPage
+  audience="Shift workers"
+  title="Cortisol for shift workers & night nurses FAQ (2026)"
+  description="How shift work disrupts the cortisol circadian rhythm — and what actually helps. Practical guidance for nurses, ER staff, and first responders."
+  intro="Shift work disrupts the cortisol curve more than almost any other lifestyle factor. Here's what to do about it."
+  image="/screenshots/sleep-analysis.png"
+  {faqs}
+  {related}
+/>

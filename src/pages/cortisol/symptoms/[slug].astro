@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import FAQ from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+export async function getStaticPaths() {
+  const symptoms = await getCollection('symptoms');
+  return symptoms.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry, all: symptoms },
+  }));
+}
+
+const { entry, all } = Astro.props;
+const { Content } = await render(entry);
+const updated = entry.data.updatedDate?.toISOString();
+
+// Build related symptom links — first try frontmatter, fall back to 3 other symptoms
+const relatedFromFrontmatter = entry.data.relatedSymptoms
+  .map((slug) => all.find((s) => s.id === slug))
+  .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+const others = all.filter((s) => s.id !== entry.id).slice(0, 3);
+const related = (relatedFromFrontmatter.length > 0 ? relatedFromFrontmatter : others).slice(0, 3).map((s) => ({
+  href: `/cortisol/symptoms/${s.id}`,
+  title: s.data.title,
+  hint: 'Symptom guide',
+}));
+---
+
+<ArticleLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  updated={updated}
+>
+  <Content />
+  {entry.data.faqs.length > 0 && <FAQ items={entry.data.faqs} />}
+  {related.length > 0 && <RelatedLinks title="Related symptoms" links={related} />}
+</ArticleLayout>

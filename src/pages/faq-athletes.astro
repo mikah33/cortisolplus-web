@@ -1,0 +1,28 @@
+---
+import AudienceFAQPage from '../components/AudienceFAQPage.astro';
+
+const faqs = [
+  { q: 'Does training raise cortisol?', a: 'Yes — and acutely that\'s healthy. Exercise triggers a cortisol response proportional to intensity and duration. The problem is chronic elevation from inadequate recovery: training cortisol that doesn\'t come back down by the next morning. This is the early biomarker of overreaching and overtraining syndrome.' },
+  { q: 'What\'s the cortisol pattern in overtraining?', a: 'Early overreaching: elevated baseline cortisol, suppressed HRV, increased resting heart rate. Established overtraining syndrome: blunted morning cortisol peak, persistently low HRV, mood disturbance. The HRV-cortisol trend lets athletes catch overreaching weeks before performance drops.' },
+  { q: 'Should I take ashwagandha if I lift / train hard?', a: 'Some evidence suggests ashwagandha can blunt training-induced cortisol response and may marginally improve strength and recovery. But cortisol elevation FROM training is part of the adaptive signal — blunting it may have hidden costs. Most evidence-based coaches suggest using ashwagandha only when training cortisol isn\'t recovering between sessions, not prophylactically.' },
+  { q: 'What HRV drop signals I should deload?', a: 'A sustained 7-day average HRV drop of 10%+ below your rolling baseline, combined with an RHR increase of 5+ bpm, is a reasonable threshold for a deload week. Single-day drops are noise. Cortisol+ surfaces the 7-day trend explicitly.' },
+  { q: 'Why do I sleep worse after hard training days?', a: 'Late-day intense training elevates evening cortisol and core temperature, both of which disrupt sleep onset and depth. If you train PM, finishing 4+ hours before bed and including a deliberate cool-down period reduces the impact. AM training is the cleanest for sleep quality.' },
+  { q: 'How does Cortisol+ help athletes?', a: 'Cortisol+ tracks the cortisol-HRV-RHR triad that predicts overreaching. Many athletes find the data useful for tuning training load and timing deloads BEFORE they\'re forced into them. It\'s not a replacement for a coach but it surfaces the physiological signal that subjective fatigue often misses.' },
+];
+
+const related = [
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+  { href: '/blog/oura-vs-whoop-stress-tracking', title: 'Oura vs Whoop for athletes', hint: 'Wearable comparison' },
+  { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Recovery interventions' },
+];
+---
+
+<AudienceFAQPage
+  audience="Athletes"
+  title="Cortisol, HRV & overtraining FAQ for athletes (2026)"
+  description="How training affects cortisol, what overtraining looks like in biomarker data, and how to use HRV-based cortisol tracking to time your deloads."
+  intro="For athletes, cortisol is the difference between adaptation and overreaching. Here's the biomarker view."
+  image="/screenshots/track-metrics.png"
+  {faqs}
+  {related}
+/>

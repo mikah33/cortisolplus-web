@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import FAQ from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+export async function getStaticPaths() {
+  const foods = await getCollection('foods');
+  return foods.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry, all: foods },
+  }));
+}
+
+const { entry, all } = Astro.props;
+const { Content } = await render(entry);
+
+const others = all.filter((f) => f.id !== entry.id).slice(0, 3).map((f) => ({
+  href: `/cortisol/foods/${f.id}`,
+  title: f.data.title,
+  hint: f.data.effect === 'lowers' ? 'Lowers cortisol' : f.data.effect === 'raises' ? 'Raises cortisol' : 'Neutral',
+}));
+
+// Base FAQ schema, augmented if frontmatter FAQs exist
+const baseFaq = {
+  q: `Does ${entry.data.food} ${entry.data.effect === 'lowers' ? 'lower' : entry.data.effect === 'raises' ? 'raise' : 'affect'} cortisol?`,
+  a: entry.data.description,
+};
+const allFaqs = [baseFaq, ...entry.data.faqs];
+---
+
+<ArticleLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  updated={entry.data.updatedDate?.toISOString()}
+>
+  <Content />
+  <FAQ items={allFaqs} />
+  {others.length > 0 && <RelatedLinks title="Related foods" links={others} />}
+</ArticleLayout>

@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Cortisol levels reference: normal range by age, time of day, and gender',
+  pathname: '/cortisol/levels/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is a normal cortisol level?',
+    a: 'For a morning blood test (7–9 AM, the daily peak), 6–23 mcg/dL is the standard reference range. Afternoon (4 PM): 3–16 mcg/dL. Night: under 5 mcg/dL. Salivary cortisol uses different units (typically nmol/L or ng/mL) and is sampled at 4 points across the day to map the curve. "Normal" depends entirely on time of day — a 12 mcg/dL reading is normal in the morning, alarming at midnight.',
+  },
+  {
+    q: 'What time of day is cortisol highest?',
+    a: 'Cortisol peaks 30–45 minutes after waking — this is the Cortisol Awakening Response (CAR). Levels then decline throughout the day, reach a low point around midnight, and start rising again 3–4 hours before wake. This diurnal rhythm is one of the most reliable biological clocks; disruption is associated with shift work, jet lag, chronic stress, depression, and HPA axis dysregulation.',
+  },
+  {
+    q: 'How do cortisol levels change with age?',
+    a: 'Cortisol tends to increase modestly with age in both sexes, with women seeing a more pronounced post-menopausal shift. Older adults often have a flatter diurnal curve (less morning peak, less evening trough). This flattening is associated with sleep fragmentation, increased inflammation, and metabolic changes — not just "normal aging." Continuous tracking catches the change earlier than annual labs.',
+  },
+  {
+    q: 'Are cortisol levels different in men vs women?',
+    a: 'Average levels are similar, but the curve differs. Women have a more responsive HPA axis with sharper morning peaks. Across the menstrual cycle, cortisol shifts subtly — luteal phase cortisol is typically 10–20% higher than follicular. Pregnancy elevates cortisol 2–3× normal levels (this is normal physiologic adaptation). Perimenopause and post-menopause flatten the diurnal pattern more than in age-matched men.',
+  },
+  {
+    q: 'What raises cortisol the most?',
+    a: 'Acute stressors (acute physical danger, public speaking, intense exercise) trigger the largest single spikes. Chronic drivers — sleep deprivation, alcohol, chronic anxiety, overtraining, shift work, and chronic illness — keep baseline cortisol elevated for weeks or months. The chronic pattern is far more harmful than acute spikes.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/test', title: 'How to test cortisol', hint: 'At-home, saliva, blood' },
+  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'When to suspect elevation' },
+  { href: '/tools/morning-cortisol-test', title: 'Morning cortisol quiz', hint: 'CAR pattern check' },
+];
+---
+
+<BaseLayout
+  title="Cortisol levels by age, time of day & gender"
+  description="Normal cortisol reference ranges — by time of day (morning peak vs night trough), by age, by gender. What a healthy diurnal cortisol curve looks like, and what disrupts it. Updated 2026."
+  image="/screenshots/daily-insights.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Reference</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Cortisol levels reference</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Normal ranges by time of day, age, and gender — plus what disrupts the curve.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The diurnal cortisol curve</h2>
+      <p>Cortisol is not a single number — it's a daily curve. Healthy cortisol rises sharply 30–45 minutes after waking (the Cortisol Awakening Response), declines through the day, and reaches its lowest point around midnight before rising again 3–4 hours before wake.</p>
+
+      <p>Any "normal range" is only meaningful in context of <strong>when</strong> the sample was taken. A 16 mcg/dL reading is healthy at 8 AM and alarming at 8 PM.</p>
+
+      <h2>Normal reference ranges (serum / blood cortisol)</h2>
+      <table>
+        <thead>
+          <tr><th>Time of day</th><th>Adult normal range</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Morning (7–9 AM, peak)</td><td>6–23 mcg/dL (165–635 nmol/L)</td></tr>
+          <tr><td>Afternoon (4 PM)</td><td>3–16 mcg/dL (80–440 nmol/L)</td></tr>
+          <tr><td>Night (10 PM–midnight)</td><td>&lt; 5 mcg/dL (&lt; 140 nmol/L)</td></tr>
+        </tbody>
+      </table>
+      <p class="text-sm">Ranges vary slightly between labs. Reference your lab's own range on any test report.</p>
+
+      <h2>Salivary cortisol — the better measurement for circadian pattern</h2>
+      <p>Serum cortisol is a single snapshot. Salivary cortisol is sampled 4× across the day (wake, +30 min, afternoon, bedtime) to map the entire curve. It's now the standard for assessing the Cortisol Awakening Response and detecting flattening.</p>
+
+      <h2>By age</h2>
+      <p>Average cortisol rises modestly with age. More importantly, the diurnal curve <em>flattens</em> — older adults have a less pronounced morning peak and a higher nighttime baseline. This flattening is associated with sleep fragmentation, inflammation, and metabolic dysregulation.</p>
+
+      <h2>By gender</h2>
+      <p>Average values are similar, but the patterns differ:</p>
+      <ul>
+        <li><strong>Women</strong>: more reactive HPA axis, sharper morning peak, modest cyclical shifts across the menstrual cycle</li>
+        <li><strong>Menstrual cycle</strong>: luteal-phase cortisol typically runs 10–20% higher than follicular</li>
+        <li><strong>Pregnancy</strong>: cortisol naturally rises 2–3× across the trimesters — this is normal adaptation, not pathology</li>
+        <li><strong>Perimenopause</strong>: diurnal curve flattens earlier and more dramatically than in age-matched men</li>
+      </ul>
+
+      <h2>What disrupts the curve</h2>
+      <p>The most studied disruptors of the diurnal cortisol pattern:</p>
+      <ul>
+        <li><strong>Chronic stress</strong> — flattens or elevates baseline</li>
+        <li><strong>Sleep deprivation</strong> — even one night of restricted sleep elevates next-day cortisol 30–50%</li>
+        <li><strong>Shift work</strong> — disrupts the timing of the peak; often the single biggest cortisol-pattern disruptor</li>
+        <li><strong>Alcohol</strong> — raises nocturnal cortisol, fragments sleep</li>
+        <li><strong>Overtraining</strong> — chronic elevation in endurance athletes; eventually a flat curve in late-stage overtraining</li>
+        <li><strong>Depression</strong> — often associated with elevated evening cortisol and disrupted CAR</li>
+        <li><strong>Cushing's syndrome</strong> — chronic elevation across the day, loss of normal diurnal rhythm</li>
+        <li><strong>Addison's disease</strong> — chronically low cortisol; the opposite problem, often missed for years</li>
+      </ul>
+
+      <h2>Should you test?</h2>
+      <p>If you have symptoms suggestive of chronic elevation (sleep disruption, weight gain, mood changes, blood sugar issues) lasting more than 3 months, a 4-point salivary cortisol test is a reasonable next step. For pattern surveillance — without a needle or a test kit — biometric tracking (HRV, sleep stage analysis) on Apple Watch with Cortisol+ surfaces the disruption pattern continuously, not just on test day.</p>
+      <p><a href="/cortisol/test">See the full guide to cortisol testing →</a></p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

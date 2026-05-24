@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../../consts';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Cortisol+ blog',
+    description: 'Cortisol, stress, sleep, HRV, and wearable health science — explained.',
+    url: `${SITE.url}/blog/`,
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Cortisol+ blog',
+    url: `${SITE.url}/blog/`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: posts.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE.url}/blog/${p.id}/`,
+        name: p.data.title,
+      })),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Cortisol blog — research, trends & explainers (2026)"
+  description="Evidence-first blog on cortisol, stress, sleep, HRV, and wearable health science. Trend debunkers, supplement comparisons, and explainers — from the Cortisol+ team."
+  schema={schema}
+>
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Notes</div>
+    <h1 class="text-5xl font-bold tracking-tight mb-6">Blog</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Cortisol, stress, sleep, HRV — explained.
+    </p>
+
+    {posts.length === 0 ? (
+      <p class="text-[color:var(--color-ink-muted)]">First posts coming soon.</p>
+    ) : (
+      <ul class="space-y-4">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`} class="block p-6 rounded-2xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
+              <div class="text-xs text-[color:var(--color-ink-muted)] mb-1">
+                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+              <h2 class="text-xl font-semibold mb-1">{post.data.title}</h2>
+              <p class="text-sm text-[color:var(--color-ink-muted)]">{post.data.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

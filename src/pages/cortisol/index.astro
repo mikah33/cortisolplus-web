@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+
+interface Pillar {
+  href: string;
+  title: string;
+  body: string;
+  count: string;
+  color: 'coral' | 'teal' | 'mint' | 'purple';
+  topLinks: { href: string; label: string }[];
+  iconPath: string;
+}
+
+const pillars: Pillar[] = [
+  {
+    href: '/cortisol/symptoms',
+    title: 'Symptoms of high cortisol',
+    body: 'Cortisol face, cortisol belly, sleep issues, weight gain, hair loss — what\'s clinically real and what\'s TikTok.',
+    count: '25+ symptom guides',
+    color: 'coral',
+    iconPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z',
+    topLinks: [
+      { href: '/cortisol/symptoms/cortisol-face', label: 'Cortisol face' },
+      { href: '/cortisol/symptoms', label: 'See all symptoms' },
+    ],
+  },
+  {
+    href: '/cortisol/lower',
+    title: 'How to lower cortisol',
+    body: 'Sleep, breathing, exercise, foods, supplements — ranked by evidence and effect size. Not generic wellness copy.',
+    count: '6 evidence-ranked tactics',
+    color: 'teal',
+    iconPath: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
+    topLinks: [
+      { href: '/cortisol/lower/sleep', label: 'Sleep — the biggest lever' },
+      { href: '/cortisol/lower/supplements', label: 'Supplements ranked' },
+      { href: '/cortisol/lower/foods', label: 'Foods that lower cortisol' },
+    ],
+  },
+  {
+    href: '/cortisol/levels',
+    title: 'Cortisol levels reference',
+    body: 'Normal ranges by time of day, age, and gender. What a healthy diurnal curve looks like — and what disrupts it.',
+    count: 'Full reference guide',
+    color: 'mint',
+    iconPath: 'M3 12h4l3-9 4 18 3-9h4',
+    topLinks: [
+      { href: '/cortisol/levels', label: 'Diurnal cortisol curve' },
+      { href: '/tools/morning-cortisol-test', label: 'Morning cortisol quiz' },
+    ],
+  },
+  {
+    href: '/cortisol/test',
+    title: 'Testing your cortisol',
+    body: 'At-home saliva, blood, urine, and wearable estimation — what each test measures and when to use each.',
+    count: '4 testing methods compared',
+    color: 'purple',
+    iconPath: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+    topLinks: [
+      { href: '/cortisol/test', label: 'Test methods compared' },
+      { href: '/tools/cortisol-calculator', label: 'Free cortisol quiz' },
+    ],
+  },
+];
+
+const colorClasses: Record<Pillar['color'], {
+  card: string;
+  glow: string;
+  iconBg: string;
+  badge: string;
+  hoverText: string;
+  arrow: string;
+  topLink: string;
+}> = {
+  coral: {
+    card: 'from-[color:var(--color-coral)]/12 via-[color:var(--color-coral)]/5 to-white border-[color:var(--color-coral)]/20 hover:border-[color:var(--color-coral)]/60 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-coral)]/30',
+    glow: 'bg-[color:var(--color-coral)]/15 group-hover:bg-[color:var(--color-coral)]/30',
+    iconBg: 'from-[color:var(--color-coral)] to-[color:var(--color-coral-light)] shadow-[color:var(--color-coral)]/30',
+    badge: 'bg-[color:var(--color-coral)]/15 text-[color:var(--color-coral)]',
+    hoverText: 'group-hover:text-[color:var(--color-coral)]',
+    arrow: 'text-[color:var(--color-coral)]',
+    topLink: 'hover:text-[color:var(--color-coral)]',
+  },
+  teal: {
+    card: 'from-[color:var(--color-teal)]/10 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-teal)]/20 hover:border-[color:var(--color-teal)]/60 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-teal)]/30',
+    glow: 'bg-[color:var(--color-teal)]/15 group-hover:bg-[color:var(--color-teal)]/30',
+    iconBg: 'from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)] shadow-[color:var(--color-teal)]/30',
+    badge: 'bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]',
+    hoverText: 'group-hover:text-[color:var(--color-teal-dark)]',
+    arrow: 'text-[color:var(--color-teal-dark)]',
+    topLink: 'hover:text-[color:var(--color-teal-dark)]',
+  },
+  mint: {
+    card: 'from-[color:var(--color-mint)]/40 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-mint)]/40 hover:border-[color:var(--color-teal)]/60 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-mint)]/50',
+    glow: 'bg-[color:var(--color-mint)]/40 group-hover:bg-[color:var(--color-mint)]/60',
+    iconBg: 'from-[color:var(--color-mint)] to-[color:var(--color-teal)] shadow-[color:var(--color-mint)]/40',
+    badge: 'bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]',
+    hoverText: 'group-hover:text-[color:var(--color-teal-dark)]',
+    arrow: 'text-[color:var(--color-teal-dark)]',
+    topLink: 'hover:text-[color:var(--color-teal-dark)]',
+  },
+  purple: {
+    card: 'from-violet-200/40 via-violet-50 to-white border-violet-300/40 hover:border-violet-400/70 hover:shadow-[0_20px_60px_-15px] hover:shadow-violet-400/30',
+    glow: 'bg-violet-300/30 group-hover:bg-violet-400/40',
+    iconBg: 'from-violet-500 to-violet-700 shadow-violet-500/30',
+    badge: 'bg-violet-100 text-violet-700',
+    hoverText: 'group-hover:text-violet-700',
+    arrow: 'text-violet-600',
+    topLink: 'hover:text-violet-700',
+  },
+};
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is cortisol?',
+    a: 'Cortisol is your body\'s primary stress hormone, produced by the adrenal glands. It follows a daily (diurnal) rhythm — peaking 30–45 minutes after you wake, declining through the day, and reaching its low point around midnight. Cortisol regulates blood sugar, blood pressure, immune response, inflammation, and sleep-wake cycles. Chronic elevation or disruption of the rhythm is linked to sleep problems, weight gain, anxiety, and metabolic issues.',
+  },
+  {
+    q: 'What are the symptoms of high cortisol?',
+    a: 'Common signs include difficulty falling asleep despite exhaustion, waking between 3–5 AM, weight gain concentrated around the midsection, sugar and salt cravings, "wired but tired" energy, facial puffiness (popularly called "cortisol face"), brain fog, and weakened immunity. See our full guide to symptoms of high cortisol.',
+  },
+  {
+    q: 'How do you lower cortisol naturally?',
+    a: 'The highest-leverage interventions in order: fix sleep (consistent timing + 7+ hours), reduce alcohol, get morning sunlight, practice daily paced breathing, do zone 2 cardio 3x/week, and supplement magnesium glycinate. Ashwagandha is the supplement with the strongest direct cortisol-lowering evidence.',
+  },
+  {
+    q: 'Can wearables measure cortisol?',
+    a: 'No consumer wearable directly measures cortisol — it requires blood, saliva, or urine testing. Wearables like Apple Watch can estimate cortisol patterns using validated biometric correlates: heart rate variability (HRV), sleep stages, resting heart rate trend, and recovery balance. Cortisol+ combines these signals into a continuous cortisol-pattern estimate.',
+  },
+  {
+    q: 'What time of day is cortisol highest?',
+    a: 'Cortisol peaks 30–45 minutes after waking — this is called the Cortisol Awakening Response (CAR). Levels decline through the day, reach their low point around midnight, and start rising again 3–4 hours before wake. Disruption of this diurnal rhythm is associated with shift work, jet lag, chronic stress, depression, and HPA axis dysregulation.',
+  },
+];
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: pillars.map((p, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    url: `https://cortisolplus.com${p.href}`,
+    name: p.title,
+  })),
+};
+
+import { medicalWebPage } from '../../lib/schema';
+
+const medicalSchema = medicalWebPage({
+  name: 'The cortisol guide: symptoms, levels, testing, and how to lower it',
+  pathname: '/cortisol/',
+});
+---
+
+<BaseLayout
+  title="Cortisol guide: symptoms, levels, testing & how to lower it (2026)"
+  description="Complete cortisol guide — symptoms of high cortisol, normal levels by age and time of day, testing options, and evidence-ranked ways to lower cortisol. By Cortisol+."
+  image="/screenshots/health-breakdown.png"
+  schema={[medicalSchema, itemListSchema]}
+>
+  <article class="max-w-5xl mx-auto px-6 py-16">
+    <div class="max-w-3xl mb-12">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">The guide · Updated 2026</div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+        The <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">cortisol</span> guide
+      </h1>
+      <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed">
+        Cortisol is your body's primary stress hormone — produced by the adrenal glands and following a daily rhythm that affects sleep, weight, mood, energy, and immunity. This is everything that matters about it, organized by what you actually need to know.
+      </p>
+    </div>
+
+    <!-- Featured-snippet bait: quick definition box -->
+    <aside class="mb-14 p-6 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Quick definition</div>
+      <p class="text-[color:var(--color-ink)] leading-relaxed">
+        <strong>Cortisol</strong> is a glucocorticoid hormone produced by the adrenal cortex. It regulates the body's response to stress, blood sugar, blood pressure, inflammation, and the sleep-wake cycle. Cortisol levels follow a <strong>diurnal rhythm</strong> — peaking 30–45 minutes after waking (the Cortisol Awakening Response) and reaching their lowest point around midnight.
+      </p>
+    </aside>
+
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Explore by topic</h2>
+    <div class="grid md:grid-cols-2 gap-5 mb-20">
+      {pillars.map((p) => {
+        const c = colorClasses[p.color];
+        return (
+          <a href={p.href} class={`group relative block p-7 rounded-3xl bg-gradient-to-br ${c.card} border hover:-translate-y-1 transition-all duration-300 overflow-hidden`}>
+            <div class={`absolute -top-16 -right-16 w-48 h-48 rounded-full blur-3xl transition-colors duration-500 ${c.glow}`}></div>
+
+            <div class="relative">
+              <div class="flex items-center justify-between mb-5">
+                <div class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${c.iconBg} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <path d={p.iconPath}/>
+                  </svg>
+                </div>
+                <span class={`px-2.5 py-1 rounded-full text-xs font-semibold ${c.badge}`}>{p.count}</span>
+              </div>
+
+              <h3 class={`text-2xl font-bold mb-2 ${c.hoverText} transition-colors`}>{p.title}</h3>
+              <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-5">{p.body}</p>
+
+              <ul class="space-y-1.5 mb-5">
+                {p.topLinks.map((l) => (
+                  <li class={`text-sm text-[color:var(--color-ink-muted)] ${c.topLink} flex items-center gap-2 transition-colors`}>
+                    <span class="text-[color:var(--color-ink-muted)]/40">·</span>
+                    {l.label}
+                  </li>
+                ))}
+              </ul>
+
+              <div class={`flex items-center text-sm font-semibold ${c.arrow}`}>
+                Open guide
+                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Tool quick links — internal linking + intent capture -->
+    <section class="mb-20">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Free cortisol tools</h2>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <a href="/tools/cortisol-calculator" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+          <div>
+            <div class="font-medium text-sm">Cortisol risk calculator</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">8 questions · 60 sec</div>
+          </div>
+          <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href="/tools/morning-cortisol-test" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+          <div>
+            <div class="font-medium text-sm">Morning cortisol test</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">CAR pattern check</div>
+          </div>
+          <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href="/tools/stress-score" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+          <div>
+            <div class="font-medium text-sm">Stress score quiz</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Daily stress load</div>
+          </div>
+          <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href="/tools/burnout-risk" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+          <div>
+            <div class="font-medium text-sm">Burnout risk assessment</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">7-question quiz</div>
+          </div>
+          <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href="/tools/sleep-debt-cortisol" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+          <div>
+            <div class="font-medium text-sm">Sleep debt × cortisol</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Sleep deficit impact</div>
+          </div>
+          <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href="/blog" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+          <div>
+            <div class="font-medium text-sm">Cortisol blog</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Latest research + trends</div>
+          </div>
+          <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+    </section>
+
+    <FAQ items={faqs} title="Cortisol — most asked questions" />
+  </article>
+</BaseLayout>

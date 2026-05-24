@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AppStoreBadge from '../components/AppStoreBadge.astro';
+import RatingBadge from '../components/RatingBadge.astro';
+import { SITE, APP_RATING } from '../consts';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Download Cortisol+ for iPhone & Apple Watch',
+    url: `${SITE.url}/download/`,
+    description: 'Get Cortisol+ free on the App Store. Requires iPhone running iOS 17+ and an Apple Watch.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: SITE.fullName,
+    alternateName: SITE.name,
+    operatingSystem: 'iOS 17+, watchOS',
+    applicationCategory: 'HealthApplication',
+    description: SITE.description,
+    downloadUrl: SITE.appStoreUrl,
+    installUrl: SITE.appStoreUrl,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: APP_RATING.value,
+      ratingCount: APP_RATING.count,
+      bestRating: APP_RATING.best,
+      worstRating: APP_RATING.worst,
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Download Cortisol+ — free iPhone & Apple Watch app"
+  description="Get Cortisol+ free on the App Store. Real-time cortisol estimation from Apple Watch biometrics. Requires iOS 17+ and any Apple Watch. No subscription required for basic tracking."
+  image="/screenshots/track-cortisol-levels.png"
+  schema={schema}
+>
+  <section class="max-w-2xl mx-auto px-6 py-24 text-center">
+    <h1 class="text-5xl font-bold tracking-tight mb-4">Get Cortisol+</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-6">
+      Free on the App Store. Works with any Apple Watch.
+    </p>
+    <div class="flex justify-center mb-8">
+      <RatingBadge size="md" />
+    </div>
+    <AppStoreBadge size="lg" />
+    <p class="text-sm text-[color:var(--color-ink-muted)] mt-8">
+      Requires iOS 17+. Premium subscription available for advanced features.
+    </p>
+  </section>
+</BaseLayout>

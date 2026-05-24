@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Quiz, { type QuizQuestion, type QuizBand } from '../../components/Quiz.tsx';
+
+const questions: QuizQuestion[] = [
+  {
+    id: 'pace',
+    prompt: 'How would you describe the pace of your day?',
+    options: [
+      { label: 'Steady and manageable', weight: 0 },
+      { label: 'Busy but contained', weight: 1 },
+      { label: 'Constantly behind', weight: 2 },
+      { label: 'Surviving, not living', weight: 3 },
+    ],
+  },
+  {
+    id: 'sleep-quality',
+    prompt: 'How rested do you feel?',
+    options: [
+      { label: 'Most days', weight: 0 },
+      { label: 'Some days', weight: 1 },
+      { label: 'Rarely', weight: 2 },
+      { label: 'Never', weight: 3 },
+    ],
+  },
+  {
+    id: 'switch-off',
+    prompt: 'Can you switch off after work?',
+    options: [
+      { label: 'Yes, easily', weight: 0 },
+      { label: 'Takes an hour or so', weight: 1 },
+      { label: 'Not really', weight: 2 },
+      { label: 'Brain never stops', weight: 3 },
+    ],
+  },
+  {
+    id: 'phys-symptoms',
+    prompt: 'Physical symptoms (headaches, tense shoulders, gut issues)?',
+    options: [
+      { label: 'None', weight: 0 },
+      { label: 'Mild', weight: 1 },
+      { label: 'Frequent', weight: 2 },
+      { label: 'Daily', weight: 3 },
+    ],
+  },
+  {
+    id: 'irritability',
+    prompt: 'Are you snapping at people more than usual?',
+    options: [
+      { label: 'No', weight: 0 },
+      { label: 'A little', weight: 1 },
+      { label: 'Often', weight: 2 },
+      { label: 'Constantly', weight: 3 },
+    ],
+  },
+  {
+    id: 'energy',
+    prompt: 'Afternoon energy?',
+    options: [
+      { label: 'Steady', weight: 0 },
+      { label: 'Slight dip', weight: 1 },
+      { label: '2–4 PM crash', weight: 2 },
+      { label: 'Wiped all afternoon', weight: 3 },
+    ],
+  },
+];
+
+const bands: QuizBand[] = [
+  { threshold: 0.25, band: 'Low stress load', tone: 'low', body: 'Your subjective stress markers are low. Tracking HRV daily would confirm what your gut is telling you.' },
+  { threshold: 0.5, band: 'Normal load', tone: 'normal', body: 'Stress is present but manageable. Recovery practices keep you regulated.' },
+  { threshold: 0.75, band: 'Elevated stress load', tone: 'elevated', body: 'Multiple signs of accumulating allostatic load. Cortisol is likely chronically elevated — intervene before this becomes burnout.' },
+  { threshold: 1.01, band: 'High stress / pre-burnout', tone: 'high', body: 'You\'re running hot across most dimensions. This is the zone where HRV drops, recovery breaks down, and cortisol stays elevated through the night.' },
+];
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What\'s a normal stress level?',
+    a: 'Acute stress (deadline, performance, exercise) is healthy and adaptive. The problem is chronic stress that never resolves — your body stays in "fight-or-flight," cortisol stays elevated, and HRV drops. A "normal" stress level cycles up and down throughout the day; a problematic pattern stays elevated even when you should be recovering.',
+  },
+  {
+    q: 'Is stress the same as cortisol?',
+    a: 'Not exactly. Stress is the experience; cortisol is one of several hormones your body releases in response. Cortisol is the most useful biomarker because it tracks longer-term stress load, not just momentary spikes. Wearables like Apple Watch can\'t measure cortisol directly but can track its biometric correlates (HRV, sleep, recovery).',
+  },
+  {
+    q: 'How accurate is a stress quiz vs. a wearable?',
+    a: 'Quizzes capture how you feel; wearables capture what your body is doing. The two often disagree — people who "feel fine" can have suppressed HRV and elevated resting heart rate, and vice versa. Continuous tracking catches the disconnect.',
+  },
+  {
+    q: 'Can I lower my stress score without quitting my job?',
+    a: 'Yes. Most measurable cortisol reduction comes from sleep, breathing exercises, sunlight in the morning, and reducing alcohol — none of which require leaving your job. See /cortisol/lower for the evidence-ranked list.',
+  },
+];
+
+const related = [
+  { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: '8 questions' },
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+  { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Stress Score Quiz',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Web',
+  description: '6-question quiz that estimates your day-to-day stress load and cortisol risk.',
+};
+---
+
+<BaseLayout
+  title="Stress score quiz — measure your daily stress load (2026)"
+  description="6-question stress quiz. Get your day-to-day stress load score in 60 seconds. Free, no signup."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <section class="max-w-2xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Quiz</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Stress score quiz</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
+      How much stress are you actually carrying? 6 questions to score your daily load.
+    </p>
+
+    <Quiz client:idle questions={questions} bands={bands} scoreLabel="Your stress load" />
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

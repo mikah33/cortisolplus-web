@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Quiz, { type QuizQuestion, type QuizBand } from '../../components/Quiz.tsx';
+
+const questions: QuizQuestion[] = [
+  {
+    id: 'wake',
+    prompt: 'How do you feel within 30 minutes of waking?',
+    options: [
+      { label: 'Alert and energized', weight: 0 },
+      { label: 'Slow but functional', weight: 1 },
+      { label: 'Groggy, need caffeine', weight: 2 },
+      { label: 'Exhausted, can barely move', weight: 3 },
+    ],
+  },
+  {
+    id: 'racing',
+    prompt: 'Do you wake with a racing heart or sense of dread?',
+    options: [
+      { label: 'Never', weight: 0 },
+      { label: 'Occasionally', weight: 1 },
+      { label: 'Often', weight: 2 },
+      { label: 'Most days', weight: 3 },
+    ],
+  },
+  {
+    id: 'early-wake',
+    prompt: 'Do you wake before your alarm — specifically between 3–5 AM?',
+    options: [
+      { label: 'No', weight: 0 },
+      { label: 'Rarely', weight: 1 },
+      { label: 'A few times a week', weight: 2 },
+      { label: 'Almost nightly', weight: 3 },
+    ],
+  },
+  {
+    id: 'jaw',
+    prompt: 'Do you wake with a clenched jaw or tension headache?',
+    options: [
+      { label: 'No', weight: 0 },
+      { label: 'Sometimes', weight: 1 },
+      { label: 'Most mornings', weight: 2 },
+      { label: 'Daily', weight: 3 },
+    ],
+  },
+  {
+    id: 'appetite',
+    prompt: 'Morning appetite?',
+    options: [
+      { label: 'Hungry within 60 min', weight: 0 },
+      { label: 'Mild hunger', weight: 1 },
+      { label: 'No appetite for hours', weight: 2 },
+      { label: 'Nauseous in the morning', weight: 3 },
+    ],
+  },
+  {
+    id: 'caffeine-need',
+    prompt: 'How soon do you need caffeine after waking?',
+    options: [
+      { label: "I don't drink caffeine", weight: 0 },
+      { label: '90+ minutes after waking', weight: 0 },
+      { label: 'Within 60 minutes', weight: 1 },
+      { label: 'Within 30 minutes / before food', weight: 2 },
+    ],
+  },
+];
+
+const bands: QuizBand[] = [
+  { threshold: 0.25, band: 'Healthy CAR pattern', tone: 'low', body: 'Your morning awakening response looks healthy. Cortisol naturally peaks 30–45 min after waking — that\'s the boost you\'re feeling.' },
+  { threshold: 0.5, band: 'Mildly disrupted CAR', tone: 'normal', body: 'A few signs your cortisol awakening response (CAR) may be blunted or shifted. Continuous HRV tracking would catch the pattern.' },
+  { threshold: 0.75, band: 'Disrupted CAR', tone: 'elevated', body: 'Multiple signals point to a disrupted morning cortisol pattern — common in chronic stress, poor sleep, and burnout.' },
+  { threshold: 1.01, band: 'Flat or hyperactive CAR', tone: 'high', body: 'A flat morning cortisol or 3–5 AM wake-ups are hallmarks of HPA axis dysregulation. Worth talking to a doctor about cortisol testing.' },
+];
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is the cortisol awakening response (CAR)?',
+    a: 'Cortisol naturally rises 50–75% within 30–45 minutes of waking. This surge is called the Cortisol Awakening Response. A healthy CAR helps you feel alert and energized. A blunted, flat, or hyperactive CAR is associated with chronic stress, burnout, depression, and HPA axis dysregulation.',
+  },
+  {
+    q: 'Why do I wake up at 3 AM with anxiety?',
+    a: 'Early-morning awakening between 3–5 AM is often associated with elevated nocturnal cortisol. Stress, alcohol, low blood sugar, and sleep apnea can all push cortisol higher in the second half of the night, fragmenting sleep and triggering an anxiety spike.',
+  },
+  {
+    q: 'Is this a real cortisol test?',
+    a: 'No — this is a symptom-based quiz designed to flag patterns associated with a disrupted morning cortisol response. A real cortisol test requires saliva (most common, 4-point salivary CAR), blood, or urine. This quiz can help you decide whether to pursue lab testing.',
+  },
+  {
+    q: 'Can Cortisol+ measure my CAR?',
+    a: 'Cortisol+ estimates your cortisol pattern in real time using Apple Watch biometrics (HRV, sleep stages, heart rate). It cannot directly measure cortisol, but it surfaces the morning surge pattern via HRV recovery and resting heart rate trend after wake.',
+  },
+];
+
+const related = [
+  { href: '/tools/cortisol-calculator', title: 'Full cortisol risk calculator', hint: '8 questions · 60 sec' },
+  { href: '/tools/stress-score', title: 'Stress score quiz', hint: 'Day-to-day load' },
+  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'Full symptom guide' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Morning Cortisol Test',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Web',
+  description: 'Free 6-question quiz that estimates whether your morning cortisol awakening response (CAR) is healthy or disrupted.',
+};
+---
+
+<BaseLayout
+  title="Morning cortisol test — 60-second CAR quiz (2026)"
+  description="Free symptom-based test for your morning cortisol awakening response (CAR). 6 questions, instant result, science-backed scoring."
+  image="/screenshots/daily-insights.png"
+  schema={schema}
+>
+  <section class="max-w-2xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Test</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Morning cortisol test</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
+      Healthy mornings have a sharp cortisol surge. Burnt-out mornings don't. 6 questions to flag the pattern.
+    </p>
+
+    <Quiz client:idle questions={questions} bands={bands} scoreLabel="Your CAR pattern" />
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

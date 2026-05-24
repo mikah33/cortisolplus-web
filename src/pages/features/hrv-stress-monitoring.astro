@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppStoreBadge from '../../components/AppStoreBadge.astro';
+import RatingBadge from '../../components/RatingBadge.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'HRV-based cortisol score on Apple Watch',
+  pathname: '/features/hrv-stress-monitoring/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is HRV and how does it relate to cortisol?',
+    a: 'Heart Rate Variability (HRV) measures the millisecond-level variation between heartbeats. High HRV signals a healthy, recovered, parasympathetic-dominant state. Low HRV signals stress, fatigue, or sympathetic overdrive. HRV is the strongest non-invasive proxy for autonomic stress — and chronic suppressed HRV correlates strongly with elevated cortisol.',
+  },
+  {
+    q: 'Which HRV metric does Cortisol+ use?',
+    a: 'Cortisol+ uses SDNN (Standard Deviation of Normal-to-Normal intervals) — the HRV metric Apple Watch records natively. SDNN has the strongest peer-reviewed evidence base for stress and cortisol pattern assessment, and is what most clinical research uses for autonomic measurement.',
+  },
+  {
+    q: 'How often does Cortisol+ measure my HRV?',
+    a: 'Apple Watch samples HRV multiple times per day — usually overnight (highest accuracy, lowest movement noise) plus during sedentary windows. Cortisol+ ingests every reading and builds a rolling 24-hour and 7-day trend so you can see both your current state and your direction.',
+  },
+  {
+    q: 'Why is my HRV different from my friend\'s?',
+    a: 'Absolute HRV varies enormously by age, fitness, genetics, and recording method — comparing yours to anyone else\'s is meaningless. What matters is your trend against your own baseline. A 7% drop in YOUR 7-day average HRV means more than your raw number being higher or lower than someone else.',
+  },
+  {
+    q: 'How long until I see meaningful HRV trends?',
+    a: 'Cortisol+ needs about 7 days to establish your baseline. After that, you\'ll start seeing how specific inputs (alcohol, late workouts, poor sleep, stressful days) move your HRV the next day. Patterns become clear in 2–4 weeks.',
+  },
+];
+
+const related = [
+  { href: '/how-it-works', title: 'How Cortisol+ works', hint: 'Methodology + sensors' },
+  { href: '/features/sleep-cortisol-tracking', title: 'Sleep × cortisol', hint: 'Sleep impact' },
+  { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: '8-question quiz' },
+];
+---
+
+<BaseLayout
+  title="HRV-based cortisol score on Apple Watch"
+  description="Cortisol+ uses Apple Watch HRV (SDNN) as the primary cortisol proxy — the most validated wearable biomarker for autonomic stress. Continuous overnight + daytime sampling, personalized baselines."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Feature</div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+      HRV-based <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">cortisol score</span>
+    </h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10 max-w-2xl leading-relaxed">
+      Continuous estimation from heart rate variability — the gold standard wearable biomarker for autonomic stress. Personalized to your baseline.
+    </p>
+    <div class="flex flex-wrap items-center gap-4 mb-16">
+      <AppStoreBadge size="lg" />
+      <RatingBadge size="sm" />
+    </div>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Why HRV is the right cortisol proxy</h2>
+      <p>Cortisol is a hormone, not an electrical signal — wearables can't measure it directly. But HRV is one of the cleanest wearable proxies for the autonomic nervous system state that drives cortisol. Peer-reviewed research consistently shows strong inverse correlation between SDNN (the HRV metric Apple Watch records) and chronic cortisol elevation.</p>
+      <p>That doesn't mean HRV = cortisol. It means HRV is the single best continuous, non-invasive signal of the system that controls cortisol — and combined with sleep, RHR, and recovery data, it produces a meaningful cortisol-pattern estimate.</p>
+
+      <h2>How Cortisol+ uses your HRV</h2>
+      <ol>
+        <li><strong>Personalized baseline (7 days).</strong> Your first week establishes your unique HRV range. Without this, "high" or "low" is meaningless.</li>
+        <li><strong>Continuous sampling.</strong> Apple Watch records HRV overnight (highest accuracy) plus during low-movement daytime windows.</li>
+        <li><strong>Trend modeling.</strong> We compute a 24-hour, 7-day, and 30-day rolling average so you see direction, not just snapshots.</li>
+        <li><strong>Cortisol score synthesis.</strong> HRV combines with sleep stages, resting heart rate trend, and recovery balance to produce your 0–100 cortisol score.</li>
+        <li><strong>Pattern alerts.</strong> When your 7-day HRV drops 10%+ below your baseline, you see it — usually 1–2 weeks before subjective fatigue catches up.</li>
+      </ol>
+
+      <h2>What you can do with HRV data</h2>
+      <ul>
+        <li><strong>Time your hard workouts.</strong> Train when HRV is normal or above baseline; recover when it dips. The single biggest win for athletes.</li>
+        <li><strong>Catch alcohol's real cost.</strong> Even one drink suppresses next-day HRV measurably. The data makes the trade-off concrete.</li>
+        <li><strong>See which stress habits move you.</strong> Late screens? Big late meal? Skipped morning sunlight? You'll see them in tomorrow's HRV.</li>
+        <li><strong>Track interventions objectively.</strong> Start ashwagandha or magnesium — see if your HRV trend bends within 4 weeks. If it doesn't, save the money.</li>
+      </ul>
+
+      <h2>The honest caveats</h2>
+      <ul>
+        <li>HRV varies by age, fitness, posture, and time of day — your absolute number is less meaningful than your trend</li>
+        <li>Single-day HRV is noisy; the 7-day rolling average is the signal</li>
+        <li>HRV cannot diagnose Cushing's, Addison's, or any endocrine disorder</li>
+        <li>Apple Watch HRV is accurate but not lab-grade — use it for trends, not absolute clinical values</li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

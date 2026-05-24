@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppStoreBadge from '../../components/AppStoreBadge.astro';
+import RatingBadge from '../../components/RatingBadge.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Zen mode & breathwork — guided cortisol-lowering protocols',
+  pathname: '/features/breathing-zen-mode/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How does breathing lower cortisol?',
+    a: 'Slow, paced breathing — especially with extended exhales — activates the vagus nerve and shifts the autonomic nervous system from sympathetic (fight-or-flight) to parasympathetic (rest-and-digest). This shift measurably reduces cortisol, raises HRV, and lowers heart rate within minutes of practice.',
+  },
+  {
+    q: 'What breathing protocols does Cortisol+ guide?',
+    a: 'Cortisol+ Zen mode includes box breathing (4-4-4-4) for general regulation, 4-7-8 for sleep onset and evening cortisol, the physiological sigh for acute stress, and resonance breathing (6 breaths per minute) for daily HRV practice. Each is timed and visualized with on-screen pacing.',
+  },
+  {
+    q: 'How long is a Zen session?',
+    a: 'Sessions range from 60-second acute interventions (physiological sigh) to 20-minute deep practices (resonance breathing). Most users find 3–5 minute sessions twice daily produce the biggest cortisol effect for the time invested.',
+  },
+  {
+    q: 'Can I see the cortisol effect after a session?',
+    a: 'Yes. Cortisol+ records HRV before and after each Zen session and shows the post-session recovery curve. Over weeks of practice, the magnitude of your post-session HRV bump grows — that\'s your nervous system getting more responsive to regulation.',
+  },
+  {
+    q: 'Do I need the Apple Watch for Zen mode?',
+    a: 'You can run breathing sessions on your iPhone alone, but pairing with Apple Watch lets Cortisol+ measure the actual physiological effect — HRV change, heart rate drop, recovery curve. Without the Watch you get the practice; with it, you get the proof.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/lower/breathing-exercises', title: 'Breathing exercises guide', hint: 'Full protocols' },
+  { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'All interventions' },
+  { href: '/features/hrv-stress-monitoring', title: 'HRV-based cortisol score', hint: 'Measurement layer' },
+];
+---
+
+<BaseLayout
+  title="Zen mode & breathwork that lowers cortisol"
+  description="Guided breathing protocols — box breathing, 4-7-8, physiological sigh, resonance — with Apple Watch HRV measurement of the cortisol-lowering effect after every session."
+  image="/screenshots/ai-coach.png"
+  schema={schema}
+>
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Feature</div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+      Zen mode &amp; <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">breathwork</span>
+    </h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10 max-w-2xl leading-relaxed">
+      Guided protocols that measurably drop your cortisol score in minutes — and prove it with HRV recovery data after every session.
+    </p>
+    <div class="flex flex-wrap items-center gap-4 mb-16">
+      <AppStoreBadge size="lg" />
+      <RatingBadge size="sm" />
+    </div>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Why breathing is the fastest intervention</h2>
+      <p>Among all evidence-backed cortisol interventions, structured breathwork has the fastest onset. Slow, paced breathing with extended exhales activates the vagus nerve and shifts autonomic balance toward parasympathetic. Studies show measurable cortisol reductions within 10–20 minutes of practice — and HRV improvements visible within 5 minutes.</p>
+      <p>Sleep is bigger leverage but takes weeks. Breathing is smaller per-session but works in minutes, today.</p>
+
+      <h2>The protocols Zen mode guides</h2>
+
+      <h3>Box breathing (4-4-4-4)</h3>
+      <p>Inhale 4 → hold 4 → exhale 4 → hold 4. The general-purpose autonomic regulation pattern. Best for daily practice and before stressful situations.</p>
+
+      <h3>4-7-8 (Andrew Weil)</h3>
+      <p>Inhale 4 → hold 7 → exhale 8. Extended exhale strongly activates parasympathetic response. Strongest evidence for sleep onset and evening cortisol reduction.</p>
+
+      <h3>Physiological sigh (Huberman)</h3>
+      <p>Two short inhales → one long exhale. The fastest acute stress de-escalator. Effects within 1–3 cycles. Use it the moment stress hits.</p>
+
+      <h3>Resonance breathing (6 breaths per minute)</h3>
+      <p>5 seconds in, 5 seconds out, no holds. This pace matches your HRV resonance frequency — your HRV peaks during practice. The most studied protocol for chronic cortisol regulation and long-term autonomic health.</p>
+
+      <h2>The Cortisol+ difference</h2>
+      <p>Most breathing apps just guide the breath. Cortisol+ measures the actual physiological effect:</p>
+      <ul>
+        <li><strong>Pre-session baseline.</strong> Your HRV and heart rate captured the moment you start.</li>
+        <li><strong>On-screen pacing.</strong> Animated breathing guide tied to the chosen protocol's rhythm.</li>
+        <li><strong>Post-session measurement.</strong> Your HRV recovery and heart rate drop quantified — proof the session worked.</li>
+        <li><strong>Trend over weeks.</strong> Your average post-session recovery magnitude grows as your nervous system becomes more responsive — that's your stress resilience compounding.</li>
+      </ul>
+
+      <h2>When to use which</h2>
+      <table>
+        <thead>
+          <tr><th>Moment</th><th>Protocol</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Acute stress (right now)</td><td>Physiological sigh</td><td>30 seconds</td></tr>
+          <tr><td>Before meeting / performance</td><td>Box breathing</td><td>3–5 minutes</td></tr>
+          <tr><td>Before sleep</td><td>4-7-8</td><td>5–10 minutes</td></tr>
+          <tr><td>Daily HRV / cortisol practice</td><td>Resonance (6 bpm)</td><td>10–20 minutes</td></tr>
+        </tbody>
+      </table>
+
+      <h2>What you'll see</h2>
+      <ul>
+        <li>Subjectively: calm settling within 1–3 minutes</li>
+        <li>HRV: measurable rise within 5 minutes of practice</li>
+        <li>Heart rate: 5–15 bpm drop during and after a session</li>
+        <li>Cortisol score: measurable shift within 10–20 minutes of sustained practice</li>
+        <li>Over 4+ weeks: baseline HRV improves, stress response amplitude shrinks</li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </section>
+</BaseLayout>

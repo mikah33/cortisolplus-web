@@ -1,0 +1,63 @@
+# cortisolplus.com — robots.txt
+# Last reviewed: 2026-05-23
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+
+# ---- AI search & training (we WANT to be cited) ----
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI (separate from regular Googlebot — Google-Extended controls Gemini training/AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# Common Crawl (underlies many LLM training sets)
+User-agent: CCBot
+Allow: /
+
+# Meta / Apple / Amazon
+User-agent: Meta-ExternalAgent
+Allow: /
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Amazonbot
+Allow: /
+
+# Cohere / Mistral / xAI
+User-agent: cohere-ai
+Allow: /
+User-agent: MistralAI-User
+Allow: /
+User-agent: xAI
+Allow: /
+
+# Bytespider (TikTok / ByteDance)
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://cortisolplus.com/sitemap-index.xml

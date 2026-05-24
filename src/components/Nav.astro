@@ -1,0 +1,25 @@
+---
+import { SITE, NAV } from '../consts';
+import AppStoreBadge from './AppStoreBadge.astro';
+---
+
+<header class="sticky top-0 z-50 backdrop-blur bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)]">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="font-semibold text-lg tracking-tight flex items-center gap-2">
+      <img src="/apple-touch-icon.png" alt="Cortisol+" width="28" height="28" class="w-7 h-7 rounded-lg" />
+      {SITE.name}
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm text-[color:var(--color-ink-muted)]">
+      {NAV.map((item) => (
+        <li>
+          <a href={item.href} class="hover:text-[color:var(--color-ink)] transition-colors">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <AppStoreBadge size="sm" />
+  </nav>
+</header>

@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'How to lower cortisol — evidence-ranked interventions',
+  pathname: '/cortisol/lower/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is the fastest way to lower cortisol?',
+    a: 'Acute interventions that work within minutes: 5 minutes of slow paced breathing (6 breaths/min), a 20-minute walk outside in sunlight, a physiological sigh repeated 3–5 times, or a cold-water face splash. For sustained lower cortisol over weeks: fix sleep, reduce alcohol, and add zone 2 cardio 3x/week.',
+  },
+  {
+    q: 'Is there a cortisol-lowering "magic bullet"?',
+    a: 'No, but sleep comes closest. Fixing chronic short sleep moves cortisol more than any supplement, food, or breathing exercise. If you only do one thing, do that. Magnesium glycinate before bed and consistent wake times are the high-leverage starting moves.',
+  },
+  {
+    q: 'How long does it take to lower cortisol?',
+    a: 'Acute drops happen within minutes (breathing, walking, sunlight). Lifestyle changes (sleep timing, reduced alcohol, regular exercise) show measurable pattern changes in 2–4 weeks. Severe chronic elevation may take 3–6 months to fully normalize. Tracking with a wearable lets you see the trend instead of guessing.',
+  },
+  {
+    q: 'Can I lower cortisol without supplements?',
+    a: 'Yes — and most of the leverage is in lifestyle, not supplements. Sleep, sunlight, paced breathing, reduced alcohol, zone 2 cardio, and stable meal timing collectively move cortisol more than any supplement stack. Supplements are useful as additions, not replacements.',
+  },
+];
+
+const interventions = [
+  { href: '/cortisol/lower/sleep', title: 'Sleep', impact: 'Biggest lever', body: 'Fixing chronic short sleep moves cortisol more than any other intervention. Where everyone should start.' },
+  { href: '/cortisol/lower/breathing-exercises', title: 'Breathing exercises', impact: 'Fastest acute drop', body: 'Box breathing, 4-7-8, physiological sigh, resonance breathing. Acute cortisol reduction within minutes.' },
+  { href: '/cortisol/lower/exercise', title: 'Exercise', impact: 'High if dosed right', body: 'Moderate exercise lowers cortisol; excess raises it. Zone 2 cardio + moderate strength is the sweet spot.' },
+  { href: '/cortisol/lower/foods', title: 'Foods', impact: 'Moderate', body: 'Dark chocolate, omega-3 fish, magnesium-rich greens. Plus what to reduce — caffeine, alcohol, ultra-processed.' },
+  { href: '/cortisol/lower/supplements', title: 'Supplements', impact: 'Targeted', body: 'Ashwagandha, magnesium, rhodiola, phosphatidylserine, L-theanine — evidence-ranked with honest dosing.' },
+];
+
+const related = [
+  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'Recognize the signs' },
+  { href: '/cortisol/test', title: 'How to test cortisol', hint: 'At-home, saliva, blood' },
+  { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: '8 questions' },
+];
+---
+
+<BaseLayout
+  title="How to lower cortisol — the evidence-ranked guide (2026)"
+  description="What actually lowers cortisol — sleep, breathing, exercise, foods, supplements — ranked by evidence. The honest playbook for chronic cortisol regulation."
+  image="/screenshots/track-metrics.png"
+  schema={schema}
+>
+  <article class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">The canonical guide</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How to lower cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12 max-w-2xl">
+      Ranked by evidence and effect size. Most "lower cortisol" advice on the internet is generic wellness copy. Here's what actually moves the needle.
+    </p>
+
+    <div class="prose prose-lg max-w-none mb-12
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The one paragraph version</h2>
+      <p>Sleep is the biggest lever — fix that first. Breathing exercises drop cortisol fastest in the moment. Zone 2 cardio 3x/week and moderate strength training 2x/week is the right exercise dose. Dark chocolate, omega-3 fish, and magnesium-rich foods help. Ashwagandha and magnesium glycinate are the two supplements with the strongest evidence. Reduce alcohol — it's the single biggest hidden cortisol-raising input in most people's lives.</p>
+
+      <h2>The hierarchy of impact</h2>
+      <p>If you ranked interventions by how much they actually move cortisol patterns in healthy adults:</p>
+      <ol>
+        <li><strong>Sleep quality and consistency</strong> — biggest single lever</li>
+        <li><strong>Alcohol reduction</strong> — usually the biggest "hidden" win</li>
+        <li><strong>Morning sunlight</strong> — anchors the circadian curve</li>
+        <li><strong>Paced breathing</strong> (daily practice) — direct autonomic regulation</li>
+        <li><strong>Zone 2 cardio</strong> — improves baseline HRV and cortisol</li>
+        <li><strong>Magnesium glycinate</strong> — cheap, broad effect</li>
+        <li><strong>Ashwagandha</strong> — strongest direct cortisol-supplement evidence</li>
+        <li><strong>Stable meal timing + protein at breakfast</strong> — stabilizes blood sugar/cortisol</li>
+        <li><strong>Limiting caffeine to 1 cup before food</strong> — blunts morning cortisol spike</li>
+        <li><strong>Reducing screens 30 min before bed</strong> — protects sleep onset</li>
+      </ol>
+    </div>
+
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Deep guides by intervention</h2>
+    <div class="grid md:grid-cols-2 gap-4 mb-16">
+      {interventions.map((i) => (
+        <a href={i.href} class="group block p-6 rounded-2xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:-translate-y-0.5 transition">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-semibold group-hover:text-[color:var(--color-teal-dark)] transition">{i.title} →</h3>
+            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]">{i.impact}</span>
+          </div>
+          <p class="text-sm text-[color:var(--color-ink-muted)]">{i.body}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>How to actually do this (the 4-week starter protocol)</h2>
+      <p>Pick three changes. Do them for 4 weeks. Track the trend. Add the next layer once these stick.</p>
+
+      <ol>
+        <li><strong>Week 1–4 base:</strong> Sleep 7+ hours with consistent wake time. Morning sunlight within 1 hour of waking.</li>
+        <li><strong>Week 1–4 base:</strong> 20-minute walk outside daily (counts as both sunlight and zone 2).</li>
+        <li><strong>Week 1–4 base:</strong> Magnesium glycinate 300 mg at bedtime.</li>
+        <li><strong>Optional:</strong> No alcohol for 14 days to baseline. Cut caffeine to 1 cup before food.</li>
+      </ol>
+
+      <p>Track HRV and cortisol pattern with <a href="/">Cortisol+</a>. Most people see meaningful trend change by week 2–3. Once you can see what's working, layer the next interventions in deliberately.</p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

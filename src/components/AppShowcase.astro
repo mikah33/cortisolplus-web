@@ -1,0 +1,92 @@
+---
+const screens = [
+  {
+    src: '/screenshots/track-cortisol-levels.png',
+    title: 'Track cortisol levels',
+    caption: 'Real-time cortisol estimation on Apple Watch.',
+    badge: 'Trusted by 5,000+ users',
+    alt: 'Apple Watch Ultra running the Cortisol+ app and displaying a real-time cortisol score of 12 with an Excellent rating, trending 5 points lower than earlier in the day',
+  },
+  {
+    src: '/screenshots/health-breakdown.png',
+    title: 'Health breakdown',
+    caption: 'Every factor that drives your stress, anxiety and cortisol — HRV, RHR, Blood O₂, sleep, and more.',
+    badge: '#1 cortisol app',
+    alt: 'Cortisol+ Health Breakdown screen on iPhone listing 10 of 13 tracked biometric factors — HRV 22 ms, resting heart rate 82 bpm, current heart rate 95 bpm, blood oxygen 95%, breathing rate 19 br/min, skin temperature, calories, steps, VO2 max, walking heart rate',
+  },
+  {
+    src: '/screenshots/daily-insights.png',
+    title: 'Daily insights',
+    caption: 'Cortisol overview, sleep quality, and biometric trends every day.',
+    badge: 'Featured new app',
+    alt: 'Cortisol+ Daily Insights dashboard showing Excellent cortisol score 12, heart rate 68 bpm Optimal, sleep duration 8h 30m Restful, plus a 7-day cortisol, high cortisol, and sleep trend line chart',
+  },
+  {
+    src: '/screenshots/ai-coach.png',
+    title: 'Your AI-powered coach',
+    caption: 'Personalized wellness guidance — calm, meditation, anxiety relief.',
+    badge: 'AI technology',
+    alt: 'Cortisol+ AI coach interface showing Wellness Score 81 Excellent, a 30-day low-stress streak, 483 total scans, present-moment check-in CTA, weekly stress trend, and personalized Zen tips for sleep and recovery',
+  },
+  {
+    src: '/screenshots/sleep-analysis.png',
+    title: 'Sleep analysis',
+    caption: 'Sleep stages, quality score, and health impact tracking. See the cortisol-sleep loop.',
+    badge: 'Apple Watch essentials',
+    alt: 'Cortisol+ Sleep Analysis showing 8 nights tracked, 7.1 h average sleep, 91/100 average quality score, 92% efficiency, 5/8 nights hitting 7-hour goal, plus a nightly duration bar chart and Insights card noting Great Night and Optimal Duration',
+  },
+  {
+    src: '/screenshots/track-metrics.png',
+    title: 'Track metrics',
+    caption: 'Monthly and daily health tracking. Take control of your trend.',
+    badge: 'Real Apple Watch metrics',
+    alt: 'Cortisol+ Insights screen displaying 28.5 average cortisol over 4 readings today, fitness panel with HRV 54 ms, resting heart rate 71 bpm, VO2 max 37.6, activity 8,317 steps, sleep duration 7.6 hours with 100 sleep score, and Zen wellness score 75/100',
+  },
+  {
+    src: '/screenshots/connect-with-friends.png',
+    title: 'Connect with friends',
+    caption: 'Invite friends, earn badges, unlock companions on your wellness journey.',
+    badge: 'Available in 171 countries',
+    alt: 'Cortisol+ Connect feed on iPhone with friends sharing wellness milestones — Joe Onroy Calm Heart resting HR 56 bpm, Alex Chen Heart Harmony HRV 62 ms, Alex Chen Stress Streak 5 days, Sarah Johnson Zen Master — plus invite friends card with code CRT-DEV123 and a 3/3 unlocked badge',
+  },
+];
+---
+
+<section class="relative max-w-7xl mx-auto px-6 py-20 border-t border-[color:var(--color-border)]">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Inside the app</div>
+    <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+      Everything you need to decode your stress
+    </h2>
+    <p class="text-[color:var(--color-ink-muted)]">
+      Real-time tracking, deep biometric breakdown, an AI coach, sleep analysis, and a community on the same journey.
+    </p>
+  </div>
+
+  <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6">
+    {screens.map((s) => (
+      <figure class="shrink-0 w-[240px] md:w-[260px] snap-center group">
+        <div class="rounded-3xl overflow-hidden bg-[color:var(--color-surface)] border border-[color:var(--color-border)] aspect-[1170/2532] relative">
+          <img
+            src={s.src}
+            alt={s.alt}
+            width="1170"
+            height="2532"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+          />
+        </div>
+        <figcaption class="mt-4 px-1">
+          <div class="text-xs uppercase tracking-wider text-[color:var(--color-teal-dark)] font-medium mb-1">{s.badge}</div>
+          <div class="font-semibold mb-0.5">{s.title}</div>
+          <div class="text-sm text-[color:var(--color-ink-muted)]">{s.caption}</div>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <div class="text-center mt-4 text-xs text-[color:var(--color-ink-muted)]">
+    ← scroll for more →
+  </div>
+</section>

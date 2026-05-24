@@ -1,0 +1,17 @@
+/* TEAM */
+Built by: Elevated Systems LLC
+Site: https://cortisolplus.com
+Studio: https://elevatedagency.org/
+Contact: admin@elevatedsystems.info
+
+/* THANKS */
+Apple HealthKit
+The open peer-reviewed literature on HRV ↔ cortisol correlation
+The TikTok cortisol trend, for the keyword volume
+
+/* SITE */
+Last update: 2026-05-23
+Standards: HTML5, Schema.org JSON-LD, Open Graph
+Language: English
+Built with: Astro 6, Tailwind v4, React, MDX
+Hosting: Netlify

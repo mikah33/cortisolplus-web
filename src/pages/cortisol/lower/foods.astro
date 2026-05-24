@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Foods that lower cortisol — evidence-ranked list',
+  pathname: '/cortisol/lower/foods/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What food lowers cortisol the fastest?',
+    a: 'Dark chocolate (70%+ cacao, ~40g) has the most direct acute cortisol-lowering evidence — studies show measurable reduction within 2 hours. Salmon and other omega-3 rich foods reduce baseline cortisol with daily intake over 3+ weeks. Magnesium-rich foods (leafy greens, pumpkin seeds, almonds) support overnight cortisol regulation when eaten regularly.',
+  },
+  {
+    q: 'What foods raise cortisol?',
+    a: 'High caffeine (especially on an empty stomach in the morning), alcohol (acutely lowers then chronically raises), high-glycemic carbs that spike-then-crash blood sugar, ultra-processed foods, and chronic under-eating. Skipping meals or extended fasting beyond your adapted window also raises cortisol.',
+  },
+  {
+    q: 'Does eating more frequently lower cortisol?',
+    a: 'For people who are chronically stressed and have blood sugar variability, yes — protein + fat at regular intervals stabilizes blood sugar and reduces cortisol-driven hunger. For metabolically healthy people, meal frequency matters less than overall food quality. Don\'t use "small meals every 2 hours" as a stress fix unless you have clear hypoglycemic symptoms.',
+  },
+  {
+    q: 'Is the "adrenal cocktail" effective for cortisol?',
+    a: 'The viral "adrenal cocktail" (orange juice + coconut water + sea salt + cream of tartar) provides vitamin C, potassium, sodium, and a sugar hit. There\'s no strong evidence it specifically lowers cortisol. Most of its effect is probably from morning hydration + electrolytes + glucose, which together stabilize blood sugar and morning energy. It\'s not harmful but it\'s not magic.',
+  },
+  {
+    q: 'How long until diet changes lower my cortisol?',
+    a: 'Acute foods (dark chocolate, omega-3-rich meals) can move cortisol within hours. Sustained diet changes (eliminating excess caffeine, stabilizing blood sugar, getting consistent omega-3) show measurable cortisol pattern changes in 2–4 weeks. Major shifts (eliminating alcohol, fixing severe nutrient deficiencies) compound over 8–12 weeks.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/foods/ashwagandha', title: 'Ashwagandha + cortisol', hint: 'Evidence review' },
+  { href: '/cortisol/lower/supplements', title: 'Supplements that lower cortisol', hint: 'Ranked list' },
+  { href: '/cortisol/lower', title: 'Full how-to-lower guide', hint: 'All tactics' },
+];
+---
+
+<BaseLayout
+  title="Foods that lower cortisol — evidence-ranked list (2026)"
+  description="The foods with the strongest evidence for lowering cortisol — dark chocolate, omega-3 fish, magnesium-rich greens. Plus foods that raise cortisol you should reduce."
+  image="/screenshots/daily-insights.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Lower cortisol</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Foods that lower cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Ranked by strength of evidence. The honest picture — most "cortisol foods" lists are repackaged generic healthy-eating advice; here's what actually has data behind it.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Strong evidence</h2>
+      <h3>1. Dark chocolate (70%+ cacao)</h3>
+      <p>Multiple RCTs show ~40g of high-cacao dark chocolate measurably lowers cortisol within 2 hours of intake. The mechanism involves flavanols and probably the mood/reward response. Dose: 30–50g most days. Caveat: chocolate has caffeine and sugar — don't eat it within 6 hours of bed.</p>
+
+      <h3>2. Omega-3 rich fish (salmon, sardines, mackerel)</h3>
+      <p>Daily intake of EPA/DHA (1–3g/day from food or supplements) lowers baseline cortisol over 3+ weeks. Particularly strong evidence in chronically stressed populations. Two servings of fatty fish per week is the practical floor.</p>
+
+      <h3>3. Magnesium-rich foods (leafy greens, pumpkin seeds, almonds, dark chocolate)</h3>
+      <p>Magnesium is a cofactor for HPA axis regulation. Deficiency is associated with elevated cortisol, particularly nocturnal. Most Western diets are magnesium-deficient. The food-based fix: a cup of cooked spinach, an ounce of pumpkin seeds, and a square of dark chocolate daily covers the gap.</p>
+
+      <h2>Moderate evidence</h2>
+      <h3>4. Fermented foods (yogurt, kefir, kimchi, sauerkraut)</h3>
+      <p>Emerging evidence suggests gut microbiome diversity influences cortisol regulation via the gut-brain axis. Daily fermented food intake correlates with lower perceived stress and modestly improved cortisol patterns in small trials.</p>
+
+      <h3>5. Polyphenol-rich foods (berries, green tea, olive oil, herbs)</h3>
+      <p>Polyphenols reduce inflammation, and chronic inflammation drives chronic cortisol elevation. Effect is indirect but real over months of consistent intake.</p>
+
+      <h3>6. Protein at breakfast</h3>
+      <p>Protein-rich breakfast (~30g) stabilizes morning blood sugar and reduces mid-morning cortisol spikes from blood-sugar crashes. Particularly effective for people with high stress and irregular eating.</p>
+
+      <h2>Foods to reduce</h2>
+      <ul>
+        <li><strong>Excess caffeine</strong> — especially on an empty stomach in the morning. 1 cup before food is the practical limit for most.</li>
+        <li><strong>Alcohol</strong> — acutely sedating but raises nocturnal cortisol, fragments sleep, and over time raises baseline cortisol.</li>
+        <li><strong>High-glycemic refined carbs</strong> on an empty stomach — the post-spike crash triggers cortisol.</li>
+        <li><strong>Ultra-processed foods</strong> — chronic inflammation driver.</li>
+        <li><strong>Skipping meals when chronically stressed</strong> — fasting on top of stress accumulates.</li>
+      </ul>
+
+      <h2>The cortisol mocktail / adrenal cocktail</h2>
+      <p>Viral on TikTok: orange juice + coconut water + sea salt (+ optional cream of tartar). It provides hydration, electrolytes, and glucose — which helps morning energy and blood sugar — but there's no direct evidence it specifically lowers cortisol. Not harmful, not magic. See <a href="/blog/cortisol-mocktail-truth">the full cortisol mocktail truth</a> for the deeper take.</p>
+
+      <h2>How to know if it's working</h2>
+      <p>Track. Most people add cortisol-lowering foods and never know if they actually moved their cortisol. With <a href="/">Cortisol+</a>, you can change one input (e.g. add 2 servings of fatty fish weekly), hold others constant, and watch your HRV-derived cortisol trend over 4–6 weeks. If the line bends, it's working. If it doesn't, save the effort.</p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

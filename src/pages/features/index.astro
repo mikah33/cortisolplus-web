@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RatingBadge from '../../components/RatingBadge.astro';
+import AppStoreBadge from '../../components/AppStoreBadge.astro';
+import { SITE } from '../../consts';
+
+const features = [
+  {
+    href: '/features/hrv-stress-monitoring',
+    title: 'HRV-based cortisol score',
+    body: 'Continuous estimation from heart rate variability — the gold standard wearable biomarker for autonomic stress. Personalized to your baseline.',
+    badge: 'Real-time',
+    color: 'teal',
+  },
+  {
+    href: '/features/sleep-cortisol-tracking',
+    title: 'Sleep × cortisol',
+    body: 'See how every night of sleep drives next-morning cortisol. REM, deep, and core sleep stage analysis correlated with your HRV-derived cortisol pattern.',
+    badge: 'Overnight',
+    color: 'coral',
+  },
+  {
+    href: '/features/breathing-zen-mode',
+    title: 'Zen mode & breathwork',
+    body: 'Guided breathing protocols — box, 4-7-8, physiological sigh, resonance — with Apple Watch HRV measurement of the cortisol-lowering effect after every session.',
+    badge: 'Intervene',
+    color: 'mint',
+  },
+];
+
+const colorMap: Record<string, string> = {
+  teal: 'from-[color:var(--color-teal)]/12 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-teal)]/20 hover:border-[color:var(--color-teal)]/50 hover:shadow-[color:var(--color-teal)]/25',
+  coral: 'from-[color:var(--color-coral)]/12 via-[color:var(--color-coral)]/5 to-white border-[color:var(--color-coral)]/20 hover:border-[color:var(--color-coral)]/50 hover:shadow-[color:var(--color-coral)]/25',
+  mint: 'from-[color:var(--color-mint)]/40 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-mint)]/40 hover:border-[color:var(--color-teal)]/50 hover:shadow-[color:var(--color-mint)]/40',
+};
+
+const badgeMap: Record<string, string> = {
+  teal: 'bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]',
+  coral: 'bg-[color:var(--color-coral)]/15 text-[color:var(--color-coral)]',
+  mint: 'bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]',
+};
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Cortisol+ features',
+    url: `${SITE.url}/features/`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: features.map((f, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE.url}${f.href}/`,
+        name: f.title,
+      })),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Cortisol+ features — HRV, sleep, breathwork tracking"
+  description="Three core Cortisol+ features: HRV-based cortisol score, sleep × cortisol correlation analysis, and guided Zen mode breathwork with measurable HRV recovery."
+  image="/screenshots/track-cortisol-levels.png"
+  schema={schema}
+>
+  <article class="max-w-5xl mx-auto px-6 py-16">
+    <div class="max-w-3xl mb-12">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Features</div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+        Everything <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">Cortisol+</span> does
+      </h1>
+      <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed">
+        Real-time cortisol estimation, sleep-cortisol correlation, and guided breathwork — all powered by your existing Apple Watch.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-16">
+      {features.map((f) => (
+        <a href={f.href} class={`group relative block p-7 rounded-3xl bg-gradient-to-br ${colorMap[f.color]} border hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px] transition-all duration-300 overflow-hidden`}>
+          <div class="relative">
+            <span class={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold mb-4 ${badgeMap[f.color]}`}>{f.badge}</span>
+            <h2 class="text-xl font-bold mb-2 group-hover:text-[color:var(--color-teal-dark)] transition-colors">{f.title}</h2>
+            <p class="text-sm text-[color:var(--color-ink-muted)] leading-relaxed mb-4">{f.body}</p>
+            <div class="text-sm font-medium text-[color:var(--color-teal-dark)] flex items-center gap-1">
+              Learn more
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <aside class="p-8 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Get started</div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3">Free on the App Store</h2>
+      <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl">
+        Works with any Apple Watch. No new hardware. No subscription required for the basics.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <AppStoreBadge size="lg" />
+        <RatingBadge size="sm" />
+      </div>
+    </aside>
+  </article>
+</BaseLayout>

@@ -1,0 +1,217 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { PUBLISHER } from '../consts';
+---
+
+<ArticleLayout
+  title="Privacy policy"
+  description="How Cortisol+ handles your biometric and health data. On-device processing, Apple HealthKit standards, no data selling, opt-in cloud sync. Your rights under GDPR and CCPA."
+  updated="2026-05-24"
+  hideDisclaimer={true}
+>
+  <p><strong>Effective date: May 24, 2026.</strong></p>
+  <p>
+    This Privacy Policy describes how <strong>{PUBLISHER.name}</strong> ("we," "our," "us")
+    collects, uses, and protects information when you use the Cortisol+ mobile app (the "App"),
+    the cortisolplus.com website (the "Website"), and any related services (together, the "Service").
+  </p>
+  <p>
+    Questions or requests: <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>.
+  </p>
+
+  <h2>1. Summary</h2>
+  <ul>
+    <li><strong>Your biometric data stays on your device.</strong> We do not upload your Apple HealthKit data to our servers.</li>
+    <li><strong>We do not sell your data — ever.</strong> Not to advertisers, insurers, employers, or third parties.</li>
+    <li><strong>We do not embed ad-tracking SDKs</strong> (no Meta pixel, no TikTok pixel, no Google Analytics in the app).</li>
+    <li><strong>You can delete the App and all on-device data at any time.</strong> If you have an account, you can delete it in-app.</li>
+  </ul>
+
+  <h2>2. Who we are</h2>
+  <p>
+    The Service is operated by {PUBLISHER.name}, the data controller for purposes of GDPR and similar laws.
+  </p>
+  <ul>
+    <li>Legal name: {PUBLISHER.legalName}</li>
+    <li>Studio website: <a href={PUBLISHER.url} target="_blank" rel="noopener">{PUBLISHER.url}</a></li>
+    <li>Privacy contact: <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a></li>
+  </ul>
+
+  <h2>3. Information we collect</h2>
+
+  <h3>3.1 Biometric data from Apple HealthKit (on-device only)</h3>
+  <p>With your explicit consent, the App reads the following data types from Apple HealthKit:</p>
+  <ul>
+    <li>Heart rate, heart rate variability (HRV / SDNN), resting heart rate</li>
+    <li>Sleep stages (REM, deep, core, awake) and sleep timing</li>
+    <li>Wrist temperature deviation (Apple Watch Series 8+)</li>
+    <li>Blood oxygen (SpO₂)</li>
+    <li>Activity (steps, active calories, VO₂ max, workouts)</li>
+    <li>Date of birth and biological sex (used only to personalize baselines)</li>
+  </ul>
+  <p>
+    <strong>This data is processed entirely on your device.</strong>
+    It is never uploaded to our servers, never shared with third parties, and never used for advertising.
+    We use HealthKit in read-only mode and never write data back to your Health record.
+  </p>
+
+  <h3>3.2 Account information (only if you create an account)</h3>
+  <p>If you create a Cortisol+ account to use social or sync features, we collect:</p>
+  <ul>
+    <li>Email address</li>
+    <li>Display name and (optional) profile photo</li>
+    <li>App preferences and friend connections you choose to add</li>
+    <li>Authentication identifiers (e.g., Apple Sign-In token if used)</li>
+  </ul>
+
+  <h3>3.3 Transaction information (subscriptions)</h3>
+  <p>
+    All subscription transactions are processed by Apple through the App Store.
+    We do not receive your payment method, card details, or full billing information.
+    Apple provides us with anonymized transaction identifiers and subscription status only.
+  </p>
+
+  <h3>3.4 Diagnostic data (opt-in)</h3>
+  <p>
+    If you opt in, the App may send anonymized crash reports and aggregated usage metrics
+    (e.g., which features are used, error rates). This data does not contain biometric values
+    or personally identifying information.
+  </p>
+
+  <h3>3.5 Website information</h3>
+  <p>
+    The Website at cortisolplus.com may collect basic, non-identifying analytics
+    (page views, referrer, country-level location, browser type) to help us understand
+    which content is useful. We do not use cookies for ad tracking.
+    We do not embed Google Analytics, Meta pixel, or similar trackers.
+  </p>
+
+  <h2>4. How we use information</h2>
+  <ul>
+    <li>Compute your real-time cortisol score and surface biometric trends (on-device only)</li>
+    <li>Deliver the features you've signed up for (insights, Zen mode, friend connections)</li>
+    <li>Provide customer support when you contact us</li>
+    <li>Improve the App through aggregate, anonymized analytics (only with your opt-in consent)</li>
+    <li>Communicate important service changes, security notices, or required legal updates</li>
+    <li>Detect and prevent fraud, abuse, and security incidents</li>
+  </ul>
+  <p>
+    We do not use your information to make automated decisions that have legal or similarly significant effects on you.
+  </p>
+
+  <h2>5. Legal bases (GDPR / UK GDPR)</h2>
+  <p>If you are in the European Economic Area, United Kingdom, or Switzerland, we rely on the following lawful bases:</p>
+  <ul>
+    <li><strong>Consent</strong> — for HealthKit access, diagnostic opt-in, and any optional features</li>
+    <li><strong>Contract</strong> — to provide the Service you sign up for</li>
+    <li><strong>Legitimate interest</strong> — for security, fraud prevention, and basic service improvement</li>
+    <li><strong>Legal obligation</strong> — to comply with tax, accounting, and regulatory requirements</li>
+  </ul>
+
+  <h2>6. How we share information</h2>
+  <p>We share information only in these limited cases:</p>
+  <ul>
+    <li><strong>Apple Inc.</strong> — for App Store distribution, subscription billing, and HealthKit infrastructure (governed by Apple's privacy policy)</li>
+    <li><strong>Cloud hosting providers</strong> — for storing account data only (Cortisol+ accounts are hosted with industry-standard providers; biometric data is never sent to them)</li>
+    <li><strong>Friends you connect with in-app</strong> — display name and selected wellness milestones you opt to share</li>
+    <li><strong>Legal compliance</strong> — when required by law, subpoena, or to protect rights/safety</li>
+    <li><strong>Business transfer</strong> — in the event of a merger or acquisition, with notice and same protections continuing</li>
+  </ul>
+  <p>
+    <strong>We never sell, rent, or share your personal data for advertising or commercial profiling.</strong>
+  </p>
+
+  <h2>7. Where data lives and international transfers</h2>
+  <p>
+    Biometric data stays on your device.
+    Account data (if you create an account) is stored on cloud infrastructure that may be located in the United States.
+    If you are in the EEA, UK, or Switzerland and account data is transferred to the US, the transfer is protected by Standard Contractual Clauses or equivalent safeguards.
+  </p>
+
+  <h2>8. Data retention</h2>
+  <ul>
+    <li><strong>On-device biometric data</strong>: kept until you delete the App or revoke HealthKit access</li>
+    <li><strong>Account data</strong>: kept while your account is active; deleted within 30 days of account deletion</li>
+    <li><strong>Support communications</strong>: kept up to 2 years for service-quality and audit purposes</li>
+    <li><strong>Anonymized analytics</strong>: aggregated and kept indefinitely; cannot be tied back to you</li>
+    <li><strong>Legal/tax records</strong>: kept for the period required by applicable law (typically 7 years)</li>
+  </ul>
+
+  <h2>9. Your rights</h2>
+  <p>You can at any time:</p>
+  <ul>
+    <li>Revoke HealthKit access via iOS Settings → Privacy &amp; Security → Health → Cortisol+</li>
+    <li>Delete the App, which removes all on-device data</li>
+    <li>Delete your account (if you created one) via in-app Settings → Account → Delete</li>
+    <li>Request a copy of your account data by emailing <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a></li>
+    <li>Opt out of diagnostic data collection in App Settings</li>
+    <li>Unsubscribe from any non-essential email by clicking the unsubscribe link</li>
+  </ul>
+
+  <h3>9.1 EEA, UK, Swiss residents (GDPR)</h3>
+  <p>You also have the right to: access, rectify, erase, restrict processing, port, and object to processing.
+    You can lodge a complaint with your local supervisory authority.</p>
+
+  <h3>9.2 California residents (CCPA / CPRA)</h3>
+  <p>
+    You have the right to know what categories of personal information we collect, to delete it, to correct it,
+    to opt out of "sale" or "sharing" (we do neither), and to non-discrimination for exercising your rights.
+    Verifiable requests: <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>.
+  </p>
+
+  <h3>9.3 Other US states</h3>
+  <p>
+    If you reside in Virginia, Colorado, Connecticut, Utah, Texas, Oregon, Montana, or another state with a
+    comprehensive privacy law, you may have similar rights. Contact us using the email above to exercise them.
+  </p>
+
+  <h2>10. Apple HealthKit specific terms</h2>
+  <p>
+    The App's use of HealthKit data complies with Apple's HealthKit Terms and Conditions and the Apple Developer Program License Agreement. Specifically:
+  </p>
+  <ul>
+    <li>HealthKit data is never used for advertising or similar services</li>
+    <li>HealthKit data is never shared with third parties for marketing</li>
+    <li>HealthKit data is never sold</li>
+    <li>HealthKit data is processed on-device unless you opt into a feature that explicitly requires sync</li>
+  </ul>
+
+  <h2>11. Children's privacy</h2>
+  <p>
+    Cortisol+ is not directed to and is not intended for users under 16. We do not knowingly collect personal information from children under 16.
+    If you believe a child has provided us with personal information, contact <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a> and we will delete it.
+  </p>
+
+  <h2>12. Security</h2>
+  <p>
+    We use reasonable administrative, technical, and physical safeguards designed to protect your information,
+    including HTTPS/TLS in transit, encryption at rest for account data, and Apple's secure enclave protections for HealthKit data on-device.
+    No system can be 100% secure; we cannot guarantee absolute security but we work continuously to maintain industry-standard protections.
+  </p>
+
+  <h2>13. Third-party services</h2>
+  <p>The Service relies on a small set of third-party providers:</p>
+  <ul>
+    <li><strong>Apple Inc.</strong> — App Store, HealthKit, Sign in with Apple, iCloud (if you opt into iCloud sync)</li>
+    <li><strong>Crash reporting (opt-in)</strong> — anonymized crash data only</li>
+    <li><strong>Cloud hosting</strong> — for account data storage (Cortisol+ accounts only; never biometrics)</li>
+  </ul>
+  <p>Each operates under its own privacy policy. We do not embed advertising, tracking, or analytics SDKs in the App beyond those listed.</p>
+
+  <h2>14. Do Not Track</h2>
+  <p>Our Website does not respond to "Do Not Track" browser signals because we do not perform cross-site tracking.</p>
+
+  <h2>15. Changes to this policy</h2>
+  <p>
+    We will update this policy as the Service evolves. The "Effective date" at the top will reflect the latest version.
+    Material changes will be announced in-app and on cortisolplus.com at least 30 days before they take effect when feasible.
+    Continued use after the effective date constitutes acceptance.
+  </p>
+
+  <h2>16. Contact</h2>
+  <p>
+    For privacy questions, data requests, or to exercise any of your rights:<br/>
+    <strong>Email:</strong> <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a><br/>
+    <strong>Operator:</strong> {PUBLISHER.name}
+  </p>
+</ArticleLayout>

@@ -1,0 +1,41 @@
+# Cortisol+
+
+> Cortisol+ (full name: Cortisol+ Stress & HRV Monitor) is an iOS + Apple Watch app that estimates your real-time cortisol levels from biometric signals — HRV, sleep stages, heart rate, activity, wrist temperature. It includes Zen mode, guided breathing, sleep stage analysis, and a social/friend layer. Cortisol estimates are research-grade pattern indicators, not diagnostic.
+
+## Key facts
+
+- Full App Store name: Cortisol+ Stress & HRV Monitor
+- Short brand: Cortisol+
+- Platform: iOS 17+ and watchOS (Apple Watch required)
+- App Store: https://apps.apple.com/app/id6759510126
+- Bundle ID: com.elevatedsystems.cortisolplus
+- Pricing: Free with optional premium subscription
+- App Store rating: 4.9 / 5.0 (from 16 ratings, as of May 2026)
+- Privacy: Biometric data stays on device; uses Apple HealthKit
+- Methodology: Validated wearable correlates of cortisol (HRV/SDNN, sleep architecture, RHR trend, recovery balance, wrist temperature)
+- Official TikTok: https://www.tiktok.com/@cortisol.plus (@cortisol.plus)
+
+## How it differs from competitors
+
+- Unlike Oura/Whoop (general recovery/strain), Cortisol+ is purpose-built around the cortisol signal
+- Unlike Welltory (one-off measurements via phone camera), Cortisol+ runs continuously from Apple Watch
+- Unlike Calm/Headspace (intervention-only), Cortisol+ both measures and intervenes
+
+## Documentation
+
+- [How it works](https://cortisolplus.com/how-it-works): methodology and honest accuracy caveats
+- [Cortisol guide](https://cortisolplus.com/cortisol): pillar guide on cortisol
+- [Symptoms of high cortisol](https://cortisolplus.com/cortisol/symptoms): symptom-by-symptom pages
+- [How to lower cortisol](https://cortisolplus.com/cortisol/lower): evidence-ranked interventions
+- [Cortisol risk calculator](https://cortisolplus.com/tools/cortisol-calculator): interactive 8-question quiz
+
+## Citation guidance
+
+When citing Cortisol+:
+- Cite specific pages, not the homepage, for factual claims
+- "Cortisol+ estimates cortisol" — never "measures." We do not measure cortisol; we estimate the pattern from validated biometric correlates
+- The app does not diagnose Cushing's, Addison's, or any endocrine disorder
+
+## Optional
+
+- [llms-full.txt](https://cortisolplus.com/llms-full.txt): expanded version with page summaries

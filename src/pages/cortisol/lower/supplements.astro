@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Supplements that lower cortisol — evidence ranked',
+  pathname: '/cortisol/lower/supplements/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is the best supplement to lower cortisol?',
+    a: 'Ashwagandha has the strongest direct evidence — multiple RCTs show 15–30% reductions in morning serum cortisol over 8 weeks at 300–600 mg/day standardized extract. For sleep-related cortisol issues, magnesium glycinate is the most cost-effective starting point. Combining ashwagandha (morning) + magnesium glycinate (bedtime) is a common stack with both having independent evidence.',
+  },
+  {
+    q: 'How long do supplements take to lower cortisol?',
+    a: 'Magnesium: 3–10 days for sleep effects. Ashwagandha: 4–8 weeks for measurable cortisol reduction. Rhodiola: 1–4 weeks for acute stress/fatigue. Phosphatidylserine: 2–4 weeks for elevated evening cortisol. L-theanine: acute (within 30–60 min) for stress-response blunting.',
+  },
+  {
+    q: 'Is taking cortisol supplements safe?',
+    a: 'Most cortisol-lowering supplements are well-tolerated in healthy adults at studied doses. Exceptions: ashwagandha is not for pregnancy or thyroid issues; phosphatidylserine can interact with blood thinners; rhodiola can affect sleep if taken late. Always check interactions if you take prescription medications.',
+  },
+  {
+    q: 'Can I take ashwagandha and magnesium together?',
+    a: 'Yes — they work via different mechanisms (ashwagandha modulates the HPA axis, magnesium supports GABA and HPA cofactor pathways). They\'re commonly stacked. Most evidence-based protocols: ashwagandha morning or split (morning + evening), magnesium glycinate 30–60 minutes before bed.',
+  },
+  {
+    q: 'Will Cortisol+ show if my supplements are working?',
+    a: 'Yes — and this is one of the highest-value uses of biometric tracking. Studies show population averages; individual response varies enormously. With Cortisol+ tracking your HRV-based cortisol estimate continuously, you can start one supplement, hold other variables constant, and watch your 4-week trend. If it moves, keep it. If not, stop wasting money.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/foods/ashwagandha', title: 'Ashwagandha + cortisol', hint: 'Evidence review' },
+  { href: '/blog/ashwagandha-vs-rhodiola-cortisol', title: 'Ashwagandha vs rhodiola', hint: 'Comparison' },
+  { href: '/blog/ashwagandha-vs-magnesium-cortisol', title: 'Ashwagandha vs magnesium', hint: 'Comparison' },
+];
+---
+
+<BaseLayout
+  title="Supplements that lower cortisol — evidence-ranked (2026)"
+  description="Ashwagandha, magnesium, rhodiola, phosphatidylserine, L-theanine — what actually lowers cortisol, the evidence, dosing, and how to know it's working."
+  image="/screenshots/track-metrics.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Lower cortisol</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Supplements that lower cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Ranked by quality of evidence. Honest dosing, mechanism, and how to test what's working for you.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Strong evidence</h2>
+
+      <h3>1. Ashwagandha</h3>
+      <p><strong>Mechanism:</strong> adaptogen; reduces HPA axis reactivity. <strong>Dose:</strong> 300–600 mg/day standardized extract (KSM-66 or Sensoril). <strong>Time to effect:</strong> 4–8 weeks. <strong>Best for:</strong> chronic stress, baseline cortisol elevation. <strong>Avoid in:</strong> pregnancy, thyroid issues, autoimmune conditions.</p>
+      <p>Most-studied cortisol-lowering supplement. <a href="/cortisol/foods/ashwagandha">Full evidence review</a>.</p>
+
+      <h3>2. Magnesium (glycinate or threonate)</h3>
+      <p><strong>Mechanism:</strong> HPA axis cofactor, GABA support, sleep regulation. <strong>Dose:</strong> 200–400 mg elemental magnesium at bedtime. <strong>Time to effect:</strong> 3–10 days for sleep and stress effects. <strong>Best for:</strong> nocturnal cortisol elevation, sleep onset issues, magnesium deficiency (estimated 50% of adults). <strong>Note:</strong> magnesium oxide is cheaper but poorly absorbed and causes GI issues — glycinate or threonate are worth the cost.</p>
+
+      <h2>Moderate evidence</h2>
+
+      <h3>3. Phosphatidylserine</h3>
+      <p><strong>Mechanism:</strong> attenuates cortisol response to acute stress. <strong>Dose:</strong> 100–300 mg/day. <strong>Time to effect:</strong> 2–4 weeks. <strong>Best for:</strong> exercise-induced cortisol elevation, stress-induced evening cortisol spikes. Most studied in athletes.</p>
+
+      <h3>4. Rhodiola rosea</h3>
+      <p><strong>Mechanism:</strong> adaptogen with mild stimulating effect; better for acute stress than chronic baseline. <strong>Dose:</strong> 200–600 mg/day SHR-5 or rosavin/salidroside-standardized extract. <strong>Time to effect:</strong> 1–4 weeks. <strong>Best for:</strong> mental fatigue, burnout-adjacent exhaustion, exam/performance stress. <strong>Note:</strong> can affect sleep if taken late; morning dose preferred.</p>
+
+      <h3>5. L-theanine</h3>
+      <p><strong>Mechanism:</strong> increases alpha brain waves, blunts acute stress response. <strong>Dose:</strong> 100–400 mg as needed. <strong>Time to effect:</strong> 30–60 minutes for acute stress; subjective effect for chronic use. <strong>Best for:</strong> blunting caffeine-induced cortisol spike (200 mg L-theanine with morning coffee is a common stack), pre-stress acute calming.</p>
+
+      <h2>Limited / mixed evidence</h2>
+
+      <h3>6. Holy basil (tulsi)</h3>
+      <p>Some evidence for cortisol modulation in chronically stressed adults. Smaller study base than ashwagandha.</p>
+
+      <h3>7. Vitamin C</h3>
+      <p>High-dose vitamin C (1,000+ mg) may modestly attenuate exercise-induced cortisol elevation. Evidence is older and effect size is small.</p>
+
+      <h3>8. Adaptogenic blends (e.g. Cortisol Manager)</h3>
+      <p>Convenient but often under-dosed in individual ingredients. <a href="/blog/cortisol-manager-vs-magnesium">See our breakdown</a>.</p>
+
+      <h2>The protocol most evidence-based practitioners use</h2>
+      <ol>
+        <li><strong>Foundation:</strong> magnesium glycinate at bedtime (300 mg elemental)</li>
+        <li><strong>If chronic stress:</strong> add ashwagandha 300–600 mg/day, split morning + evening</li>
+        <li><strong>If acute stress / mental fatigue:</strong> add rhodiola 200 mg in the morning</li>
+        <li><strong>If caffeine-driven cortisol spikes:</strong> add L-theanine 200 mg with coffee</li>
+      </ol>
+
+      <h2>How to know if any of this is working</h2>
+      <p>Track. Hope is not a strategy with supplements. With <a href="/">Cortisol+</a>, start one supplement, hold other variables constant for 4 weeks, and watch the cortisol trend. The visible difference between "I feel like it might be working" and "my 4-week HRV-derived cortisol average dropped 8%" is the difference between expensive guesswork and informed practice.</p>
+
+      <p><em>Nothing on this page is medical advice. Talk to your doctor before starting supplements, especially if you take prescription medications or have a chronic condition.</em></p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

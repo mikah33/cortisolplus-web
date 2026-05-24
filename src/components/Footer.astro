@@ -1,0 +1,97 @@
+---
+import { SITE } from '../consts';
+---
+
+<footer class="border-t border-[color:var(--color-border)] mt-32">
+  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-5 gap-8 text-sm">
+    <div class="md:col-span-2">
+      <div class="font-semibold text-base mb-2 flex items-center gap-2">
+        <img src="/apple-touch-icon.png" alt="Cortisol+" width="24" height="24" class="w-6 h-6 rounded-md" />
+        {SITE.name}
+      </div>
+      <p class="text-[color:var(--color-ink-muted)] mb-4 max-w-xs">
+        Real-time cortisol estimation from Apple Watch biometrics.
+      </p>
+      <a href={SITE.appStoreUrl} class="inline-flex items-center gap-1.5 text-xs text-[color:var(--color-teal-dark)] hover:text-[color:var(--color-teal)] font-medium">
+        Get on App Store →
+      </a>
+      <div class="mt-4 flex items-center gap-3">
+        <a href={SITE.tiktok} target="_blank" rel="noopener" aria-label="Cortisol+ on TikTok" class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/>
+          </svg>
+        </a>
+        <a href={SITE.tiktok} class="text-xs text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-teal)]">{SITE.tiktokHandle}</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Tools</div>
+      <ul class="space-y-2">
+        <li><a href="/tools/cortisol-calculator" class="hover:text-[color:var(--color-teal)]">Cortisol risk calculator</a></li>
+        <li><a href="/tools/morning-cortisol-test" class="hover:text-[color:var(--color-teal)]">Morning cortisol test</a></li>
+        <li><a href="/tools/stress-score" class="hover:text-[color:var(--color-teal)]">Stress score quiz</a></li>
+        <li><a href="/tools/burnout-risk" class="hover:text-[color:var(--color-teal)]">Burnout assessment</a></li>
+        <li><a href="/tools/sleep-debt-cortisol" class="hover:text-[color:var(--color-teal)]">Sleep debt × cortisol</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Cortisol guide</div>
+      <ul class="space-y-2">
+        <li><a href="/cortisol" class="hover:text-[color:var(--color-teal)]">Full guide</a></li>
+        <li><a href="/cortisol/symptoms" class="hover:text-[color:var(--color-teal)]">Symptoms</a></li>
+        <li><a href="/cortisol/symptoms/cortisol-face" class="hover:text-[color:var(--color-teal)]">Cortisol face</a></li>
+        <li><a href="/cortisol/lower" class="hover:text-[color:var(--color-teal)]">How to lower</a></li>
+        <li><a href="/cortisol/foods/ashwagandha" class="hover:text-[color:var(--color-teal)]">Ashwagandha</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">For you</div>
+      <ul class="space-y-2">
+        <li><a href="/faq-perimenopause" class="hover:text-[color:var(--color-teal)]">Perimenopause</a></li>
+        <li><a href="/faq-burnout" class="hover:text-[color:var(--color-teal)]">Burnout</a></li>
+        <li><a href="/faq-shift-workers" class="hover:text-[color:var(--color-teal)]">Shift workers</a></li>
+        <li><a href="/faq-athletes" class="hover:text-[color:var(--color-teal)]">Athletes</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 pb-8 grid md:grid-cols-3 gap-8 text-sm">
+    <div>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Blog highlights</div>
+      <ul class="space-y-2">
+        <li><a href="/blog/cortisol-mocktail-truth" class="hover:text-[color:var(--color-teal)]">The cortisol mocktail truth</a></li>
+        <li><a href="/blog/ashwagandha-vs-rhodiola-cortisol" class="hover:text-[color:var(--color-teal)]">Ashwagandha vs Rhodiola</a></li>
+        <li><a href="/blog/oura-vs-whoop-stress-tracking" class="hover:text-[color:var(--color-teal)]">Oura vs Whoop for stress</a></li>
+        <li><a href="/blog" class="hover:text-[color:var(--color-teal)]">All posts →</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Product</div>
+      <ul class="space-y-2">
+        <li><a href="/how-it-works" class="hover:text-[color:var(--color-teal)]">How it works</a></li>
+        <li><a href="/download" class="hover:text-[color:var(--color-teal)]">Download</a></li>
+        <li><a href="/about" class="hover:text-[color:var(--color-teal)]">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Legal</div>
+      <ul class="space-y-2">
+        <li><a href="/privacy" class="hover:text-[color:var(--color-teal)]">Privacy</a></li>
+        <li><a href="/terms" class="hover:text-[color:var(--color-teal)]">Terms</a></li>
+        <li><a href="/.well-known/security.txt" class="hover:text-[color:var(--color-teal)]">Security</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-[color:var(--color-border)]">
+    <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-[color:var(--color-ink-muted)] flex flex-col md:flex-row justify-between gap-2">
+      <div>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</div>
+      <div>
+        Cortisol estimates are not medical diagnostics. Consult a healthcare provider for medical advice.
+      </div>
+    </div>
+  </div>
+</footer>

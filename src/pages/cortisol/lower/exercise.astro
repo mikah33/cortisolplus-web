@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Exercise to lower cortisol — the right kind, the right amount',
+  pathname: '/cortisol/lower/exercise/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Does exercise raise or lower cortisol?',
+    a: 'Both — depending on intensity, duration, and your current state. Moderate exercise (walking, easy cycling, low-intensity strength) lowers chronic cortisol. High-intensity exercise (HIIT, heavy lifting, long endurance) acutely RAISES cortisol — and that\'s healthy if you recover adequately. The problem is chronic intensity without recovery, which keeps cortisol elevated 24/7.',
+  },
+  {
+    q: 'What\'s the best exercise to lower cortisol?',
+    a: 'For chronic cortisol reduction: zone 2 cardio (conversational pace) 3–4 times per week, plus 2 sessions of moderate resistance training. Yoga, Tai Chi, and walking are also strongly supported. For acute cortisol relief in the moment: a 20-minute walk outside (especially in sunlight) reliably drops cortisol and raises mood.',
+  },
+  {
+    q: 'Is HIIT bad for cortisol?',
+    a: 'Not inherently. A single HIIT session acutely spikes cortisol — that\'s the training stimulus. The problem is doing HIIT daily without recovery, which keeps cortisol chronically elevated. 1–2 true HIIT sessions per week, separated by easier days, is sustainable. Daily HIIT for weeks is overtraining territory.',
+  },
+  {
+    q: 'How do I know if I\'m overtraining?',
+    a: 'Key signals: morning resting heart rate elevated 5–10+ bpm above baseline for 5+ days, HRV suppressed 10%+ below your 30-day average, persistent fatigue not improved by 2 days of rest, sleep disruption despite exhaustion, declining performance. Cortisol+ tracks the HRV/RHR pattern that predicts overreaching 1–2 weeks before subjective symptoms peak.',
+  },
+  {
+    q: 'When should I exercise to lower cortisol?',
+    a: 'Morning exercise (within 2 hours of waking) reinforces a healthy diurnal cortisol curve — sharp morning peak, evening trough. Evening intense exercise (within 4 hours of bed) raises evening cortisol and core temperature, disrupting sleep. If you must exercise PM, finish 4+ hours before bed and prioritize a cool-down.',
+  },
+];
+
+const related = [
+  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'The biggest lever' },
+  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7-question quiz' },
+  { href: '/faq-athletes', title: 'Cortisol for athletes', hint: 'Overtraining biomarkers' },
+];
+---
+
+<BaseLayout
+  title="Exercise to lower cortisol — the right dose"
+  description="Which exercise lowers cortisol, which raises it, how to find the sweet spot. Zone 2, HIIT, yoga, walking — what the evidence actually says, and the overtraining warning signs. Updated 2026."
+  image="/screenshots/track-metrics.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Lower cortisol</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Exercise to lower cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Moderate exercise lowers chronic cortisol. Too much exercise raises it. Here's the sweet spot.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The non-obvious truth</h2>
+      <p>Exercise is BOTH a cortisol-lowering and cortisol-raising intervention, depending on dose. The U-shaped curve looks like this:</p>
+      <ul>
+        <li>Sedentary → high baseline cortisol</li>
+        <li>Moderate exercise → lowest baseline cortisol</li>
+        <li>Excessive training without recovery → high chronic cortisol (overtraining syndrome)</li>
+      </ul>
+      <p>The goal is to land in the middle.</p>
+
+      <h2>What lowers cortisol most reliably</h2>
+
+      <h3>1. Zone 2 cardio</h3>
+      <p>Conversational-pace cardio (you can hold a conversation but not sing). 3–4 sessions per week of 30–60 minutes. Zone 2 strongly improves baseline HRV and lowers chronic cortisol. Examples: brisk walking, easy cycling, slow jogging, swimming. Not glamorous; very effective.</p>
+
+      <h3>2. Walking outside (especially morning sunlight)</h3>
+      <p>A 20–30 minute walk outdoors lowers cortisol acutely. Morning walks add a circadian-rhythm bonus — bright light exposure within 1 hour of waking reinforces a healthy CAR. Highest leverage: do this AND zone 2 cardio counts as both.</p>
+
+      <h3>3. Yoga (especially restorative or vinyasa)</h3>
+      <p>Multiple RCTs show 8–12 weeks of regular yoga lowers baseline cortisol. Restorative and slower vinyasa show stronger effects than hot/power yoga.</p>
+
+      <h3>4. Moderate resistance training</h3>
+      <p>2–3 sessions per week of moderate-load strength work supports cortisol regulation, improves sleep, and builds metabolic resilience. The key is "moderate" — you shouldn't be wrecked the next day.</p>
+
+      <h2>What raises cortisol (and when that's OK)</h2>
+
+      <h3>HIIT and high-intensity work</h3>
+      <p>A single HIIT session acutely raises cortisol — that's the training adaptation signal. With adequate recovery (48–72 hours between sessions), this is healthy. Done daily without recovery, it drives chronic elevation.</p>
+
+      <h3>Long endurance (90+ min hard efforts)</h3>
+      <p>Marathons, long bike rides, ultra training. Acute massive cortisol rise. Adequate recovery and periodization make this sustainable; year-round high mileage without down weeks does not.</p>
+
+      <h3>Daily heavy lifting</h3>
+      <p>Heavy lifting 5+ days/week without recovery elevates chronic cortisol. Most evidence-based programs include planned deload weeks every 4–8 weeks specifically to allow cortisol to normalize.</p>
+
+      <h2>The overtraining warning signs</h2>
+      <p>If you train hard, watch for:</p>
+      <ul>
+        <li>Resting heart rate elevated 5–10+ bpm above baseline for 5+ days</li>
+        <li>HRV suppressed 10%+ below 30-day average</li>
+        <li>Persistent fatigue not resolved by 2 days of rest</li>
+        <li>Disrupted sleep despite exhaustion</li>
+        <li>Declining performance despite continued training</li>
+        <li>Mood changes — irritability, low motivation</li>
+      </ul>
+      <p>These are the biomarkers of cortisol-driven overreaching. <a href="/faq-athletes">More on the athlete-specific protocol</a>.</p>
+
+      <h2>The right weekly template (for non-athletes)</h2>
+      <ul>
+        <li><strong>3–4 days</strong>: zone 2 cardio (30–60 min, conversational pace)</li>
+        <li><strong>2 days</strong>: resistance training (moderate, 45–60 min)</li>
+        <li><strong>1–2 days</strong>: yoga, walking, or active recovery</li>
+        <li><strong>0–1 days</strong>: HIIT or high-intensity (only if recovered)</li>
+        <li><strong>1 day</strong>: full rest</li>
+      </ul>
+
+      <h2>How Cortisol+ helps you calibrate</h2>
+      <p>The hardest part of exercise-as-cortisol-medicine is knowing when you're under-recovering. <a href="/">Cortisol+</a> tracks the HRV/RHR/recovery pattern that signals overreaching — usually 1–2 weeks before subjective fatigue peaks. When your trend bends in the wrong direction, you back off; when it recovers, you push.</p>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

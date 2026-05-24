@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+import { getCollection } from 'astro:content';
+import { medicalWebPage } from '../../../lib/schema';
+import { SITE } from '../../../consts';
+
+const foods = await getCollection('foods');
+
+const effectColor: Record<string, string> = {
+  lowers: 'bg-[color:var(--color-level-low)]/15 text-[color:var(--color-level-low)]',
+  raises: 'bg-[color:var(--color-level-high)]/15 text-[color:var(--color-level-high)]',
+  neutral: 'bg-[color:var(--color-ink-muted)]/15 text-[color:var(--color-ink-muted)]',
+};
+
+const evidenceColor: Record<string, string> = {
+  strong: 'bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]',
+  moderate: 'bg-[color:var(--color-warn,#fbbf24)]/15 text-[color:var(--color-warn,#fbbf24)]',
+  limited: 'bg-[color:var(--color-coral)]/15 text-[color:var(--color-coral)]',
+};
+
+const schema = [
+  medicalWebPage({
+    name: 'Foods × cortisol database — does it lower, raise, or do nothing?',
+    pathname: '/cortisol/foods/',
+  }),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Foods × cortisol database',
+    url: `${SITE.url}/cortisol/foods/`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: foods.map((f, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE.url}/cortisol/foods/${f.id}/`,
+        name: f.data.title,
+      })),
+    },
+  },
+];
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Which foods lower cortisol the most?',
+    a: 'Strongest evidence: dark chocolate (70%+ cacao, 40g), omega-3 rich fish (salmon, sardines, 2× weekly), and magnesium-rich foods (leafy greens, pumpkin seeds, almonds). Fermented foods and polyphenol-rich items (berries, green tea, olive oil) have moderate evidence.',
+  },
+  {
+    q: 'What foods raise cortisol?',
+    a: 'Reliable cortisol-raisers: excess caffeine (especially on an empty stomach), alcohol, high-glycemic refined carbs on an empty stomach, ultra-processed foods, and skipping meals when chronically stressed. The single biggest hidden cortisol input in most diets is alcohol.',
+  },
+  {
+    q: 'Does food matter more than supplements for cortisol?',
+    a: 'Generally yes — food is the foundation, supplements are the layer. Fixing chronic caffeine + alcohol + nutrient deficiencies usually does more than any single supplement. But the high-evidence supplements (ashwagandha, magnesium glycinate) work synergistically with a clean foundation, not as a substitute.',
+  },
+];
+---
+
+<BaseLayout
+  title="Foods × cortisol database — what lowers, what raises (2026)"
+  description="Evidence-ranked database of how specific foods affect cortisol. Per-food pages with study citations, dosing, mechanism, and how to track if it's working for you."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Database · Updated 2026</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Foods × cortisol</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10 max-w-2xl">
+      Per-food evidence reviews. Does it lower cortisol, raise it, or do nothing? With citations.
+    </p>
+
+    {foods.length === 0 ? (
+      <p class="text-[color:var(--color-ink-muted)]">Food pages coming soon.</p>
+    ) : (
+      <div class="grid md:grid-cols-2 gap-4 mb-16">
+        {foods.map((f) => (
+          <a href={`/cortisol/foods/${f.id}`} class="group block p-6 rounded-2xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:-translate-y-0.5 transition">
+            <div class="flex items-center gap-2 mb-3">
+              <span class={`px-2 py-0.5 rounded-full text-xs font-semibold ${effectColor[f.data.effect]}`}>{f.data.effect}</span>
+              <span class={`px-2 py-0.5 rounded-full text-xs font-semibold ${evidenceColor[f.data.evidenceLevel]}`}>{f.data.evidenceLevel} evidence</span>
+            </div>
+            <h2 class="text-xl font-semibold mb-1 group-hover:text-[color:var(--color-teal-dark)] transition capitalize">{f.data.food}</h2>
+            <p class="text-sm text-[color:var(--color-ink-muted)]">{f.data.description}</p>
+          </a>
+        ))}
+      </div>
+    )}
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={[
+      { href: '/cortisol/lower/foods', title: 'Foods that lower cortisol', hint: 'Ranked guide' },
+      { href: '/cortisol/lower/supplements', title: 'Supplements that lower cortisol', hint: 'Ranked guide' },
+      { href: '/cortisol/lower', title: 'Full how-to-lower guide', hint: 'All interventions' },
+    ]} />
+  </article>
+</BaseLayout>

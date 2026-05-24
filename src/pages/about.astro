@@ -1,0 +1,80 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { PUBLISHER, SITE, APP_RATING } from '../consts';
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: PUBLISHER.name,
+  legalName: PUBLISHER.legalName,
+  url: PUBLISHER.url,
+  email: PUBLISHER.email,
+  sameAs: [PUBLISHER.url],
+  publishingPrinciples: `${SITE.url}/about/`,
+  knowsAbout: ['Cortisol', 'Stress tracking', 'HRV', 'Sleep', 'Apple Watch', 'Wearable health'],
+  makesOffer: {
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'MobileApplication',
+      name: SITE.fullName,
+      url: SITE.appStoreUrl,
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: APP_RATING.value,
+        ratingCount: APP_RATING.count,
+        bestRating: APP_RATING.best,
+      },
+    },
+  },
+};
+---
+
+<ArticleLayout
+  title="About Cortisol+ — the team behind the app"
+  description="Why we built Cortisol+, who we are, and the principles we hold ourselves to. Independent, on-device privacy, evidence-first health content with citations."
+  updated="2026-05-23"
+  schema={orgSchema}
+>
+  <h2>Why Cortisol+ exists</h2>
+  <p>Stress and cortisol are everywhere in modern wellness conversation, but until recently there was no way to actually see what your cortisol was doing day-to-day. You could get a one-time saliva test, or guess from symptoms, or buy a $300 wearable that called everything "stress" without ever saying the word cortisol.</p>
+
+  <p>Apple Watch already collects every biometric correlated with cortisol — HRV, sleep stages, resting heart rate, recovery patterns, wrist temperature. The data was sitting there. What was missing was an app that combined those signals into a continuous cortisol-pattern estimate and was honest about what that estimate is (a pattern indicator) and isn't (a clinical value).</p>
+
+  <p>Cortisol+ is that app.</p>
+
+  <h2>Who builds Cortisol+</h2>
+  <p>Cortisol+ is built and operated by <a href={PUBLISHER.url} rel="noopener" target="_blank"><strong>{PUBLISHER.name}</strong></a>, an independent software studio focused on consumer health apps and biometric data systems. We started building Cortisol+ because the gap between what wearables can show users and what they actually do was a problem we wanted to solve for ourselves.</p>
+
+  <p>We're not endocrinologists. For medical questions about cortisol, see a doctor. For tools that help you see and improve your daily cortisol pattern, we're here.</p>
+
+  <h2>How we're different</h2>
+  <ul>
+    <li><strong>Cortisol-specific framing.</strong> We don't call it "stress" or "recovery" — we call it cortisol because that's the signal you actually want to understand.</li>
+    <li><strong>Built on the Apple Watch you already own.</strong> No new $300 hardware. If you have any Apple Watch, you have everything Cortisol+ needs.</li>
+    <li><strong>On-device privacy.</strong> Your biometric data never leaves your phone unless you explicitly opt in to cloud sync. We don't sell or share your health data, ever.</li>
+    <li><strong>Independent, not VC-burnout.</strong> We're not chasing a $1B exit; we're building a tool we want to use ourselves.</li>
+    <li><strong>Evidence-first content.</strong> Every claim on this site cites the research. Every section gets filled with peer-reviewed sourcing, not affiliate copy.</li>
+  </ul>
+
+  <h2>What we promise</h2>
+  <ul>
+    <li>We will never tell you we measure cortisol when we estimate it.</li>
+    <li>We will never push supplements or affiliate products you don't need.</li>
+    <li>We will tell you when our estimate is uncertain (low data quality, baseline still building).</li>
+    <li>We will not gate basic biometric data behind a paywall — your data is yours.</li>
+    <li>We will keep evolving the methodology as the wearable HRV–cortisol literature grows.</li>
+  </ul>
+
+  <h2>How to reach us</h2>
+  <p>Support, feedback, press, partnerships — email <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. We read everything.</p>
+
+  <h2>Editorial standards</h2>
+  <p>Health content on this site follows these standards:</p>
+  <ul>
+    <li>Claims about cortisol biology cite peer-reviewed sources where possible</li>
+    <li>Dosing and intervention pages distinguish "strong evidence," "moderate evidence," and "limited evidence" explicitly</li>
+    <li>We mark uncertainty when it exists rather than hiding it</li>
+    <li>Content is updated annually (look for the year stamp on titles) and reviewed by {PUBLISHER.name} editorial</li>
+    <li>Nothing on this site is medical advice; talk to a healthcare provider for diagnosis or treatment</li>
+  </ul>
+</ArticleLayout>
