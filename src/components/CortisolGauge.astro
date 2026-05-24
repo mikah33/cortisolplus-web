@@ -5,20 +5,20 @@ interface Props {
 }
 const { score = 42, label = 'Normal' } = Astro.props;
 
-// SVG geometry — wider+taller so the readout sits cleanly BELOW the arc
-// with proper visual breathing room (no overlap).
+// Compact, integrated speedometer where the score lives INSIDE the bowl
+// of the arc, not floating below it. Aspect ratio chosen so the SVG height
+// roughly equals the visual height of the gauge — no wasted vertical space.
 const viewW = 360;
-const viewH = 280;
+const viewH = 200;
 const cx = viewW / 2;
-const cy = 170;        // arc center sits in upper portion; readout fills lower
-const r = 125;
+const cy = 165;        // arc center near bottom — bowl opens fully into the readout area
+const r = 130;
 const stroke = 22;
 
 const pct = Math.min(100, Math.max(0, score));
 const t = pct / 100;
 
-// Bottom-open semicircle: arc opens downward, curved part is on top.
-// Parametrize the TOP semicircle (left → top → right):
+// Top-half semicircle parametrization (left→top→right):
 //   x(t) = cx - r*cos(t*pi)
 //   y(t) = cy - r*sin(t*pi)
 function pointAt(s: number, radius = r) {
@@ -28,35 +28,27 @@ function pointAt(s: number, radius = r) {
 
 const start = pointAt(0);
 const end = pointAt(1);
-// Path: arc going clockwise (sweep=1) over the top
 const arcPath = `M ${start.x} ${start.y} A ${r} ${r} 0 0 1 ${end.x} ${end.y}`;
-
 const indicator = pointAt(t);
 
-// Zone boundaries from iOS CortisolLevel enum (Low <30, Normal <45, Elevated <60, High 60+)
 const tickPositions = [30, 45, 60];
-
-const labelLow = pointAt(0, r - 28);
-const labelSevere = pointAt(1, r - 28);
 ---
 
-<div class="relative w-full max-w-[400px] mx-auto animate-breathe-slow select-none">
+<div class="relative w-full max-w-[420px] mx-auto animate-breathe-slow select-none">
   <svg viewBox={`0 0 ${viewW} ${viewH}`} class="w-full h-auto" aria-hidden="true">
     <defs>
-      <!-- Speedometer gradient: green (low/healthy) → yellow → red (severe).
-           userSpaceOnUse so colors map to arc x-position, not score length. -->
       <linearGradient
         id="gauge-grad"
         x1={start.x} y1="0"
         x2={end.x}   y2="0"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0%"   stop-color="#22c55e"/>{/* low */}
+        <stop offset="0%"   stop-color="#22c55e"/>
         <stop offset="22%"  stop-color="#4ade80"/>
-        <stop offset="42%"  stop-color="#a3e635"/>{/* normal→elevated */}
+        <stop offset="42%"  stop-color="#a3e635"/>
         <stop offset="56%"  stop-color="#facc15"/>
-        <stop offset="72%"  stop-color="#f97316"/>{/* elevated */}
-        <stop offset="100%" stop-color="#ef4444"/>{/* high/severe */}
+        <stop offset="72%"  stop-color="#f97316"/>
+        <stop offset="100%" stop-color="#ef4444"/>
       </linearGradient>
 
       <filter id="gauge-arc-glow" x="-10%" y="-10%" width="120%" height="120%">
@@ -113,19 +105,19 @@ const labelSevere = pointAt(1, r - 28);
       );
     })}
 
-    <!-- LOW / SEVERE end labels (sitting just below the arc tips, INSIDE the bowl) -->
+    <!-- LOW / SEVERE labels under the arc tips -->
     <text
-      x={start.x + 18} y={start.y + 22}
+      x={start.x + 14} y={start.y + 18}
       text-anchor="middle"
       class="fill-[color:var(--color-ink-muted)]"
-      font-size="11" font-weight="700" letter-spacing="2">LOW</text>
+      font-size="10" font-weight="700" letter-spacing="2">LOW</text>
     <text
-      x={end.x - 18} y={end.y + 22}
+      x={end.x - 14} y={end.y + 18}
       text-anchor="middle"
       class="fill-[color:var(--color-ink-muted)]"
-      font-size="11" font-weight="700" letter-spacing="2">SEVERE</text>
+      font-size="10" font-weight="700" letter-spacing="2">SEVERE</text>
 
-    <!-- Indicator: outer glow halo + solid pill + center pin -->
+    <!-- Indicator (halo + ring + dot) -->
     <circle
       class="gauge-indicator-halo"
       cx={indicator.x} cy={indicator.y} r="18"
@@ -135,53 +127,51 @@ const labelSevere = pointAt(1, r - 28);
     />
     <circle
       class="gauge-indicator-ring"
-      cx={indicator.x} cy={indicator.y} r="13"
+      cx={indicator.x} cy={indicator.y} r="12"
       fill="white"
       stroke="var(--color-ink)"
       stroke-width="2.5"
     />
     <circle
       class="gauge-indicator-dot"
-      cx={indicator.x} cy={indicator.y} r="5"
+      cx={indicator.x} cy={indicator.y} r="4.5"
       fill="var(--color-ink)"
     />
   </svg>
 
-  <!-- Readout overlay: positioned in the LOWER portion of the SVG so it
-       sits clearly below the arc without overlap. The arc top is around
-       28% of the gauge height; readout uses the bottom ~38%. -->
-  <div class="absolute inset-x-0 bottom-0 flex flex-col items-center pb-3" style="top: 58%;">
+  <!-- Readout sits INSIDE the bowl of the arc, anchored to the arc's center area.
+       It's vertically positioned to land below the arc's apex but above the bottom
+       of the bowl, matching a real speedometer's center display. -->
+  <div
+    class="absolute inset-x-0 flex flex-col items-center"
+    style="top: 38%;"
+  >
     <div
-      class="text-5xl md:text-[3.5rem] font-bold tracking-tight tabular-nums leading-none"
+      class="text-4xl md:text-5xl font-bold tracking-tight tabular-nums leading-none"
       data-count-target={score}
     >0</div>
-    <div class="text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-ink-muted)] font-semibold mt-2">cortisol score</div>
-    <div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-br from-[color:var(--color-teal)]/15 to-[color:var(--color-mint)]/15 text-[color:var(--color-teal-dark)] border border-[color:var(--color-teal)]/30">
-      <span class="w-1.5 h-1.5 rounded-full bg-[color:var(--color-teal)]"></span>
+    <div class="text-[9px] uppercase tracking-[0.22em] text-[color:var(--color-ink-muted)] font-semibold mt-1.5">cortisol score</div>
+    <div class="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-gradient-to-br from-[color:var(--color-teal)]/12 to-[color:var(--color-mint)]/12 text-[color:var(--color-teal-dark)] border border-[color:var(--color-teal)]/25">
+      <span class="w-1 h-1 rounded-full bg-[color:var(--color-teal)]"></span>
       {label}
     </div>
   </div>
 </div>
 
 <style>
-  /* Arc draws on mount */
   .gauge-arc {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: draw-gauge 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   }
-  @keyframes draw-gauge {
-    to { stroke-dashoffset: 0; }
-  }
+  @keyframes draw-gauge { to { stroke-dashoffset: 0; } }
 
-  /* Ticks fade in after the arc */
   .gauge-tick {
     opacity: 0;
     animation: fade-in 0.5s ease-out 1.2s forwards;
   }
   @keyframes fade-in { to { opacity: 0.9; } }
 
-  /* Indicator: halo + ring + dot all pop in together with a small overshoot */
   .gauge-indicator-halo,
   .gauge-indicator-ring,
   .gauge-indicator-dot {
@@ -190,8 +180,9 @@ const labelSevere = pointAt(1, r - 28);
     transform-box: fill-box;
   }
   .gauge-indicator-halo {
-    animation: indicator-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1.45s forwards,
-               halo-pulse 2.6s ease-in-out 2s infinite;
+    animation:
+      indicator-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1.45s forwards,
+      halo-pulse 2.6s ease-in-out 2s infinite;
   }
   .gauge-indicator-ring {
     animation: indicator-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s forwards;
@@ -206,13 +197,12 @@ const labelSevere = pointAt(1, r - 28);
   .gauge-indicator-halo { --final-opacity: 0.6; }
   @keyframes halo-pulse {
     0%, 100% { opacity: 0.6; transform: scale(1); }
-    50%      { opacity: 0.15; transform: scale(1.5); }
+    50%      { opacity: 0.15; transform: scale(1.4); }
   }
 
-  /* Subtle continuous breathing on the whole gauge */
   @keyframes breathe-slow {
     0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.012); }
+    50%      { transform: scale(1.01); }
   }
   .animate-breathe-slow { animation: breathe-slow 6.5s ease-in-out infinite; }
 
