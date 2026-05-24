@@ -2,6 +2,23 @@
   command = "npm run build"
   publish = "dist"
 
+# Common sitemap path aliases so Google Search Console, Bing,
+# and human pasted URLs all land on the real sitemap.
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/sitemap_index.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/sitemaps.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
 [build.environment]
   NODE_VERSION = "22"
 
