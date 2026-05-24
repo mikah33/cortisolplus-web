@@ -7,20 +7,51 @@ const { score = 42, label = 'Normal' } = Astro.props;
 
 // Score 0-100 → arc position
 const pct = Math.min(100, Math.max(0, score));
-const radius = 90;
-const circumference = Math.PI * radius;
-const arcLength = (pct / 100) * circumference;
+const radius = 92;
+const trackLength = Math.PI * radius;       // half-circle track length
+const arcLength = (pct / 100) * trackLength;
+
+// Indicator dot position on the arc
+// The arc spans 180° starting at the bottom-left, going up through top, ending at bottom-right
+// (because the SVG is rotated 180deg around center 120,120)
+// For pct 0-100, angle goes from 180° (bottom-left) to 360° (bottom-right)
+const angle = 180 + (pct / 100) * 180;
+const rad = (angle * Math.PI) / 180;
+const indicatorX = 120 + radius * Math.cos(rad);
+const indicatorY = 120 + radius * Math.sin(rad);
+
+// Zone tick positions (0, 30, 45, 60, 100) along the arc
+const zones = [
+  { pct: 0,   label: 'Low' },
+  { pct: 30,  label: 'Normal' },
+  { pct: 45,  label: 'Elevated' },
+  { pct: 60,  label: 'High' },
+];
+
+function pointOnArc(p: number, r = radius, cx = 120, cy = 120) {
+  const a = 180 + (p / 100) * 180;
+  const rr = (a * Math.PI) / 180;
+  return { x: cx + r * Math.cos(rr), y: cy + r * Math.sin(rr) };
+}
 ---
 
-<div class="relative w-full max-w-[320px] aspect-square mx-auto">
-  <svg viewBox="0 0 240 240" class="w-full h-full -rotate-90">
+<div class="relative w-full max-w-[340px] aspect-square mx-auto animate-breathe-slow">
+  <svg viewBox="0 0 240 240" class="w-full h-full -rotate-90" aria-hidden="true">
     <defs>
       <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="var(--color-teal)" />
         <stop offset="50%" stop-color="var(--color-mint)" />
         <stop offset="100%" stop-color="var(--color-coral)" />
       </linearGradient>
+      <filter id="gauge-glow">
+        <feGaussianBlur stdDeviation="2.5" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
     </defs>
+
     <!-- Background track -->
     <circle
       cx="120" cy="120" r={radius}
@@ -28,28 +59,97 @@ const arcLength = (pct / 100) * circumference;
       stroke="var(--color-surface-2)"
       stroke-width="18"
       stroke-linecap="round"
-      stroke-dasharray={`${circumference} ${circumference}`}
+      stroke-dasharray={`${trackLength} ${trackLength}`}
       stroke-dashoffset="0"
       transform="rotate(180 120 120)"
     />
-    <!-- Active arc -->
+
+    <!-- Active arc (animated on load) -->
     <circle
+      class="gauge-arc"
       cx="120" cy="120" r={radius}
       fill="none"
       stroke="url(#gauge-grad)"
       stroke-width="18"
       stroke-linecap="round"
-      stroke-dasharray={`${arcLength} ${circumference}`}
-      stroke-dashoffset="0"
+      stroke-dasharray={`${arcLength} ${trackLength}`}
+      stroke-dashoffset={arcLength}
       transform="rotate(180 120 120)"
-      class="drop-shadow-[0_0_12px_var(--color-teal)]"
+      filter="url(#gauge-glow)"
+      style={`--final-offset: 0;`}
+    />
+
+    <!-- Zone tick marks on the arc -->
+    {zones.map((z) => {
+      const inner = pointOnArc(z.pct, radius - 12);
+      const outer = pointOnArc(z.pct, radius + 12);
+      return (
+        <line
+          x1={inner.x} y1={inner.y}
+          x2={outer.x} y2={outer.y}
+          stroke="var(--color-ink-muted)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          opacity="0.25"
+          transform="rotate(180 120 120)"
+        />
+      );
+    })}
+
+    <!-- Indicator dot at current score position -->
+    <circle
+      class="gauge-indicator"
+      cx={indicatorX} cy={indicatorY} r="7"
+      fill="white"
+      stroke="var(--color-teal)"
+      stroke-width="3"
+      transform="rotate(180 120 120)"
+      style="filter: drop-shadow(0 0 6px rgba(0, 191, 166, 0.6));"
     />
   </svg>
-  <div class="absolute inset-0 flex flex-col items-center justify-center pt-6">
-    <div class="text-6xl font-bold tracking-tight tabular-nums">{score}</div>
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-ink-muted)] mt-2">cortisol score</div>
-    <div class="mt-3 px-3 py-1 rounded-full text-xs font-medium bg-[color:var(--color-teal)]/10 text-[color:var(--color-teal-dark)]">
+
+  <div class="absolute inset-0 flex flex-col items-center justify-center pt-4">
+    <div
+      class="text-7xl font-bold tracking-tight tabular-nums leading-none"
+      data-count-target={score}
+    >0</div>
+    <div class="text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)] mt-3 font-medium">cortisol score</div>
+    <div class="mt-3 px-3 py-1 rounded-full text-xs font-semibold bg-[color:var(--color-teal)]/10 text-[color:var(--color-teal-dark)] border border-[color:var(--color-teal)]/20">
       {label}
     </div>
   </div>
+
+  <!-- Zone labels around the arc -->
+  <div class="absolute inset-0 pointer-events-none text-[9px] uppercase tracking-wider font-medium text-[color:var(--color-ink-muted)]/60">
+    <span class="absolute left-2 bottom-6">Low</span>
+    <span class="absolute right-2 bottom-6">Severe</span>
+  </div>
 </div>
+
+<style>
+  @keyframes draw-arc {
+    from { stroke-dashoffset: var(--final-offset, 0); }
+    to   { stroke-dashoffset: 0; }
+  }
+  .gauge-arc {
+    animation: draw-arc 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .gauge-indicator {
+    opacity: 0;
+    animation: indicator-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards,
+               indicator-pulse 2.4s ease-in-out 1.8s infinite;
+  }
+  @keyframes indicator-pop {
+    from { opacity: 0; transform: scale(0.5); transform-origin: center; }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes indicator-pulse {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(0, 191, 166, 0.5)); }
+    50%      { filter: drop-shadow(0 0 14px rgba(0, 191, 166, 0.9)); }
+  }
+  @keyframes breathe-slow {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.015); }
+  }
+  .animate-breathe-slow { animation: breathe-slow 6s ease-in-out infinite; }
+</style>

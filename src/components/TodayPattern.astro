@@ -1,0 +1,109 @@
+---
+// Mini "Today's pattern" — visualizes a realistic diurnal cortisol curve.
+// Pulled from research: morning surge 30–45 min post-wake, steady decline
+// through the day, evening dip, low overnight. Marker at "now" (around 2 PM).
+
+// 24 evenly-spaced points along a realistic diurnal cortisol curve (0-100 scale).
+// Indices = hour 0 .. 23. Higher = more cortisol.
+const points = [12, 10, 9, 14, 28, 52, 78, 85, 72, 60, 52, 46, 42, 38, 35, 32, 30, 28, 24, 20, 18, 16, 14, 13];
+const hourNow = 14; // 2 PM marker
+const width = 280;
+const height = 60;
+const padding = 4;
+const max = 100;
+
+function px(i: number) {
+  return padding + (i / (points.length - 1)) * (width - 2 * padding);
+}
+function py(v: number) {
+  return padding + (1 - v / max) * (height - 2 * padding);
+}
+
+const linePath = points
+  .map((v, i) => `${i === 0 ? 'M' : 'L'} ${px(i).toFixed(1)} ${py(v).toFixed(1)}`)
+  .join(' ');
+
+const areaPath = `${linePath} L ${px(points.length - 1).toFixed(1)} ${py(0).toFixed(1)} L ${px(0).toFixed(1)} ${py(0).toFixed(1)} Z`;
+
+const nowX = px(hourNow);
+const nowY = py(points[hourNow]);
+---
+
+<div class="mt-6 pt-5 border-t border-[color:var(--color-border)]">
+  <div class="flex items-center justify-between mb-2">
+    <div class="text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)] font-medium">Today's pattern</div>
+    <div class="text-[10px] text-[color:var(--color-ink-muted)] tabular-nums">12 AM — Now</div>
+  </div>
+
+  <svg viewBox={`0 0 ${width} ${height}`} class="w-full h-14" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="today-fill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="var(--color-teal)" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="var(--color-teal)" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="today-stroke" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="var(--color-teal-dark)"/>
+        <stop offset="50%" stop-color="var(--color-teal)"/>
+        <stop offset="80%" stop-color="var(--color-coral)"/>
+        <stop offset="100%" stop-color="var(--color-coral)"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Filled area -->
+    <path d={areaPath} fill="url(#today-fill)" />
+
+    <!-- Animated stroke line -->
+    <path
+      class="today-line"
+      d={linePath}
+      fill="none"
+      stroke="url(#today-stroke)"
+      stroke-width="2.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- "Now" marker -->
+    <line
+      x1={nowX} y1={padding} x2={nowX} y2={height - padding}
+      stroke="var(--color-coral)"
+      stroke-width="1"
+      stroke-dasharray="2 2"
+      opacity="0.6"
+      class="today-now-line"
+    />
+    <circle
+      class="today-now-dot"
+      cx={nowX} cy={nowY} r="4"
+      fill="var(--color-coral)"
+      stroke="white"
+      stroke-width="2"
+    />
+  </svg>
+
+  <div class="flex items-center justify-between mt-1 text-[10px] text-[color:var(--color-ink-muted)] tabular-nums">
+    <span>0</span>
+    <span>6</span>
+    <span>12</span>
+    <span>18</span>
+    <span>24</span>
+  </div>
+</div>
+
+<style>
+  .today-line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw-today 2s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+  }
+  @keyframes draw-today {
+    to { stroke-dashoffset: 0; }
+  }
+  .today-now-line, .today-now-dot {
+    opacity: 0;
+    animation: pop-now 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.4s forwards;
+  }
+  @keyframes pop-now {
+    to { opacity: 1; }
+  }
+</style>
