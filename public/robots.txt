@@ -60,4 +60,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://cortisolplus.com/sitemap-index.xml
+Sitemap: https://cortisolplus.com/sitemap.xml

@@ -2,21 +2,26 @@
   command = "npm run build"
   publish = "dist"
 
-# Common sitemap path aliases so Google Search Console, Bing,
-# and human pasted URLs all land on the real sitemap.
+# Legacy sitemap aliases — /sitemap.xml is the canonical single-file sitemap;
+# redirect older split-format paths to it for any pre-cached references.
 [[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap-index.xml"
+  from = "/sitemap-index.xml"
+  to = "/sitemap.xml"
+  status = 301
+
+[[redirects]]
+  from = "/sitemap-0.xml"
+  to = "/sitemap.xml"
   status = 301
 
 [[redirects]]
   from = "/sitemap_index.xml"
-  to = "/sitemap-index.xml"
+  to = "/sitemap.xml"
   status = 301
 
 [[redirects]]
   from = "/sitemaps.xml"
-  to = "/sitemap-index.xml"
+  to = "/sitemap.xml"
   status = 301
 
 [build.environment]
