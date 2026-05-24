@@ -162,3 +162,51 @@ nav, header { view-transition-name: app-header; }
   transition: width 60ms linear;
   box-shadow: 0 0 8px rgba(0, 191, 166, 0.4);
 }
+
+/* ---------- Hero background (premium mesh + ambient motion) ---------- */
+
+.hero-orb {
+  will-change: transform, opacity;
+  animation: hero-orb-drift 22s ease-in-out infinite;
+}
+.hero-orb--coral { animation-duration: 28s; animation-delay: -7s; }
+.hero-orb--mint  { animation-duration: 34s; animation-delay: -14s; opacity: 0.9; }
+
+@keyframes hero-orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(2%, -1.5%) scale(1.04); }
+  66%      { transform: translate(-2%, 1%) scale(0.97); }
+}
+
+/* Floating ambient dots — like biometric data points hovering in the space */
+.hero-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-teal);
+  box-shadow: 0 0 12px var(--color-teal);
+  opacity: 0;
+  animation: hero-dot-float 9s ease-in-out infinite, hero-dot-fade 9s ease-in-out infinite;
+}
+.hero-dot--1 { animation-delay: 0s;    background: var(--color-teal);  box-shadow: 0 0 12px var(--color-teal); }
+.hero-dot--2 { animation-delay: -2.5s; background: var(--color-coral); box-shadow: 0 0 12px var(--color-coral); width: 4px; height: 4px; }
+.hero-dot--3 { animation-delay: -5s;   background: var(--color-mint);  box-shadow: 0 0 14px var(--color-teal); }
+.hero-dot--4 { animation-delay: -7s;   background: var(--color-teal);  box-shadow: 0 0 12px var(--color-teal); width: 4px; height: 4px; }
+.hero-dot--5 { animation-delay: -4s;   background: var(--color-coral); box-shadow: 0 0 12px var(--color-coral); width: 3px; height: 3px; }
+
+@keyframes hero-dot-float {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(8px, -10px); }
+  50%      { transform: translate(-6px, -16px); }
+  75%      { transform: translate(4px, -8px); }
+}
+@keyframes hero-dot-fade {
+  0%, 100% { opacity: 0; }
+  20%, 80% { opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb { animation: none !important; }
+  .hero-dot { animation: none !important; opacity: 0.5; }
+}

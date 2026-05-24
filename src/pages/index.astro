@@ -71,11 +71,51 @@ const homeSchema = [
   image="/screenshots/track-cortisol-levels.png"
   schema={homeSchema}
 >
-  <!-- HERO with soft mint-to-white gradient (LaunchBg vibe) -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-[color:var(--color-mint-soft)] via-transparent to-transparent pointer-events-none"></div>
-    <div class="absolute top-20 -right-32 w-[500px] h-[500px] rounded-full bg-[color:var(--color-coral)]/10 blur-3xl pointer-events-none"></div>
-    <div class="absolute top-40 -left-32 w-[400px] h-[400px] rounded-full bg-[color:var(--color-teal)]/10 blur-3xl pointer-events-none"></div>
+  <!-- HERO — premium mesh-gradient background with ambient HRV-wave decoration -->
+  <section class="hero relative overflow-hidden isolate">
+    <!-- Layer 1: Warm cream base + soft top mint wash -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[color:var(--color-mint-soft)] via-[#fafaf6] to-white pointer-events-none -z-10"></div>
+
+    <!-- Layer 2: Mesh gradient orbs (the depth) -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+      <div class="hero-orb hero-orb--teal absolute top-[-10%] left-[-15%] w-[55rem] h-[55rem] rounded-full bg-[color:var(--color-teal)]/25 blur-3xl"></div>
+      <div class="hero-orb hero-orb--coral absolute top-[5%] right-[-15%] w-[50rem] h-[50rem] rounded-full bg-[color:var(--color-coral)]/20 blur-3xl"></div>
+      <div class="hero-orb hero-orb--mint absolute bottom-[-30%] left-1/2 -translate-x-1/2 w-[80rem] h-[40rem] rounded-full bg-[color:var(--color-mint)]/45 blur-3xl"></div>
+    </div>
+
+    <!-- Layer 3: HRV wave (decorative, low opacity) -->
+    <svg
+      class="absolute left-0 right-0 top-[42%] w-full h-32 opacity-[0.07] pointer-events-none -z-10"
+      viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="hero-hrv-grad" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="var(--color-teal)" stop-opacity="0"/>
+          <stop offset="20%" stop-color="var(--color-teal)" stop-opacity="1"/>
+          <stop offset="80%" stop-color="var(--color-coral)" stop-opacity="1"/>
+          <stop offset="100%" stop-color="var(--color-coral)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path
+        d="M0,60 Q60,40 120,60 T240,60 T360,60 T480,60 Q540,20 600,60 T720,60 Q780,100 840,60 T960,60 T1080,60 T1200,60 T1320,60 T1440,60"
+        fill="none"
+        stroke="url(#hero-hrv-grad)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+
+    <!-- Layer 4: Ambient floating data points -->
+    <div class="absolute inset-0 pointer-events-none -z-10">
+      <span class="hero-dot hero-dot--1 absolute top-[18%] left-[12%]"></span>
+      <span class="hero-dot hero-dot--2 absolute top-[25%] right-[18%]"></span>
+      <span class="hero-dot hero-dot--3 absolute top-[55%] left-[8%]"></span>
+      <span class="hero-dot hero-dot--4 absolute top-[68%] right-[10%]"></span>
+      <span class="hero-dot hero-dot--5 absolute top-[40%] left-[48%]"></span>
+    </div>
+
+    <!-- Layer 5: Bottom fade for clean transition to next section -->
+    <div class="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-white to-transparent pointer-events-none -z-10"></div>
 
     <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-32">
       <div class="grid md:grid-cols-2 gap-16 items-center">
