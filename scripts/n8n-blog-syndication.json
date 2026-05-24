@@ -1,0 +1,148 @@
+{
+  "name": "Cortisol+ blog syndication",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "hours", "hoursInterval": 4 }
+          ]
+        }
+      },
+      "name": "Every 4 hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://cortisolplus.com/rss.xml",
+        "options": {}
+      },
+      "name": "Read Cortisol+ RSS",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "seen_posts",
+        "filters": { "conditions": [] },
+        "options": {}
+      },
+      "name": "Get previously seen posts",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [680, 300],
+      "notes": "Replace this with your storage of choice — Supabase, SQLite, Airtable, or n8n's static data via the 'Set' node. Used to dedupe so we don't re-process old posts every 4h."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.guid }}",
+              "operation": "notIn",
+              "value2": "={{ $('Get previously seen posts').all().map(i => i.json.guid) }}"
+            }
+          ]
+        }
+      },
+      "name": "Filter: new posts only",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@cortisolplus.com",
+        "toEmail": "admin@cortisolplus.com",
+        "subject": "📝 New blog post → publish to Substack",
+        "emailType": "html",
+        "html": "={{ `<h2>New post on cortisolplus.com</h2>\n<p><strong>${$json.title}</strong></p>\n<p>${$json.contentSnippet || $json.content || ''}</p>\n<hr>\n<p><a href=\"https://substack.com/p/new\">Open Substack new-post editor</a></p>\n<p><a href=\"${$json.link}\">View on cortisolplus.com</a></p>\n<hr>\n<h3>Ready-to-paste HTML:</h3>\n<pre style=\"background:#f5f5f5;padding:1em;border-radius:4px;white-space:pre-wrap;\">${($json.content || '').replace(/</g, '&lt;')}</pre>` }}"
+      },
+      "name": "Email: paste into Substack",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://api.medium.com/v1/users/YOUR_MEDIUM_USER_ID/posts",
+        "method": "POST",
+        "authentication": "headerAuth",
+        "options": {},
+        "jsonParameters": true,
+        "bodyParametersJson": "={{ JSON.stringify({\n  title: $json.title,\n  contentFormat: 'html',\n  content: $json.content || $json.contentSnippet,\n  tags: ($json.categories || []).slice(0,5),\n  publishStatus: 'draft',\n  canonicalUrl: $json.link\n}) }}"
+      },
+      "name": "Medium: create draft (official API)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 350],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "medium-token",
+          "name": "Medium Integration Token"
+        }
+      },
+      "notes": "Medium API: https://github.com/Medium/medium-api-docs\n1. Get token at: medium.com/me/settings/security → Integration tokens\n2. Set as Authorization: Bearer YOUR_TOKEN in credentials\n3. Get YOUR_MEDIUM_USER_ID by GET https://api.medium.com/v1/me with token"
+    },
+    {
+      "parameters": {
+        "url": "https://api.linkedin.com/v2/ugcPosts",
+        "method": "POST",
+        "authentication": "headerAuth",
+        "options": {},
+        "jsonParameters": true,
+        "bodyParametersJson": "={{ JSON.stringify({\n  author: 'urn:li:person:YOUR_LINKEDIN_USER_ID',\n  lifecycleState: 'PUBLISHED',\n  specificContent: {\n    'com.linkedin.ugc.ShareContent': {\n      shareCommentary: { text: `${$json.title}\\n\\n${$json.contentSnippet || ''}\\n\\nRead the full post: ${$json.link}` },\n      shareMediaCategory: 'ARTICLE',\n      media: [{ status: 'READY', originalUrl: $json.link }]\n    }\n  },\n  visibility: { 'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' }\n}) }}"
+      },
+      "name": "LinkedIn: post link share",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 500],
+      "notes": "LinkedIn API: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/ugc-post-api\n1. Create LinkedIn app at developer.linkedin.com\n2. OAuth flow → get access token with w_member_social scope\n3. Get YOUR_LINKEDIN_USER_ID from /v2/userinfo endpoint"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "tableId": "seen_posts",
+        "columnToMatchOn": "guid",
+        "valueToMatchOn": "={{ $json.guid }}",
+        "fieldsUi": {
+          "fieldValues": [
+            { "fieldId": "guid",  "fieldValue": "={{ $json.guid }}" },
+            { "fieldId": "title", "fieldValue": "={{ $json.title }}" },
+            { "fieldId": "seenAt","fieldValue": "={{ $now }}" }
+          ]
+        }
+      },
+      "name": "Mark as seen",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [1340, 350],
+      "notes": "Storage backend — see notes on 'Get previously seen posts'."
+    }
+  ],
+  "connections": {
+    "Every 4 hours": {
+      "main": [[{ "node": "Read Cortisol+ RSS", "type": "main", "index": 0 }]]
+    },
+    "Read Cortisol+ RSS": {
+      "main": [[{ "node": "Get previously seen posts", "type": "main", "index": 0 }]]
+    },
+    "Get previously seen posts": {
+      "main": [[{ "node": "Filter: new posts only", "type": "main", "index": 0 }]]
+    },
+    "Filter: new posts only": {
+      "main": [
+        [
+          { "node": "Email: paste into Substack", "type": "main", "index": 0 },
+          { "node": "Medium: create draft (official API)", "type": "main", "index": 0 },
+          { "node": "LinkedIn: post link share", "type": "main", "index": 0 },
+          { "node": "Mark as seen", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

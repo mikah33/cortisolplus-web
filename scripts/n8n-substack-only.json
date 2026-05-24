@@ -1,0 +1,67 @@
+{
+  "name": "Cortisol+ → Substack drafts",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "hours", "hoursInterval": 4 }
+          ]
+        }
+      },
+      "name": "Every 4 hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://cortisolplus.com/rss.xml",
+        "options": {}
+      },
+      "name": "Read Cortisol+ RSS",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Dedupe against static data so we only act on truly new posts.\n// First run sees them all as 'new' — pre-seed if you want to skip backlog.\nconst seen = $workflow.staticData.global.seenGuids ??= [];\nconst newItems = $input.all().filter((item) => !seen.includes(item.json.guid));\n\n// Mark them as seen so we don't fire again next cycle\nfor (const item of newItems) {\n  if (!seen.includes(item.json.guid)) seen.push(item.json.guid);\n}\n// Keep the seen list bounded (last 200) so it doesn't grow forever\nif (seen.length > 200) seen.splice(0, seen.length - 200);\n\nreturn newItems;"
+      },
+      "name": "Filter new posts (static data dedup)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "admin@cortisolplus.com",
+        "toEmail": "admin@cortisolplus.com",
+        "subject": "=📝 New post → publish to Substack: {{ $json.title }}",
+        "emailType": "html",
+        "html": "={{ `\n<div style=\"font-family:-apple-system,sans-serif;max-width:640px;\">\n  <h1 style=\"color:#00bfa6;\">New Cortisol+ blog post</h1>\n  <h2 style=\"margin-top:1.5em;\">${$json.title}</h2>\n  <p style=\"color:#5b6770;\">${$json.contentSnippet || ''}</p>\n  <p><a href=\"${$json.link}\" style=\"color:#00bfa6;\">View live on cortisolplus.com →</a></p>\n  <hr style=\"margin:2em 0;border:none;border-top:1px solid #eee;\">\n  <h3>To publish on Substack (30 seconds):</h3>\n  <ol>\n    <li>Click here: <a href=\"https://substack.com/p/new\" style=\"color:#00bfa6;\"><strong>Open Substack new-post editor</strong></a></li>\n    <li>Title: <code style=\"background:#f5f5f5;padding:2px 6px;\">${$json.title}</code></li>\n    <li>Copy the HTML below and paste into the Substack editor (it will render the formatting):</li>\n  </ol>\n  <details>\n    <summary style=\"cursor:pointer;font-weight:600;\">📋 Click to view HTML</summary>\n    <pre style=\"background:#f5f5f5;padding:1em;border-radius:6px;white-space:pre-wrap;font-size:11px;overflow:auto;\">${(($json.content || $json.contentSnippet || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'))}</pre>\n  </details>\n  <p style=\"margin-top:2em;color:#5b6770;font-size:12px;\">\n    Don't forget to set the <strong>canonical URL</strong> in Substack story settings:<br>\n    <code style=\"background:#f5f5f5;padding:2px 6px;\">${$json.link}</code>\n  </p>\n</div>\n` }}"
+      },
+      "name": "Email me the post",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [900, 300],
+      "credentials": {
+        "smtp": {
+          "id": "migadu-smtp",
+          "name": "Migadu SMTP (admin@cortisolplus.com)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every 4 hours": {
+      "main": [[{ "node": "Read Cortisol+ RSS", "type": "main", "index": 0 }]]
+    },
+    "Read Cortisol+ RSS": {
+      "main": [[{ "node": "Filter new posts (static data dedup)", "type": "main", "index": 0 }]]
+    },
+    "Filter new posts (static data dedup)": {
+      "main": [[{ "node": "Email me the post", "type": "main", "index": 0 }]]
+    }
+  }
+}
