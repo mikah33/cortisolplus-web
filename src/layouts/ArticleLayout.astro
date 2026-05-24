@@ -44,8 +44,10 @@ const combinedSchema = schema
 ---
 
 <BaseLayout {title} {description} {image} {noindex} schema={combinedSchema}>
+  <div class="reading-progress" id="reading-progress"></div>
+
   <article class="max-w-3xl mx-auto px-6 py-16">
-    <header class="mb-12">
+    <header class="mb-12 reveal">
       <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">{title}</h1>
       <p class="text-xl text-[color:var(--color-ink-muted)]">{description}</p>
       {updated && (
@@ -71,7 +73,7 @@ const combinedSchema = schema
       </aside>
     )}
 
-    <aside class="mt-8 p-8 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-[color:var(--color-surface)] border border-[color:var(--color-border)]">
+    <aside class="mt-8 p-8 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-[color:var(--color-surface)] border border-[color:var(--color-border)] reveal">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-2">Cortisol+</div>
       <h2 class="text-2xl font-bold mb-2">See your own cortisol</h2>
       <p class="text-[color:var(--color-ink-muted)] mb-6">
@@ -83,4 +85,25 @@ const combinedSchema = schema
       </div>
     </aside>
   </article>
+
+  <script>
+    function initReadingProgress() {
+      const bar = document.getElementById('reading-progress');
+      const article = document.querySelector('article');
+      if (!bar || !article) return;
+      const updateProgress = () => {
+        const { top, height } = article.getBoundingClientRect();
+        const viewport = window.innerHeight;
+        const scrolled = Math.max(0, -top);
+        const total = Math.max(1, height - viewport);
+        const pct = Math.min(100, (scrolled / total) * 100);
+        (bar as HTMLElement).style.width = pct + '%';
+      };
+      updateProgress();
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress);
+    }
+    initReadingProgress();
+    document.addEventListener('astro:after-swap', initReadingProgress);
+  </script>
 </BaseLayout>

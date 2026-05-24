@@ -118,18 +118,29 @@ const homeSchema = [
   <AppShowcase />
 
   <!-- SOCIAL PROOF / RATING -->
-  <section class="max-w-5xl mx-auto px-6 py-16 border-t border-[color:var(--color-border)]">
+  <section class="max-w-5xl mx-auto px-6 py-16 border-t border-[color:var(--color-border)] reveal">
     <div class="grid md:grid-cols-3 gap-6 items-center text-center md:text-left">
       <div>
         <div class="flex items-center justify-center md:justify-start gap-1 mb-2">
-          {Array.from({ length: 5 }).map(() => (
-            <svg viewBox="0 0 24 24" class="w-6 h-6 text-[#fbbf24]" fill="currentColor">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-[#fbbf24] origin-center"
+              fill="currentColor"
+              style={`animation: float-slow 4s ease-in-out ${i * 0.15}s infinite;`}
+            >
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
             </svg>
           ))}
         </div>
-        <div class="text-4xl font-bold tracking-tight">{APP_RATING.value}</div>
-        <div class="text-sm text-[color:var(--color-ink-muted)] mt-1">{APP_RATING.count} ratings · App Store</div>
+        <div
+          class="text-5xl font-bold tracking-tight tabular-nums bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent"
+          data-count-target={APP_RATING.value}
+          data-count-decimals="1"
+        >0.0</div>
+        <div class="text-sm text-[color:var(--color-ink-muted)] mt-1">
+          <span data-count-target={APP_RATING.count}>0</span> ratings · App Store
+        </div>
       </div>
       <div class="md:col-span-2">
         <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-3">Loved by early users</h2>
@@ -141,10 +152,39 @@ const homeSchema = [
     </div>
   </section>
 
+  <script>
+    function animateCounters() {
+      const elements = document.querySelectorAll<HTMLElement>('[data-count-target]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const target = parseFloat(el.dataset.countTarget || '0');
+          const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+          const duration = 1100;
+          const start = performance.now();
+          const startVal = 0;
+          function tick(now: number) {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            const value = startVal + (target - startVal) * eased;
+            el.textContent = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString();
+            if (t < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          observer.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      elements.forEach((el) => observer.observe(el));
+    }
+    animateCounters();
+    document.addEventListener('astro:after-swap', animateCounters);
+  </script>
+
   <Testimonials />
 
   <!-- VALUE PROPS -->
-  <section class="max-w-6xl mx-auto px-6 py-24 border-t border-[color:var(--color-border)]">
+  <section class="max-w-6xl mx-auto px-6 py-24 border-t border-[color:var(--color-border)] reveal">
     <div class="max-w-3xl mb-14">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Built for accuracy</div>
       <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
@@ -271,7 +311,7 @@ const homeSchema = [
   </section>
 
   <!-- LEARN -->
-  <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[color:var(--color-border)]">
+  <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[color:var(--color-border)] reveal">
     <div class="grid md:grid-cols-2 gap-12">
       <div>
         <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">

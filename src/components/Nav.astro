@@ -3,7 +3,7 @@ import { SITE, NAV } from '../consts';
 import AppStoreBadge from './AppStoreBadge.astro';
 ---
 
-<header class="sticky top-0 z-50 backdrop-blur bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)]">
+<header id="site-nav" class="sticky top-0 z-50 backdrop-blur bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)] transition-shadow duration-300">
   <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="/" class="font-semibold text-lg tracking-tight flex items-center gap-2">
       <img src="/apple-touch-icon.png" alt="Cortisol+" width="28" height="28" class="w-7 h-7 rounded-lg" />
@@ -23,3 +23,21 @@ import AppStoreBadge from './AppStoreBadge.astro';
     <AppStoreBadge size="sm" />
   </nav>
 </header>
+
+<script>
+  function initNavScroll() {
+    const nav = document.getElementById('site-nav');
+    if (!nav) return;
+    const updateNav = () => {
+      if (window.scrollY > 12) {
+        nav.classList.add('shadow-[0_1px_20px_rgba(0,0,0,0.04)]', 'bg-[color:var(--color-bg)]/95');
+      } else {
+        nav.classList.remove('shadow-[0_1px_20px_rgba(0,0,0,0.04)]', 'bg-[color:var(--color-bg)]/95');
+      }
+    };
+    updateNav();
+    window.addEventListener('scroll', updateNav, { passive: true });
+  }
+  initNavScroll();
+  document.addEventListener('astro:after-swap', initNavScroll);
+</script>

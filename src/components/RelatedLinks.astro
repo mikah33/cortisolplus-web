@@ -13,7 +13,7 @@ interface Props {
 const { title = 'Related', links } = Astro.props;
 ---
 
-<aside class="mt-12 pt-8 border-t border-[color:var(--color-border)]">
+<aside class="mt-12 pt-8 border-t border-[color:var(--color-border)] reveal">
   <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-4">{title}</div>
   <div class="grid sm:grid-cols-3 gap-3">
     {links.map((l) => (
