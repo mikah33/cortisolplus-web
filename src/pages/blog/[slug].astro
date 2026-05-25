@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import ToolCTA from '../../components/ToolCTA.astro';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
@@ -21,4 +22,5 @@ const { Content } = await render(entry);
   image={entry.data.image}
 >
   <Content />
+  <ToolCTA tool={entry.data.targetTool} />
 </ArticleLayout>

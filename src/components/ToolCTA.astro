@@ -1,0 +1,78 @@
+---
+/**
+ * Tool/quiz call-to-action card rendered at the bottom of every blog post.
+ * Highest-converting element on article pages — gets users to interact
+ * with a free quiz which becomes the natural pre-step to App Store install.
+ */
+
+interface Props {
+  tool?: string;
+}
+
+const { tool = '/tools/cortisol-calculator' } = Astro.props;
+
+// Map of tool URLs → display metadata
+const TOOLS: Record<string, { name: string; tagline: string; questions: number; duration: string; accent: 'teal' | 'coral' | 'mint' }> = {
+  '/tools/cortisol-calculator': {
+    name: 'Cortisol risk calculator',
+    tagline: 'A rough read on whether your cortisol is likely elevated.',
+    questions: 8,
+    duration: '60 seconds',
+    accent: 'teal',
+  },
+  '/tools/morning-cortisol-test': {
+    name: 'Morning cortisol test',
+    tagline: 'Healthy mornings have a sharp cortisol surge. Burnt-out mornings don\'t. 6 questions to flag the pattern.',
+    questions: 6,
+    duration: '60 seconds',
+    accent: 'teal',
+  },
+  '/tools/stress-score': {
+    name: 'Stress score quiz',
+    tagline: 'How much stress are you actually carrying day-to-day? Score your load.',
+    questions: 6,
+    duration: '60 seconds',
+    accent: 'mint',
+  },
+  '/tools/burnout-risk': {
+    name: 'Burnout risk assessment',
+    tagline: 'Three dimensions: exhaustion, cynicism, efficacy. Flag your trajectory.',
+    questions: 7,
+    duration: '90 seconds',
+    accent: 'coral',
+  },
+  '/tools/sleep-debt-cortisol': {
+    name: 'Sleep debt × cortisol',
+    tagline: 'How much is your sleep deficit driving your cortisol up? Score the loop.',
+    questions: 6,
+    duration: '60 seconds',
+    accent: 'teal',
+  },
+};
+
+const t = TOOLS[tool] ?? TOOLS['/tools/cortisol-calculator'];
+
+const accentStyles: Record<string, { from: string; to: string; border: string; button: string }> = {
+  teal:  { from: 'from-[color:var(--color-teal)]/15',  to: 'to-[color:var(--color-mint-soft)]', border: 'border-[color:var(--color-teal)]/30',  button: 'from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)]' },
+  coral: { from: 'from-[color:var(--color-coral)]/15', to: 'to-[color:var(--color-mint-soft)]', border: 'border-[color:var(--color-coral)]/30', button: 'from-[color:var(--color-coral)] to-[#ff8f80]' },
+  mint:  { from: 'from-[color:var(--color-mint)]/30',  to: 'to-white',                          border: 'border-[color:var(--color-mint)]/40',  button: 'from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)]' },
+};
+const s = accentStyles[t.accent];
+---
+
+<aside class={`mt-12 p-8 rounded-2xl bg-gradient-to-br ${s.from} ${s.to} border ${s.border}`}>
+  <div class="flex items-start justify-between gap-4 mb-1">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral)] font-medium">Take the test</div>
+    <div class="text-xs text-[color:var(--color-ink-muted)] tabular-nums">{t.questions} Q · {t.duration}</div>
+  </div>
+  <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-2 mt-2">{t.name}</h2>
+  <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-xl leading-relaxed">{t.tagline}</p>
+  <a
+    href={tool}
+    class={`inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-br ${s.button} text-white font-semibold text-sm shadow-sm hover:brightness-110 transition`}
+  >
+    Start the {t.questions}-question quiz
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <p class="text-xs text-[color:var(--color-ink-muted)] mt-4">Free. No signup. Instant result.</p>
+</aside>

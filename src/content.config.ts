@@ -11,6 +11,8 @@ const blog = defineCollection({
     image: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    /** URL of the most-relevant tool/quiz to drive conversion (auto-renders ToolCTA at bottom). */
+    targetTool: z.string().default('/tools/cortisol-calculator'),
   }),
 });
 
