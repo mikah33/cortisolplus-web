@@ -1,15 +1,16 @@
 {
-  "name": "Cortisol+ AI blog pipeline",
+  "_comment": "Cortisol+ AI auto-publish workflow template. Replace REPLACE_ANTHROPIC_KEY, REPLACE_GITHUB_PAT, and the credential ID after import into n8n. The keys-embedded version is in ~/Downloads/cortisolplus-ai-blog-pipeline.json (not committed for security).",
+  "name": "Cortisol+ AI auto-publish",
   "nodes": [
     {
       "parameters": {
         "rule": {
           "interval": [
-            { "field": "cronExpression", "expression": "0 9 * * 1,4" }
+            { "field": "cronExpression", "expression": "0 9 * * 1,3,5" }
           ]
         }
       },
-      "name": "Mon + Thu 9 AM",
+      "name": "Mon/Wed/Fri 9 AM",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [200, 300]
@@ -26,7 +27,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Pick the next un-used topic. We track used slugs in static data.\nconst used = $workflow.staticData.global.usedSlugs ??= [];\nconst queue = $input.first().json;\nconst next = queue.find((t) => !used.includes(t.slug));\nif (!next) {\n  throw new Error('Topic queue exhausted. Add more topics to cortisol-topic-queue.json.');\n}\nused.push(next.slug);\nreturn [{ json: next }];"
+        "jsCode": "const used = $workflow.staticData.global.usedSlugs ??= [];\nconst queue = $input.first().json;\nconst next = queue.find((t) => !used.includes(t.slug));\nif (!next) {\n  throw new Error('Topic queue exhausted.');\n}\nused.push(next.slug);\nreturn [{ json: next }];"
       },
       "name": "Pick next topic",
       "type": "n8n-nodes-base.code",
@@ -37,33 +38,30 @@
       "parameters": {
         "url": "https://api.anthropic.com/v1/messages",
         "method": "POST",
-        "authentication": "headerAuth",
-        "options": { "timeout": 120000 },
-        "jsonParameters": true,
-        "headerParametersUi": {
-          "parameter": [
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "REPLACE_ANTHROPIC_KEY" },
             { "name": "anthropic-version", "value": "2023-06-01" },
             { "name": "content-type", "value": "application/json" }
           ]
         },
-        "bodyParametersJson": "={{ JSON.stringify({\n  model: 'claude-sonnet-4-5-20250929',\n  max_tokens: 4096,\n  messages: [{\n    role: 'user',\n    content: `You are writing a blog post for Cortisol+, an Apple Watch app that estimates cortisol from biometrics (HRV, sleep, heart rate, wrist temperature). You are NOT Claude — you ARE the Cortisol+ editorial team.\n\n# Brand voice\n- Evidence-first. Cite real peer-reviewed studies by author + year (e.g., 'Salve et al. 2019') only if you are confident they exist. Do not invent citations.\n- Use uncertainty markers ('evidence suggests', 'studies indicate', 'small RCT showed') instead of definitive claims.\n- No corporate fluff. No 'in today's fast-paced world.' Get to the point.\n- Write at 8th-grade reading level — short sentences, simple words, occasional dashes — but the science is real.\n- Always include 'not medical advice; consult a healthcare provider' disclaimer near the end.\n\n# Post specifications\n- Title: ${$json.title}\n- Primary keyword (must appear in title and first 100 words): ${$json.primaryKeyword}\n- Angle: ${$json.angle}\n- Length: 900-1200 words\n- Format: MDX with YAML frontmatter\n- Internal links: include 2-3 of these links naturally in the body: ${JSON.stringify($json.internalLinks)}\n- App CTA: end with a soft mention that Cortisol+ on Apple Watch tracks the relevant biomarker continuously\n\n# Output format — strict\nReturn ONLY the MDX content (no preamble, no explanation, no code fences). Start with ---\\ntitle: ... and end with the closing paragraph. The output must be valid MDX that can be saved directly as src/content/blog/${$json.slug}.mdx.\n\nFrontmatter required fields:\n  title: (use the title above)\n  description: (140-160 chars, includes primary keyword)\n  pubDate: ${new Date().toISOString().slice(0,10)}\n  tags: [array of 3-5 relevant tags from: cortisol, stress, sleep, hrv, supplements, perimenopause, athletes, burnout, comparisons, wearables, food]\n  draft: true\n\nBody structure:\n  H2 sections (max 5)\n  Short paragraphs (max 3 sentences)\n  At least one bulleted list\n  At least one comparison table if relevant\n  Closing paragraph: app CTA + 'not medical advice' disclaimer\n\nWrite the post now.`\n  }]\n}) }}"
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: 'claude-sonnet-4-5-20250929',\n  max_tokens: 4096,\n  messages: [{\n    role: 'user',\n    content: `You are writing a blog post for Cortisol+, an Apple Watch app that estimates cortisol from biometrics. Voice: evidence-first, no fluff, 8th-grade reading level, real science. Always include 'not medical advice; consult a healthcare provider' near the end. Cite real studies by author+year only if you are confident they exist — never invent citations.\\n\\nPost spec:\\n- Title: ${$json.title}\\n- Primary keyword (must appear in title + first 100 words): ${$json.primaryKeyword}\\n- Angle: ${$json.angle}\\n- Length: 900-1200 words\\n- Format: MDX with YAML frontmatter\\n- Internal links to weave in: ${JSON.stringify($json.internalLinks)}\\n- End with soft CTA: Cortisol+ on Apple Watch tracks the relevant biomarker continuously\\n\\nReturn ONLY the MDX (no preamble, no code fences). Start with ---. Frontmatter must include: title, description (140-160 chars w/ keyword), pubDate: ${new Date().toISOString().slice(0,10)}, tags (3-5), draft: false. Structure: max 5 H2 sections, short paragraphs, at least one bulleted list, at least one comparison table if relevant.`\n  }]\n}) }}",
+        "options": { "timeout": 120000 }
       },
       "name": "Claude: write the post",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [740, 300],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "anthropic-key",
-          "name": "Anthropic API Key (x-api-key)"
-        }
-      }
+      "position": [740, 300]
     },
     {
       "parameters": {
-        "jsCode": "// Extract the MDX text from Claude's response\nconst body = $input.first().json;\nconst mdx = body.content?.[0]?.text ?? '';\nconst topic = $('Pick next topic').first().json;\n\nif (!mdx.includes('---')) {\n  throw new Error('Claude did not return valid MDX frontmatter.');\n}\n\nreturn [{\n  json: {\n    slug: topic.slug,\n    title: topic.title,\n    primaryKeyword: topic.primaryKeyword,\n    mdx,\n    base64Mdx: Buffer.from(mdx, 'utf-8').toString('base64'),\n    path: `src/content/blog/${topic.slug}.mdx`,\n  }\n}];"
+        "jsCode": "const body = $input.first().json;\nlet mdx = body.content?.[0]?.text ?? '';\nconst topic = $('Pick next topic').first().json;\nmdx = mdx.replace(/^```(mdx|markdown)?\\s*\\n/, '').replace(/\\n```\\s*$/, '').trim();\n\nconst errors = [];\nif (!mdx.startsWith('---')) errors.push('Missing frontmatter');\nif (!mdx.includes('\\ntitle:')) errors.push('Missing title');\nif (!mdx.includes('\\ndescription:')) errors.push('Missing description');\nif (!mdx.includes('\\npubDate:')) errors.push('Missing pubDate');\nif (!mdx.includes('draft: false')) errors.push('Missing/wrong draft flag');\nif (mdx.length < 3000) errors.push(`Too short (${mdx.length} chars)`);\nif (mdx.length > 25000) errors.push(`Too long (${mdx.length} chars)`);\nif (!mdx.toLowerCase().includes(topic.primaryKeyword.toLowerCase())) errors.push(`Missing keyword: ${topic.primaryKeyword}`);\nif (!mdx.toLowerCase().includes('medical advice')) errors.push('Missing medical disclaimer');\nif (errors.length) throw new Error('Validation failed for ' + topic.slug + ':\\n' + errors.join('\\n'));\n\nreturn [{\n  json: {\n    slug: topic.slug,\n    title: topic.title,\n    primaryKeyword: topic.primaryKeyword,\n    mdx,\n    base64Mdx: Buffer.from(mdx, 'utf-8').toString('base64'),\n    path: `src/content/blog/${topic.slug}.mdx`,\n    wordCount: mdx.split(/\\s+/).length\n  }\n}];"
       },
-      "name": "Parse Claude response",
+      "name": "Parse + validate",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [920, 300]
@@ -72,48 +70,31 @@
       "parameters": {
         "url": "=https://api.github.com/repos/mikah33/cortisolplus-web/contents/{{ $json.path }}",
         "method": "PUT",
-        "authentication": "headerAuth",
-        "options": {},
-        "jsonParameters": true,
-        "bodyParametersJson": "={{ JSON.stringify({\n  message: `AI draft: ${$json.title}`,\n  content: $json.base64Mdx,\n  branch: 'main'\n}) }}"
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer REPLACE_GITHUB_PAT" },
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "X-GitHub-Api-Version", "value": "2022-11-28" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  message: `AI post: ${$json.title} (${$json.wordCount} words)`,\n  content: $json.base64Mdx,\n  branch: 'main'\n}) }}",
+        "options": {}
       },
-      "name": "Commit MDX as draft to GitHub",
+      "name": "Publish to GitHub",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1100, 300],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "github-token",
-          "name": "GitHub PAT (Authorization: Bearer)"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "fromEmail": "admin@cortisolplus.com",
-        "toEmail": "admin@cortisolplus.com",
-        "subject": "=📝 AI draft ready for review: {{ $json.title }}",
-        "emailType": "html",
-        "html": "={{ `\n<div style=\"font-family:-apple-system,sans-serif;max-width:680px;\">\n  <h1 style=\"color:#00bfa6;margin:0 0 8px;\">New AI draft ready</h1>\n  <p style=\"color:#5b6770;margin:0 0 24px;\">Targeting keyword: <strong>${$json.primaryKeyword}</strong></p>\n  <h2 style=\"margin:0 0 12px;\">${$json.title}</h2>\n  <div style=\"background:#f7f9f9;padding:20px;border-radius:8px;font-size:14px;line-height:1.6;white-space:pre-wrap;border-left:3px solid #00bfa6;\">${$json.mdx.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0,3000)}${$json.mdx.length > 3000 ? '\\n\\n[...truncated for email — see full file on GitHub]' : ''}</div>\n  <div style=\"margin:32px 0;text-align:center;\">\n    <a href=\"https://github.com/mikah33/cortisolplus-web/blob/main/${$json.path}\" style=\"display:inline-block;padding:12px 24px;background:#00bfa6;color:white;text-decoration:none;border-radius:24px;font-weight:600;margin-right:8px;\">📝 Edit / Approve on GitHub</a>\n    <a href=\"https://github.com/mikah33/cortisolplus-web/edit/main/${$json.path}\" style=\"display:inline-block;padding:12px 24px;background:#ff7061;color:white;text-decoration:none;border-radius:24px;font-weight:600;\">✏️ Edit in browser</a>\n  </div>\n  <hr style=\"border:none;border-top:1px solid #eee;margin:32px 0;\">\n  <h3>To approve and publish:</h3>\n  <ol>\n    <li>Click \"Edit in browser\" above</li>\n    <li>Change <code>draft: true</code> to <code>draft: false</code> (or delete the line)</li>\n    <li>Spot-check the content for any hallucinated facts</li>\n    <li>Click <strong>Commit changes</strong></li>\n    <li>Netlify rebuilds the site → post goes live in ~60 sec</li>\n  </ol>\n  <h3>To reject:</h3>\n  <p>Just delete the file on GitHub. Workflow already advanced to the next topic for the next run.</p>\n</div>\n` }}"
-      },
-      "name": "Email me for approval",
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [1280, 300],
-      "credentials": {
-        "smtp": {
-          "id": "migadu-smtp",
-          "name": "Migadu SMTP (admin@cortisolplus.com)"
-        }
-      }
+      "position": [1100, 300]
     }
   ],
   "connections": {
-    "Mon + Thu 9 AM":          { "main": [[{ "node": "Fetch topic queue", "type": "main", "index": 0 }]] },
-    "Fetch topic queue":       { "main": [[{ "node": "Pick next topic",   "type": "main", "index": 0 }]] },
-    "Pick next topic":         { "main": [[{ "node": "Claude: write the post", "type": "main", "index": 0 }]] },
-    "Claude: write the post":  { "main": [[{ "node": "Parse Claude response","type": "main", "index": 0 }]] },
-    "Parse Claude response":   { "main": [[{ "node": "Commit MDX as draft to GitHub", "type": "main", "index": 0 }]] },
-    "Commit MDX as draft to GitHub": { "main": [[{ "node": "Email me for approval", "type": "main", "index": 0 }]] }
+    "Mon/Wed/Fri 9 AM":       { "main": [[{ "node": "Fetch topic queue",      "type": "main", "index": 0 }]] },
+    "Fetch topic queue":      { "main": [[{ "node": "Pick next topic",         "type": "main", "index": 0 }]] },
+    "Pick next topic":        { "main": [[{ "node": "Claude: write the post", "type": "main", "index": 0 }]] },
+    "Claude: write the post": { "main": [[{ "node": "Parse + validate",       "type": "main", "index": 0 }]] },
+    "Parse + validate":       { "main": [[{ "node": "Publish to GitHub",      "type": "main", "index": 0 }]] }
   }
 }
