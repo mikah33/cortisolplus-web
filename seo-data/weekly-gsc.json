@@ -1,0 +1,59 @@
+{
+  "gsc_property": "sc-domain:cortisolplus.com",
+  "pulled_at": "2026-05-25T20:35:07.947339+00:00",
+  "date_range": {
+    "start": "2026-05-17",
+    "end": "2026-05-23"
+  },
+  "queries": [],
+  "pages": [],
+  "query_x_page": [],
+  "device": [],
+  "country": [],
+  "sitemaps": [
+    {
+      "path": "https://cortisolplus.com/sitemap.xml",
+      "lastSubmitted": "2026-05-24T04:40:48.400Z",
+      "isPending": false,
+      "isSitemapsIndex": false,
+      "type": "sitemap",
+      "lastDownloaded": "2026-05-25T07:25:28.187Z",
+      "warnings": "0",
+      "errors": "0",
+      "contents": [
+        {
+          "type": "web",
+          "submitted": "41",
+          "indexed": "0"
+        },
+        {
+          "type": "image",
+          "submitted": "7",
+          "indexed": "0"
+        }
+      ]
+    },
+    {
+      "path": "https://cortisolplus.com/sitemap-index.xml",
+      "lastSubmitted": "2026-05-24T04:34:22.371Z",
+      "isPending": false,
+      "isSitemapsIndex": false,
+      "type": "sitemap",
+      "lastDownloaded": "2026-05-25T06:02:05.247Z",
+      "warnings": "0",
+      "errors": "0",
+      "contents": [
+        {
+          "type": "web",
+          "submitted": "41",
+          "indexed": "0"
+        },
+        {
+          "type": "image",
+          "submitted": "7",
+          "indexed": "0"
+        }
+      ]
+    }
+  ]
+}
