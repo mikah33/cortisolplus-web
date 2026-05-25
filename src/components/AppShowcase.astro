@@ -67,15 +67,18 @@ const screens = [
     {screens.map((s) => (
       <figure class="shrink-0 w-[240px] md:w-[260px] snap-center group">
         <div class="rounded-3xl overflow-hidden bg-[color:var(--color-surface)] border border-[color:var(--color-border)] aspect-[1170/2532] relative">
-          <img
-            src={s.src}
-            alt={s.alt}
-            width="1170"
-            height="2532"
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-          />
+          <picture>
+            <source srcset={s.src.replace('.png', '.webp')} type="image/webp" />
+            <img
+              src={s.src}
+              alt={s.alt}
+              width="1170"
+              height="2532"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+            />
+          </picture>
         </div>
         <figcaption class="mt-4 px-1">
           <div class="text-xs uppercase tracking-wider text-[color:var(--color-teal-dark)] font-medium mb-1">{s.badge}</div>
