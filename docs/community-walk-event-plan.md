@@ -47,28 +47,28 @@ Walk Together Challenge
 ### Short description (max 50 chars, used for notification + tile)
 
 ```
-1M minutes. One community. Walk together.
+100,000 walks. One community. Together.
 ```
-(40 chars — under budget. Or alternatives below.)
+(39 chars — under budget. Or alternatives below.)
 
 Alternates if you want to swap:
-- `Help Cortisol+ walk 100,000 miles in May` (40 chars)
+- `Help us hit 100,000 walks this May` (34 chars)
 - `Every walk counts. Drop cortisol together.` (42 chars)
 - `Cortisol+ community walk goal — join in` (39 chars)
 
 ### Long description (event details page, max 120 chars)
 
 ```
-Every walk Cortisol+ users log counts toward our community goal — watch cortisol drop while we walk together.
+Every walk you log counts toward 100,000 community walks — watch cortisol drop on Apple Watch while we go together.
 ```
-(112 chars — under 120.)
+(116 chars — under 120.)
 
 ### Full description (max 1,000 chars, shown when user expands)
 
 ```
-Cortisol+ walks aren't just for you. Every walk you log this May
-counts toward a shared community goal: 1,000,000 minutes of calming,
-HRV-recovering walks.
+Cortisol+ walks aren't just for you. Every walk you log this month
+counts toward a shared community goal: 100,000 walks across the
+entire Cortisol+ community.
 
 Open the Walks tab to find calming parks, trails, and waterfronts
 near you, then tap Start. Apple Watch tracks your HRV recovery in
