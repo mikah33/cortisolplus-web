@@ -20,7 +20,7 @@ released to the store.
 For dates, set:
 - **Event start:** the day you tap "Release this version" on 3.5,
   pick that date.
-- **Event end:** start + 30 days.
+- **Event end:** start + 45 days.
 
 You can edit both dates up until 24 hours before the event starts,
 so this is safe even if you slip your launch.
@@ -47,28 +47,29 @@ Walk Together Challenge
 ### Short description (max 50 chars, used for notification + tile)
 
 ```
-100,000 walks. One community. Together.
+5,000 miles. 45 days. One community.
 ```
-(39 chars — under budget. Or alternatives below.)
+(36 chars — under budget. Or alternatives below.)
 
 Alternates if you want to swap:
-- `Help us hit 100,000 walks this May` (34 chars)
-- `Every walk counts. Drop cortisol together.` (42 chars)
-- `Cortisol+ community walk goal — join in` (39 chars)
+- `Help us walk 5,000 miles in 45 days` (35 chars)
+- `Every mile counts. Drop cortisol together.` (42 chars)
+- `Cortisol+ 5K-mile community challenge` (37 chars)
 
 ### Long description (event details page, max 120 chars)
 
 ```
-Every walk you log counts toward 100,000 community walks — watch cortisol drop on Apple Watch while we go together.
+Every mile you log counts toward 5,000 community miles — watch cortisol drop on Apple Watch while we go together.
 ```
-(116 chars — under 120.)
+(114 chars — under 120.)
 
 ### Full description (max 1,000 chars, shown when user expands)
 
 ```
-Cortisol+ walks aren't just for you. Every walk you log this month
-counts toward a shared community goal: 100,000 walks across the
-entire Cortisol+ community.
+Cortisol+ walks aren't just for you. Every mile you log over the
+next 45 days counts toward a shared community goal: 5,000 miles
+across the entire Cortisol+ community. With 200 of us walking, that
+works out to about half a mile a day each — one short loop.
 
 Open the Walks tab to find calming parks, trails, and waterfronts
 near you, then tap Start. Apple Watch tracks your HRV recovery in
@@ -153,7 +154,7 @@ chromium --headless --screenshot=details.png --window-size=1920,1080 \
 - [ ] Event purpose: Challenge
 - [ ] Available in: 3.5 (or whichever version ships Walks)
 - [ ] Event start: same day as 3.5 release
-- [ ] Event end: start + 30 days
+- [ ] Event end: start + 45 days
 - [ ] Deep link: cortisolplus://walks
 - [ ] Event card image uploaded (1080×1920)
 - [ ] Event details image uploaded (1920×1080)
