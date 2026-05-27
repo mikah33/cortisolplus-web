@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @page { size: 1080px 1920px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1080px; height: 1920px;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    overflow: hidden; position: relative;
+    background: linear-gradient(180deg, #e6f5f1 0%, #ffffff 50%, #fff5f3 100%);
+  }
+  .orb1 { position: absolute; top: -250px; left: -150px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(0,191,166,0.30) 0%, transparent 60%); filter: blur(60px); }
+  .orb2 { position: absolute; bottom: -250px; right: -150px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(255,112,97,0.25) 0%, transparent 60%); filter: blur(60px); }
+  .orb3 { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(157,216,205,0.40) 0%, transparent 60%); filter: blur(70px); }
+
+  .brand {
+    position: absolute; top: 80px; left: 80px;
+    display: flex; align-items: center; gap: 18px;
+    z-index: 10;
+  }
+  .brand-icon { width: 80px; height: 80px; border-radius: 18px; background: linear-gradient(135deg, #00bfa6, #009985); display: flex; align-items: center; justify-content: center; color: white; font-size: 46px; font-weight: 700; box-shadow: 0 14px 32px rgba(0,191,166,0.35); }
+  .brand-text { font-size: 34px; font-weight: 700; color: #0f1419; letter-spacing: -0.5px; }
+
+  /* Top eyebrow */
+  .eyebrow {
+    position: absolute;
+    top: 240px; left: 80px;
+    font-size: 24px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 6px;
+    color: #ff7061;
+    z-index: 10;
+  }
+
+  /* Title */
+  .title {
+    position: absolute;
+    top: 310px; left: 80px; right: 80px;
+    font-size: 158px; font-weight: 700;
+    line-height: 0.9; letter-spacing: -5px;
+    color: #0f1419;
+    z-index: 10;
+  }
+  .title .accent {
+    background: linear-gradient(90deg, #00bfa6 0%, #ff7061 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Subtitle */
+  .sub {
+    position: absolute;
+    top: 700px; left: 80px; right: 80px;
+    font-size: 36px; font-weight: 500;
+    color: #5b6770; line-height: 1.35;
+    z-index: 10;
+  }
+
+  /* Community progress ring — center */
+  .ring-card {
+    position: absolute;
+    top: 920px; left: 50%;
+    transform: translateX(-50%);
+    width: 540px; height: 540px;
+    border-radius: 40px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 50px 120px rgba(0,191,166,0.18);
+    padding: 40px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 10;
+  }
+  .ring-card .topstrip {
+    display: flex; justify-content: space-between; width: 100%;
+    font-size: 14px; font-weight: 700; color: #5b6770;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    margin-bottom: 18px;
+  }
+  .topstrip .live { color: #34c759; }
+  .topstrip .live::before { content: "● "; }
+
+  .ring-svg { width: 360px; height: 360px; }
+  .ring-num {
+    font-size: 88px; font-weight: 700;
+    color: #0f1419; line-height: 1;
+    margin-top: -240px;
+    letter-spacing: -3px;
+  }
+  .ring-num .unit {
+    font-size: 38px;
+    font-weight: 600;
+    color: #5b6770;
+    letter-spacing: -1px;
+    margin-left: 4px;
+  }
+  .ring-label {
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 3px;
+    color: #5b6770;
+    margin-top: 8px;
+  }
+  .ring-pill {
+    margin-top: 116px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 999px;
+    background: rgba(0,191,166,0.12);
+    color: #009985;
+    font-size: 16px; font-weight: 700;
+  }
+  .ring-pill::before {
+    content: ""; width: 8px; height: 8px;
+    border-radius: 999px; background: #00bfa6;
+  }
+
+  /* Stats strip */
+  .stats {
+    position: absolute;
+    bottom: 200px; left: 80px; right: 80px;
+    display: flex; justify-content: space-around;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0,191,166,0.18);
+    border-radius: 28px;
+    padding: 32px 24px;
+    z-index: 10;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 48px; font-weight: 700; color: #0f1419; line-height: 1; letter-spacing: -1.5px; }
+  .stat .num.grad { background: linear-gradient(135deg, #00bfa6, #ff7061); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .lbl { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #5b6770; margin-top: 8px; }
+
+  /* Footer */
+  .footer {
+    position: absolute;
+    bottom: 80px; left: 80px; right: 80px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+  }
+  .footer .url { font-size: 26px; font-weight: 700; color: #0f1419; }
+  .footer-right { display: flex; align-items: center; gap: 14px; }
+  .stars { color: #fbbf24; font-size: 28px; letter-spacing: 3px; }
+  .rating { font-size: 22px; color: #5b6770; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  <div class="orb3"></div>
+
+  <div class="brand">
+    <div class="brand-icon">C</div>
+    <div class="brand-text">Cortisol+</div>
+  </div>
+
+  <div class="eyebrow">Community Challenge · 30 Days</div>
+  <div class="title">Walk<br/><span class="accent">Together</span></div>
+  <div class="sub">Help the Cortisol+ community walk 1,000,000 minutes. Every walk you log drops your cortisol — and pushes the goal forward.</div>
+
+  <div class="ring-card">
+    <div class="topstrip">
+      <span class="live">LIVE</span>
+      <span>Day 12 of 30</span>
+    </div>
+
+    <svg class="ring-svg" viewBox="0 0 360 360">
+      <defs>
+        <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00bfa6"/>
+          <stop offset="100%" stop-color="#ff7061"/>
+        </linearGradient>
+      </defs>
+      <!-- Background ring -->
+      <circle cx="180" cy="180" r="140" fill="none" stroke="#eef2f2" stroke-width="32"/>
+      <!-- Progress ring — 62% complete -->
+      <circle cx="180" cy="180" r="140"
+              fill="none"
+              stroke="url(#ringGrad)"
+              stroke-width="32"
+              stroke-linecap="round"
+              stroke-dasharray="879.6 879.6"
+              stroke-dashoffset="334"
+              transform="rotate(-90 180 180)"/>
+    </svg>
+
+    <div class="ring-num">623K<span class="unit">min</span></div>
+    <div class="ring-label">community total</div>
+    <div class="ring-pill">62% to 1M goal</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">5,000+</div><div class="lbl">Walking</div></div>
+    <div class="stat"><div class="num grad">15</div><div class="lbl">Your goal</div></div>
+    <div class="stat"><div class="num">171</div><div class="lbl">Countries</div></div>
+    <div class="stat"><div class="num">FREE</div><div class="lbl">Download</div></div>
+  </div>
+
+  <div class="footer">
+    <div class="url">cortisolplus.com/walks</div>
+    <div class="footer-right">
+      <span class="stars">★★★★★</span>
+      <span class="rating">4.9 App Store</span>
+    </div>
+  </div>
+</body>
+</html>

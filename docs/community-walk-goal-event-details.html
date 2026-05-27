@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1920px; height: 1080px;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    overflow: hidden; position: relative;
+    background: linear-gradient(135deg, #e6f5f1 0%, #ffffff 45%, #fff5f3 100%);
+  }
+  .orb1 { position: absolute; top: -300px; left: -200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(0,191,166,0.30) 0%, transparent 60%); filter: blur(60px); }
+  .orb2 { position: absolute; bottom: -300px; right: -200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(255,112,97,0.25) 0%, transparent 60%); filter: blur(60px); }
+  .orb3 { position: absolute; top: 30%; left: 45%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(157,216,205,0.45) 0%, transparent 60%); filter: blur(70px); }
+
+  .brand {
+    position: absolute; top: 60px; left: 80px;
+    display: flex; align-items: center; gap: 16px;
+    z-index: 10;
+  }
+  .brand-icon {
+    width: 64px; height: 64px; border-radius: 14px;
+    background: linear-gradient(135deg, #00bfa6, #009985);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 36px; font-weight: 700;
+    box-shadow: 0 12px 30px rgba(0,191,166,0.35);
+  }
+  .brand-text { font-size: 28px; font-weight: 700; color: #0f1419; letter-spacing: -0.5px; }
+
+  /* Left column — text */
+  .left {
+    position: absolute;
+    top: 200px; left: 80px;
+    width: 920px;
+    z-index: 10;
+  }
+  .eyebrow {
+    font-size: 22px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 5px;
+    color: #ff7061;
+    margin-bottom: 32px;
+  }
+  .headline {
+    font-size: 138px; font-weight: 700;
+    line-height: 0.92; letter-spacing: -4px;
+    color: #0f1419;
+    margin-bottom: 36px;
+  }
+  .headline .accent {
+    background: linear-gradient(90deg, #00bfa6 0%, #ff7061 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lede {
+    font-size: 30px; font-weight: 500;
+    color: #5b6770; line-height: 1.35;
+    max-width: 820px;
+    margin-bottom: 48px;
+  }
+
+  /* Feature list */
+  .feat-row {
+    display: flex; flex-direction: column; gap: 16px;
+    max-width: 820px;
+  }
+  .feat {
+    display: flex; align-items: center; gap: 20px;
+    padding: 18px 24px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,191,166,0.18);
+    border-radius: 18px;
+    backdrop-filter: blur(16px);
+  }
+  .feat-ico {
+    width: 52px; height: 52px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 26px;
+    flex-shrink: 0;
+  }
+  .feat-ico.teal { background: linear-gradient(135deg, #00bfa6, #009985); }
+  .feat-ico.coral { background: linear-gradient(135deg, #ff7061, #ff8f80); }
+  .feat-ico.mint { background: linear-gradient(135deg, #9dd8cd, #00bfa6); }
+  .feat-text h3 { font-size: 22px; font-weight: 700; color: #0f1419; margin-bottom: 2px; }
+  .feat-text p { font-size: 16px; color: #5b6770; line-height: 1.3; }
+
+  /* Right column — community progress ring */
+  .right {
+    position: absolute;
+    top: 130px; right: 80px;
+    width: 760px; height: 820px;
+    z-index: 10;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .ring-card {
+    width: 580px; height: 580px;
+    border-radius: 36px;
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 40px 100px rgba(0,191,166,0.18);
+    padding: 36px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .topstrip {
+    display: flex; justify-content: space-between; width: 100%;
+    font-size: 13px; font-weight: 700; color: #5b6770;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    margin-bottom: 20px;
+  }
+  .topstrip .live { color: #34c759; }
+  .topstrip .live::before { content: "● "; }
+
+  .ring-svg { width: 380px; height: 380px; }
+  .ring-num {
+    font-size: 92px; font-weight: 700;
+    color: #0f1419; line-height: 1;
+    margin-top: -260px;
+    letter-spacing: -3px;
+  }
+  .ring-num .unit {
+    font-size: 40px;
+    font-weight: 600;
+    color: #5b6770;
+    margin-left: 4px;
+  }
+  .ring-label {
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    color: #5b6770;
+    margin-top: 8px;
+  }
+  .ring-pill {
+    margin-top: 128px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 999px;
+    background: rgba(0,191,166,0.14);
+    color: #009985;
+    font-size: 15px; font-weight: 700;
+  }
+  .ring-pill::before {
+    content: ""; width: 8px; height: 8px;
+    border-radius: 999px; background: #00bfa6;
+  }
+
+  /* Bottom stats strip */
+  .stats {
+    position: absolute;
+    bottom: 60px; left: 80px;
+    display: flex; gap: 50px;
+    z-index: 10;
+  }
+  .stat { display: flex; flex-direction: column; gap: 6px; }
+  .stat .num { font-size: 38px; font-weight: 700; color: #0f1419; line-height: 1; letter-spacing: -1px; }
+  .stat .num.grad { background: linear-gradient(135deg, #00bfa6, #ff7061); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .lbl { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #5b6770; }
+
+  .footer-right {
+    position: absolute;
+    bottom: 70px; right: 80px;
+    display: flex; align-items: center; gap: 12px;
+    z-index: 10;
+  }
+  .footer-right .url { font-size: 22px; font-weight: 700; color: #0f1419; }
+  .footer-right .sep { color: #d4d8da; }
+  .footer-right .stars { color: #fbbf24; font-size: 22px; letter-spacing: 2px; }
+  .footer-right .rating { font-size: 18px; color: #5b6770; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  <div class="orb3"></div>
+
+  <div class="brand">
+    <div class="brand-icon">C</div>
+    <div class="brand-text">Cortisol+</div>
+  </div>
+
+  <div class="left">
+    <div class="eyebrow">Community Challenge · 30 Days</div>
+    <div class="headline">Walk<br/><span class="accent">Together</span></div>
+    <div class="lede">Every walk Cortisol+ users log this month counts toward 1,000,000 community minutes. Watch your own cortisol drop while we close the ring together.</div>
+    <div class="feat-row">
+      <div class="feat">
+        <div class="feat-ico teal">⌖</div>
+        <div class="feat-text">
+          <h3>Calming routes near you</h3>
+          <p>Parks, trails, waterfronts ranked by how calm they are — with Google reviews built in.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico coral">♡</div>
+        <div class="feat-text">
+          <h3>Live HRV recovery</h3>
+          <p>Apple Watch tracks your HRV recovering on every walk. Watch cortisol drop in real time.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico mint">⌚</div>
+        <div class="feat-text">
+          <h3>Personal + community goals</h3>
+          <p>15 walks/month for you. 1M minutes for the community. Both rings close together.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="ring-card">
+      <div class="topstrip">
+        <span class="live">LIVE</span>
+        <span>Day 12 of 30</span>
+      </div>
+
+      <svg class="ring-svg" viewBox="0 0 380 380">
+        <defs>
+          <linearGradient id="ringGradL" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00bfa6"/>
+            <stop offset="100%" stop-color="#ff7061"/>
+          </linearGradient>
+        </defs>
+        <circle cx="190" cy="190" r="150" fill="none" stroke="#eef2f2" stroke-width="32"/>
+        <circle cx="190" cy="190" r="150"
+                fill="none"
+                stroke="url(#ringGradL)"
+                stroke-width="32"
+                stroke-linecap="round"
+                stroke-dasharray="942 942"
+                stroke-dashoffset="358"
+                transform="rotate(-90 190 190)"/>
+      </svg>
+
+      <div class="ring-num">623K<span class="unit">min</span></div>
+      <div class="ring-label">community total</div>
+      <div class="ring-pill">62% to 1M goal</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">4.9★</div><div class="lbl">App Store</div></div>
+    <div class="stat"><div class="num grad">5,000+</div><div class="lbl">Walking</div></div>
+    <div class="stat"><div class="num">171</div><div class="lbl">Countries</div></div>
+    <div class="stat"><div class="num">FREE</div><div class="lbl">To download</div></div>
+  </div>
+
+  <div class="footer-right">
+    <div class="url">cortisolplus.com/walks</div>
+    <span class="sep">·</span>
+    <span class="stars">★★★★★</span>
+    <span class="rating">4.9 on App Store</span>
+  </div>
+</body>
+</html>
