@@ -1,15 +1,295 @@
 {
   "gsc_property": "sc-domain:cortisolplus.com",
-  "pulled_at": "2026-05-25T20:35:07.947339+00:00",
+  "pulled_at": "2026-06-01T00:00:41.140749+00:00",
   "date_range": {
-    "start": "2026-05-17",
-    "end": "2026-05-23"
+    "start": "2026-05-24",
+    "end": "2026-05-30"
   },
-  "queries": [],
-  "pages": [],
-  "query_x_page": [],
-  "device": [],
-  "country": [],
+  "queries": [
+    {
+      "keys": [
+        "cortisol app"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 21
+    },
+    {
+      "keys": [
+        "cortisol curve"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 67
+    },
+    {
+      "keys": [
+        "cortisol levels chart"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 90
+    },
+    {
+      "keys": [
+        "cortisol plus"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4
+    },
+    {
+      "keys": [
+        "welltory"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4.5
+    }
+  ],
+  "pages": [
+    {
+      "keys": [
+        "https://cortisolplus.com/"
+      ],
+      "clicks": 1,
+      "impressions": 24,
+      "ctr": 0.041666666666666664,
+      "position": 8.041666666666668
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/download/"
+      ],
+      "clicks": 1,
+      "impressions": 13,
+      "ctr": 0.07692307692307693,
+      "position": 8.076923076923077
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/blog/"
+      ],
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 12.3
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/blog/ashwagandha-vs-rhodiola-cortisol/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 8
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/cortisol/"
+      ],
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0,
+      "position": 20.22222222222222
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/features/hrv-stress-monitoring/"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 5.5
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/how-it-works/"
+      ],
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "position": 8
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/tools/"
+      ],
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0,
+      "position": 5.6
+    }
+  ],
+  "query_x_page": [
+    {
+      "keys": [
+        "cortisol app",
+        "https://cortisolplus.com/download/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 21
+    },
+    {
+      "keys": [
+        "cortisol curve",
+        "https://cortisolplus.com/cortisol/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 67
+    },
+    {
+      "keys": [
+        "cortisol levels chart",
+        "https://cortisolplus.com/cortisol/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 90
+    },
+    {
+      "keys": [
+        "cortisol plus",
+        "https://cortisolplus.com/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4
+    },
+    {
+      "keys": [
+        "welltory",
+        "https://cortisolplus.com/blog/"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4.5
+    }
+  ],
+  "device": [
+    {
+      "keys": [
+        "MOBILE"
+      ],
+      "clicks": 2,
+      "impressions": 24,
+      "ctr": 0.08333333333333333,
+      "position": 11.25
+    },
+    {
+      "keys": [
+        "DESKTOP"
+      ],
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 13.52
+    },
+    {
+      "keys": [
+        "TABLET"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11
+    }
+  ],
+  "country": [
+    {
+      "keys": [
+        "deu"
+      ],
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": 0.16666666666666666,
+      "position": 8.833333333333332
+    },
+    {
+      "keys": [
+        "usa"
+      ],
+      "clicks": 1,
+      "impressions": 28,
+      "ctr": 0.03571428571428571,
+      "position": 15.535714285714286
+    },
+    {
+      "keys": [
+        "aut"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 9
+    },
+    {
+      "keys": [
+        "bel"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 37
+    },
+    {
+      "keys": [
+        "bra"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 20
+    },
+    {
+      "keys": [
+        "can"
+      ],
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "position": 3.625
+    },
+    {
+      "keys": [
+        "mys"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9
+    },
+    {
+      "keys": [
+        "vnm"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 9
+    },
+    {
+      "keys": [
+        "xkk"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 4.5
+    }
+  ],
   "sitemaps": [
     {
       "path": "https://cortisolplus.com/sitemap.xml",
@@ -17,13 +297,13 @@
       "isPending": false,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-05-25T07:25:28.187Z",
+      "lastDownloaded": "2026-05-31T11:16:17.699Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "41",
+          "submitted": "42",
           "indexed": "0"
         },
         {
@@ -39,13 +319,13 @@
       "isPending": false,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-05-25T06:02:05.247Z",
+      "lastDownloaded": "2026-05-31T10:18:21.067Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "41",
+          "submitted": "42",
           "indexed": "0"
         },
         {
