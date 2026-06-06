@@ -43,26 +43,36 @@ in the DR and clicks columns from Ahrefs / GSC.
 
 ## Inbox audit findings (2026-06-06)
 
-Scanned `admin@elevatedsystems.info` Gmail inbox. Findings:
+Two-stage scan: Gmail forwarding (`admin@elevatedsystems.info`) AND
+Migadu direct (`admin@cortisolplus.com`, 134 messages). The Migadu scan
+revealed a major Phase-4 signup sprint on 2026-05-24/25 we had no
+record of — most playbook channels are already signed up, just unused.
 
-**Confirmed LIVE (don't redo):**
-- Product Hunt — launched on or around 2026-05-26. Get the actual URL from your PH account so we can log it correctly. Don't relaunch.
-- Domain (Namecheap), email (Migadu), GSC, Bing WMT, RevenueCat, n8n auto-blog.
-- **G2 vendor account exists** since at least 2025-11-30 — but for Elevated/ContractorAI, not Cortisol+. Adding Cortisol+ as a second product should be faster than a cold signup.
+**Confirmed LIVE (signed up + active):**
+- **Ahrefs Webmaster Tools** (free tier) — activated 2026-05-24. Receiving site audit reports for cortisolplus.com AND contractorai. Sufficient for our backlink-gap analysis.
+- **Featured.com** (was HARO, now Connectively-branded) — created + verified 2026-05-25. Sign-in link requested 2026-06-06 (in your inbox right now).
+- **AlternativeTo** — verified 2026-05-25.
+- **Capterra** — created 2026-05-25 (covers GetApp via shared data).
+- **G2 Digital Markets** — activated 2026-05-25 (separate from the Elevated/ContractorAI G2 vendor account that's existed since 2025-11).
+- **Product Hunt** — launched ~2026-05-25/26. Welcome + badge awarded + 10 daily 😸 digests received. URL to retrieve from PH account.
+- **LinkedIn** — verified 2026-05-25.
+- **Appfigures** — **paid subscription** as of 2026-06-06. Daily reports, keyword rank reports, App Store Connect synced. ASO infrastructure already running.
+- **Reddit** — account exists, subscribed since 2026-05-24. But notification subjects show mixed content (crypto/random subs) — looks like a personal-leaning account, NOT a clean `u/cortisolplus` brand account. Likely need separate clean account for product posts.
+- **Social presence (signed up, underused):** Mastodon, Bluesky, Pinterest, Medium — all 2026-05-24.
+- **Domain (Namecheap), email (Migadu), GSC, Bing WMT, RevenueCat, n8n auto-blog** — all live.
+- **Apple App Store:** 2 submissions approved (2026-05-20, 2026-06-02).
 
-**Confirmed NOT signed up (these are all greenfield):**
-- SaaSHub, AlternativeTo, Slant, AppGrooves, GetApp, Capterra, BetaList, Featured.com, Qwoted, Toolify, StartupBase. No welcome/confirmation emails for any of these in inbox.
-- **Ahrefs** — user says they have it but no Ahrefs receipts/logins/notifications in this inbox. Either signed up with a different email or trial that never activated. Verify before relying on it for the backlink-gap analysis.
+**Confirmed NOT signed up (greenfield):**
+- SaaSHub, Slant, AppGrooves, BetaList, Qwoted, Toolify, StartupBase.
+- GetApp — but Capterra signup shares data, so functionally covered.
 
-**Cold pitches received (not signed up, can ignore):**
-- PeerPush (ip@getpeerpush.com) — community for builders
-- LinkSalad / 1000Tools / SaasHunt / DevHub (all from product@focusapps.app) — directory plays
-- Lifto, Shipit, Sequenzy, NextGen Tools, searchbox.buzz — various marketing tools / cold sales
+**Cold pitches (ignore):**
+- PeerPush, LinkSalad, 1000Tools, SaasHunt, DevHub, Lifto, Shipit, Sequenzy, NextGen Tools, searchbox.buzz, ListKit.
 
-**Other notes:**
-- ListKit (sales outreach lead-gen) was used for some other workflow — uses elevatedmarketing0@gmail.com
-- Multiple G2 "$10 for a review" promo emails — could be used to bootstrap G2 reviews when Cortisol+ is listed
-- Apple App Store: confirmed two submissions (2026-05-20, 2026-06-02) both approved
+**Bootstrap opportunities:**
+- G2 "$10 to review" promos in inbox (multiple) — bootstrap reviews once Cortisol+ is listed.
+- Appfigures keyword rank reports — use for ASO/SEO insights.
+- Featured.com daily routine can start TODAY (account is live).
 
 ---
 
