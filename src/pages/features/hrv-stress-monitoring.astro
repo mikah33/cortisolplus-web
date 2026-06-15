@@ -7,7 +7,7 @@ import RelatedLinks from '../../components/RelatedLinks.astro';
 import { medicalWebPage } from '../../lib/schema';
 
 const schema = medicalWebPage({
-  name: 'HRV-based cortisol score on Apple Watch',
+  name: 'Real-Time Cortisol Score from Apple Watch HRV',
   pathname: '/features/hrv-stress-monitoring/',
 });
 
@@ -42,8 +42,8 @@ const related = [
 ---
 
 <BaseLayout
-  title="HRV-based cortisol score on Apple Watch"
-  description="How Cortisol+ uses Apple Watch HRV to estimate your cortisol level in real time. SDNN sampling, personal baseline calibration, and pattern alerts — no blood test needed."
+  title="Real-Time Cortisol Score from Apple Watch HRV"
+  description="Cortisol+ converts Apple Watch HRV into a real-time cortisol estimate. SDNN trending, personal baseline calibration, and pattern alerts — see your stress before you feel it. No blood test."
   image="/screenshots/health-breakdown.png"
   schema={schema}
 >
