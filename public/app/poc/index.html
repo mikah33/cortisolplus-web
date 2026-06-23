@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Cortisol+ Web PoC</title>
+  <style>
+    :root { --teal:#ea580c; --teal-dark:#c2410c; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --bg:#f8fafc; }
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+           background:var(--bg); color:var(--ink); padding:env(safe-area-inset-top) 18px 28px; }
+    .badge { display:inline-block; background:#ecfeff; color:var(--teal); font-size:12px; font-weight:700;
+             padding:4px 10px; border-radius:999px; margin-top:14px; }
+    h1 { font-size:26px; font-weight:800; margin:14px 0 4px; letter-spacing:-.02em; }
+    .sub { color:var(--muted); font-size:15px; margin:0 0 18px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:14px; }
+    .card h2 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 12px; }
+    .btn { width:100%; border:0; border-radius:12px; padding:14px; font-size:16px; font-weight:700;
+           background:var(--teal); color:#fff; margin-bottom:10px; cursor:pointer; transition:transform .05s; }
+    .btn:active { transform:scale(.985); }
+    .btn.secondary { background:#fff; color:var(--teal); border:1.5px solid var(--teal); }
+    .btn.dark { background:var(--ink); }
+    .status { font-size:14px; color:var(--muted); margin:2px 0 10px; }
+    .ok { color:#16a34a; font-weight:700; } .no { color:#dc2626; font-weight:700; }
+    .plans { display:flex; gap:8px; margin-bottom:12px; }
+    .plan { flex:1; border:2px solid var(--line); border-radius:14px; padding:12px 8px; text-align:center; cursor:pointer; }
+    .plan.sel { border-color:var(--teal); background:#f0fdfa; }
+    .plan .t { font-size:13px; font-weight:700; } .plan .p { font-size:18px; font-weight:800; color:var(--teal); margin-top:4px; }
+    .plan .per { font-size:11px; color:var(--muted); }
+    #log { background:#0b1220; color:#9fe8c9; font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+           border-radius:12px; padding:12px; height:150px; overflow:auto; white-space:pre-wrap; }
+    .pill { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px; }
+    .pill.on { background:#dcfce7; color:#16a34a; } .pill.off { background:#fee2e2; color:#dc2626; }
+    .note { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; border-radius:12px; padding:12px; font-size:13px; margin-bottom:14px; }
+  </style>
+</head>
+<body>
+  <div class="badge">🟠 EDIT #2 · PUSHED FROM THE SERVER JUST NOW</div>
+  <h1>Live edit #2 — orange now, no rebuild 🟠</h1>
+  <p class="sub">Orange instead of purple, and you didn't touch Xcode. Pure server change → live in the app. That's exactly how your 31 onboarding screens will work.</p>
+
+  <div id="bridgeNote" class="note" style="display:none">
+    ⚠️ No native bridge detected — open this inside the Cortisol+ app (Settings → Developer Tools → Web PoC) to test the live integration.
+  </div>
+
+  <div class="card">
+    <h2>Native bridge <span id="bridgePill" class="pill off">disconnected</span></h2>
+    <button class="btn secondary" onclick="send('ping')">Ping native</button>
+  </div>
+
+  <div class="card">
+    <h2>Permissions (real iOS sheets)</h2>
+    <div class="status">Apple Health: <span id="hkStatus">unknown</span></div>
+    <button class="btn" onclick="send('requestHealthKit')">Connect Apple Health — (edited!)</button>
+    <div class="status">Notifications: <span id="noStatus">unknown</span></div>
+    <button class="btn dark" onclick="send('requestNotifications')">Enable Notifications</button>
+  </div>
+
+  <div class="card">
+    <h2>Paywall · prices injected by native (StoreKit)</h2>
+    <div class="plans">
+      <div class="plan" data-plan="weekly" onclick="pick('weekly')"><div class="t">Weekly</div><div class="p" id="pw">–</div><div class="per">/wk</div></div>
+      <div class="plan sel" data-plan="yearly" onclick="pick('yearly')"><div class="t">Yearly</div><div class="p" id="py">–</div><div class="per">/yr</div></div>
+      <div class="plan" data-plan="monthly" onclick="pick('monthly')"><div class="t">Monthly</div><div class="p" id="pm">–</div><div class="per">/mo</div></div>
+    </div>
+    <button class="btn" onclick="send('purchase',{plan:selected})">Start Subscription (Apple IAP)</button>
+    <div class="status" id="buyStatus"></div>
+  </div>
+
+  <div class="card">
+    <h2>Bridge log</h2>
+    <div id="log"></div>
+  </div>
+
+  <script>
+    var selected = 'yearly';
+    function log(m){ var el=document.getElementById('log'); el.textContent += m+'\n'; el.scrollTop=el.scrollHeight; }
+    function pick(p){ selected=p; document.querySelectorAll('.plan').forEach(function(e){ e.classList.toggle('sel', e.dataset.plan===p); }); }
+
+    // web → native
+    function send(action, extra){
+      var msg = Object.assign({action:action}, extra||{});
+      log('→ native: '+JSON.stringify(msg));
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.native){
+        window.webkit.messageHandlers.native.postMessage(msg);
+      } else {
+        log('   (no bridge — running in a normal browser)');
+      }
+    }
+
+    // native → web
+    window.cortisolBridge = {
+      onNative: function(payload){
+        log('← native: '+JSON.stringify(payload));
+        switch(payload.event){
+          case 'nativeReady':
+          case 'pong':
+            document.getElementById('bridgePill').className='pill on';
+            document.getElementById('bridgePill').textContent='connected';
+            break;
+          case 'healthKitResult':
+            setStatus('hkStatus', payload.granted); break;
+          case 'notificationsResult':
+            setStatus('noStatus', payload.granted); break;
+          case 'prices':
+            var p=payload.prices||{};
+            if(p.weekly) document.getElementById('pw').textContent=p.weekly;
+            if(p.yearly) document.getElementById('py').textContent=p.yearly;
+            if(p.monthly) document.getElementById('pm').textContent=p.monthly;
+            break;
+          case 'purchaseResult':
+            var s=document.getElementById('buyStatus');
+            s.innerHTML = payload.success ? '<span class="ok">✅ Purchased — entitlement unlocked</span>'
+                                          : '<span class="no">✕ Not purchased'+(payload.reason?(' ('+payload.reason+')'):'')+'</span>';
+            break;
+        }
+      }
+    };
+    function setStatus(id, granted){
+      document.getElementById(id).innerHTML = granted ? '<span class="ok">granted ✓</span>' : '<span class="no">not granted</span>';
+    }
+
+    // boot
+    if (!(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.native)){
+      document.getElementById('bridgeNote').style.display='block';
+    }
+    log('page loaded from '+location.host);
+    send('ping');
+    send('getPrices');
+  </script>
+</body>
+</html>
