@@ -55,6 +55,22 @@ import { PUBLISHER } from '../consts';
     We use HealthKit in read-only mode and never write data back to your Health record.
   </p>
 
+  <h3>3.1a Biometric data from Fitbit via the Google Health API (optional)</h3>
+  <p>
+    If you choose to connect a Fitbit account, the App reads the following data from Google's Health API with your explicit consent, granted through Google's sign-in and permission screens:
+  </p>
+  <ul>
+    <li>Heart rate, nightly heart rate variability, resting heart rate</li>
+    <li>Sleep sessions and sleep stages (REM, deep, light, awake)</li>
+    <li>Nightly skin temperature variation, blood oxygen (SpO₂), breathing rate</li>
+    <li>Activity (steps, active calories, cardio fitness / VO₂ max)</li>
+  </ul>
+  <p>
+    <strong>Google user data is handled the same way as HealthKit data: processed on your device, read-only, never sold, never used for advertising.</strong>
+    You can disconnect Fitbit at any time in the App (Settings → Health Data) or revoke access at
+    <a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>.
+  </p>
+
   <h3>3.2 Account information (only if you create an account)</h3>
   <p>If you create a Cortisol+ account to use social or sync features, we collect:</p>
   <ul>
@@ -174,6 +190,21 @@ import { PUBLISHER } from '../consts';
     <li>HealthKit data is never shared with third parties for marketing</li>
     <li>HealthKit data is never sold</li>
     <li>HealthKit data is processed on-device unless you opt into a feature that explicitly requires sync</li>
+  </ul>
+
+
+  <h2>10a. Google API Services / Fitbit data (Limited Use disclosure)</h2>
+  <p>
+    Cortisol+'s use and transfer to any other app of information received from Google APIs adheres to the
+    <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>,
+    including the Limited Use requirements. Specifically:
+  </p>
+  <ul>
+    <li>We only use Google user data (your Fitbit heart, sleep, and activity data) to provide the App's user-facing stress and recovery features you can see in the App</li>
+    <li>We do not transfer Google user data to third parties, and we do not sell it</li>
+    <li>We do not use Google user data for advertising, credit-worthiness, or lending purposes</li>
+    <li>No humans read this data, except with your explicit consent for support, for security purposes, to comply with law, or as part of aggregated and anonymized internal operations</li>
+    <li>Access tokens are stored securely in the iOS Keychain on your device; biometric values are processed on-device</li>
   </ul>
 
   <h2>11. Children's privacy</h2>
