@@ -1,0 +1,24 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["2D8X3GFX6G.com.elevatedsystems.cortisolplus"],
+        "components": [
+          {
+            "/": "/walks",
+            "comment": "Walks home"
+          },
+          {
+            "/": "/walks/*",
+            "comment": "Any walks deep link (place, invite, history)"
+          },
+          {
+            "/": "/zen",
+            "comment": "Zen tab"
+          }
+        ]
+      }
+    ]
+  }
+}
