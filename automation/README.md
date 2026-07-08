@@ -5,7 +5,7 @@
 Automated AI blog publishing pipeline for cortisolplus.com. Generates and publishes
 ~3 cortisol-focused blog posts per week (Mon/Wed/Fri 9 AM) from a curated topic
 queue, using Anthropic Claude for content generation and GitHub for the commit
-that triggers Netlify to rebuild and ship.
+that triggers a GitHub Actions build + Firebase Hosting deploy.
 
 ---
 
@@ -37,17 +37,30 @@ that triggers Netlify to rebuild and ship.
         │
         ▼
 [ Validate output: frontmatter present, ≥3000 chars, keyword present,
-  medical disclaimer present, structure intact ]
+  medical disclaimer present, ≥2 authoritative citations + ## References,
+  structure intact ]
         │
         ▼
-[ PUT src/content/blog/{slug}.mdx → GitHub API ]
+[ PUT src/content/blog/{slug}.mdx → GitHub API (push to main) ]
         │
         ▼
-[ Netlify auto-rebuild → post live in ~60 sec ]
+[ GitHub Actions (.github/workflows/deploy.yml) builds & deploys to
+  Firebase Hosting → post live in ~2 min ]
 ```
 
-No email approval. No human in the loop. Posts go live immediately with
-`draft: false` in the frontmatter.
+> **Hosting note (READ THIS):** the site is on **Firebase Hosting**
+> (project `cortisol-plus`), **not Netlify**. A commit does nothing on its own —
+> it must be built and deployed. That happens automatically via
+> `.github/workflows/deploy.yml` on every push to `main`. Historically deploys
+> were manual and `main` silently drifted from the live site for weeks (18 posts
+> 404'd). If new posts stop appearing, check the Actions tab and the
+> `deploy-tripwire` workflow first.
+
+No email approval, no human in the loop — posts publish with `draft: false`.
+**YMYL caution:** this is health content. The validator now requires real
+citations, but it cannot verify a source actually says what the post claims.
+Strongly consider switching to `draft: true` + a periodic human review batch, or
+adding a reviewer step, before scaling volume.
 
 ---
 
@@ -147,7 +160,7 @@ Delete any bad ones via GitHub:
 1. Open `src/content/blog/{slug}.mdx` on GitHub
 2. Click trash icon → delete
 3. Commit
-4. Netlify rebuilds, post disappears
+4. GitHub Actions rebuilds & deploys to Firebase, post disappears
 
 The workflow already advanced past that slug so it won't retry it.
 

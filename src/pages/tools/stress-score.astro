@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webApplication } from '../../lib/schema';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import Quiz, { type QuizQuestion, type QuizBand } from '../../components/Quiz.tsx';
@@ -99,18 +100,15 @@ const related = [
   { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
 ];
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
+const schema = webApplication({
   name: 'Stress Score Quiz',
-  applicationCategory: 'HealthApplication',
-  operatingSystem: 'Web',
   description: '6-question quiz that estimates your day-to-day stress load and cortisol risk.',
-};
+  pathname: '/tools/stress-score',
+});
 ---
 
 <BaseLayout
-  title="Stress score quiz — measure your daily stress load (2026)"
+  title="Stress score quiz — rate your daily stress load"
   description="6-question stress quiz. Get your day-to-day stress load score in 60 seconds. Free, no signup."
   image="/screenshots/health-breakdown.png"
   schema={schema}

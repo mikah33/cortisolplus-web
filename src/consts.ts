@@ -9,6 +9,7 @@ export const SITE = {
   appStoreId: '6759510126',
   bundleId: 'com.elevatedsystems.cortisolplus',
   twitter: '@cortisolplus',
+  x: 'https://x.com/cortisolplus',
   tiktok: 'https://www.tiktok.com/@cortisol.plus',
   tiktokHandle: '@cortisol.plus',
   substack: 'https://cortisolplus.substack.com',
@@ -19,16 +20,24 @@ export const SITE = {
 /**
  * Live App Store rating from Apple's iTunes lookup API.
  * Refresh manually by running: curl -s "https://itunes.apple.com/lookup?id=6759510126"
- * Last refreshed: 2026-05-23.
+ * Last refreshed: 2026-07-08.
  */
 export const APP_RATING = {
-  value: 4.9,           // averageUserRating (rounded 1dp)
-  precise: 4.9375,      // actual averageUserRating from Apple
-  count: 16,            // userRatingCount
+  value: 4.6,           // averageUserRating (rounded 1dp)
+  precise: 4.63889,     // actual averageUserRating from Apple
+  count: 36,            // userRatingCount
   best: 5,
   worst: 1,
-  lastChecked: '2026-05-23',
+  lastChecked: '2026-07-08',
 } as const;
+
+/**
+ * Hand-maintained "last editorially reviewed" date for evergreen medical
+ * content pages. Bump ONLY when content is genuinely re-reviewed — it feeds
+ * `lastReviewed`/`dateModified` in MedicalWebPage schema. Never derive from the
+ * build date (that would falsely re-stamp "reviewed today" on every deploy).
+ */
+export const CONTENT_REVIEWED = '2026-07-08';
 
 export const PUBLISHER = {
   name: 'Elevated Systems LLC',
@@ -41,6 +50,7 @@ export const PUBLISHER = {
 } as const;
 
 export const SOCIAL_PROFILES = [
+  SITE.x,
   SITE.tiktok,
   SITE.substack,
   SITE.appStoreUrl,

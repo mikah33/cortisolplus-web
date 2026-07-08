@@ -59,17 +59,56 @@ const faqs: FAQItem[] = [
 ---
 
 <BaseLayout
-  title="Foods × cortisol database — what lowers, what raises (2026)"
-  description="Evidence-ranked database of how specific foods affect cortisol. Per-food pages with study citations, dosing, mechanism, and how to track if it's working for you."
+  title="Foods that lower cortisol — full database"
+  description="How diet shapes your cortisol: the foods and habits that raise it, the ones that calm it, and evidence-ranked per-food reviews with citations."
   image="/screenshots/health-breakdown.png"
   schema={schema}
 >
   <article class="max-w-4xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Database · Updated 2026</div>
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Database</div>
     <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Foods × cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10 max-w-2xl">
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-8 max-w-2xl">
       Per-food evidence reviews. Does it lower cortisol, raise it, or do nothing? With citations.
     </p>
+
+    <div class="max-w-2xl space-y-4 mb-12 text-[color:var(--color-ink)]">
+      <p>
+        Food influences cortisol through three main levers: blood-sugar stability, specific
+        micronutrients your adrenal glands depend on, and direct stimulants or depressants of
+        the stress response. Sharp blood-sugar swings — from refined carbs on an empty stomach —
+        trigger a cortisol release to pull glucose back up. Magnesium, vitamin C, and omega-3
+        fatty acids are consumed faster under stress, so diets low in them tend to run
+        higher cortisol. And two everyday inputs, caffeine and alcohol, both raise cortisol
+        more than most people realize.
+      </p>
+      <p>
+        No single food "resets" your cortisol. What moves the needle is the pattern: eating
+        regularly, anchoring meals with protein and fiber, front-loading magnesium- and
+        omega-3-rich foods, and keeping caffeine and alcohol modest. The database below rates
+        each food by <strong>effect</strong> (lowers, raises, or neutral) and by
+        <strong>evidence level</strong> (strong, moderate, or limited) so you can separate the
+        well-studied levers from the wellness-blog hype.
+      </p>
+      <p>
+        Two inputs deserve a closer look because they're so common. <strong>Caffeine</strong>
+        reliably raises cortisol, and the effect is largest on an empty stomach and in people
+        who don't drink it habitually; pairing coffee with food and keeping it out of the late
+        afternoon blunts both the spike and its knock-on effect on sleep. <strong>Alcohol</strong>
+        is the single most underestimated cortisol input in most diets — it sedates at first,
+        then triggers a rebound stress response a few hours later that fragments sleep and pushes
+        early-morning cortisol up. On the calming side, <strong>omega-3 fats</strong> from oily
+        fish have the strongest evidence for lowering cortisol reactivity, and adequate
+        <strong>hydration</strong> matters too: even mild dehydration nudges cortisol upward,
+        so steady water intake through the day is a quiet, no-cost lever.
+      </p>
+      <p>
+        A note on how we rate evidence: "strong" means multiple controlled human trials point
+        the same way, "moderate" means the human data is real but thinner or mixed, and "limited"
+        means the claim leans on small studies, animal work, or mechanism alone. For the ranked
+        action plan built from the strongest-evidence foods, see
+        <a href="/cortisol/lower/foods" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">foods that lower cortisol</a>.
+      </p>
+    </div>
 
     {foods.length === 0 ? (
       <p class="text-[color:var(--color-ink-muted)]">Food pages coming soon.</p>

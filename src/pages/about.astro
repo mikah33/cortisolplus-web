@@ -53,7 +53,7 @@ const orgSchema = {
     <li><strong>Built on the Apple Watch you already own.</strong> No new $300 hardware. If you have any Apple Watch, you have everything Cortisol+ needs.</li>
     <li><strong>On-device privacy.</strong> Your biometric data never leaves your phone unless you explicitly opt in to cloud sync. We don't sell or share your health data, ever.</li>
     <li><strong>Independent, not VC-burnout.</strong> We're not chasing a $1B exit; we're building a tool we want to use ourselves.</li>
-    <li><strong>Evidence-first content.</strong> Every claim on this site cites the research. Every section gets filled with peer-reviewed sourcing, not affiliate copy.</li>
+    <li><strong>Evidence-first content.</strong> We're committed to citing primary research for specific physiological claims and clearly labeling each claim's evidence level — strong, moderate, or limited. We're still backfilling citations across older pages, and we'd rather flag a gap than pass off affiliate copy as science.</li>
   </ul>
 
   <h2>What we promise</h2>
@@ -69,12 +69,13 @@ const orgSchema = {
   <p>Support, feedback, press, partnerships — email <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. We read everything.</p>
 
   <h2>Editorial standards</h2>
-  <p>Health content on this site follows these standards:</p>
+  <p>Health content on this site follows a consistent process:</p>
   <ul>
-    <li>Claims about cortisol biology cite peer-reviewed sources where possible</li>
-    <li>Dosing and intervention pages distinguish "strong evidence," "moderate evidence," and "limited evidence" explicitly</li>
-    <li>We mark uncertainty when it exists rather than hiding it</li>
-    <li>Content is updated annually (look for the year stamp on titles) and reviewed by {PUBLISHER.name} editorial</li>
-    <li>Nothing on this site is medical advice; talk to a healthcare provider for diagnosis or treatment</li>
+    <li><strong>How we write.</strong> Each page starts from the primary literature (PubMed/PMC, NIH, and clinical references). Where we make a specific physiological claim, we link the source inline; where the evidence is weak or mixed, we say so rather than overstating it.</li>
+    <li><strong>Evidence grading.</strong> Dosing and intervention pages distinguish "strong evidence," "moderate evidence," and "limited evidence" explicitly.</li>
+    <li><strong>Uncertainty.</strong> We flag it when it exists rather than hiding it, and we never claim to measure cortisol when we estimate it.</li>
+    <li><strong>Freshness.</strong> Pages carry an "Updated" date and are reviewed and re-cited on a recurring cycle by {PUBLISHER.name} editorial.</li>
+    <li><strong>Not medical advice.</strong> Nothing here is a substitute for a clinician; talk to a healthcare provider for diagnosis or treatment.</li>
   </ul>
+  <!-- TODO: add named medical reviewer (MD/RD) + credentials here once engaged -->
 </ArticleLayout>

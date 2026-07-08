@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const popular = [
+  { href: '/cortisol/', label: 'What is cortisol?' },
+  { href: '/cortisol/symptoms/', label: 'Symptoms of high cortisol' },
+  { href: '/cortisol/lower/', label: 'How to lower cortisol' },
+  { href: '/tools/cortisol-calculator/', label: 'Cortisol risk calculator' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/download/', label: 'Download the app' },
+];
+---
+
+<BaseLayout
+  title="Page not found (404)"
+  description="That page couldn't be found. Browse popular cortisol guides and tools instead."
+  noindex={true}
+>
+  <section class="max-w-2xl mx-auto px-6 py-24 text-center">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">404</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">This page moved or never existed</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
+      The link may be out of date. Here's where most people are headed:
+    </p>
+
+    <ul class="grid sm:grid-cols-2 gap-3 text-left mb-10">
+      {popular.map((p) => (
+        <li>
+          <a href={p.href} class="block p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition font-medium">
+            {p.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="/" class="text-[color:var(--color-teal-dark)] underline">← Back to home</a>
+  </section>
+</BaseLayout>

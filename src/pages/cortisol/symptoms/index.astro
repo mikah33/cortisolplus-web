@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
 import { getCollection } from 'astro:content';
-import { SITE } from '../../../consts';
+import { SITE, CONTENT_REVIEWED } from '../../../consts';
 
 const symptoms = await getCollection('symptoms');
 
@@ -12,8 +13,8 @@ const schema = [
     name: 'Symptoms of high cortisol',
     about: { '@type': 'MedicalCondition', name: 'Hypercortisolism' },
     audience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
-    lastReviewed: '2026-05-23',
-    dateModified: '2026-05-23',
+    lastReviewed: CONTENT_REVIEWED,
+    dateModified: CONTENT_REVIEWED,
     mainEntityOfPage: `${SITE.url}/cortisol/symptoms/`,
   },
   {
@@ -35,17 +36,73 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Symptoms of high cortisol — full index by Cortisol+ (2026)"
-  description="Complete index of high cortisol symptoms: cortisol face, cortisol belly, sleep issues, weight gain, hair loss. Each backed by science — what's clinical, what's TikTok."
+  title="Signs of high cortisol — full symptom index"
+  description="High and low cortisol symptoms explained — cortisol face, belly fat, 3am waking, fatigue — how symptoms cluster, and when it's time to see a doctor."
   image="/screenshots/health-breakdown.png"
   schema={schema}
 >
   <section class="max-w-4xl mx-auto px-6 py-16">
     <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral)] font-medium mb-3">Symptoms</div>
     <h1 class="text-5xl font-bold tracking-tight mb-6">Symptoms of high cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      Recognize the signs your cortisol may be chronically elevated.
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-8">
+      Recognize the signs your cortisol may be chronically elevated — and learn which
+      are backed by clinical research versus amplified by social media.
     </p>
+
+    <div class="prose-custom max-w-none mb-12 space-y-4 text-[color:var(--color-ink)]">
+      <p>
+        Cortisol is your body's primary stress hormone. In short bursts it's helpful —
+        it mobilizes energy, sharpens focus, and dampens inflammation. Problems start when
+        cortisol stays elevated for weeks or months, a pattern clinicians call chronic
+        HPA-axis activation. Because cortisol receptors sit in nearly every tissue, the
+        symptoms are wide-ranging and easy to mistake for other conditions.
+      </p>
+      <p>
+        The most consistently reported signs of chronically high cortisol are: trouble
+        falling asleep despite exhaustion, waking between 3–5 AM, weight that concentrates
+        around the midsection, sugar and salt cravings, a "wired but tired" feeling, mood
+        swings and irritability, and slower recovery from workouts or illness. Skin changes
+        (acne, a rounder face), hair thinning, and gut symptoms like bloating are also
+        common — though these lag the stress that triggered them by weeks to months.
+      </p>
+      <h2 class="text-2xl font-semibold mt-8 mb-2">High vs. low cortisol: two different patterns</h2>
+      <p>
+        Not all cortisol problems mean <em>too much</em> cortisol. High-cortisol patterns
+        skew "wired": difficulty winding down at night, anxiety and racing thoughts, midsection
+        weight gain, elevated resting heart rate, and blood-sugar swings. Low or blunted
+        patterns — which often follow months or years of chronic stress — skew "flat":
+        profound morning fatigue that caffeine barely touches, needing hours to feel awake,
+        low blood pressure or dizziness on standing, salt cravings, and a crash in exercise
+        tolerance. Many people cycle through both over time, which is why tracking the daily
+        pattern matters more than any single reading.
+      </p>
+      <h2 class="text-2xl font-semibold mt-8 mb-2">Clinical signs vs. TikTok trends</h2>
+      <p>
+        A distinction worth making: true clinical hypercortisolism (Cushing's syndrome) is
+        rare and has specific, doctor-diagnosed markers — purple stretch marks, a fatty
+        hump between the shoulders, easy bruising, and muscle weakness. Most people
+        searching "cortisol face" or "cortisol belly" do not have Cushing's. They have
+        the far more common pattern of stress-driven cortisol dysregulation, which is real,
+        measurable through biometrics, and responsive to lifestyle change. We label each
+        symptom page with what the evidence actually supports so you can tell the two apart.
+      </p>
+      <h2 class="text-2xl font-semibold mt-8 mb-2">When to see a doctor</h2>
+      <p>
+        Symptoms alone can't diagnose a cortisol disorder. See a clinician if signs have
+        persisted for three or more months, are worsening, or include any of the specific
+        Cushing's markers above. A doctor can order salivary, blood, or 24-hour urinary
+        cortisol testing to confirm what's happening. Everything on this site is
+        educational and is not a substitute for medical advice.
+      </p>
+      <p>
+        For day-to-day tracking between doctor visits, Cortisol+ estimates your cortisol
+        pattern from Apple Watch HRV, resting heart rate, and sleep — so you can see how
+        the symptoms below map to your own biometrics.
+        <a href="/tools/cortisol-calculator/" class="text-[color:var(--color-teal-dark)] underline">Take the 60-second cortisol quiz →</a>
+      </p>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-4">Browse symptoms</h2>
 
     {symptoms.length === 0 ? (
       <p class="text-[color:var(--color-ink-muted)]">Symptom pages coming soon.</p>
@@ -53,7 +110,7 @@ const schema = [
       <ul class="grid md:grid-cols-2 gap-3">
         {symptoms.map((s) => (
           <li>
-            <a href={`/cortisol/symptoms/${s.id}`} class="block p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
+            <a href={`/cortisol/symptoms/${s.id}/`} class="block p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
               <div class="font-medium">{s.data.title}</div>
               <div class="text-sm text-[color:var(--color-ink-muted)] mt-1">{s.data.description}</div>
             </a>
@@ -61,5 +118,11 @@ const schema = [
         ))}
       </ul>
     )}
+
+    <RelatedLinks links={[
+      { href: '/cortisol/symptoms/cortisol-face', title: 'Cortisol face', hint: 'The most-searched symptom' },
+      { href: '/cortisol/levels', title: 'Normal cortisol levels', hint: 'Reference ranges' },
+      { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
+    ]} />
   </section>
 </BaseLayout>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { webApplication } from '../../lib/schema';
 import CortisolCalculator from '../../components/CortisolCalculator.tsx';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
@@ -29,18 +30,15 @@ const related = [
   { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
 ];
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
+const schema = webApplication({
   name: 'Cortisol Risk Calculator',
-  applicationCategory: 'HealthApplication',
-  operatingSystem: 'Web',
   description: 'Free 8-question quiz that estimates your cortisol risk based on stress, sleep, and lifestyle signals.',
-};
+  pathname: '/tools/cortisol-calculator',
+});
 ---
 
 <BaseLayout
-  title="Cortisol risk calculator — free 60-second quiz (2026)"
+  title="Cortisol risk calculator — free 60-second quiz"
   description="Estimate your cortisol risk in 8 questions. Free, no signup, science-backed scoring."
   image="/screenshots/track-cortisol-levels.png"
   schema={schema}

@@ -8,7 +8,7 @@ const schema = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Download Cortisol+ Free — Apple Watch Cortisol App',
+    name: 'Download Cortisol+ — Free Apple Watch App',
     url: `${SITE.url}/download/`,
     description: 'Download Cortisol+ free on the App Store. Real-time HRV-based cortisol tracking for Apple Watch. Rated 4.9★. Requires iOS 17+.',
   },
@@ -35,8 +35,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Download Cortisol+ Free — Apple Watch Cortisol App"
-  description="Download Cortisol+ free on the App Store. Real-time HRV-based cortisol tracking for Apple Watch — no blood tests. 4.9★ · 16 ratings. Works with all Apple Watch models. iOS 17+."
+  title="Download Cortisol+ — Free Apple Watch App"
+  description="Download Cortisol+ free on the App Store. HRV-based cortisol tracking on the Apple Watch you already own — no lab tests, no new hardware. iOS 17+."
   image="/screenshots/track-cortisol-levels.png"
   schema={schema}
 >
@@ -51,6 +51,39 @@ const schema = [
     <AppStoreBadge size="lg" />
     <p class="text-sm text-[color:var(--color-ink-muted)] mt-8">
       Requires iOS 17+. Premium subscription available for advanced features.
+    </p>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-6 pb-24">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">What Cortisol+ does</h2>
+    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-4">
+      Cortisol+ turns the biometrics your Apple Watch already collects into a continuous picture of your stress physiology. It reads heart rate variability (HRV), resting heart rate, and sleep stages from Apple Health, compares them against your personal baseline, and estimates your <a href="/cortisol" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">cortisol pattern</a> throughout the day — when it peaks, when it recovers, and which habits move it. There's nothing to wear that you don't already own and nothing to mail to a lab.
+    </p>
+    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
+      Beyond the live score, the app correlates each night of sleep with your next-morning stress level, flags days when your pattern deviates from baseline, and includes guided breathing sessions (Zen mode) that use your Watch's HRV reading to show whether a session actually calmed your nervous system. See the <a href="/features" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">full feature overview</a> for details.
+    </p>
+
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">What you need</h2>
+    <ul class="list-disc pl-5 space-y-2 text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
+      <li><strong class="text-[color:var(--color-ink)]">An iPhone running iOS 17 or later.</strong> Cortisol+ is iOS-only.</li>
+      <li><strong class="text-[color:var(--color-ink)]">Any Apple Watch paired to that iPhone.</strong> Every model that records HRV and sleep works — no specific series required.</li>
+      <li><strong class="text-[color:var(--color-ink)]">Apple Health permissions.</strong> On first launch you grant read access to heart rate, HRV, and sleep. Wearing the Watch overnight gives the app its most useful data.</li>
+    </ul>
+    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
+      The core experience is free. A Premium subscription unlocks advanced trends, longer history, and deeper sleep–cortisol analysis.
+    </p>
+
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">How the cortisol estimate works</h2>
+    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-4">
+      No consumer wearable can measure cortisol directly — cortisol is a hormone measured in saliva, blood, or urine. Cortisol+ instead builds an estimate from biometric proxies that research links to stress-axis activity: suppressed HRV, elevated resting heart rate, and disrupted sleep tend to accompany elevated cortisol. After a calibration period the app learns your personal baseline, so the score reflects <em>your</em> deviation, not a population average.
+    </p>
+    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
+      That means Cortisol+ is a pattern tracker, not a medical device. It won't diagnose Cushing's syndrome or adrenal insufficiency, and it's not a substitute for lab testing when a doctor recommends one — read <a href="/how-it-works" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">how it works</a> for the full methodology and its limits.
+    </p>
+
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Your data stays yours</h2>
+    <p class="text-[color:var(--color-ink-muted)] leading-relaxed">
+      Biometric processing happens on your device. Health data is never sold or shared with advertisers, and cloud sync is opt-in only. The full details are in our <a href="/privacy" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">privacy policy</a>.
     </p>
   </section>
 </BaseLayout>

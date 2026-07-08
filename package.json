@@ -13,6 +13,7 @@
     "og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^5.0.6",
     "@astrojs/react": "^5.0.5",
     "@astrojs/rss": "^4.0.18",
@@ -25,7 +26,8 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "satori": "^0.26.0",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
