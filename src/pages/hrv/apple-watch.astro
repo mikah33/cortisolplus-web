@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'How to read HRV on Apple Watch',
+  pathname: '/hrv/apple-watch/',
+  specialty: 'Cardiovascular',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Where do I find HRV on Apple Watch?',
+    a: 'Apple Watch does not show HRV on the watch face directly. Open the Health app on your iPhone, tap Browse, then Heart, then Heart Rate Variability. There you will see individual readings and daily/weekly/monthly trends. Each value is an SDNN measurement in milliseconds.',
+  },
+  {
+    q: 'What HRV metric does Apple Watch use?',
+    a: 'Apple Watch reports HRV as SDNN — the standard deviation of the time between normal heartbeats — measured in milliseconds. It does not report RMSSD directly. If an app shows you RMSSD, it is typically calculating it from raw beat-to-beat data rather than reading it from Apple Health.',
+  },
+  {
+    q: 'Why does Apple Watch measure HRV mostly at night?',
+    a: 'Apple Watch takes HRV readings opportunistically when you are still, and the calmest, most consistent stretches are usually overnight and during rest. Movement and activity add noise, so daytime readings are sparser. Overnight sampling also makes readings more comparable night to night, which is ideal for tracking a baseline.',
+  },
+  {
+    q: 'Why is my Apple Watch HRV so variable?',
+    a: 'Large swings between readings are normal. HRV is sensitive to when the sample was taken, your posture, breathing, recent activity, alcohol, and stress. That is why single readings are noisy and the trend over weeks is what matters. Wearing the watch to bed gives you the most consistent overnight data.',
+  },
+  {
+    q: 'How does Cortisol+ use Apple Watch HRV?',
+    a: 'Cortisol+ reads your overnight SDNN from Apple Health, combines it with resting heart rate and sleep, and interprets it against your own baseline to estimate your cortisol trend and pattern — not a direct hormone level. It turns the raw SDNN numbers in Health into a readable stress-and-recovery picture.',
+  },
+];
+
+const related = [
+  { href: '/hrv/', title: 'HRV and stress', hint: 'The full explainer' },
+  { href: '/hrv/normal-range/', title: 'Normal HRV by age', hint: 'Read your numbers' },
+  { href: '/hrv/how-to-improve/', title: 'How to improve HRV', hint: 'Raise your baseline' },
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'How the app works' },
+  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'From watch to score' },
+  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check your load' },
+];
+---
+
+<BaseLayout
+  title="How to read HRV on Apple Watch"
+  description="How to read HRV on Apple Watch: where SDNN lives in the Health app, what the metric means, and why Apple Watch samples your HRV mostly overnight."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Heart rate variability</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">HRV on Apple Watch</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Apple Watch quietly measures your HRV as SDNN — mostly while you sleep. Here is where to find it, what the number means, and how to read the trend.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Where to find HRV in the Health app</h2>
+      <p>Apple Watch does not display HRV on a watch face or in a dedicated app — the data lives in the Health app on your iPhone. To find it:</p>
+      <ol>
+        <li>Open the <strong>Health</strong> app on your iPhone.</li>
+        <li>Tap <strong>Browse</strong> at the bottom.</li>
+        <li>Tap <strong>Heart</strong>.</li>
+        <li>Tap <strong>Heart Rate Variability</strong>.</li>
+      </ol>
+      <p>You will see individual readings plus daily, weekly, monthly, and yearly trends. Every value is expressed in milliseconds (ms), and every value is an <strong>SDNN</strong> measurement.</p>
+
+      <h2>What SDNN actually means</h2>
+      <p>SDNN stands for the <strong>standard deviation of NN intervals</strong> — the "NN" being the time between successive normal heartbeats. In plain terms, it measures how much the gap between your beats fluctuates over the sampling window. More fluctuation means a higher SDNN and generally reflects a more flexible, recovery-ready autonomic nervous system; a steadier rhythm produces a lower SDNN and often signals more stress or fatigue. SDNN is one of the standard time-domain HRV metrics defined in the reference review by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">Shaffer &amp; Ginsberg (2017)</a>.</p>
+      <p>Apple Watch reports SDNN specifically — it does not surface RMSSD (a different, more purely vagal metric) in Health. If another app shows you RMSSD, it is generally computing it from raw beat-interval data rather than reading it from Apple Health. For a plain-English primer on the metrics, see <a href="/hrv/">HRV and stress</a>.</p>
+
+      <h2>Why Apple Watch samples HRV overnight</h2>
+      <p>You may notice most of your readings cluster around sleep and quiet rest. That is by design. Apple Watch takes HRV samples <em>opportunistically</em> — when it detects you are still — because motion and activity introduce noise that corrupts a beat-to-beat measurement. The stillest, most consistent stretches of your day are usually overnight, so that is when most readings land.</p>
+      <p>This overnight bias is actually a feature for tracking. Measuring while you sleep removes the confounders of posture, movement, caffeine, and moment-to-moment stress, so night-to-night readings are far more comparable. That makes your overnight HRV a cleaner baseline signal than a random daytime spot-check. To get the most data, wear your watch to bed (charge it in the evening or morning instead).</p>
+
+      <h2>How to read your trend, not the noise</h2>
+      <p>Individual HRV readings swing a lot — that is normal and expected. A single low night can reflect a late meal, a glass of wine, a hard workout, an oncoming cold, or a stressful day. Do not read meaning into one number. Instead:</p>
+      <ul>
+        <li>Switch the Health chart to the <strong>weekly or monthly view</strong> to see the direction of travel.</li>
+        <li>Compare your recent baseline to your own history, not to other people or to a generic chart. See <a href="/hrv/normal-range/">normal HRV by age</a> for why that comparison matters.</li>
+        <li>Watch for sustained drops — a baseline that trends down over weeks points to accumulating stress, poor sleep, overtraining, or heavy alcohol use.</li>
+      </ul>
+
+      <h2>Getting more consistent readings</h2>
+      <ul>
+        <li><strong>Wear it to bed.</strong> Overnight sampling gives you the most, and most comparable, data.</li>
+        <li><strong>Keep the band snug.</strong> A loose watch produces gaps and noisy readings.</li>
+        <li><strong>Charge off-peak.</strong> Top up while showering or getting ready so the watch is on your wrist through the night.</li>
+        <li><strong>Be patient.</strong> A few weeks of nightly data reveals a trend that any single reading cannot.</li>
+      </ul>
+
+      <h2>From raw SDNN to a readable score</h2>
+      <p>The Health app gives you honest raw SDNN numbers, but leaves the interpretation to you. Cortisol+ reads that overnight SDNN, combines it with your resting heart rate and sleep, and interprets it against your personal baseline to estimate the <em>trend and pattern</em> of your cortisol — being clear that it does not measure the hormone directly. The result is a daily stress-and-recovery picture instead of a wall of millisecond values. See <a href="/how-it-works/">how it works</a> or explore <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li>Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. <em>Front Public Health.</em> 2017;5:258. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">PMC5624990</a> — defines SDNN and the other standard time-domain HRV metrics.</li>
+        <li>Kim HG, Cheon EJ, Bai DS, Lee YH, Koo BH. Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature. <em>Psychiatry Investig.</em> 2018;15(3):235–245. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">PMC6111105</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

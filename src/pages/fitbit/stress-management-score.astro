@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Fitbit Stress Management Score, explained',
+  pathname: '/fitbit/stress-management-score/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How is the Fitbit Stress Management Score calculated?',
+    a: "Fitbit builds the 1–100 score from more than ten factors grouped into three categories: responsiveness (heart rate, HRV, and EDA data from the previous day), exertion balance (how recent exercise compares with your activity over the past week), and sleep patterns (last night and the past week). A higher score means fewer physical signs of stress.",
+  },
+  {
+    q: 'Why is my Fitbit stress score low?',
+    a: 'A low score means Fitbit detected more physical signs of strain in at least one category. Common causes: a poor or short night of sleep, an unusually hard or unusually sedentary previous day, a suppressed overnight HRV, an elevated resting heart rate, illness, alcohol, or dehydration. Open the breakdown (Premium) to see which category pulled the number down.',
+  },
+  {
+    q: 'What is a good Fitbit Stress Management Score?',
+    a: "Higher is better. Roughly, 80–100 suggests your body is showing few signs of stress, 60–79 is moderate, and below 60 suggests more physical stress signals. But these bands are guidance, not medicine — your own baseline and week-to-week trend tell you more than any absolute cutoff.",
+  },
+  {
+    q: 'Do I need Fitbit Premium to see my stress score?',
+    a: 'No. Compatible devices show the daily Stress Management Score without a subscription. Premium adds the detailed breakdown of responsiveness, exertion balance, and sleep contributions, plus guided tools and trends. The EDA Scan feature works on devices with an EDA sensor regardless of Premium.',
+  },
+  {
+    q: 'How do I improve my Fitbit stress score?',
+    a: 'Because the score is driven by sleep, HRV, resting heart rate, and exertion balance, the levers are the same ones that improve recovery: consistent 7+ hours of sleep, limiting alcohol, morning daylight, easy movement on recovery days, and slow breathing. Improvements show up over days to weeks, not overnight.',
+  },
+];
+
+const related = [
+  { href: '/fitbit/', title: 'Fitbit stress tracking', hint: 'The full overview' },
+  { href: '/fitbit/hrv/', title: 'Fitbit HRV explained', hint: 'The key input' },
+  { href: '/fitbit/cortisol/', title: 'Can Fitbit track cortisol?', hint: 'The honest answer' },
+  { href: '/stress/', title: 'Stress & cortisol', hint: 'The bigger picture' },
+  { href: '/hrv/', title: 'HRV, explained', hint: 'Why it matters' },
+  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'From signals to score' },
+];
+---
+
+<BaseLayout
+  title="Fitbit Stress Management Score, explained"
+  description="How the Fitbit Stress Management Score is calculated from responsiveness, exertion balance and sleep — how to read your 1–100 number and how to improve it."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Fitbit</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Fitbit Stress Management Score, explained</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      One number from 1 to 100 that lands on your wrist each morning. Here's exactly what goes into it, how to read it, and the handful of habits that actually move it.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>What the score is</h2>
+      <p>The Stress Management Score is Fitbit's daily estimate of how many physical signs of stress your body is showing. It runs from 1 to 100, and — importantly — <strong>higher is better</strong>. A high score means your device found few physiological stress signals; a low score means it found more. It's generated overnight and shown each morning on compatible devices.</p>
+      <p>Crucially, this is a measure of <em>physical</em> stress signals, not your subjective mood. You can feel calm and get a low score after a hard workout, or feel frazzled and get a high score if your body's signals stayed steady.</p>
+
+      <h2>How the score is calculated</h2>
+      <p>Per Fitbit, more than ten factors feed the score, organized into three categories:</p>
+
+      <h3>Responsiveness</h3>
+      <p>This is the largest window into acute stress. It uses <strong>heart rate</strong>, <strong>heart-rate variability (HRV)</strong>, and — on supported devices — <strong>electrodermal activity (EDA)</strong> to assess how hard your body has been working to manage physical and mental demands. Fitbit's logic: the more your body and mind worked yesterday, the fewer resources you have available today, which shows up as a suppressed HRV and higher heart rate.</p>
+
+      <h3>Exertion balance</h3>
+      <p>This weighs the short-term demand of a recent workout against the longer-term benefit of consistent movement over the past week. A single very hard session on top of an otherwise sedentary week reads as more stressful than the same session inside a well-trained week. This is why a race or a rare intense workout can dent your score even though exercise is good for you.</p>
+
+      <h3>Sleep patterns</h3>
+      <p>The quality and quantity of last night's sleep, and your sleep across the past week, feed directly in. Poor or short sleep is one of the fastest ways to lower the next morning's score.</p>
+
+      <h2>How to read your number</h2>
+      <p>There are no official hard cutoffs, but a workable reading:</p>
+      <ul>
+        <li><strong>80–100:</strong> Few physical stress signals. Your body looks well-recovered.</li>
+        <li><strong>60–79:</strong> Moderate. Something — a short night, a hard day — nudged your signals.</li>
+        <li><strong>Below 60:</strong> More physical stress signals. Worth checking sleep, alcohol, illness, and training load.</li>
+      </ul>
+      <p>The single most useful habit is to ignore any one day and watch the trend. A one-off low score after a big workout or a bad night is expected. A score that trends down over one to two weeks is the signal worth acting on.</p>
+
+      <h2>Why your score dropped</h2>
+      <p>The most common drivers of a sudden low score:</p>
+      <ul>
+        <li><strong>Sleep:</strong> a short or fragmented night — the fastest lever, up or down.</li>
+        <li><strong>Alcohol:</strong> raises overnight heart rate and suppresses HRV for hours after drinking.</li>
+        <li><strong>Training spike:</strong> a hard session that unbalances your weekly exertion.</li>
+        <li><strong>Illness or dehydration:</strong> both elevate resting heart rate and blunt HRV.</li>
+        <li><strong>Late caffeine or a stressful evening:</strong> keeps the sympathetic nervous system active into the night.</li>
+      </ul>
+
+      <h2>How to improve your Stress Management Score</h2>
+      <p>Because the score is built from sleep, HRV, resting heart rate, and exertion balance, improving it is really about improving recovery. The highest-leverage moves:</p>
+      <ol>
+        <li><strong>Protect sleep.</strong> Aim for 7+ hours with a consistent bedtime — the biggest single lever on both HRV and the score.</li>
+        <li><strong>Limit alcohol,</strong> especially within a few hours of bed.</li>
+        <li><strong>Get morning daylight</strong> to anchor your circadian rhythm.</li>
+        <li><strong>Balance training</strong> with genuine easy days rather than stacking hard sessions.</li>
+        <li><strong>Practice slow breathing.</strong> A few minutes of ~6 breaths per minute raises vagal (parasympathetic) tone, which supports HRV over time.</li>
+      </ol>
+      <p>Expect changes over days to weeks. HRV and resting heart rate are slow-moving averages, so the score rewards consistency, not a single good day.</p>
+
+      <h2>Beyond the score: what it can't tell you</h2>
+      <p>The Stress Management Score is a proxy. It can't measure cortisol, and it can't separate a stressful day from a hard workout. If you want to understand cortisol patterns specifically — the hormone people actually mean by "stress" — see <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a> Cortisol+ estimates cortisol patterns from wearable biometrics and is bringing that estimation to Fitbit data via Google Health Connect; it runs on Apple Watch today.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://support.google.com/fitbit/answer/14237928?hl=en" rel="nofollow">Fitbit / Google Health Help — Manage stress &amp; mindfulness (Stress Management Score categories)</a></li>
+        <li><a href="https://support.google.com/fitbit/answer/14236710?hl=en" rel="nofollow">Fitbit / Google Health Help — Readiness Score</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Kim HG et al. Stress and Heart Rate Variability: A Meta-Analysis. Psychiatry Investig. 2018.</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5624990/" rel="nofollow">Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. Front Public Health. 2017.</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

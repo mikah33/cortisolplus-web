@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Fitbit HRV: where to find it and what it means',
+  pathname: '/fitbit/hrv/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Where do I find HRV on my Fitbit?',
+    a: "Open the Fitbit app, go to the Today tab, and tap Health Metrics. Scroll to Heart rate variability (HRV) to see your nightly average in milliseconds. Tap into it and switch from Today to Trends to see longer-term movement. HRV requires a compatible device and is measured automatically while you sleep.",
+  },
+  {
+    q: 'What is a normal HRV on Fitbit?',
+    a: 'There is no single normal. HRV varies enormously by age, sex, fitness, and genetics — healthy adults can sit anywhere from the teens to over 100 ms. Because of that spread, your own baseline and trend matter far more than comparing your number to anyone else. Watch whether your nightly HRV is holding steady, rising, or falling relative to your personal average.',
+  },
+  {
+    q: 'Why does Fitbit measure HRV overnight?',
+    a: 'During the day, HRV is pushed around by movement, posture, caffeine, meals, and stress, which makes it noisy. Measuring overnight, while you are still and relaxed, gives a cleaner, more comparable reading of your recovery. Fitbit uses the RMSSD method on your sleeping heart-rate data to produce a nightly average.',
+  },
+  {
+    q: 'What does low HRV mean?',
+    a: 'A lower-than-usual HRV generally reflects a shift toward sympathetic ("fight or flight") dominance — commonly from stress, poor sleep, alcohol, illness, overtraining, or dehydration. One low night is usually noise. A downward trend over one to two weeks is a more meaningful sign your body is under sustained load.',
+  },
+  {
+    q: 'Is Fitbit HRV accurate?',
+    a: 'Wrist optical (PPG) HRV is a reasonable estimate of overnight parasympathetic activity and is best used for tracking your own trend, not for clinical precision. It is less exact than a chest-strap ECG, and readings can be affected by fit, motion, and skin contact. Treat the nightly number as a data point and the multi-day trend as the signal.',
+  },
+];
+
+const related = [
+  { href: '/fitbit/', title: 'Fitbit stress tracking', hint: 'The full overview' },
+  { href: '/fitbit/stress-management-score/', title: 'Stress Management Score', hint: 'Where HRV feeds in' },
+  { href: '/fitbit/cortisol/', title: 'Can Fitbit track cortisol?', hint: 'HRV as a proxy' },
+  { href: '/hrv/', title: 'HRV, explained', hint: 'The complete guide' },
+  { href: '/stress/', title: 'Stress & cortisol', hint: 'The bigger picture' },
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV & stress monitoring', hint: 'Inside Cortisol+' },
+];
+---
+
+<BaseLayout
+  title="Fitbit HRV: where to find it, what it means"
+  description="Where HRV lives in the Fitbit app, how Fitbit measures overnight RMSSD in milliseconds, what a normal HRV is, and how it relates to stress and recovery."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Fitbit</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Fitbit HRV: where to find it and what it means</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Heart-rate variability is one of the most useful numbers your Fitbit collects — and one of the most misread. Here's where it lives in the app, how it's measured, and how to actually interpret it.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>Where to find HRV in the Fitbit app</h2>
+      <p>Fitbit doesn't put HRV on the main dashboard. To find it:</p>
+      <ol>
+        <li>Open the Fitbit app and go to the <strong>Today</strong> tab.</li>
+        <li>Tap <strong>Health Metrics</strong>.</li>
+        <li>Scroll to <strong>Heart rate variability (HRV)</strong>.</li>
+      </ol>
+      <p>You'll see your nightly average HRV plotted in milliseconds. Tap into the tile and switch from <strong>Today</strong> to <strong>Trends</strong> to move from a single week to longer-term history — which is where HRV becomes genuinely useful. HRV requires a compatible Fitbit device and is captured automatically while you sleep; there's nothing to start manually.</p>
+
+      <h2>What HRV actually is</h2>
+      <p>Your heart doesn't beat like a metronome. The gap between beats constantly varies by milliseconds, and that variation is <strong>heart-rate variability</strong>. It's governed by your autonomic nervous system: the parasympathetic ("rest and digest") branch increases variability, while the sympathetic ("fight or flight") branch reduces it. So, counterintuitively, <strong>more</strong> variability usually signals better recovery and stronger vagal tone.</p>
+
+      <h2>How Fitbit measures it: overnight RMSSD</h2>
+      <p>Fitbit calculates HRV using <strong>RMSSD</strong> — the root mean square of successive differences between heartbeats — a standard measure of short-term, parasympathetically-driven variability. It computes this from your heart-rate data <strong>while you sleep</strong>.</p>
+      <p>Overnight measurement is a deliberate choice. During the day HRV is pushed around by movement, posture, meals, caffeine, and momentary stress, making daytime readings noisy and hard to compare. Measuring while you're still and relaxed produces a cleaner nightly average that better reflects your body's recovery from the day.</p>
+
+      <h2>What's a normal HRV?</h2>
+      <p>There is no universal "normal." HRV is one of the most individually variable metrics in physiology — it drops with age, and differs by sex, fitness, genetics, and measurement method. Healthy adults can range from the teens to well over 100 ms. Published reference work on HRV norms stresses exactly this spread, which is why comparing your number to a friend's is close to meaningless.</p>
+      <p>What matters is <strong>your baseline and your trend</strong>. After a couple of weeks of overnight readings, Fitbit establishes your personal range. From then on, the useful question is whether tonight's value is within your range, and whether the multi-day trend is rising (recovering) or falling (accumulating load).</p>
+
+      <h2>HRV, stress, and recovery</h2>
+      <p>HRV is one of the best-validated non-invasive markers of stress load. A meta-analysis of stress studies found HRV consistently falls under psychological stress, driven by reduced parasympathetic activity. In practice, a suppressed overnight HRV often accompanies:</p>
+      <ul>
+        <li>Poor or short sleep</li>
+        <li>Alcohol the evening before</li>
+        <li>Illness or the onset of one</li>
+        <li>Hard training or overtraining without recovery</li>
+        <li>Acute psychological stress and dehydration</li>
+      </ul>
+      <p>This is also why HRV feeds Fitbit's <a href="/fitbit/stress-management-score/">Stress Management Score</a> and Readiness Score. A single low night is usually noise; a sustained downward trend is the signal worth acting on — often by protecting sleep, easing training, and cutting evening alcohol.</p>
+
+      <h2>How to raise your HRV</h2>
+      <p>HRV is a slow-moving average, so it responds to consistent habits rather than one-off efforts:</p>
+      <ul>
+        <li><strong>Sleep</strong> — the largest single lever; consistent 7+ hours matters most.</li>
+        <li><strong>Limit alcohol</strong>, which suppresses overnight HRV for hours.</li>
+        <li><strong>Slow breathing</strong> — a few minutes at ~6 breaths per minute raises vagal tone.</li>
+        <li><strong>Aerobic fitness</strong> built gradually over weeks.</li>
+        <li><strong>Hydration and consistent meal timing.</strong></li>
+      </ul>
+
+      <h2>HRV and cortisol</h2>
+      <p>Because HRV reflects the autonomic nervous system, and the autonomic system is coupled to the HPA axis that releases cortisol, HRV is widely used as an accessible proxy for the stress that also drives cortisol. It isn't a cortisol measurement — no wearable does that — but the pattern is informative. We cover this fully in <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a> Cortisol+ uses exactly this kind of biometric pattern to estimate cortisol trends, and is bringing that to Fitbit data via Google Health Connect (it runs on Apple Watch today).</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://support.google.com/fitbit/answer/14236917?hl=en" rel="nofollow">Fitbit / Google Health Help — Track your health metrics (HRV in Health Metrics)</a></li>
+        <li><a href="https://support.google.com/googlehealth/answer/14237938?hl=en" rel="nofollow">Fitbit / Google Health Help — Track your heart rate</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5624990/" rel="nofollow">Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. Front Public Health. 2017.</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Kim HG et al. Stress and Heart Rate Variability: A Meta-Analysis. Psychiatry Investig. 2018.</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

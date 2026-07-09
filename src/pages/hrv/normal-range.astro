@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Normal HRV by age: SDNN and RMSSD ranges',
+  pathname: '/hrv/normal-range/',
+  specialty: 'Cardiovascular',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'What is a normal HRV by age?',
+    a: 'HRV declines gradually with age, so "normal" depends on how old you are. As a very rough guide, healthy adults in their 20s–30s often show short-term SDNN in the 50–100+ ms range, dropping to roughly 30–60 ms by their 60s and beyond. These are approximate population ranges, not diagnostic cut-offs — individual variation is large, so your own baseline matters far more than any table.',
+  },
+  {
+    q: 'What is a good HRV number?',
+    a: 'There is no single "good" number that applies to everyone. HRV is strongly influenced by age, genetics, fitness, and measurement method. A higher HRV relative to your own baseline generally reflects better recovery and autonomic balance. The most useful comparison is you today versus you last month, not you versus a chart.',
+  },
+  {
+    q: 'Why does HRV decrease with age?',
+    a: 'HRV falls with age largely because vagal (parasympathetic) tone declines and the autonomic nervous system becomes less flexible over time. This is a well-documented trend across large population studies. It is normal — the goal is to keep your HRV as healthy as possible for your age, not to match a 25-year-old.',
+  },
+  {
+    q: 'Is SDNN or RMSSD better for tracking?',
+    a: 'They measure related but different things. RMSSD reflects short-term, vagally mediated variability and is popular for daily recovery tracking. SDNN captures overall variability across the whole recording and is what Apple Watch reports. For consistency, track whichever metric your device gives you and watch its trend rather than mixing metrics.',
+  },
+  {
+    q: 'My HRV is below the range — should I worry?',
+    a: 'Not necessarily. A single reading below a population range is common and can reflect a bad night, alcohol, illness, or a hard workout. HRV is a wellness signal, not a diagnosis. If your baseline is persistently low or dropping without explanation, that is worth raising with a clinician — but one low number is not cause for alarm.',
+  },
+];
+
+const related = [
+  { href: '/hrv/', title: 'HRV and stress', hint: 'The full explainer' },
+  { href: '/hrv/how-to-improve/', title: 'How to improve HRV', hint: 'Raise your baseline' },
+  { href: '/hrv/apple-watch/', title: 'HRV on Apple Watch', hint: 'Read your SDNN' },
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'Track it daily' },
+  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check your load' },
+  { href: '/cortisol/', title: 'Cortisol explained', hint: 'The stress hormone' },
+];
+---
+
+<BaseLayout
+  title="Normal HRV by age: SDNN &amp; RMSSD ranges"
+  description="Normal HRV by age, explained. Approximate average HRV (SDNN and RMSSD) ranges by age band, why HRV declines with age, and how to read your own numbers."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Heart rate variability</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Normal HRV by age</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      What counts as a "normal" HRV depends heavily on your age. Here are approximate population ranges — and why your own baseline matters more than any of them.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The short answer</h2>
+      <p>Heart rate variability declines steadily with age, so there is no single "normal" HRV. In healthy people, HRV tends to be highest in the late teens and twenties and falls gradually across each subsequent decade as vagal (parasympathetic) tone decreases. This age-related decline is well documented in the reference review by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">Shaffer &amp; Ginsberg (2017)</a>.</p>
+      <p>The two metrics you will see most often are <strong>SDNN</strong> (standard deviation of normal beat-to-beat intervals — the metric Apple Watch reports) and <strong>RMSSD</strong> (root mean square of successive differences, which more directly reflects vagal activity). Both are measured in milliseconds (ms).</p>
+
+      <h2>Approximate HRV by age band</h2>
+      <p>The table below gives rough, population-level ranges for short-term / overnight-style measurements — the kind a wearable like Apple Watch produces. Treat them as orientation only.</p>
+
+      <div class="not-prose my-6 overflow-x-auto rounded-xl border border-[color:var(--color-border)]">
+        <table class="w-full text-sm text-left border-collapse">
+          <caption class="sr-only">Approximate typical short-term HRV (SDNN and RMSSD) ranges by age band. Population-level orientation values only, not diagnostic thresholds.</caption>
+          <thead>
+            <tr class="bg-[color:var(--color-surface)] text-[color:var(--color-ink)]">
+              <th scope="col" class="px-4 py-3 font-semibold">Age band</th>
+              <th scope="col" class="px-4 py-3 font-semibold">Typical SDNN (ms)</th>
+              <th scope="col" class="px-4 py-3 font-semibold">Typical RMSSD (ms)</th>
+              <th scope="col" class="px-4 py-3 font-semibold">Direction</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[color:var(--color-border)]">
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium">18–24</th>
+              <td class="px-4 py-3">~55–105</td>
+              <td class="px-4 py-3">~50–95</td>
+              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Highest</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium">25–34</th>
+              <td class="px-4 py-3">~50–95</td>
+              <td class="px-4 py-3">~40–85</td>
+              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">High</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium">35–44</th>
+              <td class="px-4 py-3">~40–85</td>
+              <td class="px-4 py-3">~30–70</td>
+              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Declining</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium">45–54</th>
+              <td class="px-4 py-3">~35–75</td>
+              <td class="px-4 py-3">~25–60</td>
+              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Declining</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium">55–64</th>
+              <td class="px-4 py-3">~30–65</td>
+              <td class="px-4 py-3">~20–50</td>
+              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Lower</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium">65+</th>
+              <td class="px-4 py-3">~25–55</td>
+              <td class="px-4 py-3">~15–45</td>
+              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Lowest</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-[color:var(--color-ink-muted)]"><strong>Important:</strong> These are approximate, illustrative population ranges synthesized from the HRV norms literature — not diagnostic thresholds and not medical advice. Individual variation is very large, healthy people fall outside these bands routinely, and measurement method (5-minute vs overnight vs 24-hour, resting vs active) strongly affects the numbers. A reading outside a band is not a problem in itself.</p>
+
+      <h2>Why HRV declines with age</h2>
+      <p>The main driver is a gradual fall in parasympathetic (vagal) tone and a loss of autonomic flexibility as we age. The heart's beat-to-beat responsiveness becomes more rigid, so the variability shrinks. This is a normal part of aging rather than a disease process. The practical takeaway: the goal is not to match a 25-year-old's HRV, but to keep yours as healthy as possible <em>for your age</em> — and to notice when your own trend changes.</p>
+
+      <h2>Why your baseline beats any chart</h2>
+      <p>Because absolute HRV varies so widely between individuals, a table can only orient you. Two equally healthy 40-year-olds might sit at 45 ms and 90 ms. What is far more informative is <em>your</em> typical range and how it moves. A steady climb over weeks usually reflects improving recovery; a sustained drop signals accumulating stress load, poor sleep, overtraining, illness, or heavy alcohol use.</p>
+      <p>Factors that shift your numbers night to night include sleep quality and timing, alcohol, late meals, hard training, illness, and psychological stress — the same stressors that also drive <a href="/cortisol/">cortisol</a>. If you want to raise your baseline, see <a href="/hrv/how-to-improve/">how to improve your HRV</a>.</p>
+
+      <h2>How Cortisol+ uses your age-adjusted HRV</h2>
+      <p>Cortisol+ reads your overnight HRV (SDNN) from Apple Watch and interprets it against your own rolling baseline rather than a generic chart. Combined with resting heart rate and sleep, it estimates the <em>pattern and trend</em> of your cortisol over time — not a direct hormone level. That personal-baseline approach is exactly why it stays useful whether your natural HRV runs high or low for your age. See <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li>Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. <em>Front Public Health.</em> 2017;5:258. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">PMC5624990</a> — contains reference norm tables and documents the age-related decline in HRV.</li>
+        <li>Kim HG, Cheon EJ, Bai DS, Lee YH, Koo BH. Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature. <em>Psychiatry Investig.</em> 2018;15(3):235–245. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">PMC6111105</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

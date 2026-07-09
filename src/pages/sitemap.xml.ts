@@ -56,6 +56,22 @@ const STATIC_ROUTES = [
   '/features/sleep-cortisol-tracking',
   '/features/breathing-zen-mode',
 
+  // HRV cluster
+  '/hrv',
+  '/hrv/normal-range',
+  '/hrv/how-to-improve',
+  '/hrv/apple-watch',
+
+  // Stress-tracking cluster
+  '/stress',
+  '/stress/apple-watch',
+
+  // Fitbit cluster
+  '/fitbit',
+  '/fitbit/stress-management-score',
+  '/fitbit/cortisol',
+  '/fitbit/hrv',
+
   // Audience FAQs
   '/faq-perimenopause',
   '/faq-burnout',

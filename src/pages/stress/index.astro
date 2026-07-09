@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'How to track stress with a wearable',
+  pathname: '/stress/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Can a wearable actually measure stress?',
+    a: 'Not directly. No consumer wearable measures a stress hormone like cortisol from your wrist. What they do is measure the autonomic signals stress changes — heart rate variability (HRV), resting heart rate, respiration, and sleep — then infer a stress state from those. It is an estimate built on physiology, not a lab reading, so treat it as a trend rather than a number.',
+  },
+  {
+    q: 'Which biometric is the best stress signal?',
+    a: 'HRV is the single most validated marker. It reflects the balance between your sympathetic ("fight or flight") and parasympathetic ("rest and digest") nervous systems, and it drops when you are under acute or chronic stress. A 2018 meta-analysis of 37 studies found HRV consistently changes in response to stress, which is why nearly every stress feature leans on it.',
+  },
+  {
+    q: 'What is the difference between continuous and point-in-time stress tracking?',
+    a: 'Point-in-time (or "spot") checks measure your signals for a minute or two on demand — useful before a meeting or after a workout. Continuous tracking samples throughout the day and overnight, which reveals patterns you cannot feel: a flat recovery curve, elevated night-time load, or a stressor that only shows up in your sleep data.',
+  },
+  {
+    q: 'How accurate are wearable stress scores?',
+    a: 'They are directionally useful but not precise. Wrist optical sensors are noisier than a chest strap or ECG, motion and caffeine confound readings, and every brand uses a different proprietary formula. The reliable signal is the trend over days and weeks against your own baseline — not the absolute number on any single afternoon.',
+  },
+  {
+    q: 'How does Cortisol+ track stress differently?',
+    a: 'Cortisol+ reads the same Apple Watch signals — HRV, heart rate, sleep and wrist temperature — but instead of a generic 0–100 score it models your cortisol trend: whether your stress-hormone pattern is running high, recovering, or drifting off its healthy diurnal curve. It estimates the trend and direction, not an absolute blood cortisol value.',
+  },
+];
+
+const related = [
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'The core signal' },
+  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check yours now' },
+  { href: '/hrv/', title: 'HRV explained', hint: 'What the numbers mean' },
+  { href: '/hrv/apple-watch/', title: 'HRV on Apple Watch', hint: 'Where to find it' },
+  { href: '/cortisol/', title: 'Cortisol guide', hint: 'The hormone itself' },
+  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'The method' },
+];
+---
+
+<BaseLayout
+  title="How to track stress with a wearable"
+  description="Which biometrics reveal stress — HRV, resting heart rate, sleep, skin temperature — how wearables estimate it, and how accurate the readings really are."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Stress tracking</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How to track stress with a wearable</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      A wearable cannot sample a stress hormone from your wrist. What it can do is read the body signals stress changes — and turn them into a trend you can act on.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>What a wearable is actually measuring</h2>
+      <p>Stress is a physiological state, not a single quantity. When your brain registers a demand, the autonomic nervous system shifts toward its sympathetic ("fight or flight") branch and the HPA axis releases cortisol. You cannot read cortisol from the wrist — but you <em>can</em> read the downstream signals that shift alongside it. Every wearable "stress" feature is really an inference engine sitting on top of four measurable biometrics.</p>
+
+      <h3>1. Heart rate variability (HRV)</h3>
+      <p>HRV is the beat-to-beat variation in the timing of your heartbeats, and it is the most validated stress marker a wearable has access to. High variability signals a relaxed, parasympathetically-dominated state; variability collapses under acute and chronic stress as the sympathetic branch takes over. A 2018 meta-analysis of 37 studies concluded HRV consistently changes in response to stress and supports its use as an objective measure. This is why HRV sits at the centre of almost every stress score — and why we cover it in depth in the <a href="/hrv/">HRV guide</a>.</p>
+
+      <h3>2. Resting heart rate</h3>
+      <p>A resting heart rate that trends above your personal baseline is a classic sign of accumulated load — a hard week, illness, poor sleep, or sustained stress. It is a coarser signal than HRV (many things move it) but it is stable and easy to measure, so wearables use it to corroborate what HRV suggests.</p>
+
+      <h3>3. Sleep</h3>
+      <p>Sleep and stress form a two-way loop: stress fragments sleep, and lost sleep raises next-day stress hormones. Controlled research found that even partial sleep loss elevates cortisol the following evening. Because a wearable measures sleep duration, timing and stages every night, it captures one of the largest inputs to your daytime stress state — often before you consciously feel run down.</p>
+
+      <h3>4. Skin / wrist temperature</h3>
+      <p>Newer watches sample wrist temperature overnight. It is a slow, indirect signal — shifted by illness, alcohol, the menstrual cycle and sleep environment as much as by stress — but a sustained deviation from baseline adds context to the other three metrics rather than standing alone.</p>
+
+      <h2>How wearables turn signals into a "stress score"</h2>
+      <p>There is no universal method. Each manufacturer blends HRV, heart rate and (sometimes) sleep and temperature into a proprietary index, usually normalised against <em>your own</em> baseline rather than a population number. That personalisation is the point: an HRV of 45&nbsp;ms might be relaxed for one person and stressed for another, so the useful question is always "high or low <em>for me</em>, and which way is it trending?"</p>
+      <p>Because the formulas are closed and brand-specific, two devices on the same wrist can disagree. That is expected. The signal worth trusting is the shape of your own curve over time, not a cross-brand comparison of absolute values.</p>
+
+      <h2>Continuous vs. point-in-time tracking</h2>
+      <p>There are two ways to sample stress, and good tracking uses both:</p>
+      <ul>
+        <li><strong>Point-in-time:</strong> a one- to two-minute reading on demand — before a presentation, after a workout, mid-argument. It answers "where am I right now?"</li>
+        <li><strong>Continuous:</strong> automatic sampling through the day and overnight. It surfaces patterns you cannot feel — a recovery curve that never fully rebounds, elevated night-time load, or a recurring afternoon dip. It answers "what is my baseline doing over weeks?"</li>
+      </ul>
+      <p>Spot checks are reactive; continuous data is where the behaviour-changing insights live, because it ties a stressor to a measurable physiological cost.</p>
+
+      <h2>Accuracy and honest limits</h2>
+      <p>Wearable stress tracking is genuinely useful, but it is an estimate. Keep four limits in mind:</p>
+      <ul>
+        <li><strong>Optical sensors are noisier</strong> than a chest strap or clinical ECG, so single readings scatter.</li>
+        <li><strong>Confounders move the signal:</strong> caffeine, alcohol, exercise, motion, illness and posture all shift HRV and heart rate independently of stress.</li>
+        <li><strong>No wrist device measures cortisol.</strong> Any product implying a direct hormone reading from optical sensors is overstating what the hardware can do.</li>
+        <li><strong>The trend beats the number.</strong> One low HRV afternoon means little; a two-week decline against your baseline is a real signal.</li>
+      </ul>
+
+      <h2>Where Cortisol+ fits</h2>
+      <p>Cortisol+ reads the same Apple Watch biometrics described above — HRV, heart rate, sleep and wrist temperature — and instead of a generic 0–100 score, models what they imply about your <strong>cortisol trend</strong>: whether your stress-hormone pattern is running high, recovering, or drifting off its healthy daily curve. It estimates the direction and trend of cortisol, not an absolute blood value. See <a href="/how-it-works/">how it works</a>, or check your current read with the <a href="/tools/stress-score/">stress score tool</a>.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li>Kim HG, et al. <a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature</a>. Psychiatry Investig. 2018;15(3):235–245.</li>
+        <li>Shaffer F, Ginsberg JP. <a href="https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2017.00258/full" rel="nofollow">An Overview of Heart Rate Variability Metrics and Norms</a>. Front Public Health. 2017;5:258.</li>
+        <li>Leproult R, et al. <a href="https://academic.oup.com/sleep/article-abstract/20/10/865/2725962" rel="nofollow">Sleep Loss Results in an Elevation of Cortisol Levels the Next Evening</a>. Sleep. 1997;20(10):865–870.</li>
+        <li>Apple. <a href="https://support.apple.com/en-us/102674" rel="nofollow">Track your nightly wrist temperature changes with Apple Watch</a>.</li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

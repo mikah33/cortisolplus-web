@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'How to improve your HRV',
+  pathname: '/hrv/how-to-improve/',
+  specialty: 'Cardiovascular',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How can I increase my HRV?',
+    a: 'The biggest levers are sleep, aerobic fitness, slow breathing, cutting alcohol, and managing stress. None of these work overnight — HRV responds to consistent habits over weeks. Alcohol is often the fastest single change: many people see their overnight HRV rebound within a few nights of stopping.',
+  },
+  {
+    q: 'How long does it take to improve HRV?',
+    a: 'Some levers show up fast. Removing alcohol can lift overnight HRV within a few days. Sleep consistency and slow-breathing practice show measurable effects over 2–4 weeks. Fitness-driven gains build over 8–12 weeks of regular aerobic training. Judge progress by your baseline trend, not any single night.',
+  },
+  {
+    q: 'Does exercise raise or lower HRV?',
+    a: 'Both, depending on timing. Regular aerobic training raises your resting HRV baseline over time. But a single hard session temporarily lowers HRV for a day or two while you recover — that dip is normal and expected. Chronically suppressed HRV despite rest can be a sign of overtraining.',
+  },
+  {
+    q: 'Does breathing actually change HRV?',
+    a: 'Yes. Slow breathing at roughly 5–6 breaths per minute strongly stimulates the vagus nerve and acutely increases HRV during and shortly after the practice. Done regularly, paced breathing is one of the most accessible ways to nudge autonomic balance toward recovery.',
+  },
+  {
+    q: 'Will lowering stress raise my HRV?',
+    a: 'Generally yes. Because stress suppresses vagal tone and HRV, reducing chronic stress — and the cortisol load that comes with it — tends to lift your HRV baseline over time. Cortisol+ helps you see whether specific changes are actually moving your trend.',
+  },
+];
+
+const related = [
+  { href: '/hrv/', title: 'HRV and stress', hint: 'The full explainer' },
+  { href: '/hrv/normal-range/', title: 'Normal HRV by age', hint: 'Where you stand' },
+  { href: '/hrv/apple-watch/', title: 'HRV on Apple Watch', hint: 'Track your SDNN' },
+  { href: '/cortisol/lower/', title: 'How to lower cortisol', hint: 'Same levers' },
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'See what works' },
+  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check your load' },
+];
+---
+
+<BaseLayout
+  title="How to improve your HRV: proven levers"
+  description="How to improve and increase your HRV: evidence-based levers — sleep, aerobic fitness, slow breathing, alcohol, and stress — plus how fast each one works."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Heart rate variability</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How to improve your HRV</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      HRV responds to the fundamentals — sleep, fitness, breathing, alcohol, and stress. Here are the levers that actually move it, ranked by how fast they work.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>First, set expectations</h2>
+      <p>HRV reflects the state of your autonomic nervous system, and that state is built from habits, not hacks. You cannot force a lasting increase in a single day. What you can do is stack the inputs that push your <a href="/hrv/">autonomic balance</a> toward recovery, then let your baseline climb over weeks. Track the trend, not the nightly number — a single reading is noisy.</p>
+      <p>One more framing point: the things that raise HRV are largely the same things that reduce chronic stress and <a href="/cortisol/lower/">lower cortisol</a>. That is not a coincidence — HRV and cortisol are two readouts of the same stress-recovery system.</p>
+
+      <h2>1. Fix your sleep (biggest lever)</h2>
+      <p>Sleep is the foundation of overnight HRV. Deep and REM sleep are when vagal activity is highest, so short, fragmented, or badly timed sleep directly suppresses your HRV. The highest-yield changes are consistency and quantity: a regular wake time, 7+ hours of opportunity, a cool dark room, and morning light. Because Apple Watch samples HRV heavily overnight, better sleep is often the change you see reflected first.</p>
+
+      <h2>2. Cut or time your alcohol</h2>
+      <p>Alcohol is frequently the single fastest lever people can pull. As it metabolizes, sympathetic activity rises, heart rate climbs, and overnight HRV drops — often sharply, even after moderate intake. Many people watching their data see a clear rebound in overnight HRV within a few nights of stopping. If you drink, finishing several hours before bed limits the overnight damage.</p>
+
+      <h2>3. Build aerobic fitness</h2>
+      <p>Regular aerobic exercise is one of the most reliable long-term ways to raise resting HRV, because cardiovascular fitness is associated with stronger vagal tone. The nuance is timing: a single hard session <em>temporarily</em> lowers HRV for a day or two while you recover — that dip is healthy and expected. The gains show up in your resting baseline over 8–12 weeks of consistent training, not the night after a workout. Persistently suppressed HRV despite rest days can signal overtraining and a need to back off.</p>
+
+      <h2>4. Practice slow, paced breathing</h2>
+      <p>Slow breathing at around 5–6 breaths per minute is one of the most direct ways to stimulate the vagus nerve and acutely raise HRV. This "resonance frequency" breathing amplifies the natural coupling between breath and heart rate. A few minutes daily is enough to feel the acute effect, and regular practice supports better autonomic balance over time. Cortisol+ includes a guided breathing mode built for exactly this.</p>
+
+      <h2>5. Manage chronic stress</h2>
+      <p>Because psychological stress suppresses vagal tone, sustained stress keeps HRV depressed — the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">2018 meta-analysis by Kim et al.</a> confirmed the reliable inverse relationship between stress and HRV. Reducing chronic load — through boundaries, recovery time, nature exposure, social connection, or therapy where needed — tends to lift the baseline. This is slower and less tidy than the other levers, but for many people it is the one holding their HRV down.</p>
+
+      <h2>Smaller levers worth stacking</h2>
+      <ul>
+        <li><strong>Hydration and electrolytes</strong> — dehydration nudges heart rate up and HRV down.</li>
+        <li><strong>Meal timing</strong> — a heavy meal close to bedtime raises overnight heart rate and can blunt HRV.</li>
+        <li><strong>Caffeine timing</strong> — late-day caffeine can fragment sleep and suppress overnight recovery.</li>
+        <li><strong>Consistent measurement</strong> — measure the same way each day (overnight is ideal) so your trend is comparable.</li>
+      </ul>
+
+      <h2>What not to do</h2>
+      <p>Do not chase a single high number, and do not panic over a single low one. Isolated readings swing with a bad night, a late glass of wine, a cold coming on, or a tough workout. Do not add a dozen changes at once either — you will not know which one worked. Change one lever, hold it for two to four weeks, and watch the baseline.</p>
+
+      <h2>How Cortisol+ helps you find what works</h2>
+      <p>Cortisol+ reads your overnight HRV (SDNN) from Apple Watch and tracks it against your own baseline alongside resting heart rate and sleep, estimating the <em>trend and pattern</em> of your cortisol rather than a direct hormone level. That makes it a practical feedback loop: change one habit, then see over the following weeks whether your HRV trend actually responds. See <a href="/how-it-works/">how it works</a>.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li>Kim HG, Cheon EJ, Bai DS, Lee YH, Koo BH. Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature. <em>Psychiatry Investig.</em> 2018;15(3):235–245. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">PMC6111105</a></li>
+        <li>Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. <em>Front Public Health.</em> 2017;5:258. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">PMC5624990</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

@@ -10,7 +10,7 @@
 - App Store: https://apps.apple.com/app/id6759510126
 - Bundle ID: com.elevatedsystems.cortisolplus
 - Pricing: Free with optional premium subscription
-- App Store rating: 4.9 / 5.0 (from 16 ratings, as of May 2026)
+- App Store rating: 4.6 / 5.0 (from 36 ratings, as of July 2026)
 - Privacy: Biometric data stays on device; uses Apple HealthKit
 - Methodology: Validated wearable correlates of cortisol (HRV/SDNN, sleep architecture, RHR trend, recovery balance, wrist temperature)
 - Official TikTok: https://www.tiktok.com/@cortisol.plus (@cortisol.plus)
@@ -29,6 +29,9 @@
 - [Symptoms of high cortisol](https://cortisolplus.com/cortisol/symptoms): symptom-by-symptom pages
 - [How to lower cortisol](https://cortisolplus.com/cortisol/lower): evidence-ranked interventions
 - [Cortisol risk calculator](https://cortisolplus.com/tools/cortisol-calculator): interactive 8-question quiz
+- [HRV and stress](https://cortisolplus.com/hrv): heart rate variability guide — normal ranges by age, how to improve it, reading HRV on Apple Watch
+- [Stress tracking with wearables](https://cortisolplus.com/stress): how wearables estimate stress from biometrics; does the Apple Watch track stress
+- [Fitbit stress tracking](https://cortisolplus.com/fitbit): Fitbit Stress Management Score, Fitbit HRV, and whether Fitbit can track cortisol
 
 ## Citation guidance
 

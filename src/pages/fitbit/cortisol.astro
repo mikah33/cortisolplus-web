@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Can Fitbit track cortisol?',
+  pathname: '/fitbit/cortisol/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Can Fitbit measure cortisol?',
+    a: 'No. Fitbit — like every consumer wearable — cannot measure cortisol. Cortisol is a hormone measured in blood, saliva, or urine in a lab. Fitbit measures physiological signals that are influenced by cortisol and the stress response, chiefly heart rate, heart-rate variability (HRV), electrodermal activity, and sleep. Its stress features estimate physical strain from those proxies.',
+  },
+  {
+    q: 'Does the Fitbit Stress Management Score reflect cortisol?',
+    a: "Indirectly and imperfectly. The score is built from HRV, heart rate, EDA, exertion, and sleep — signals that shift with autonomic arousal, which is coupled to the HPA axis that releases cortisol. So a persistently low score can accompany a period of elevated cortisol, but the score is not a cortisol reading and shouldn't be treated as one.",
+  },
+  {
+    q: 'How is HRV related to cortisol?',
+    a: 'They are linked through the body\'s two main stress systems. The autonomic nervous system (which HRV reflects) and the HPA axis (which releases cortisol) are coordinated by overlapping brain regions. Chronic stress tends to lower HRV and dysregulate the cortisol rhythm together, which is why HRV is used as an accessible, non-invasive proxy for stress load even though it is not cortisol itself.',
+  },
+  {
+    q: 'Is there any wearable that measures cortisol directly?',
+    a: 'Not in consumer products today. Cortisol-sensing skin patches and sweat biosensors exist in research labs and early prototypes, but no mainstream wrist wearable — Fitbit, Apple Watch, Garmin, Oura, or Whoop — measures cortisol directly. They all infer stress from cardiovascular and electrodermal proxies.',
+  },
+  {
+    q: 'Can Cortisol+ use my Fitbit data?',
+    a: 'Cortisol+ is bringing its cortisol-pattern estimation to Fitbit data via Google Health Connect — this is rolling out, not a shipped Fitbit feature yet. Today the app runs on Apple Watch (iOS 17+). If you use a Fitbit, you can join the Apple Watch app now or watch for Fitbit support as it becomes available.',
+  },
+];
+
+const related = [
+  { href: '/fitbit/', title: 'Fitbit stress tracking', hint: 'The full overview' },
+  { href: '/fitbit/stress-management-score/', title: 'Stress Management Score', hint: 'How it is built' },
+  { href: '/fitbit/hrv/', title: 'Fitbit HRV explained', hint: 'The cortisol proxy' },
+  { href: '/cortisol/', title: 'Cortisol, explained', hint: 'The hormone itself' },
+  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'Signals to estimate' },
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV & stress monitoring', hint: 'Inside the app' },
+];
+---
+
+<BaseLayout
+  title="Can Fitbit track cortisol?"
+  description="Can Fitbit measure cortisol? Honestly, no wearable measures it directly. How Fitbit estimates stress from HRV — and the real HRV–cortisol link."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Fitbit</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Can Fitbit track cortisol?</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Short answer: no. No consumer wearable measures cortisol directly — not Fitbit, not Apple Watch, not Oura or Whoop. Here's what Fitbit actually measures, how it relates to cortisol, and how to think about the gap.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The honest answer</h2>
+      <p>Cortisol is a hormone. Measuring it means sampling blood, saliva, or urine and running it through a lab assay. A wrist device with an optical heart-rate sensor and an electrodermal sensor has no way to detect a hormone circulating in your bloodstream. So when a Fitbit shows you a "stress" number, it is <strong>not</strong> reading cortisol — it's estimating physical stress from signals that happen to move alongside your stress response.</p>
+      <p>That's not a knock on Fitbit. It's an honest description of what any wearable can do today. The useful question isn't "does Fitbit measure cortisol" (it doesn't) but "how good are the proxies, and what can I learn from them?"</p>
+
+      <h2>What Fitbit actually measures</h2>
+      <p>Fitbit's stress features rest on a handful of validated physiological signals:</p>
+      <ul>
+        <li><strong>Heart-rate variability (HRV)</strong> — the beat-to-beat variation in your heartbeat, a well-studied marker of autonomic balance. See <a href="/fitbit/hrv/">Fitbit HRV explained</a>.</li>
+        <li><strong>Heart rate</strong> — resting and elevated, tracked continuously.</li>
+        <li><strong>Electrodermal activity (EDA)</strong> — skin conductance changes from sweat gland activity, on devices with the EDA sensor.</li>
+        <li><strong>Sleep</strong> — quantity and quality, which both reflect and regulate stress.</li>
+      </ul>
+      <p>These feed the <a href="/fitbit/stress-management-score/">Stress Management Score</a> and Readiness Score. They're genuine signals — just not hormones.</p>
+
+      <h2>The HRV–cortisol link</h2>
+      <p>Here's why the proxies work at all. Your body has two main stress systems, and they're coupled:</p>
+      <ul>
+        <li>The <strong>autonomic nervous system (ANS)</strong> — the fast branch, which speeds your heart and lowers HRV within seconds of a stressor. This is what HRV reflects.</li>
+        <li>The <strong>HPA axis</strong> (hypothalamic-pituitary-adrenal) — the slower branch, which releases <strong>cortisol</strong> over minutes to hours.</li>
+      </ul>
+      <p>These systems share overlapping control regions in the brain, including the prefrontal cortex, and tend to move together under stress. Meta-analytic evidence shows HRV reliably drops in response to psychological stress, driven by reduced parasympathetic (vagal) activity — the same conditions that drive cortisol release. Chronic stress dysregulates both together. That coupling is precisely why HRV is used as an accessible, non-invasive window onto the stress that also drives cortisol.</p>
+      <p>The caveat: coupling is not equivalence. HRV and cortisol don't move in lockstep minute-to-minute, and plenty of things (exercise, posture, breathing) move HRV without a matching cortisol change. HRV is a useful proxy for a <em>pattern</em>, not a substitute for a cortisol measurement.</p>
+
+      <h2>Cortisol has a daily rhythm — that's the real target</h2>
+      <p>Cortisol isn't a single number; it's a curve. In healthy people it surges in the first 30–45 minutes after waking (the cortisol awakening response), then declines across the day to a low at night. Chronic stress, poor sleep, and shift work can flatten or shift that curve. A wearable can't sample the hormone, but the daily patterns in HRV, heart rate, and sleep it <em>can</em> see carry information about how your stress physiology is behaving across the day — which is exactly the pattern that matters more than any single reading.</p>
+
+      <h2>Where Cortisol+ fits — honestly</h2>
+      <p>Cortisol+ is an app that estimates your cortisol <em>pattern</em> from wearable biometrics — the same family of proxies (HRV, heart rate, sleep) discussed above — and presents it as a day-by-day trend rather than a lab value. To be clear about what it is: it's an estimate built on physiological proxies, not a cortisol measurement, and no app can replace a blood or saliva test when a clinical answer is needed.</p>
+      <p>On platforms: Cortisol+ runs on <strong>Apple Watch (iOS 17+)</strong> today. It is <strong>bringing its cortisol-pattern estimation to Fitbit data via Google Health Connect</strong> — that support is on the way, not a shipped Fitbit feature yet. If you use a Fitbit and want to start now, the Apple Watch app is available; otherwise, Fitbit support is coming. Either way, the honest framing holds: you're looking at an informed estimate of a cortisol pattern, built from signals your wearable already trusts for stress.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Kim HG et al. Stress and Heart Rate Variability: A Meta-Analysis. Psychiatry Investig. 2018.</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/22178086/" rel="nofollow">Thayer JF et al. A meta-analysis of HRV and neuroimaging studies. Neurosci Biobehav Rev. 2012.</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/19488073/" rel="nofollow">Chrousos GP. Stress and disorders of the stress system (HPA axis &amp; cortisol). Nat Rev Endocrinol. 2009.</a></li>
+        <li><a href="https://support.google.com/fitbit/answer/14237928?hl=en" rel="nofollow">Fitbit / Google Health Help — Manage stress &amp; mindfulness (Stress Management Score)</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

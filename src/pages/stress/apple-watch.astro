@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Does the Apple Watch track stress?',
+  pathname: '/stress/apple-watch/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'Does the Apple Watch have a stress score?',
+    a: 'No. Unlike Fitbit (Stress Management Score) or Garmin (Body Battery / Stress), the Apple Watch does not output a single native stress number. It records the biometric signals stress affects — heart rate, HRV and sleep — but leaves interpretation to Apple\'s wellbeing features or to third-party apps.',
+  },
+  {
+    q: 'What stress-related features does the Apple Watch have natively?',
+    a: 'Two main ones. The Mindfulness app offers Breathe and Reflect sessions and can log your State of Mind — a subjective mood check, not a physiological measurement. Separately, Health surfaces high and low heart-rate notifications and your HRV and sleep data. None of these is labelled a "stress score", but together they cover the raw signals.',
+  },
+  {
+    q: 'Can the Apple Watch measure cortisol?',
+    a: 'No wrist device can measure cortisol. Cortisol is a hormone measured in blood, saliva or urine. What the Apple Watch can do is record the autonomic signals — HRV, heart rate, sleep, wrist temperature — that shift alongside cortisol, which is the basis on which apps like Cortisol+ estimate a cortisol trend.',
+  },
+  {
+    q: 'How do third-party stress apps use the Apple Watch?',
+    a: 'They read the signals Apple already records through HealthKit — mainly HRV and heart rate, often sleep and wrist temperature too — and run their own model to estimate a stress state. The watch supplies the raw physiology; the app supplies the interpretation Apple deliberately leaves out.',
+  },
+  {
+    q: 'Which Apple Watch models capture the best stress signals?',
+    a: 'Any Apple Watch with an optical heart sensor records heart rate and HRV. Series 8 and later (plus Ultra and SE 3) add an overnight wrist-temperature sensor, and any model running a recent watchOS supports sleep tracking and State of Mind logging — so newer models give a stress app more inputs to work with.',
+  },
+];
+
+const related = [
+  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'The core signal' },
+  { href: '/hrv/apple-watch/', title: 'HRV on Apple Watch', hint: 'Find your numbers' },
+  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check yours now' },
+  { href: '/hrv/', title: 'HRV explained', hint: 'What it means' },
+  { href: '/cortisol/', title: 'Cortisol guide', hint: 'The hormone itself' },
+  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'The method' },
+];
+---
+
+<BaseLayout
+  title="Does the Apple Watch track stress?"
+  description="The honest answer: Apple Watch has no native stress score like Fitbit or Garmin, but it records the HRV, heart-rate and sleep signals stress apps rely on."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Stress tracking</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Does the Apple Watch track stress?</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Short answer: not with a single "stress score" the way Fitbit and Garmin do — but it records almost every signal a stress app needs.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>The honest answer</h2>
+      <p>The Apple Watch does <strong>not</strong> produce a native, proprietary stress score. If you are coming from a Fitbit — which shows a daily Stress Management Score — or a Garmin, with its Body Battery and all-day Stress metric, the first thing to know is that Apple made a different choice. There is no single 0–100 "stress" number anywhere in watchOS or the Health app.</p>
+      <p>What the Apple Watch <em>does</em> do is quietly record the physiological signals that stress changes. The number is missing; the raw data is not.</p>
+
+      <h2>What the Apple Watch actually captures</h2>
+      <p>Three of these feed directly into stress estimation:</p>
+      <ul>
+        <li><strong>Heart rate variability (HRV)</strong> — the beat-to-beat timing variation that is the most validated wearable stress marker. A 2018 meta-analysis of 37 studies found HRV consistently changes in response to stress. The watch logs it throughout the day; you can find it under <a href="/hrv/apple-watch/">HRV in the Health app</a>.</li>
+        <li><strong>Heart rate</strong> — resting and continuous, including high/low heart-rate notifications.</li>
+        <li><strong>Sleep</strong> — duration, timing and stages, which matter because partial sleep loss is shown to raise cortisol the next evening.</li>
+        <li><strong>Wrist temperature</strong> — sampled overnight on Series 8 and later, Ultra and SE 3; a slow, contextual signal rather than a direct stress reading.</li>
+      </ul>
+
+      <h2>Apple's native wellbeing features</h2>
+      <p>Apple ships two things that touch stress — but it is worth being precise about what each one is.</p>
+
+      <h3>Mindfulness &amp; State of Mind</h3>
+      <p>The Mindfulness app offers Breathe and Reflect sessions, and lets you log your <a href="https://support.apple.com/guide/watch/log-your-state-of-mind-apd7de0f5610/watchos" rel="nofollow">State of Mind</a> — a momentary emotion or daily mood. This is genuinely useful, but it is a <em>subjective</em> check-in: you tell the watch how you feel. It is not derived from your biometrics, so it is the opposite of a sensor-based stress score.</p>
+
+      <h3>Heart-rate and health notifications</h3>
+      <p>Separately, the watch will alert you to unusually high or low heart rate and surfaces your HRV and sleep trends in Health. These are the sensor signals — but Apple presents them as neutral health data and stops short of labelling any of it "stress".</p>
+
+      <h2>Apple Watch vs. Fitbit and Garmin for stress</h2>
+      <p>The practical difference is philosophy, not hardware. All three brands measure HRV and heart rate from the wrist; the divergence is what they choose to show you.</p>
+      <ul>
+        <li><strong>Fitbit</strong> computes a daily Stress Management Score and, on some models, runs an on-wrist electrodermal (EDA) scan for a spot stress reading.</li>
+        <li><strong>Garmin</strong> shows an all-day Stress metric and "Body Battery," both derived largely from HRV.</li>
+        <li><strong>Apple</strong> exposes the raw signals — HRV, heart rate, sleep, wrist temperature — plus a subjective State of Mind log, but deliberately publishes no computed stress number.</li>
+      </ul>
+      <p>Neither approach is inherently more accurate; a computed score is only as good as its hidden formula. Apple's choice simply means the interpretation happens in an app you pick, against your own baseline, rather than in a black box you cannot inspect.</p>
+
+      <h2>So how do stress apps work on Apple Watch?</h2>
+      <p>Third-party apps fill the gap Apple leaves. Through HealthKit they read the same signals the watch already records — primarily HRV and heart rate, often sleep and wrist temperature — and apply their own model to estimate a stress state. The watch is an excellent sensor; the app supplies the interpretation. That division is exactly why a good stress app can add real value on top of Apple hardware without any extra device. For the full picture of which signals matter and why, see the pillar guide on <a href="/stress/">tracking stress with a wearable</a>.</p>
+
+      <h2>How Cortisol+ turns those signals into a stress read</h2>
+      <p>Cortisol+ takes the HRV, heart-rate, sleep and wrist-temperature data your Apple Watch already collects and models what they imply about your <strong>cortisol trend</strong> — whether your stress-hormone pattern is running high, recovering, or drifting off its healthy daily curve. Two honest caveats: no wrist device measures cortisol directly, so Cortisol+ estimates the <em>trend and direction</em>, not an absolute blood value; and like every wearable stress method, the reliable signal is the multi-day pattern against your own baseline, not any single reading.</p>
+      <p>If that sounds more useful than a subjective mood log, see <a href="/how-it-works/">how Cortisol+ works</a> or read the underlying <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a> approach.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li>Kim HG, et al. <a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature</a>. Psychiatry Investig. 2018;15(3):235–245.</li>
+        <li>Leproult R, et al. <a href="https://academic.oup.com/sleep/article-abstract/20/10/865/2725962" rel="nofollow">Sleep Loss Results in an Elevation of Cortisol Levels the Next Evening</a>. Sleep. 1997;20(10):865–870.</li>
+        <li>Apple. <a href="https://support.apple.com/guide/watch/log-your-state-of-mind-apd7de0f5610/watchos" rel="nofollow">Log your state of mind on Apple Watch</a>.</li>
+        <li>Apple. <a href="https://support.apple.com/en-us/102674" rel="nofollow">Track your nightly wrist temperature changes with Apple Watch</a>.</li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>

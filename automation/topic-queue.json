@@ -1,5 +1,114 @@
 [
   {
+    "category": "comparison",
+    "slug": "fitbit-vs-apple-watch-stress",
+    "title": "Fitbit vs Apple Watch for stress tracking",
+    "primaryKeyword": "fitbit vs apple watch stress",
+    "angle": "Head-to-head on stress/HRV features, honest limits",
+    "internalLinks": [
+      "/fitbit/",
+      "/stress/apple-watch/",
+      "/hrv/"
+    ],
+    "targetTool": "/tools/stress-score"
+  },
+  {
+    "category": "comparison",
+    "slug": "fitbit-sense-cortisol",
+    "title": "Does the Fitbit Sense track cortisol?",
+    "primaryKeyword": "fitbit sense cortisol",
+    "angle": "What the EDA sensor actually measures vs cortisol",
+    "internalLinks": [
+      "/fitbit/cortisol/",
+      "/fitbit/stress-management-score/"
+    ],
+    "targetTool": "/tools/cortisol-calculator"
+  },
+  {
+    "category": "hrv",
+    "slug": "good-hrv-for-your-age",
+    "title": "What's a good HRV for your age?",
+    "primaryKeyword": "good hrv by age",
+    "angle": "Age norms + why individual baseline matters more",
+    "internalLinks": [
+      "/hrv/normal-range/",
+      "/hrv/"
+    ],
+    "targetTool": "/tools/stress-score"
+  },
+  {
+    "category": "hrv",
+    "slug": "what-low-hrv-means",
+    "title": "What low HRV really means for stress",
+    "primaryKeyword": "low hrv meaning",
+    "angle": "Low HRV as an autonomic-stress / cortisol signal",
+    "internalLinks": [
+      "/hrv/",
+      "/cortisol/"
+    ],
+    "targetTool": "/tools/cortisol-calculator"
+  },
+  {
+    "category": "hrv",
+    "slug": "increase-hrv-fast",
+    "title": "How to increase your HRV (what actually works)",
+    "primaryKeyword": "how to increase hrv",
+    "angle": "Evidence-ranked HRV levers, effect sizes",
+    "internalLinks": [
+      "/hrv/how-to-improve/",
+      "/cortisol/lower/"
+    ],
+    "targetTool": "/tools/stress-score"
+  },
+  {
+    "category": "hrv",
+    "slug": "hrv-during-sleep",
+    "title": "Why your HRV matters most during sleep",
+    "primaryKeyword": "hrv during sleep",
+    "angle": "Overnight HRV, recovery, and next-day cortisol",
+    "internalLinks": [
+      "/hrv/",
+      "/cortisol/lower/sleep/"
+    ],
+    "targetTool": "/tools/sleep-debt-cortisol"
+  },
+  {
+    "category": "apple-watch",
+    "slug": "apple-watch-stress-score",
+    "title": "Does the Apple Watch have a stress score?",
+    "primaryKeyword": "apple watch stress score",
+    "angle": "No native score — what it does track and how apps use it",
+    "internalLinks": [
+      "/stress/apple-watch/",
+      "/hrv/apple-watch/"
+    ],
+    "targetTool": "/tools/stress-score"
+  },
+  {
+    "category": "comparison",
+    "slug": "garmin-vs-fitbit-stress",
+    "title": "Garmin vs Fitbit stress tracking, compared",
+    "primaryKeyword": "garmin vs fitbit stress",
+    "angle": "Body Battery vs Stress Management Score, honestly",
+    "internalLinks": [
+      "/fitbit/",
+      "/stress/"
+    ],
+    "targetTool": "/tools/stress-score"
+  },
+  {
+    "category": "fitbit",
+    "slug": "fitbit-daily-readiness-explained",
+    "title": "Fitbit Daily Readiness Score, explained",
+    "primaryKeyword": "fitbit daily readiness score",
+    "angle": "How readiness is built from HRV/sleep/activity",
+    "internalLinks": [
+      "/fitbit/",
+      "/fitbit/hrv/"
+    ],
+    "targetTool": "/tools/stress-score"
+  },
+  {
     "category": "trending",
     "slug": "cortisol-face-truth",
     "title": "Cortisol face: what it actually is and what it isn't",

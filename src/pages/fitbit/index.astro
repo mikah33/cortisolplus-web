@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+
+import { medicalWebPage } from '../../lib/schema';
+
+const schema = medicalWebPage({
+  name: 'Fitbit stress tracking, explained',
+  pathname: '/fitbit/',
+});
+
+const faqs: FAQItem[] = [
+  {
+    q: 'How does Fitbit measure stress?',
+    a: "Fitbit does not measure a stress hormone. It infers physical signs of stress from sensor data your device already collects: heart rate, heart-rate variability (HRV), electrodermal activity (EDA) on supported devices, and sleep. These signals reflect your autonomic nervous system, which shifts toward 'fight or flight' under strain. Fitbit combines them into a daily Stress Management Score from 1 to 100.",
+  },
+  {
+    q: 'What is a good Fitbit stress score?',
+    a: 'A higher Stress Management Score is better: it means your device detected fewer physical signs of stress. Scores of 80 to 100 indicate your body shows little strain; a lower score suggests your HRV, resting heart rate, sleep, or exertion balance drifted in a direction Fitbit associates with higher physical stress. There is no universal cutoff — your personal baseline and trend matter more than any single number.',
+  },
+  {
+    q: 'Does Fitbit stress tracking need Premium?',
+    a: "A daily Stress Management Score and the Readiness Score are shown on compatible devices without a subscription. Fitbit Premium adds the detailed breakdown of what drove the score and personalized guidance. The EDA Scan app is available on devices with the EDA sensor (such as Sense and Charge 5 and later) and does not itself require Premium.",
+  },
+  {
+    q: 'Is Fitbit stress tracking accurate?',
+    a: 'Fitbit stress tracking is a reasonable estimate of physiological arousal, not a clinical measurement. HRV, heart rate, and EDA are all validated markers of autonomic activity, but the score is a proprietary composite and can be affected by illness, caffeine, alcohol, exercise timing, and poor sensor contact. Use it to spot trends over weeks, not to diagnose anything.',
+  },
+  {
+    q: 'What does Fitbit stress tracking not tell you?',
+    a: 'It cannot tell you your cortisol level, distinguish "good" stress (exercise, excitement) from "bad" stress, or explain why a signal changed. A hard workout and a stressful meeting can move the same metrics in the same direction. Fitbit gives you the physiological signal; interpreting the cause is up to you.',
+  },
+];
+
+const related = [
+  { href: '/fitbit/stress-management-score/', title: 'Stress Management Score', hint: 'How the 1–100 score works' },
+  { href: '/fitbit/hrv/', title: 'Fitbit HRV explained', hint: 'Where to find it' },
+  { href: '/fitbit/cortisol/', title: 'Can Fitbit track cortisol?', hint: 'The honest answer' },
+  { href: '/hrv/', title: 'HRV, explained', hint: 'The core signal' },
+  { href: '/stress/', title: 'Stress & cortisol', hint: 'The bigger picture' },
+  { href: '/features/hrv-stress-monitoring/', title: 'Cortisol+ HRV monitoring', hint: 'How our app reads it' },
+];
+---
+
+<BaseLayout
+  title="Fitbit stress tracking, explained"
+  description="How Fitbit measures stress from HRV, heart rate, EDA and sleep — the Stress Management Score, Readiness Score, and what the numbers do and don't tell you."
+  image="/screenshots/health-breakdown.png"
+  schema={schema}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Fitbit</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Fitbit stress tracking, explained</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
+      Your Fitbit can't measure a stress hormone. What it actually does is read the body's fingerprints of stress — heart rate, HRV, sweat response, and sleep — and turn them into a daily score. Here's how it works, and where it stops.
+    </p>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+
+      <h2>What "stress" means to a Fitbit</h2>
+      <p>Stress is a whole-body response coordinated by your autonomic nervous system. When you're under load — physical or mental — the sympathetic ("fight or flight") branch speeds the heart, tightens the beat-to-beat rhythm, and increases sweat gland activity. When you recover, the parasympathetic ("rest and digest") branch takes over and reverses those changes. Fitbit can't see the hormones behind this, but it can see the downstream physiological signals, and that's what its stress features are built on.</p>
+
+      <h2>The four signals Fitbit reads</h2>
+
+      <h3>1. Heart-rate variability (HRV)</h3>
+      <p>HRV is the variation in time between consecutive heartbeats. Counterintuitively, more variability is usually healthier — it reflects strong parasympathetic (vagal) tone. Falling HRV is one of the most consistent physiological markers of stress load in the research literature. Fitbit measures HRV overnight, when outside factors like caffeine and movement are minimized. See <a href="/fitbit/hrv/">our full guide to Fitbit HRV</a>.</p>
+
+      <h3>2. Resting and elevated heart rate</h3>
+      <p>A resting heart rate that runs higher than your baseline, or that stays elevated when you'd expect it to settle, is a classic sign the sympathetic system is dominant. Fitbit tracks this continuously via the optical (PPG) sensor on the wrist.</p>
+
+      <h3>3. Electrodermal activity (EDA)</h3>
+      <p>On devices with an EDA sensor — such as Fitbit Sense and Charge 5 and later — you can run an EDA Scan by resting your palm over the device. The sensor detects tiny changes in the electrical conductance of your skin caused by sweat gland activity, which is driven almost purely by the sympathetic nervous system. More responses during a scan can indicate a more reactive stress state.</p>
+
+      <h3>4. Sleep</h3>
+      <p>Sleep both reflects and regulates stress. Short or fragmented sleep raises next-day physiological arousal, and Fitbit folds sleep quality and quantity directly into its stress and readiness scoring.</p>
+
+      <h2>The Stress Management Score</h2>
+      <p>Each morning, compatible Fitbit devices produce a <a href="/fitbit/stress-management-score/">Stress Management Score from 1 to 100</a>. A higher score means your device detected fewer physical signs of stress. Per Fitbit, the score is built from more than ten factors grouped into three categories: <strong>responsiveness</strong> (heart rate, HRV, and EDA data), <strong>exertion balance</strong> (recent exercise versus your longer-term activity), and <strong>sleep patterns</strong> (last night and the past week). Fitbit Premium unlocks the breakdown showing which category pulled your score up or down.</p>
+
+      <h2>The Readiness Score</h2>
+      <p>Fitbit's Readiness Score answers a different question: how prepared is your body for exertion today? It combines your <strong>HRV</strong>, <strong>resting heart rate</strong>, and recent <strong>sleep</strong> into a 1–100 value, banded Low (29 or below), Moderate (30–64), and High (65 or above). A low readiness score after a stretch of poor sleep or high stress is a nudge to prioritize recovery rather than a hard workout.</p>
+
+      <h2>What Fitbit stress tracking does — and doesn't — tell you</h2>
+      <p>What it does well: gives you an objective, trend-able signal of autonomic arousal that you can watch over weeks. Falling HRV, a creeping resting heart rate, and reactive EDA scans together paint a real picture of accumulating strain.</p>
+      <p>What it can't do: measure cortisol or any hormone, tell "good" stress from "bad" (a workout and an argument can look identical to the sensors), or explain the cause of a change. It's a thermometer, not a diagnosis. Treat a single low score as noise and a two-week trend as signal.</p>
+
+      <h2>Where cortisol comes in</h2>
+      <p>The hormone most people mean when they say "stress" is cortisol, and no consumer wearable — Fitbit included — measures it directly. What wearables track are the <em>proxies</em> for cortisol's downstream effects, chiefly HRV. We cover the honest version of this in <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a> Cortisol+ is bringing its cortisol-pattern estimation to Fitbit data via Google Health Connect; today the app runs on Apple Watch.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://support.google.com/fitbit/answer/14237928?hl=en" rel="nofollow">Fitbit / Google Health Help — Manage stress &amp; mindfulness (Stress Management Score)</a></li>
+        <li><a href="https://support.google.com/fitbit/answer/14236710?hl=en" rel="nofollow">Fitbit / Google Health Help — Readiness Score</a></li>
+        <li><a href="https://support.google.com/fitbit/answer/14236917?hl=en" rel="nofollow">Fitbit / Google Health Help — Track your health metrics (HRV)</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Kim HG et al. Stress and Heart Rate Variability: A Meta-Analysis. Psychiatry Investig. 2018.</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5624990/" rel="nofollow">Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. Front Public Health. 2017.</a></li>
+      </ul>
+    </div>
+
+    <FAQ items={faqs} />
+    <RelatedLinks links={related} />
+  </article>
+</BaseLayout>
