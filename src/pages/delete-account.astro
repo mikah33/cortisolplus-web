@@ -1,0 +1,88 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { PUBLISHER } from '../consts';
+---
+
+<ArticleLayout
+  title="Delete your account"
+  description="How to permanently delete your Cortisol+ account and all associated data — directly in the app, or by request if you've uninstalled. Processed within 30 days."
+  updated="2026-07-18"
+  hideDisclaimer={true}
+>
+  <p>
+    This page explains how to permanently delete your <strong>Cortisol+</strong> account and all data
+    associated with it. Cortisol+ is published by <strong>{PUBLISHER.legalName}</strong>.
+  </p>
+
+  <h2>Delete your account in the app (recommended)</h2>
+  <p>
+    If you still have Cortisol+ installed, you can delete your account and all of its data yourself in
+    a few taps:
+  </p>
+  <ol>
+    <li>Open <strong>Cortisol+</strong>.</li>
+    <li>Tap <strong>Settings</strong> (the gear icon, top-right).</li>
+    <li>Tap <strong>Account</strong>.</li>
+    <li>Tap <strong>Delete Account &amp; Data</strong>.</li>
+    <li>Confirm by choosing <strong>Delete Everything</strong>.</li>
+  </ol>
+  <p>
+    This <strong>permanently erases your account and all associated data</strong>. The action is immediate
+    and cannot be undone.
+  </p>
+
+  <h2>Deleted your app already? Request deletion by email</h2>
+  <p>
+    If you've uninstalled Cortisol+ and can no longer reach the in-app option, email us and we'll delete
+    your account for you:
+  </p>
+  <ul>
+    <li><strong>Email:</strong> <a href={`mailto:${PUBLISHER.email}?subject=Delete%20My%20Account`}>{PUBLISHER.email}</a></li>
+    <li><strong>Subject:</strong> Delete My Account</li>
+    <li><strong>Include:</strong> the username on your Cortisol+ account, so we can locate and verify it.</li>
+  </ul>
+  <p>
+    We will process your request and permanently delete your account and data within <strong>30 days</strong>
+    of receiving it.
+  </p>
+
+  <h2>What gets deleted</h2>
+  <p>
+    Deleting your account permanently removes <strong>all</strong> of your personal data from our systems,
+    including:
+  </p>
+  <ul>
+    <li>Your profile and username</li>
+    <li>Health and fitness data synced to the Cortisol+ cloud (cortisol scores, HRV, sleep, and related metrics)</li>
+    <li>Walks and activity records</li>
+    <li>Social posts, friend connections, and interactions</li>
+    <li>Support messages and conversation history</li>
+    <li>Your account credentials and authentication identifiers</li>
+  </ul>
+  <p>
+    <strong>Nothing is retained for marketing.</strong> We do not keep a copy of your personal data to
+    contact you or advertise to you after deletion.
+  </p>
+
+  <h2>What is not kept</h2>
+  <p>
+    Once your account is deleted, your personal data is gone. We do not retain profile, health, social,
+    or support data beyond deletion, except where a narrow legal or tax obligation requires keeping a
+    limited transaction record (for example, subscription billing records held by Apple or Google), which
+    never includes your health data. Any anonymized, aggregated analytics that cannot be tied back to you
+    are not personal data and are unaffected.
+  </p>
+  <p>
+    <strong>Data that has already been removed cannot be recovered.</strong> If you want a copy of your
+    information, request it before deleting your account by emailing
+    <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    For any question about deleting your account or your data, contact
+    <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>.<br/>
+    <strong>App:</strong> Cortisol+<br/>
+    <strong>Developer:</strong> {PUBLISHER.legalName}
+  </p>
+</ArticleLayout>

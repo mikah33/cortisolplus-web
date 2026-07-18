@@ -27,6 +27,7 @@ const STATIC_ROUTES = [
   '/download',
   '/privacy',
   '/terms',
+  '/delete-account',
   '/blog',
 
   // Cortisol pillar
