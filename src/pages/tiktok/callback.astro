@@ -1,0 +1,39 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+
+<ArticleLayout
+  title="TikTok authorization complete"
+  description="OAuth redirect endpoint for the Cortisol+ TikTok Marketing API integration."
+  updated="2026-08-01"
+  hideDisclaimer={true}
+  noindex={true}
+>
+  <p>
+    This page is the OAuth redirect endpoint for the <strong>Cortisol+</strong> TikTok Marketing API
+    integration (internal advertising reporting for Elevated Systems LLC).
+  </p>
+
+  <div id="auth-result">
+    <p><em>Checking for an authorization code…</em></p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('auth_code') || params.get('code');
+    const el = document.getElementById('auth-result');
+    if (el) {
+      if (code) {
+        el.innerHTML =
+          '<p><strong>Authorization successful.</strong> Your authorization code is:</p>' +
+          '<pre style="padding:12px;border-radius:8px;background:#f4f4f5;overflow-x:auto;user-select:all">' +
+          code.replace(/[^A-Za-z0-9._-]/g, '') +
+          '</pre>' +
+          '<p>Copy this code and return to where you started the connection. It expires quickly, so use it right away.</p>';
+      } else {
+        el.innerHTML =
+          '<p>No authorization code found in the URL. If you arrived here directly, nothing to do — this page is only used during the TikTok API connection flow.</p>';
+      }
+    }
+  </script>
+</ArticleLayout>
