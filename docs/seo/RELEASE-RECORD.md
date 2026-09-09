@@ -34,7 +34,7 @@ The dated Google weekly pull and reproducible 28-day report succeeded using fina
 
 ## Open items
 
-See `NEXT-ACTIONS.md`. Main dependencies: authentic clinical review, hands-on competitor testing, app walkthrough recording, App Store metadata/campaign mapping, separate cloud reporting patch deployment, and subsequent per-engine AI measurements. No outreach messages were sent and no independent media coverage is claimed.
+See `NEXT-ACTIONS.md`. Current dependencies: authentic clinical review, hands-on competitor testing, authorized independent-review outreach, subsequent AI measurements separated by engine and Google feature, the next scheduled publisher/report execution, and the next App Store release exposing the saved marketing URL. The walkthrough, campaign mapping, GA4 click ingestion and cloud reporting patch deployment are completed in the follow-ups below. No outreach messages were sent and no independent media coverage is claimed.
 
 ## Live publisher replacement — September 9 follow-up
 
@@ -65,3 +65,11 @@ The App Store Connect Campaigns UI generated provider token `128296964` for Cort
 The Watch guide now contains a 70-second real app walkthrough with a persistent sample-data/development-version label, English captions and transcript. Its MP4, poster and VTT all returned HTTP 200 from production with the proper content types and hashes identical to the local artifacts. The MP4 is 741,114 bytes. The follow-up limits the player's height to 75% of the viewport so its controls fit on short screens; fullscreen remains available.
 
 The Simulator compilation fix used to create the recording is merged in [app PR #2](https://github.com/mikah33/cortisolplus/pull/2). The separate weekly report correction is merged in [app PR #1](https://github.com/mikah33/cortisolplus/pull/1), but deployment remains blocked on the admin Firebase account refresh. Reauthentication of the personal account succeeded but that account lists no Firebase projects. No manual Discord report was sent.
+
+## Final walkthrough check and cloud report deployment
+
+[PR #24](https://github.com/mikah33/cortisolplus-web/pull/24) merged as `e4da5e9fd9c7ccf5f55a8707b60f2cdd33cbd8b6`. [Firebase deployment 34413366286](https://github.com/mikah33/cortisolplus-web/actions/runs/34413366286) passed all 20 tests, build and production verification. A separate build at that exact commit verified all 85 live canonical routes. In the production browser, the player measured 440.25 pixels high in a 587-pixel viewport; actual playback and visible English captions were confirmed.
+
+**Cloud login blocker resolved later on September 9.** The refreshed admin account successfully listed the Cortisol Plus project. The scoped deployment command updated only `functions:weeklySeoReport` in project `cortisol-plus`, region `us-central1`; Firebase reported a successful update and deployment completion. A subsequent live function listing confirmed `weeklySeoReport` is **ACTIVE**, generation 2, Node.js 22, under the intended service account. The two report tests and JavaScript syntax checks passed before deployment. The source worktree retained the existing production exports; no unrelated functions were deployed. This supersedes the expired-login status above. No manual report or Discord message was triggered, and the next scheduled report remains unobserved.
+
+The user's later Google screenshot is recorded separately in `AI-BASELINE-2026-09-09.md`: Cortisol+ is absent from the visible **AI Overview** portion. Earlier positive **AI Mode** observations do not establish AI Overview inclusion. The screenshot does not show the exact query field or complete answer, so it is partial evidence, not a full-query ranking score.
