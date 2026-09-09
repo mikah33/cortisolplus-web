@@ -55,3 +55,13 @@ Local validation passed all 17 tests and the complete production build. The rele
 The release corrects wearable hormone claims, strengthens existing app/setup pages and replaces unsupported supplement/device comparisons with explicitly sourced descriptions. All eleven medical backlog drafts received individual editorial rewrites and remain unpublished; no qualified clinical reviewer has been represented. The detailed scope is in `FOLLOWUP-IMPLEMENTATION-2026-09-09.md`.
 
 Google accepted an indexing request for `/blog/apple-watch-hrv-not-updating/`; the URL was not indexed when inspected. Version 5.2 App Store marketing URLs were saved for all 39 localizations and verified with a zero-change dry run. Version 5.2 is still in preparation, so the public App Store website link has not yet changed.
+
+## App Store campaign and walkthrough release
+
+[PR #23](https://github.com/mikah33/cortisolplus-web/pull/23) was merged as `fad174eaeae413e1407d59409c93b7b36841d76e`. [Firebase deployment 34411965710](https://github.com/mikah33/cortisolplus-web/actions/runs/34411965710) passed its production checks. All 20 tests pass, including execution of the actual website script through consent, repeated page events, one attributed CTA click and withdrawal.
+
+The App Store Connect Campaigns UI generated provider token `128296964` for Cortisol+. In a real production browser check, the download link was initially untagged, became `pt=128296964&ct=website-qa&mt=8` after analytics consent, and opened the correct Cortisol+ App Store listing. Returning to the site and withdrawing consent restored the plain App Store link. GA4's earlier ingested click is recorded above; no installation or purchase is inferred from the new QA navigation.
+
+The Watch guide now contains a 70-second real app walkthrough with a persistent sample-data/development-version label, English captions and transcript. Its MP4, poster and VTT all returned HTTP 200 from production with the proper content types and hashes identical to the local artifacts. The MP4 is 741,114 bytes. The follow-up limits the player's height to 75% of the viewport so its controls fit on short screens; fullscreen remains available.
+
+The Simulator compilation fix used to create the recording is merged in [app PR #2](https://github.com/mikah33/cortisolplus/pull/2). The separate weekly report correction is merged in [app PR #1](https://github.com/mikah33/cortisolplus/pull/1), but deployment remains blocked on the admin Firebase account refresh. Reauthentication of the personal account succeeded but that account lists no Firebase projects. No manual Discord report was sent.
