@@ -29,7 +29,7 @@ The already-published levels, exercise, ashwagandha, methodology, HRV, sleep, br
 3. **Search discovery:** Google accepted the indexing request for `/blog/apple-watch-hrv-not-updating/` on September 9 and added it to its priority crawl queue. It was not indexed at inspection time. Existing sitemap/home/Watch/methodology/journal submissions are recorded in the original audit. Record accepted/rejected/quota outcomes. Requests are not inclusion guarantees.
 4. **GA4:** actual consented website click ingestion verified September 9: the Realtime report showed the download page view and `app_store_click` key event (count 1) after a labeled QA click. Create useful landing/source comparisons after real data exists. `app_store_click` is already registered as a key event with no monetary default. Keep synthetic QA traffic identified by `website-qa`.
 5. **App Store entity:** saved `https://cortisolplus.com/` as the marketing URL in all 39 version 5.2 localizations. Validation passed; a subsequent dry run reported zero changes. Version 5.2 remains PREPARE_FOR_SUBMISSION; support/privacy URLs and release state were preserved. The public listing still uses the old URL until Apple publishes the version.
-6. **Campaign attribution:** App Store Connect web access is signed out. A login handoff was opened to create a real campaign link. No provider token has been invented, and click-to-install/subscription attribution has not been claimed.
+6. **Campaign attribution:** generated a real link in Cortisol+'s App Store Connect Campaigns screen on September 9: provider `128296964`, campaign `website-organic`, media type `8`. Website attribution now uses fixed broad-source labels only after analytics consent; ordinary links remain untagged without consent. Apple reporting thresholds still apply; no install or purchase from the QA click is claimed.
 
 ## Hands-on comparison test sheet
 
@@ -39,7 +39,7 @@ Record observations separately from vendor documentation. Do not compare absolut
 
 ## Original walkthrough recording brief
 
-**Deliverable:** a 60–90 second actual app walkthrough, captioned, with transcript beside the Watch guide.
+**Prepared deliverable:** a 70-second actual app walkthrough, with English captions and transcript in the Watch guide. It shows the dashboard, input history and sleep view in development version 5.0.2 (12), iOS Simulator 26.5. A persistent label identifies sample data and the recording date. This is an older development build, not a current App Store hands-on test. The visible low-score demo flow did not expose the conditional breathing recommendation, so the video does not claim to demonstrate breathing. `APP-COPY-REVIEW-2026-09-09.md` records remaining app wording and fixture issues found during recording.
 
 1. Open the actual app through its normal navigation, show the reading timestamp and explain which Watch data is available.
 2. Open the input breakdown. Explain one HRV and sleep example without inferring hormone concentration.

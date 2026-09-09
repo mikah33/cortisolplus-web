@@ -1,0 +1,7 @@
+prompt,engine,mode,run,date,locale,region_control,brand_mentioned,listed_first,direct_website_citation,app_store_citation,status
+cortisol tracker app,ChatGPT,Temporary chat; Instant; Web search,1,2026-09-09,en-US,not controlled,true,true,false,true,completed
+cortisol tracker app,Google AI Mode,Default signed-in personalization,1,2026-09-09,en-US,not controlled,true,true,false,true,completed
+cortisol tracker app,Google AI Mode,Try without personalization; setting variant,2,2026-09-09,en-US,not controlled,true,true,false,true,completed
+cortisol tracker app,Perplexity,Incognito; Search; Free plan,1,2026-09-09,en-US,not controlled,,,,,answer area remained blank
+cortisol tracker app,Copilot,Sign-in started; prompt not submitted,,2026-09-09,en-US,not controlled,,,,,browser control detached
+cortisol,Google AI Mode,Fresh conversation not reached,,2026-09-09,en-US,not controlled,,,,,not run
