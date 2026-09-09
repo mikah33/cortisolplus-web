@@ -6,6 +6,7 @@
 - Follow-up: `9aafb45346bb44a62c5c40d09ab057c44b50f6ff`, [successful deployment](https://github.com/mikah33/cortisolplus-web/actions/runs/34387731276). Corrected remaining showcase captions and made blog dates use UTC so local/CI HTML agree.
 - Both workflows verified the intended commit, sitemap, canonical/robots and substantive content for all 84 routes after Firebase deployment.
 - All 79 previously live canonical routes are retained. Five new canonical routes are published. Eleven unreviewed medical backlog articles remain drafts.
+- Cache/header release: `5baf29b10e5890d0173490dad81cebf9c8089d83`, [successful deployment](https://github.com/mikah33/cortisolplus-web/actions/runs/34389451995).
 - HTML cache control now requests revalidation, while hashed assets retain immutable caching. This avoids returning an earlier page from a fresh browser-cache entry after a content correction.
 
 ## Search discovery: actual outcomes
@@ -27,7 +28,7 @@ Lighthouse 13.4.1, default simulated mobile profile, same Chrome family/machine 
 
 The new website GA4 tag loads only after consent; localhost opt-in remains inert. A real production page-view collection request returned **HTTP 204** in Chrome DevTools. The source harness verified one queued App Store event per click even after ten client navigations, no events under necessary-only, and no quiz/journal answers or raw queries in that payload. Normal App Store navigation was exercised on production using the `website-qa` / `website-qa-final` campaign labels.
 
-**Remaining measurement acceptance:** dashboard arrival and the delivered App Store click payload were not confirmed during this release. Do not treat the handler harness or a page-view HTTP 204 as proof that an App Store click was ingested. `app_store_click` key-event configuration and real conversion baselines remain open until that check passes. No install/subscription attribution is claimed.
+**Remaining measurement acceptance:** dashboard arrival and the delivered App Store click payload were not confirmed during this release. Do not treat the handler harness or a page-view HTTP 204 as proof that an App Store click was ingested. `app_store_click` is saved and visibly starred as a key event, counted once per event with no invented monetary value. Its row still shows no stream data; ingestion and real conversion baselines remain open until that check passes. No install/subscription attribution is claimed.
 
 The dated Google weekly pull and reproducible 28-day report succeeded using final Web data. The comparison reproduced the audit baseline: August 10–September 6 versus July 13–August 9. Private detailed audit/export evidence stays local.
 
