@@ -2,27 +2,52 @@
 import AudienceFAQPage from '../components/AudienceFAQPage.astro';
 
 const faqs = [
-  { q: 'What does shift work do to cortisol?', a: 'Shift work — especially rotating shifts and night shifts — disrupts the circadian cortisol rhythm. Instead of the normal morning peak and evening trough, shift workers often show a flattened curve with delayed and reduced peaks. This is associated with increased cardiovascular and metabolic risk over years of exposure.' },
-  { q: 'How do night shift workers regulate cortisol?', a: 'The most effective interventions are: light management (bright light at the start of your "day," blackout shades for sleep), consistent meal timing aligned with your work schedule, and short strategic naps (20–30 min) before shifts. Many shift workers find that maintaining the SAME shift schedule (vs. rotating) is the single biggest cortisol-pattern improvement.' },
-  { q: 'Will my cortisol normalize on days off?', a: 'Partially. Single days off don\'t fully reset circadian patterns. Research suggests 3+ consecutive days are needed to begin restoring a normal cortisol curve. Frequent shift rotations (back-and-forth between day and night) prevent any pattern from establishing.' },
-  { q: 'What supplements help shift workers?', a: 'Melatonin (0.3–1 mg, taken at the start of your "night") is the best-studied. Magnesium glycinate helps sleep onset regardless of timing. Avoid caffeine within 6 hours of your sleep window. Ashwagandha may help blunt cortisol elevation but isn\'t shift-specific.' },
-  { q: 'Can a wearable track my cortisol pattern through shifts?', a: 'Yes — and shift workers often get more value from tracking than 9-to-5 workers because their patterns are more variable and harder to feel. Cortisol+ tracks the actual HRV/sleep-derived cortisol curve through any schedule, not assuming a 9-to-5 chronotype.' },
-  { q: 'I\'m an ER nurse / doctor / first responder — what should I prioritize?', a: 'For high-acuity shift work, three priorities: (1) Sleep hygiene aggressive enough to actually sleep 7+ hours after night shifts (blackout, white noise, no caffeine after midnight). (2) Recovery time between rotations — push for 48+ hours between night-to-day transitions. (3) Active monitoring of cortisol/HRV trend — clinicians often have early HRV decline before subjective burnout.' },
+  {
+    "q": "Can Cortisol+ measure my cortisol curve across shifts?",
+    "a": "No. The app does not measure cortisol at any time of day. Its wellness model includes time-of-day assumptions; those should not be treated as a validated measurement of your individual circadian rhythm."
+  },
+  {
+    "q": "Does the app automatically understand my night-shift schedule?",
+    "a": "Do not assume that every default or clock-time interpretation adapts to your work pattern. Check the actual sleep record and the published methodology. The earlier website promise that the score assumed no daytime chronotype was too broad."
+  },
+  {
+    "q": "How can I check a daytime sleep record?",
+    "a": "Compare the start and end times recorded in Apple Health with when you actually slept. Look for missing periods or records from different sources. A short record may reflect missing data rather than your full sleep opportunity."
+  },
+  {
+    "q": "What should I compare after a shift?",
+    "a": "Use comparable workdays and note whether a reading was taken before work, after work or after sleep. Keep the timestamp with the value; comparing two different points in your routine can hide important context."
+  },
+  {
+    "q": "Can the score tell me when it is safe to drive or work?",
+    "a": "No. A wellness score is not a fitness-for-duty or alertness assessment. Do not use a reassuring number to override sleepiness, symptoms or workplace fatigue procedures."
+  }
 ];
 
 const related = [
-  { href: '/tools/sleep-debt-cortisol', title: 'Sleep debt × cortisol', hint: 'Sleep deficit impact' },
-  { href: '/tools/burnout-risk', title: 'Burnout check-in', hint: '7 questions' },
-  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'Evidence-ranked tactics' },
+  {
+    "href": "/how-it-works/",
+    "title": "Scoring methodology",
+    "hint": "Inputs and limitations"
+  },
+  {
+    "href": "/resources/stress-sleep-journal/",
+    "title": "Free observation journal",
+    "hint": "Notes you control"
+  },
+  {
+    "href": "/features/sleep-cortisol-tracking/",
+    "title": "Sleep tracking guide",
+    "hint": "Check the records"
+  }
 ];
 ---
 
 <AudienceFAQPage
   audience="Shift workers"
-  title="Cortisol for shift workers & night nurses FAQ"
-  description="How shift work disrupts the cortisol circadian rhythm — and what actually helps. Practical guidance for nurses, ER staff, and first responders."
-  intro="Shift work disrupts the cortisol curve more than almost any other lifestyle factor. Here's what to do about it."
-  image="/screenshots/sleep-analysis.png"
+  title="Apple Watch Stress Tracking for Shift Workers: FAQ"
+  description="Learn how to interpret Cortisol+ sleep records and score assumptions around night shifts without treating a wearable as a cortisol rhythm test."
+  intro="Your schedule is essential context. A clock-time score or incomplete sleep record can be misleading when you work nights."
   {faqs}
   {related}
 />

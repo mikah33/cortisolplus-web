@@ -2,7 +2,7 @@
 
 ## Medical backlog: editorial review before publication
 
-These eleven files are valid drafts. They have never been restored to production in this release. Review each article against current primary medical sources; remove unsupported mechanisms, diagnosis-by-symptom, dosing and promised app outcomes. Record the actual reviewer and scope only after review occurs.
+All eleven drafts received individual editorial revisions on September 9, 2026. Unsupported mechanisms, diagnosis by symptom, dosing schedules and app outcome promises were removed; current source links were added and tool CTAs disabled. See `medical-editorial-review-2026-09-09.json` for the article-by-article record. They remain drafts; a qualified clinical review has not occurred. Do not invent a reviewer or medical-review schema.
 
 | Draft slug | Required review focus |
 |---|---|
@@ -20,16 +20,16 @@ These eleven files are valid drafts. They have never been restored to production
 
 For each: record source URLs and which claims they support, reconcile app limitations, correct headline/description/body together, confirm useful unique content, set a real revision date, run `npm test` and `npm run build`, then publish intentionally by removing `draft: true`. Do not add medical-review schema for an editorial-only source check.
 
-The already-published levels, exercise, ashwagandha and methodology pages have received source/code-based revisions. An authentic clinical/scientific review is still outstanding.
+The already-published levels, exercise, ashwagandha, methodology, HRV, sleep, breathing and comparison pages have received source/code-based revisions. An authentic clinical/scientific review is still outstanding.
 
 ## Live systems
 
 1. **n8n:** the live workflow is replaced and published; execution 4376 and GitHub run 34394381074 succeeded and produced draft PR #21. Its separate PR check also passed after approval of that individual run. The HRV article's publication edit includes checked Apple documentation and removes unsupported sampling claims; see the release record and PR #21 for publication status. Inspect the next scheduled execution. Future bot-created PR checks may require owner approval. See `automation/README.md` for the exact live version and evidence. The active queue now has four focused briefs; the legacy 216-topic backlog is not consumed.
-2. **Cloud Google report:** apply `cloud-weekly-report.patch` to the app/functions repository in an isolated checkout; test its queries and error handling; deploy only `weeklySeoReport` after verifying the export name and target project. Do not redeploy unrelated app functions. The existing weekly schedule owns any Discord posting; no manual message is authorized by this document.
-3. **Search discovery:** submit the current canonical sitemap to Google and Bing after deployment; request indexing for home, Watch guide, methodology and journal where appropriate. Record accepted/rejected/quota outcomes. Requests are not inclusion guarantees.
-4. **GA4:** verify actual consented App Store click ingestion and create useful landing/source comparisons after real data exists. `app_store_click` is already registered as a key event with no monetary default. Keep synthetic QA traffic identified by `website-qa`.
-5. **App Store entity:** correct the current developer/marketing URL pointing at the old Elevated Agency terms page to `https://cortisolplus.com/` in the appropriate editable App Store version. Preserve the separately required privacy/support destinations. Verify the public listing after Apple's publication process.
-6. **Campaign attribution:** establish an actual App Store Connect campaign link/token before claiming click-to-install or subscription attribution; confirm eligible app analytics and territory breakdowns.
+2. **Cloud Google report:** the patch is implemented with two passing tests in the app repository on `codex/seo-weekly-report-fix`. It uses the verified URL-prefix property, final web data and a three-day lag, and throws on failures instead of returning success. Scoped deployment of `weeklySeoReport` was attempted but Firebase CLI credentials expired; Google is requiring account verification before deployment can finish. Do not redeploy unrelated app functions. The existing weekly schedule owns any Discord posting; no manual message is authorized by this document.
+3. **Search discovery:** Google accepted the indexing request for `/blog/apple-watch-hrv-not-updating/` on September 9 and added it to its priority crawl queue. It was not indexed at inspection time. Existing sitemap/home/Watch/methodology/journal submissions are recorded in the original audit. Record accepted/rejected/quota outcomes. Requests are not inclusion guarantees.
+4. **GA4:** actual consented website click ingestion verified September 9: the Realtime report showed the download page view and `app_store_click` key event (count 1) after a labeled QA click. Create useful landing/source comparisons after real data exists. `app_store_click` is already registered as a key event with no monetary default. Keep synthetic QA traffic identified by `website-qa`.
+5. **App Store entity:** saved `https://cortisolplus.com/` as the marketing URL in all 39 version 5.2 localizations. Validation passed; a subsequent dry run reported zero changes. Version 5.2 remains PREPARE_FOR_SUBMISSION; support/privacy URLs and release state were preserved. The public listing still uses the old URL until Apple publishes the version.
+6. **Campaign attribution:** App Store Connect web access is signed out. A login handoff was opened to create a real campaign link. No provider token has been invented, and click-to-install/subscription attribution has not been claimed.
 
 ## Hands-on comparison test sheet
 
@@ -50,6 +50,8 @@ Record observations separately from vendor documentation. Do not compare absolut
 Use explicitly labeled sample data or the owner's authorized data. No fake app screens, invented personal results or reconstructed “customer” stories. Publish only after checking that the transcript matches the recorded app version.
 
 ## Prepared outreach draft — not sent
+
+Three recipient-specific pitches and verified routes are now in `OUTREACH-READY-2026-09-09.md`. Explicit send authorization and sender choice have been requested; none has been sent. The template below remains a reference.
 
 Subject: Cortisol+ Apple Watch stress tracking — methodology and review materials
 

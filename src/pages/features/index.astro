@@ -7,23 +7,23 @@ import { SITE } from '../../consts';
 const features = [
   {
     href: '/features/hrv-stress-monitoring',
-    title: 'HRV-based cortisol score',
-    body: 'Continuous estimation from heart rate variability — the gold standard wearable biomarker for autonomic stress. Personalized to your baseline.',
-    badge: 'Real-time',
+    title: 'HRV stress monitoring',
+    body: 'Explore available Apple Watch HRV and other inputs in a wellness score, with a published explanation of weights, baselines and limits.',
+    badge: 'Wearable trends',
     color: 'teal',
   },
   {
     href: '/features/sleep-cortisol-tracking',
-    title: 'Sleep × cortisol',
-    body: 'See how every night of sleep drives next-morning cortisol. REM, deep, and core sleep stage analysis correlated with your HRV-derived cortisol pattern.',
+    title: 'Sleep and stress patterns',
+    body: 'Review available sleep records alongside wearable trends. Sleep data adds context but cannot identify a hormone cause.',
     badge: 'Overnight',
     color: 'coral',
   },
   {
     href: '/features/breathing-zen-mode',
     title: 'Zen mode & breathwork',
-    body: 'Guided breathing protocols — box, 4-7-8, physiological sigh, resonance — with Apple Watch HRV measurement of the cortisol-lowering effect after every session.',
-    badge: 'Intervene',
+    body: 'Follow an animated breathing timer with phase prompts and a cycle counter. A session is a guided practice, not a hormone test.',
+    badge: 'Guided practice',
     color: 'mint',
   },
 ];
@@ -61,7 +61,7 @@ const schema = [
 
 <BaseLayout
   title="Cortisol+ features — HRV, sleep & breathwork"
-  description="Three core Cortisol+ features: HRV-based cortisol score, sleep × cortisol correlation analysis, and guided Zen mode breathwork with measurable HRV recovery."
+  description="Explore Cortisol+ HRV stress monitoring, Apple Watch sleep data and guided breathing. See how each feature works and what its results cannot establish."
   image="/screenshots/track-cortisol-levels.png"
   schema={schema}
 >
@@ -72,10 +72,10 @@ const schema = [
         Everything <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">Cortisol+</span> does
       </h1>
       <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed mb-4">
-        Real-time cortisol estimation, sleep-cortisol correlation, and guided breathwork — all powered by your existing Apple Watch.
+        Wearable stress trends, sleep context and guided breathing, with clear explanations of what the data means.
       </p>
       <p class="text-[color:var(--color-ink-muted)] leading-relaxed">
-        Most wearables show you a generic "stress" number and stop there. Cortisol+ is built around a single question: what is your cortisol pattern doing, and what actually moves it? The three features below work as a loop — the HRV score shows you where you are right now, sleep analysis explains why your morning started high or low, and Zen mode gives you a way to intervene and verify the intervention worked. Everything runs off sensors already on your wrist; there's no extra hardware, and the estimate is a biometric pattern indicator, not a lab measurement.
+        Cortisol+ brings available Apple Watch readings into a wellness view. Start with the underlying HRV and sleep records, understand the assumptions behind the score, and use the breathing exercise as a short guided pause. The app does not measure cortisol or prove that a lifestyle change affected hormone levels.
       </p>
     </div>
 
@@ -98,30 +98,22 @@ const schema = [
     <div class="max-w-3xl mb-16">
       <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">The three features, in depth</h2>
 
-      <h3 class="text-xl font-bold mb-2">1. Real-time cortisol score from HRV</h3>
-      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">
-        Heart rate variability is the best-validated wearable signal of autonomic stress: when your sympathetic nervous system ramps up, HRV drops. Cortisol+ reads the SDNN measurements your Apple Watch takes throughout the day, weighs them against your resting heart rate and personal baseline, and translates the result into a cortisol-pattern score you can check at a glance. Because the baseline is yours — not a population average — the score gets more accurate the longer you wear the Watch. Pattern alerts flag unusual elevation before you consciously feel it.
-      </p>
-      <p class="mb-6"><a href="/features/hrv-stress-monitoring" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore HRV stress monitoring →</a></p>
-
-      <h3 class="text-xl font-bold mb-2">2. Sleep × cortisol correlation</h3>
-      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">
-        Sleep and cortisol regulate each other: short or fragmented sleep pushes next-day cortisol up, and elevated evening cortisol fragments sleep in return. Cortisol+ pulls your REM, deep, and core sleep stages from Apple Health and lines each night up against the following morning's stress estimate, so you can see which specific nights — the late screens, the nightcap, the 5-hour crunch — drove a rough morning. Over weeks, the correlation view shows which sleep habit is your highest-leverage fix.
-      </p>
-      <p class="mb-6"><a href="/features/sleep-cortisol-tracking" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore sleep × cortisol tracking →</a></p>
-
-      <h3 class="text-xl font-bold mb-2">3. Zen mode guided breathwork</h3>
-      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">
-        Slow, paced breathing is one of the few stress interventions you can deploy in the moment — it stimulates the vagus nerve and shifts the nervous system toward its parasympathetic "rest" state. Zen mode guides you through box breathing, 4-7-8, physiological sighs, and resonance breathing, then uses an Apple Watch HRV reading to show whether the session actually moved your physiology. Instead of taking it on faith that breathwork "works," you see your own before-and-after.
-      </p>
-      <p class="mb-2"><a href="/features/breathing-zen-mode" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore Zen mode & breathwork →</a></p>
+      <h3 class="text-xl font-bold mb-2">1. HRV stress monitoring</h3>
+      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">Review available HRV, heart rate and other factors behind the wellness score. Check timestamps and missing inputs before interpreting a change. Personal baselines provide context; they do not establish clinical accuracy.</p>
+      <p class="mb-6"><a href="/features/hrv-stress-monitoring/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore HRV stress monitoring →</a></p>
+      <h3 class="text-xl font-bold mb-2">2. Sleep and stress patterns</h3>
+      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">View the sleep information available through Apple Health alongside your wearable history. Record completeness and your own observations matter. The app cannot explain a nighttime awakening or infer a morning cortisol level.</p>
+      <p class="mb-6"><a href="/features/sleep-cortisol-tracking/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore sleep tracking →</a></p>
+      <h3 class="text-xl font-bold mb-2">3. Guided breathing</h3>
+      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">Use a short animated exercise with breathe-in, hold and breathe-out prompts. You can finish the cycles or end early. A completed timer does not guarantee a particular physiological result.</p>
+      <p class="mb-2"><a href="/features/breathing-zen-mode/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore guided breathing →</a></p>
     </div>
 
     <aside class="p-8 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Get started</div>
       <h2 class="text-2xl md:text-3xl font-bold mb-3">Free on the App Store</h2>
       <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl">
-        Works with any Apple Watch. No new hardware. No subscription required for the basics.
+        Requires a compatible iPhone and available Apple Health data. Analysis requires an active subscription or an eligible trial; check the current in-app offer.
       </p>
       <div class="flex flex-wrap items-center gap-4">
         <AppStoreBadge size="lg" />
