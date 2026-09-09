@@ -23,5 +23,5 @@ const { Content } = await render(entry);
   image={entry.data.image}
 >
   <Content />
-  <ToolCTA tool={entry.data.targetTool} />
+  {entry.data.showToolCTA && <ToolCTA tool={entry.data.targetTool} />}
 </ArticleLayout>
