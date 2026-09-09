@@ -60,9 +60,9 @@ The shared Mac weekly job has been corrected. The separate Firebase Discord-repo
 
 ## Automation boundary
 
-`automation/workflow.json` is a repaired import template, not proof that an existing n8n workflow was updated. Its URL/published revision must be located and updated before the old publisher can be considered replaced. Existing credentials stay inside n8n.
+The live n8n workflow was located and replaced on September 9: **Cortisol+ editorial drafts**, workflow `gBppEAKFyY7m6IGB`, published version `ce797e8e-7482-459c-8638-d5ec463dd6cb`. Existing credentials and schedule were retained. The active generator uses four editorial briefs, skips committed articles/content branches and sends schema-constrained JSON to GitHub. The legacy direct-to-main publisher is replaced. See `automation/README.md` for exact links.
 
-The repository currently disallows GitHub Actions from creating/approving PRs. The draft workflow retains a validated draft branch and reports a clear failure with a comparison link if PR creation is denied. This release does not broaden repository permissions. An editor can open the draft PR from that link. Generated posts never become published merely because the draft branch exists.
+GitHub Actions' create/approve-PR setting was enabled for the draft handoff; default workflow permissions remain read. The workflow creates a draft PR and does not approve or merge it. n8n execution 4376 succeeded; GitHub run 34394381074 passed 17 tests and the complete rendered draft build, then opened draft PR #21 with `draft: true`. Initial controlled tests exposed format/validation failures, resolved with enforced JSON schema and valid Markdown separator handling. Content review and observation of the next scheduled run remain distinct follow-up work.
 
 ## Next decisions
 

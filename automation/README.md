@@ -10,6 +10,16 @@ The GitHub token used by n8n needs access to repository dispatch. GitHub Actions
 
 Use [the editorial review checklist](EDITORIAL-REVIEW.md) before changing `draft: false`. Validate every clinical source and claim. Do not manufacture a reviewer or date. New automated articles are drafts, and citation counts alone are not evidence checks.
 
+## Verified live workflow — September 9, 2026
+
+- [Cortisol+ editorial drafts](https://contractorai.app.n8n.cloud/workflow/gBppEAKFyY7m6IGB) replaces **Cortisol+ AI auto-publish** in the same workspace and workflow ID. The contractor forms workflow is separate.
+- Published version: `ce797e8e-7482-459c-8638-d5ec463dd6cb`, **Validated editorial draft handoff — 2026-09-09**. The existing Mon/Wed/Fri schedule and credentials were retained. The two legacy fetch/pick nodes are deactivated; the self-contained generator handles selection. Do not reactivate those obsolete nodes.
+- [n8n execution 4376](https://contractorai.app.n8n.cloud/workflow/gBppEAKFyY7m6IGB/executions/4376) succeeded in 32.448 seconds. The execution points to the published version above.
+- [GitHub run 34394381074](https://github.com/mikah33/cortisolplus-web/actions/runs/34394381074) passed all 17 tests, serialized the input, rendered the proposed page in a complete build and opened [draft PR #21](https://github.com/mikah33/cortisolplus-web/pull/21). The article remains `draft: true` on its content branch.
+- GitHub's repository setting allowing Actions to create/approve pull requests was enabled to support this handoff. Default workflow permissions remain `read`; the draft workflow explicitly requests contents/PR write access and performs no approval or merge.
+
+This is verification of a manually triggered execution of the published code, not observation of the next scheduled run. Content in PR #21 still needs source and device/UI review. Successful automation does not establish that its prose is publication-ready.
+
 ## Local checks
 
 ```sh
@@ -25,4 +35,8 @@ npm run verify:live
 
 Review GitHub Actions failures. The deployment and daily tripwire fail on build errors, missing protected routes, stale commits, missing sitemap URLs or unexpected page content. Owner email delivery depends on their GitHub notification settings. `release.json` identifies the deployed commit. The existing citation-bearing URLs are protected in `scripts/protected-routes.json`.
 
-The topic queue is research input, not a publishing quota. Prioritize existing useful pages and verified product questions over mass symptom or supplement templates. Source checks, review availability and reader usefulness determine publication cadence.
+`editorial-queue.json` is the active queue: four focused briefs about wearable data, permissions, score interpretation and journaling. The generator skips slugs already used, committed articles and existing `content/` branches. A completed queue returns no items without spending another model call. `topic-queue.json` remains a legacy research backlog and is not used by the revised generator. Source checks, review availability and reader usefulness determine publication cadence.
+
+The generator supplies plain Markdown and source URLs for human checking. Its prompt is not a source-retrieval tool, and generated claims still require review. The tests run the actual n8n template against mocked responses, check the serializer contract, duplicate prevention, unsafe Markdown rejection and credential-safe failure handling.
+
+The Anthropic request uses `output_config.format` with a JSON schema for the four article fields. The body pattern excludes HTML openings and MDX expression braces. Normal Markdown blockquotes and `Settings > Health` navigation separators are allowed. Refused or truncated model responses stop without dispatch. See [Anthropic structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) for the API contract; this constrains format, not factual accuracy.
