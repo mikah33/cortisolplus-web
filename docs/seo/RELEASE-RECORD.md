@@ -34,4 +34,8 @@ The dated Google weekly pull and reproducible 28-day report succeeded using fina
 
 ## Open items
 
-See `NEXT-ACTIONS.md`. Main dependencies: live n8n workspace URL and published workflow replacement, authentic clinical review, hands-on competitor testing, app walkthrough recording, App Store metadata/campaign mapping, separate cloud reporting patch deployment, and subsequent per-engine AI measurements. No outreach messages were sent and no independent media coverage is claimed.
+See `NEXT-ACTIONS.md`. Main dependencies: authentic clinical review, hands-on competitor testing, app walkthrough recording, App Store metadata/campaign mapping, separate cloud reporting patch deployment, and subsequent per-engine AI measurements. No outreach messages were sent and no independent media coverage is claimed.
+
+## Live publisher replacement — September 9 follow-up
+
+The live n8n workflow is now **Cortisol+ editorial drafts**, published version `ce797e8e-7482-459c-8638-d5ec463dd6cb`. Execution 4376 succeeded and triggered [GitHub run 34394381074](https://github.com/mikah33/cortisolplus-web/actions/runs/34394381074), which passed 17 tests and the complete proposed-page build before opening [draft PR #21](https://github.com/mikah33/cortisolplus-web/pull/21). It remains unpublished. Schedule and credentials were retained; only the four focused editorial briefs feed the generator. The first controlled runs failed before dispatch; enforced output schema and Markdown validation fixes produced the successful run. The next scheduled execution has not yet been observed. Full evidence and repository permission details are in `automation/README.md`.
