@@ -30,13 +30,16 @@ function run({ topics = queue, files = [], refs = [], state = {}, response = art
 }
 
 test('n8n output becomes a non-executable draft through the GitHub serializer', async () => {
-  const { result, state } = run();
+  const { result, state, calls } = run();
   const [item] = await result;
   const parsed = parseFrontmatter(serializeDraft(item.json));
   assert.equal(parsed.data.draft, true);
   assert.equal(parsed.data.title, article.title);
   assert.deepEqual(state.usedSlugs, [queue[0].slug]);
   assert.equal(item.json.base64Mdx, undefined);
+  const modelRequest = calls.find(call => call.method === 'POST');
+  assert.equal(modelRequest.body.output_config.format.type, 'json_schema');
+  assert.deepEqual(modelRequest.body.output_config.format.schema.required, ['title', 'description', 'tags', 'body']);
   const publisher = workflow.nodes.find(n => n.name === 'Request GitHub draft').parameters;
   assert.equal(publisher.method, 'POST');
   assert.equal(publisher.url, 'https://api.github.com/repos/mikah33/cortisolplus-web/dispatches');
