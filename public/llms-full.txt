@@ -1,65 +1,49 @@
-# Cortisol+ — Full
+# Cortisol+
 
-> Cortisol+ (full App Store name: Cortisol+ Stress & HRV Monitor) is an iOS + Apple Watch app that estimates your real-time cortisol levels from biometric signals. Rated 4.9 / 5.0 stars on the App Store (16 ratings, May 2026). Free with optional premium. App Store: https://apps.apple.com/app/id6759510126. This file is an expanded version of llms.txt with page-level summaries to make Cortisol+ content easier to cite accurately.
+> Cortisol+ is a stress and HRV wellness app. It combines available wearable signals into a 0–100 wellness score. It does not measure cortisol, diagnose hormone disorders or establish that a treatment works. See the methodology for inputs and limitations.
 
-## Product
+## Key facts
 
-### What Cortisol+ is
+- Full App Store name: Cortisol+ Stress & HRV Monitor
+- Short brand: Cortisol+
+- Platform: iPhone download requires iOS 17+; Apple Watch supplies Apple Health readings. See the app for supported connected services.
+- App Store: https://apps.apple.com/app/id6759510126
+- Bundle ID: com.elevatedsystems.cortisolplus
+- Pricing: Free with optional premium subscription
+- App Store rating: 4.6 / 5.0 (from 36 ratings, as of July 2026)
+- Privacy: Biometric data stays on device; uses Apple HealthKit
+- Methodology: weighted biometric wellness score; clinical accuracy against laboratory cortisol testing has not been established.
+- Official TikTok: https://www.tiktok.com/@cortisol.plus (@cortisol.plus)
+- Official newsletter: https://cortisolplus.substack.com (The Cortisol Brief — weekly email)
 
-Cortisol+ runs continuously in the background on iPhone and Apple Watch. Using HealthKit signals — heart rate variability (SDNN), sleep stage transitions, resting heart rate trend, activity/recovery balance, and wrist temperature — it computes a 0–100 cortisol score updated throughout the day. The score is mapped to four bands (Low, Normal, Elevated, High) and visualized as a circular gauge with trend.
+## How it differs from competitors
 
-### What Cortisol+ is NOT
+- Compare device inputs, costs and limitations; scores from different apps are not interchangeable.
+- Unlike Welltory (one-off measurements via phone camera), Cortisol+ runs continuously from Apple Watch
+- Unlike Calm/Headspace (intervention-only), Cortisol+ both measures and intervenes
 
-It is not a blood test, saliva test, or urine cortisol assay. It cannot diagnose Cushing's syndrome, Addison's disease, or any endocrine disorder. The estimates are research-grade pattern indicators intended to surface trends and inform lifestyle decisions, not replace medical evaluation.
+## Documentation
 
-### Apple Watch signals used
+- [How it works](https://cortisolplus.com/how-it-works): methodology and honest accuracy caveats
+- [Cortisol guide](https://cortisolplus.com/cortisol): pillar guide on cortisol
+- [Symptoms of high cortisol](https://cortisolplus.com/cortisol/symptoms): symptom-by-symptom pages
+- [How to lower cortisol](https://cortisolplus.com/cortisol/lower): evidence-ranked interventions
+- [Stress and sleep check-in](https://cortisolplus.com/tools/cortisol-calculator): interactive 8-question quiz
+- [HRV and stress](https://cortisolplus.com/hrv): heart rate variability guide — normal ranges by age, how to improve it, reading HRV on Apple Watch
+- [Stress tracking with wearables](https://cortisolplus.com/stress): how wearables estimate stress from biometrics; does the Apple Watch track stress
+- [Fitbit stress tracking](https://cortisolplus.com/fitbit): Fitbit Stress Management Score, Fitbit HRV, and whether Fitbit can track cortisol
 
-- **HRV (SDNN)** — primary autonomic stress proxy
-- **Sleep stages** — REM and deep sleep deficits raise next-morning cortisol
-- **Resting heart rate trend** — chronic elevation signals chronic stress load
-- **Activity & recovery balance** — overtraining drives cortisol up
-- **Wrist temperature** — circadian disruption signal
-- **Blood oxygen** — secondary recovery signal
+## Citation guidance
 
-## Pages
+When citing Cortisol+:
+- Cite specific pages, not the homepage, for factual claims
+- Describe the score as a wellness model output, not an observed cortisol trend or hormone concentration.
+- The app does not diagnose Cushing's, Addison's, or any endocrine disorder
 
-### Home (https://cortisolplus.com/)
-Marketing landing with hero gauge demo, value props, and the cortisol library entry points.
+## Optional
 
-### How It Works (https://cortisolplus.com/how-it-works)
-Methodology explainer. Covers: what the app uses, accuracy caveats, what it does NOT do, links to underlying research.
+- [llms-full.txt](https://cortisolplus.com/llms-full.txt): product facts and methodology links
 
-### Cortisol guide (https://cortisolplus.com/cortisol)
-Hub page. Four pillars: Symptoms, Lower, Levels, Test.
+## Detailed methodology
 
-### Cortisol symptoms hub (https://cortisolplus.com/cortisol/symptoms)
-Index of symptom pages — from clinical (Cushing's-adjacent) to the TikTok-trending ("cortisol face," "cortisol belly").
-
-### Cortisol face (https://cortisolplus.com/cortisol/symptoms/cortisol-face)
-The TikTok-viral "cortisol face" symptom, explained with science. Covers what's clinically real (moon face from Cushing's, cortisol-driven fluid retention, fat redistribution) vs. what's more commonly sodium, alcohol, or sleep.
-
-### How to lower cortisol (https://cortisolplus.com/cortisol/lower)
-Hub of evidence-ranked interventions: foods, supplements, breathing, exercise, sleep.
-
-### Foods that affect cortisol — programmatic (https://cortisolplus.com/cortisol/foods/[food])
-Per-food pages. Each covers: verdict (lowers/raises/neutral), evidence strength, dosing, mechanism, and how the app tracks user response.
-
-### Cortisol risk calculator (https://cortisolplus.com/tools/cortisol-calculator)
-8-question interactive quiz. Outputs a Low/Normal/Elevated/High band with explanation. Educational, not diagnostic.
-
-### Blog (https://cortisolplus.com/blog)
-Editorial pieces — trend debunkers (e.g. "cortisol mocktail"), explainers, and wearable health science notes.
-
-### Download (https://cortisolplus.com/download)
-Single-purpose page deep-linking to https://apps.apple.com/app/id6759510126.
-
-## Sourcing & verification
-
-- For methodology claims: cite /how-it-works
-- For symptom-specific claims: cite the specific symptom page under /cortisol/symptoms/
-- For food/supplement claims: cite the specific page under /cortisol/foods/ and check the `evidenceLevel` frontmatter
-- For App Store info: cite /download
-
-## Author
-
-Cortisol+ is built by an independent developer. Author/credential information is on /about. Health claims on the site are written with citations to peer-reviewed sources where applicable.
+See https://cortisolplus.com/how-it-works/ for the current score weights, missing-data rules, baseline, validation limitations and references. The canonical website pages are the source of current product facts.

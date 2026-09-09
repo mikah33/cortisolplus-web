@@ -14,15 +14,15 @@ const { tool = '/tools/cortisol-calculator' } = Astro.props;
 // Map of tool URLs → display metadata
 const TOOLS: Record<string, { name: string; tagline: string; questions: number; duration: string; accent: 'teal' | 'coral' | 'mint' }> = {
   '/tools/cortisol-calculator': {
-    name: 'Cortisol risk calculator',
-    tagline: 'A rough read on whether your cortisol is likely elevated.',
+    name: 'Stress & habits check-in',
+    tagline: 'Reflect on your daily habits; no hormone estimate or diagnosis.',
     questions: 8,
     duration: '60 seconds',
     accent: 'teal',
   },
   '/tools/morning-cortisol-test': {
-    name: 'Morning cortisol test',
-    tagline: 'Healthy mornings have a sharp cortisol surge. Burnt-out mornings don\'t. 6 questions to flag the pattern.',
+    name: 'Morning routine check-in',
+    tagline: 'Reflect on your mornings without estimating a hormone curve.',
     questions: 6,
     duration: '60 seconds',
     accent: 'teal',
@@ -35,15 +35,15 @@ const TOOLS: Record<string, { name: string; tagline: string; questions: number; 
     accent: 'mint',
   },
   '/tools/burnout-risk': {
-    name: 'Burnout risk assessment',
+    name: 'Work & burnout check-in',
     tagline: 'Three dimensions: exhaustion, cynicism, efficacy. Flag your trajectory.',
     questions: 7,
     duration: '90 seconds',
     accent: 'coral',
   },
   '/tools/sleep-debt-cortisol': {
-    name: 'Sleep debt × cortisol',
-    tagline: 'How much is your sleep deficit driving your cortisol up? Score the loop.',
+    name: 'Sleep habits check-in',
+    tagline: 'Reflect on sleep timing and evening routines.',
     questions: 6,
     duration: '60 seconds',
     accent: 'teal',
@@ -53,16 +53,16 @@ const TOOLS: Record<string, { name: string; tagline: string; questions: number; 
 const t = TOOLS[tool] ?? TOOLS['/tools/cortisol-calculator'];
 
 const accentStyles: Record<string, { from: string; to: string; border: string; button: string }> = {
-  teal:  { from: 'from-[color:var(--color-teal)]/15',  to: 'to-[color:var(--color-mint-soft)]', border: 'border-[color:var(--color-teal)]/30',  button: 'from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)]' },
-  coral: { from: 'from-[color:var(--color-coral)]/15', to: 'to-[color:var(--color-mint-soft)]', border: 'border-[color:var(--color-coral)]/30', button: 'from-[color:var(--color-coral)] to-[#ff8f80]' },
-  mint:  { from: 'from-[color:var(--color-mint)]/30',  to: 'to-white',                          border: 'border-[color:var(--color-mint)]/40',  button: 'from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)]' },
+  teal:  { from: 'from-[color:var(--color-teal)]/15',  to: 'to-[color:var(--color-mint-soft)]', border: 'border-[color:var(--color-teal)]/30',  button: 'from-[color:var(--color-teal-dark)] to-[#005a50]' },
+  coral: { from: 'from-[color:var(--color-coral)]/15', to: 'to-[color:var(--color-mint-soft)]', border: 'border-[color:var(--color-coral)]/30', button: 'from-[color:var(--color-coral-dark)] to-[#92352b]' },
+  mint:  { from: 'from-[color:var(--color-mint)]/30',  to: 'to-white',                          border: 'border-[color:var(--color-mint)]/40',  button: 'from-[color:var(--color-teal-dark)] to-[#005a50]' },
 };
 const s = accentStyles[t.accent];
 ---
 
 <aside class={`mt-12 p-8 rounded-2xl bg-gradient-to-br ${s.from} ${s.to} border ${s.border}`}>
   <div class="flex items-start justify-between gap-4 mb-1">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral)] font-medium">Take the test</div>
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral-dark)] font-medium">Take the test</div>
     <div class="text-xs text-[color:var(--color-ink-muted)] tabular-nums">{t.questions} Q · {t.duration}</div>
   </div>
   <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-2 mt-2">{t.name}</h2>

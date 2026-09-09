@@ -7,36 +7,36 @@ import { SITE } from '../../consts';
 const tools = [
   {
     href: '/tools/cortisol-calculator',
-    title: 'Cortisol risk calculator',
-    body: 'Estimate your cortisol risk based on 8 stress, sleep, and lifestyle signals. Most-used tool on the site.',
+    title: "Stress & habits check-in",
+    body: "Eight questions about daily routines. No hormone estimate or diagnostic score.",
     duration: '8 Q · 60 sec',
     color: 'teal',
   },
   {
     href: '/tools/morning-cortisol-test',
-    title: 'Morning cortisol test',
-    body: 'Symptom-based check for your morning Cortisol Awakening Response (CAR). Catch a blunted or disrupted morning curve.',
+    title: "Morning routine check-in",
+    body: "Reflect on waking and morning habits. This is not a cortisol awakening response test.",
     duration: '6 Q · 60 sec',
     color: 'coral',
   },
   {
     href: '/tools/stress-score',
-    title: 'Stress score quiz',
-    body: 'How much stress are you actually carrying day-to-day? Score your daily load and chronic allostatic build-up.',
+    title: "Daily stress check-in",
+    body: "Make time to notice your daily stress and recovery.",
     duration: '6 Q · 60 sec',
     color: 'mint',
   },
   {
     href: '/tools/burnout-risk',
-    title: 'Burnout risk assessment',
-    body: 'Three-dimension burnout check — exhaustion, cynicism, and efficacy. Inspired by the Maslach model.',
+    title: "Work & burnout check-in",
+    body: "Reflect on work, exhaustion and recovery; not a validated burnout assessment.",
     duration: '7 Q · 90 sec',
     color: 'coral',
   },
   {
     href: '/tools/sleep-debt-cortisol',
-    title: 'Sleep debt × cortisol',
-    body: 'How much is your sleep deficit driving your cortisol up? Score the cortisol-sleep loop and find the leverage point.',
+    title: "Sleep habits check-in",
+    body: "Notice sleep timing and evening habits. No sleep-debt or cortisol calculation.",
     duration: '6 Q · 60 sec',
     color: 'teal',
   },
@@ -50,25 +50,17 @@ const colorMap: Record<string, string> = {
 
 const faqs: FAQItem[] = [
   {
-    q: 'Are these cortisol tests real?',
-    a: 'They are symptom-based quizzes — they capture self-reported signals associated with elevated cortisol. They\'re useful for flagging whether you should pursue clinical testing (saliva, blood, urine) or continuous biometric tracking. They are not diagnostic.',
+    "q": "Can an online quiz measure cortisol?",
+    "a": "No. These questions summarize your own observations. They have not been validated to diagnose a condition or estimate hormone levels. Clinical cortisol testing uses a biological sample and medical interpretation."
   },
   {
-    q: 'How long does each quiz take?',
-    a: 'All five quizzes take 60–90 seconds. They\'re intentionally short so you actually finish them. Most cortisol-assessment scales used in research are 20+ questions; we found the marginal accuracy past 6–8 questions wasn\'t worth the drop-off.',
+    "q": "Are my answers stored or sent to analytics?",
+    "a": "Answers stay in this page while it is open. We do not send answers or results to analytics. Optional website analytics only measures page visits and App Store clicks, according to your privacy choice."
   },
   {
-    q: 'Which quiz should I take first?',
-    a: 'Start with the cortisol risk calculator — it\'s the broadest assessment. Then layer the morning-CAR quiz if you have wake-up issues, the sleep-debt quiz if you have sleep concerns, or the burnout assessment if you suspect occupational burnout.',
-  },
-  {
-    q: 'Do I need to sign up?',
-    a: 'No. Every quiz is free and runs entirely in your browser — no email gate, no account, no tracking. Results aren\'t stored anywhere; refresh the page and they\'re gone.',
-  },
-  {
-    q: 'What if I score "high" on the quizzes?',
-    a: 'A high score is worth taking seriously, especially if symptoms have been present 3+ months. Consider getting clinical cortisol testing (see our testing guide) and tracking your pattern continuously with Cortisol+ on Apple Watch — quizzes capture a snapshot; biometric tracking shows the trend over weeks.',
-  },
+    "q": "What should I do with my check-in?",
+    "a": "Use it to choose a routine to observe, or to organize questions for a healthcare professional. Seek advice for persistent or concerning symptoms regardless of how you answered."
+  }
 ];
 
 const schema = [
@@ -91,8 +83,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Free Cortisol Calculators & Stress Tools"
-  description="Free cortisol risk calculator, morning CAR test, stress score quiz, burnout assessment, and sleep-debt calculator. Instant results, no signup needed."
+  title="Free Cortisol Quizzes &amp; Stress Check-ins"
+  description="Free stress, sleep and habit check-ins. Try a 60-second cortisol quiz with clear limitations: no hormone measurement or diagnosis."
   image="/screenshots/health-breakdown.png"
   schema={schema}
 >
@@ -103,7 +95,7 @@ const schema = [
         <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">5 free</span> cortisol &amp; stress tools
       </h1>
       <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed">
-        Quick assessments based on symptoms, sleep, and lifestyle patterns. Free, no signup, instant results. Each takes under 90 seconds.
+        Try a 60-second cortisol quiz to reflect on stress, sleep and habits. These tools summarize what you report; they cannot determine hormone levels or diagnose a condition.
       </p>
     </div>
 
@@ -124,9 +116,9 @@ const schema = [
 
     <aside class="p-8 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20 mb-16">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Beyond quizzes</div>
-      <h2 class="text-2xl md:text-3xl font-bold mb-3">Track your real cortisol pattern</h2>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3">Explore your wearable stress signals</h2>
       <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl">
-        Symptom quizzes are a snapshot. For continuous, biometric-based cortisol pattern tracking, Cortisol+ runs on your Apple Watch — measuring HRV, sleep stages, and recovery against your personal baseline.
+        Cortisol+ brings Apple Watch HRV, sleep and activity into one view. Its wellness score is a model output, not a hormone measurement.
       </p>
       <div class="flex flex-wrap items-center gap-4">
         <a href="/" class="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)] text-white font-semibold text-sm shadow-sm hover:brightness-110 transition">

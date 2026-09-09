@@ -4,7 +4,8 @@
 @theme {
   /* Brand — pulled from Shared/Utilities/Constants.swift Theme enum */
   --color-teal: #00bfa6;
-  --color-teal-dark: #009985;
+  --color-teal-dark: #007569;
+  --color-coral-dark: #ad3e32;
   --color-coral: #ff7061;
   --color-coral-light: #ff8f80;
   --color-mint: #9dd8cd;        /* LaunchBg.colorset */
@@ -209,4 +210,17 @@ nav, header { view-transition-name: app-header; }
 @media (prefers-reduced-motion: reduce) {
   .hero-orb { animation: none !important; }
   .hero-dot { animation: none !important; opacity: 0.5; }
+}
+
+/* Readable text colors preserve the brighter brand colors for decoration. */
+.prose a { color: var(--color-teal-dark); text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--color-teal-dark); outline-offset: 4px; }
+#site-nav { view-transition-name: app-header; }
+#site-nav nav, article header { view-transition-name: none; }
+@media (max-width: 767px) {
+  .hero-orb { animation: none; }
+  .hero-dot { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-soft { opacity: 1; transform: none; animation: none; }
 }

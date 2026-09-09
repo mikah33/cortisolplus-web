@@ -1,114 +1,34 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
-import RelatedLinks from '../../../components/RelatedLinks.astro';
-
-import { medicalWebPage } from '../../../lib/schema';
-
-const schema = medicalWebPage({
-  name: 'Cortisol levels reference: normal range by age, time of day, and gender',
-  pathname: '/cortisol/levels/',
-});
-
-const faqs: FAQItem[] = [
-  {
-    q: 'What is a normal cortisol level?',
-    a: 'For a morning blood test (7–9 AM, the daily peak), 6–23 mcg/dL is the standard reference range. Afternoon (4 PM): 3–16 mcg/dL. Night: under 5 mcg/dL. Salivary cortisol uses different units (typically nmol/L or ng/mL) and is sampled at 4 points across the day to map the curve. "Normal" depends entirely on time of day — a 12 mcg/dL reading is normal in the morning, alarming at midnight.',
-  },
-  {
-    q: 'What time of day is cortisol highest?',
-    a: 'Cortisol peaks 30–45 minutes after waking — this is the Cortisol Awakening Response (CAR). Levels then decline throughout the day, reach a low point around midnight, and start rising again 3–4 hours before wake. This diurnal rhythm is one of the most reliable biological clocks; disruption is associated with shift work, jet lag, chronic stress, depression, and HPA axis dysregulation.',
-  },
-  {
-    q: 'How do cortisol levels change with age?',
-    a: 'Cortisol tends to increase modestly with age in both sexes, with women seeing a more pronounced post-menopausal shift. Older adults often have a flatter diurnal curve (less morning peak, less evening trough). This flattening is associated with sleep fragmentation, increased inflammation, and metabolic changes — not just "normal aging." Continuous tracking catches the change earlier than annual labs.',
-  },
-  {
-    q: 'Are cortisol levels different in men vs women?',
-    a: 'Average levels are similar, but the curve differs. Women have a more responsive HPA axis with sharper morning peaks. Across the menstrual cycle, cortisol shifts subtly — luteal phase cortisol is typically 10–20% higher than follicular. Pregnancy elevates cortisol 2–3× normal levels (this is normal physiologic adaptation). Perimenopause and post-menopause flatten the diurnal pattern more than in age-matched men.',
-  },
-  {
-    q: 'What raises cortisol the most?',
-    a: 'Acute stressors (acute physical danger, public speaking, intense exercise) trigger the largest single spikes. Chronic drivers — sleep deprivation, alcohol, chronic anxiety, overtraining, shift work, and chronic illness — keep baseline cortisol elevated for weeks or months. The chronic pattern is far more harmful than acute spikes.',
-  },
-];
-
-const related = [
-  { href: '/cortisol/test', title: 'How to test cortisol', hint: 'At-home, saliva, blood' },
-  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'When to suspect elevation' },
-  { href: '/tools/morning-cortisol-test', title: 'Morning cortisol quiz', hint: 'CAR pattern check' },
-];
+import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 ---
 
-<BaseLayout
-  title="Cortisol levels by age, time of day & gender"
-  description="Normal cortisol levels by time of day, age, and gender — what a healthy diurnal curve looks like, what disrupts it, and when a result needs a doctor."
-  image="/screenshots/daily-insights.png"
-  schema={schema}
+<ArticleLayout
+  title="Normal Cortisol Levels by Age & Time of Day"
+  description="Understand cortisol reference ranges, sample timing, age and testing method. Compare source-specific examples and learn why your lab report matters."
+  updated="2026-09-09"
 >
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Reference</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Cortisol levels reference</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      Normal ranges by time of day, age, and gender — plus what disrupts the curve.
-    </p>
-
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
-
-      <h2>The diurnal cortisol curve</h2>
-      <p>Cortisol is not a single number — it's a daily curve. Healthy cortisol rises sharply 30–45 minutes after waking (the Cortisol Awakening Response), declines through the day, and reaches its lowest point around midnight before rising again 3–4 hours before wake.</p>
-
-      <p>Any "normal range" is only meaningful in context of <strong>when</strong> the sample was taken. A 16 mcg/dL reading is healthy at 8 AM and alarming at 8 PM.</p>
-
-      <h2>Normal reference ranges (serum / blood cortisol)</h2>
-      <table>
-        <thead>
-          <tr><th>Time of day</th><th>Adult normal range</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Morning (7–9 AM, peak)</td><td>6–23 mcg/dL (165–635 nmol/L)</td></tr>
-          <tr><td>Afternoon (4 PM)</td><td>3–16 mcg/dL (80–440 nmol/L)</td></tr>
-          <tr><td>Night (10 PM–midnight)</td><td>&lt; 5 mcg/dL (&lt; 140 nmol/L)</td></tr>
-        </tbody>
-      </table>
-      <p class="text-sm">Ranges vary slightly between labs. Reference your lab's own range on any test report.</p>
-
-      <h2>Salivary cortisol — the better measurement for circadian pattern</h2>
-      <p>Serum cortisol is a single snapshot. Salivary cortisol is sampled 4× across the day (wake, +30 min, afternoon, bedtime) to map the entire curve. It's now the standard for assessing the Cortisol Awakening Response and detecting flattening.</p>
-
-      <h2>By age</h2>
-      <p>Average cortisol rises modestly with age. More importantly, the diurnal curve <em>flattens</em> — older adults have a less pronounced morning peak and a higher nighttime baseline. This flattening is associated with sleep fragmentation, inflammation, and metabolic dysregulation.</p>
-
-      <h2>By gender</h2>
-      <p>Average values are similar, but the patterns differ:</p>
-      <ul>
-        <li><strong>Women</strong>: more reactive HPA axis, sharper morning peak, modest cyclical shifts across the menstrual cycle</li>
-        <li><strong>Menstrual cycle</strong>: luteal-phase cortisol typically runs 10–20% higher than follicular</li>
-        <li><strong>Pregnancy</strong>: cortisol naturally rises 2–3× across the trimesters — this is normal adaptation, not pathology</li>
-        <li><strong>Perimenopause</strong>: diurnal curve flattens earlier and more dramatically than in age-matched men</li>
-      </ul>
-
-      <h2>What disrupts the curve</h2>
-      <p>The most studied disruptors of the diurnal cortisol pattern:</p>
-      <ul>
-        <li><strong>Chronic stress</strong> — flattens or elevates baseline</li>
-        <li><strong>Sleep deprivation</strong> — even one night of restricted sleep elevates next-day cortisol 30–50%</li>
-        <li><strong>Shift work</strong> — disrupts the timing of the peak; often the single biggest cortisol-pattern disruptor</li>
-        <li><strong>Alcohol</strong> — raises nocturnal cortisol, fragments sleep</li>
-        <li><strong>Overtraining</strong> — chronic elevation in endurance athletes; eventually a flat curve in late-stage overtraining</li>
-        <li><strong>Depression</strong> — often associated with elevated evening cortisol and disrupted CAR</li>
-        <li><strong>Cushing's syndrome</strong> — chronic elevation across the day, loss of normal diurnal rhythm</li>
-        <li><strong>Addison's disease</strong> — chronically low cortisol; the opposite problem, often missed for years</li>
-      </ul>
-
-      <h2>Should you test?</h2>
-      <p>If you have symptoms suggestive of chronic elevation (sleep disruption, weight gain, mood changes, blood sugar issues) lasting more than 3 months, a 4-point salivary cortisol test is a reasonable next step. For pattern surveillance — without a needle or a test kit — biometric tracking (HRV, sleep stage analysis) on Apple Watch with Cortisol+ surfaces the disruption pattern continuously, not just on test day.</p>
-      <p><a href="/cortisol/test">See the full guide to cortisol testing →</a></p>
-    </div>
-
-    <FAQ items={faqs} />
-    <RelatedLinks links={related} />
-  </article>
-</BaseLayout>
+<h2>What is a normal cortisol level?</h2>
+<p><strong>A cortisol result needs a sample type, collection time, unit and laboratory reference interval.</strong> A generic online chart cannot classify every person's result. Cortisol changes through the day, and a serum result cannot be compared directly with a saliva or urine result.</p>
+<h2>Blood cortisol reference ranges</h2>
+<p>These are examples from named sources, not interchangeable diagnostic cutoffs. Use the reference interval on your own report.</p>
+<table><caption>Examples of published serum cortisol reference intervals</caption><thead><tr><th scope="col">Source and group</th><th scope="col">Timing</th><th scope="col">Range</th></tr></thead><tbody>
+<tr><td><a href="https://www.mayocliniclabs.com/test-catalog/Overview/8545">Mayo Clinic Laboratories CORT, adults 18+</a></td><td>a.m.</td><td>7–25 mcg/dL</td></tr>
+<tr><td>Mayo CORT, adults 18+</td><td>p.m.</td><td>2–14 mcg/dL</td></tr>
+<tr><td><a href="https://medlineplus.gov/ency/article/003693.htm">MedlinePlus blood-test example</a></td><td>8 a.m.</td><td>5–25 mcg/dL (138–690 nmol/L)</td></tr>
+</tbody></table>
+<p>The difference between these examples shows why “normal cortisol” is not one universal number. Tests performed after a suppression or stimulation medicine have their own interpretation.</p>
+<h2>Normal cortisol levels by age</h2>
+<p>Mayo's CORT assay lists separate pediatric intervals and an adult category beginning at 18. It does not provide a different target for every adult decade. Do not invent a goal for your 30s, 40s or 60s by extrapolating a social-media chart. For a child's result, use the age-specific interval from the testing laboratory and the child's clinician.</p>
+<h2>Time of day and the daily curve</h2>
+<p>Blood cortisol generally follows a daily rhythm, with higher morning and lower late-evening levels. A single sample is one observation, not a complete day of hormone output. Record when the sample was collected and follow the instructions for that test.</p>
+<h2>Sex, pregnancy and medication</h2>
+<p>Pregnancy and estrogen-containing medication can affect total serum cortisol and its binding proteins. Mayo's assay documentation describes these and other interpretation cautions. An online gender-based correction is not a substitute for that context. Tell your clinician what medicines and supplements you use; do not stop prescribed medication to change a result without medical guidance.</p>
+<h2>Saliva and urine are different measurements</h2>
+<p>In a clinical evaluation, the question determines the test. <a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK describes late-night salivary cortisol, 24-hour urinary free cortisol and dexamethasone suppression testing</a> among the approaches used when Cushing's syndrome is suspected. A four-point wellness panel is not automatically the right next step for nonspecific fatigue.</p>
+<h2>What to do with an unexpected result</h2>
+<ul><li>Check the sample type, units, collection time and printed reference interval.</li><li>Ask the ordering clinician how your symptoms, medication and test protocol affect interpretation.</li><li>Ask whether follow-up testing is needed. A reference-range flag is not a diagnosis by itself.</li></ul>
+<h2>Can Cortisol+ tell me whether my level is normal?</h2>
+<p>No. Cortisol+ displays wearable stress and recovery signals and a wellness score. It cannot determine whether blood, saliva or urine cortisol is normal. A 0–100 app score must never be substituted into a laboratory chart.</p>
+<p>Read our <a href="/how-it-works/">methodology and limitations</a>, <a href="/stress/apple-watch/">Apple Watch guide</a> and <a href="/cortisol/test/">testing guide</a>.</p>
+<p><small>Correction, September 9, 2026: replaced unsourced universal ranges and fixed percentage claims with source-specific examples and clearer test limitations. This is an editorial update, not a clinical review.</small></p>
+</ArticleLayout>

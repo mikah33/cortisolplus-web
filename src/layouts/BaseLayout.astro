@@ -5,6 +5,7 @@ import SEO from '../components/SEO.astro';
 import Nav from '../components/Nav.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
+import WebsiteAnalytics from '../components/WebsiteAnalytics.astro';
 
 interface Props {
   title?: string;
@@ -28,18 +29,7 @@ const { title, description, image, noindex, schema } = Astro.props;
     <SEO {title} {description} {image} {noindex} {schema} />
     <ClientRouter />
 
-    <!-- Meta Pixel Code -->
-    <script is:inline>
-      if (!window.__metaPixelInit) {
-        window.__metaPixelInit = true;
-        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1318457513735358');
-        // Fire PageView on initial load and on every client-side (View Transitions) navigation.
-        document.addEventListener('astro:page-load', function () { if (window.fbq) fbq('track', 'PageView'); });
-      }
-    </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1318457513735358&ev=PageView&noscript=1" alt="" /></noscript>
-    <!-- End Meta Pixel Code -->
+
   </head>
   <body class="min-h-screen flex flex-col">
     <Nav />
@@ -48,5 +38,6 @@ const { title, description, image, noindex, schema } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <WebsiteAnalytics />
   </body>
 </html>

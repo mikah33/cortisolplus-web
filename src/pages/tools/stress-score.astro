@@ -68,60 +68,50 @@ const questions: QuizQuestion[] = [
   },
 ];
 
-const bands: QuizBand[] = [
-  { threshold: 0.25, band: 'Low stress load', tone: 'low', body: 'Your subjective stress markers are low. Tracking HRV daily would confirm what your gut is telling you.' },
-  { threshold: 0.5, band: 'Normal load', tone: 'normal', body: 'Stress is present but manageable. Recovery practices keep you regulated.' },
-  { threshold: 0.75, band: 'Elevated stress load', tone: 'elevated', body: 'Multiple signs of accumulating allostatic load. Cortisol is likely chronically elevated — intervene before this becomes burnout.' },
-  { threshold: 1.01, band: 'High stress / pre-burnout', tone: 'high', body: 'You\'re running hot across most dimensions. This is the zone where HRV drops, recovery breaks down, and cortisol stays elevated through the night.' },
-];
+const bands: QuizBand[] = [];
 
 const faqs: FAQItem[] = [
   {
-    q: 'What\'s a normal stress level?',
-    a: 'Acute stress (deadline, performance, exercise) is healthy and adaptive. The problem is chronic stress that never resolves — your body stays in "fight-or-flight," cortisol stays elevated, and HRV drops. A "normal" stress level cycles up and down throughout the day; a problematic pattern stays elevated even when you should be recovering.',
+    "q": "Can an online quiz measure cortisol?",
+    "a": "No. These questions summarize your own observations. They have not been validated to diagnose a condition or estimate hormone levels. Clinical cortisol testing uses a biological sample and medical interpretation."
   },
   {
-    q: 'Is stress the same as cortisol?',
-    a: 'Not exactly. Stress is the experience; cortisol is one of several hormones your body releases in response. Cortisol is the most useful biomarker because it tracks longer-term stress load, not just momentary spikes. Wearables like Apple Watch can\'t measure cortisol directly but can track its biometric correlates (HRV, sleep, recovery).',
+    "q": "Are my answers stored or sent to analytics?",
+    "a": "Answers stay in this page while it is open. We do not send answers or results to analytics. Optional website analytics only measures page visits and App Store clicks, according to your privacy choice."
   },
   {
-    q: 'How accurate is a stress quiz vs. a wearable?',
-    a: 'Quizzes capture how you feel; wearables capture what your body is doing. The two often disagree — people who "feel fine" can have suppressed HRV and elevated resting heart rate, and vice versa. Continuous tracking catches the disconnect.',
-  },
-  {
-    q: 'Can I lower my stress score without quitting my job?',
-    a: 'Yes. Most measurable cortisol reduction comes from sleep, breathing exercises, sunlight in the morning, and reducing alcohol — none of which require leaving your job. See /cortisol/lower for the evidence-ranked list.',
-  },
+    "q": "What should I do with my check-in?",
+    "a": "Use it to choose a routine to observe, or to organize questions for a healthcare professional. Seek advice for persistent or concerning symptoms regardless of how you answered."
+  }
 ];
 
 const related = [
   { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: '8 questions' },
-  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+  { href: '/tools/burnout-risk', title: 'Burnout check-in', hint: '7 questions' },
   { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
 ];
 
 const schema = webApplication({
-  name: 'Stress Score Quiz',
-  description: '6-question quiz that estimates your day-to-day stress load and cortisol risk.',
-  pathname: '/tools/stress-score',
+  name: "Daily stress check-in",
+  description: "Reflect on your daily stress and recovery habits with a free six-question check-in. No diagnosis, hormone estimate, signup or validated stress score.",
+  pathname: "Daily stress check-in",
 });
 ---
 
 <BaseLayout
-  title="Stress score quiz — rate your daily stress load"
-  description="6-question stress quiz. Get your day-to-day stress load score in 60 seconds. Free, no signup."
+  title="Stress check-in: free daily reflection quiz"
+  description="Reflect on your daily stress and recovery habits with a free six-question check-in. No diagnosis, hormone estimate, signup or validated stress score."
   image="/screenshots/health-breakdown.png"
   schema={schema}
 >
   <section class="max-w-2xl mx-auto px-6 py-16">
     <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Quiz</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Stress score quiz</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
-      How much stress are you actually carrying? 6 questions to score your daily load.
-    </p>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Daily stress check-in</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">6 questions to help you reflect on daily stress and recovery.</p>
 
-    <Quiz client:idle questions={questions} bands={bands} scoreLabel="Your stress load" />
+    <Quiz client:load questions={questions} bands={bands} scoreLabel="Your stress load" />
 
+    <p class="mt-8 text-sm">For medical context, see <a class="underline" href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus on cortisol testing</a> and our <a class="underline" href="/how-it-works/">wearable score limitations</a>.</p>
     <FAQ items={faqs} />
     <RelatedLinks links={related} />
   </section>

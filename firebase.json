@@ -9,61 +9,133 @@
     "cleanUrls": true,
     "trailingSlash": true,
     "redirects": [
-      { "source": "/sitemap-index.xml", "destination": "/sitemap.xml", "type": 301 },
-      { "source": "/sitemap-0.xml", "destination": "/sitemap.xml", "type": 301 },
-      { "source": "/sitemap_index.xml", "destination": "/sitemap.xml", "type": 301 },
-      { "source": "/sitemaps.xml", "destination": "/sitemap.xml", "type": 301 },
-
-      { "source": "/blog/cortisol-face-truth{,/}", "destination": "/cortisol/symptoms/cortisol-face/", "type": 301 },
-      { "source": "/blog/cortisol-mocktail-truth{,/}", "destination": "/blog/cortisol-mocktail-recipe/", "type": 301 },
-      { "source": "/blog/cortisol-belly-real{,/}", "destination": "/blog/cortisol-weight-gain-midsection/", "type": 301 }
+      {
+        "source": "/sitemap-index.xml",
+        "destination": "/sitemap.xml",
+        "type": 301
+      },
+      {
+        "source": "/sitemap-0.xml",
+        "destination": "/sitemap.xml",
+        "type": 301
+      },
+      {
+        "source": "/sitemap_index.xml",
+        "destination": "/sitemap.xml",
+        "type": 301
+      },
+      {
+        "source": "/sitemaps.xml",
+        "destination": "/sitemap.xml",
+        "type": 301
+      },
+      {
+        "source": "/blog/cortisol-face-truth{,/}",
+        "destination": "/cortisol/symptoms/cortisol-face/",
+        "type": 301
+      },
+      {
+        "source": "/blog/cortisol-mocktail-truth{,/}",
+        "destination": "/blog/cortisol-mocktail-recipe/",
+        "type": 301
+      },
+      {
+        "source": "/blog/cortisol-belly-real{,/}",
+        "destination": "/blog/cortisol-weight-gain-midsection/",
+        "type": 301
+      }
     ],
     "headers": [
       {
         "source": "**",
         "headers": [
-          { "key": "X-Frame-Options", "value": "DENY" },
-          { "key": "X-Content-Type-Options", "value": "nosniff" },
-          { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-          { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
-          { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
-          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.facebook.com https://connect.facebook.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" }
+          {
+            "key": "X-Frame-Options",
+            "value": "DENY"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains; preload"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.facebook.com https://connect.facebook.net https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+          }
         ]
       },
       {
         "source": "/assets/**",
         "headers": [
-          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
         ]
       },
       {
         "source": "/_astro/**",
         "headers": [
-          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
         ]
       },
       {
         "source": "/screenshots/**",
         "headers": [
-          { "key": "Cache-Control", "value": "public, max-age=2592000" }
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=2592000"
+          }
         ]
       },
       {
         "source": "**/*.@(png|webp|jpg|jpeg|gif|svg|ico|woff2|webmanifest)",
         "headers": [
-          { "key": "Cache-Control", "value": "public, max-age=2592000" }
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=2592000"
+          }
         ]
       },
       {
         "source": "/.well-known/apple-app-site-association",
         "headers": [
-          { "key": "Content-Type", "value": "application/json" }
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
         ]
       },
       {
         "source": "/app/**",
         "headers": [
-          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "/release.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
         ]
       }
     ]

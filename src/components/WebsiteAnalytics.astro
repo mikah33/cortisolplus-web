@@ -1,0 +1,103 @@
+<aside id="privacy-choices" hidden aria-label="Website privacy choices" class="fixed bottom-3 left-3 right-3 md:left-auto md:max-w-md z-[100] rounded-xl border border-[color:var(--color-border)] bg-white p-5 shadow-xl">
+  <p class="text-sm mb-3">Help us understand website visits and App Store clicks. Optional analytics and advertising cookies stay off until you choose. Quiz answers are never sent. <a class="underline" href="/privacy/#website-analytics">Details</a></p>
+  <div class="flex flex-wrap gap-2 text-sm">
+    <button data-privacy-choice="necessary" class="rounded-lg border p-2">Necessary only</button>
+    <button data-privacy-choice="analytics" class="rounded-lg border p-2">Allow analytics</button>
+    <button data-privacy-choice="all" class="rounded-lg border p-2">Allow analytics &amp; ads</button>
+  </div>
+</aside>
+
+<script>
+  import { acquisitionContext, appStoreEvent, marketingPage } from '../lib/acquisition.js';
+  const measurementId = 'G-MMJRJGZDE3';
+  const preferenceKey = 'cortisol-website-privacy-v1';
+  const production = location.protocol === 'https:' && location.hostname === 'cortisolplus.com';
+  const context = acquisitionContext(location.href, document.referrer);
+  const w = window as typeof window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; fbq?: any };
+  let choice = 'unset';
+  try { choice = localStorage.getItem(preferenceKey) || 'unset'; } catch {}
+  let googleLoaded = false;
+  let metaLoaded = false;
+  let lastPage = '';
+
+  function loadGoogle() {
+    if (!production || googleLoaded) return;
+    googleLoaded = true;
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () { w.dataLayer!.push(arguments); };
+    w.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    w.gtag('js', new Date());
+    w.gtag('config', measurementId, {
+      send_page_view: false,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      page_location: `https://cortisolplus.com${location.pathname}`,
+      page_referrer: '',
+    });
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+    document.head.append(script);
+  }
+
+  function loadMeta() {
+    if (!production || metaLoaded || !marketingPage(location.pathname)) return;
+    metaLoaded = true;
+    const fbq: any = function (...args: unknown[]) { fbq.callMethod ? fbq.callMethod(...args) : fbq.queue.push(args); };
+    fbq.queue = []; fbq.loaded = true; fbq.version = '2.0';
+    w.fbq = fbq;
+    fbq('set', 'autoConfig', false, '1318457513735358');
+    fbq('init', '1318457513735358');
+    const script = document.createElement('script'); script.async = true;
+    script.src = 'https://connect.facebook.net/en_US/fbevents.js'; document.head.append(script);
+  }
+
+  function pageView() {
+    const banner = document.getElementById('privacy-choices');
+    if (banner) banner.hidden = choice !== 'unset';
+    if (!production || (choice !== 'analytics' && choice !== 'all')) return;
+    loadGoogle();
+    const path = location.pathname;
+    if (lastPage === path) return;
+    lastPage = path;
+    w.gtag?.('event', 'page_view', { ...context, page_location: `https://cortisolplus.com${path}`, page_referrer: '', page_title: document.title });
+    if (choice === 'all' && marketingPage(path)) { loadMeta(); w.fbq?.('track', 'PageView'); }
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest('[data-open-privacy]')) {
+      document.getElementById('privacy-choices')!.hidden = false;
+      document.querySelector<HTMLButtonElement>('[data-privacy-choice]')?.focus();
+      return;
+    }
+    const selected = target?.closest<HTMLElement>('[data-privacy-choice]')?.dataset.privacyChoice;
+    if (selected && ['necessary', 'analytics', 'all'].includes(selected)) {
+      const previous = choice;
+      choice = selected;
+      try { localStorage.setItem(preferenceKey, choice); } catch {}
+      // Unload already-running optional SDKs when consent is reduced.
+      if (production && ((previous === 'all' && choice !== 'all') || (previous === 'analytics' && choice === 'necessary'))) {
+        w.fbq?.('consent', 'revoke');
+        location.reload();
+        return;
+      }
+      if (choice === 'necessary') {
+        w.gtag?.('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        w.fbq?.('consent', 'revoke');
+      } else {
+        w.gtag?.('consent', 'update', { analytics_storage: 'granted' });
+        w.fbq?.('consent', choice === 'all' ? 'grant' : 'revoke');
+      }
+      lastPage = '';
+      pageView();
+      return;
+    }
+    const link = target?.closest<HTMLAnchorElement>('a[href]');
+    if (!production || !link || new URL(link.href).hostname !== 'apps.apple.com' || (choice !== 'analytics' && choice !== 'all')) return;
+    // One delegated handler for all App Store links; client navigation cannot duplicate it.
+    w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: '', transport_type: 'beacon' });
+    if (choice === 'all' && marketingPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
+  });
+  document.addEventListener('astro:page-load', pageView);
+</script>

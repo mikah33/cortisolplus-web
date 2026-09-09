@@ -77,10 +77,10 @@ const colorClasses: Record<Pillar['color'], {
     card: 'from-[color:var(--color-coral)]/12 via-[color:var(--color-coral)]/5 to-white border-[color:var(--color-coral)]/20 hover:border-[color:var(--color-coral)]/60 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-coral)]/30',
     glow: 'bg-[color:var(--color-coral)]/15 group-hover:bg-[color:var(--color-coral)]/30',
     iconBg: 'from-[color:var(--color-coral)] to-[color:var(--color-coral-light)] shadow-[color:var(--color-coral)]/30',
-    badge: 'bg-[color:var(--color-coral)]/15 text-[color:var(--color-coral)]',
-    hoverText: 'group-hover:text-[color:var(--color-coral)]',
-    arrow: 'text-[color:var(--color-coral)]',
-    topLink: 'hover:text-[color:var(--color-coral)]',
+    badge: 'bg-[color:var(--color-coral)]/15 text-[color:var(--color-coral-dark)]',
+    hoverText: 'group-hover:text-[color:var(--color-coral-dark)]',
+    arrow: 'text-[color:var(--color-coral-dark)]',
+    topLink: 'hover:text-[color:var(--color-coral-dark)]',
   },
   teal: {
     card: 'from-[color:var(--color-teal)]/10 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-teal)]/20 hover:border-[color:var(--color-teal)]/60 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-teal)]/30',
@@ -232,7 +232,7 @@ const medicalSchema = medicalWebPage({
         <a href="/tools/morning-cortisol-test" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Morning cortisol test</div>
-            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">CAR pattern check</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Morning energy reflection</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
@@ -245,7 +245,7 @@ const medicalSchema = medicalWebPage({
         </a>
         <a href="/tools/burnout-risk" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
-            <div class="font-medium text-sm">Burnout risk assessment</div>
+            <div class="font-medium text-sm">Burnout check-in</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">7-question quiz</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>

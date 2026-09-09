@@ -18,7 +18,8 @@ const { Content } = await render(entry);
 <ArticleLayout
   title={entry.data.title}
   description={entry.data.description}
-  updated={(entry.data.updatedDate ?? entry.data.pubDate).toISOString()}
+  published={entry.data.pubDate.toISOString()}
+  updated={entry.data.updatedDate?.toISOString()}
   image={entry.data.image}
 >
   <Content />

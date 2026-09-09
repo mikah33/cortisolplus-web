@@ -1,0 +1,46 @@
+---
+import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+---
+
+<ArticleLayout
+  title="Free 7-Day Stress & Sleep Journal"
+  description="A free printable journal for sleep, stress, activity and optional wearable observations. No signup, hormone estimate or health-data upload."
+  updated="2026-09-09"
+  published="2026-09-09"
+>
+<h2>Notice patterns over a week</h2>
+<p>This journal helps you record how you feel alongside sleep and everyday routines. You can use it with or without a wearable. It does not measure cortisol or establish that one habit caused a change.</p>
+<p><a href="/resources/stress-sleep-journal.csv" download>Download the blank CSV</a> or <button id="print-journal" class="underline">print this journal</button>. Entries you type stay in this page only; copy or print them before leaving. They are not saved or sent to analytics.</p>
+<h2>Choose one observation</h2>
+<p>Write a simple question, such as “How do I feel after different bedtimes?” Keep your notes descriptive. Avoid changing several routines at once and treating the result as proof of a treatment effect.</p>
+<div class="journal-pages">
+  {Array.from({ length: 7 }, (_, i) => (
+    <fieldset class="journal-day border rounded-xl p-5 my-6">
+      <legend class="font-bold px-2">Day {i + 1}</legend>
+      <label class="block my-3">Date and sleep timing<input class="block w-full border rounded p-2" type="text" placeholder="Date · bedtime · wake time · estimated sleep" /></label>
+      <label class="block my-3">How I feel<textarea class="block w-full border rounded p-2" rows="2" placeholder="Energy, mood and anything I noticed" /></label>
+      <label class="block my-3">Routine and context<textarea class="block w-full border rounded p-2" rows="2" placeholder="Activity, caffeine timing, unusual events or illness" /></label>
+      <label class="block my-3">Optional wearable observation<input class="block w-full border rounded p-2" type="text" placeholder="Device · metric · time recorded · missing data" /></label>
+    </fieldset>
+  ))}
+</div>
+<h2>Example entry — fictional sample</h2>
+<p>“Tuesday: bed 11:30 p.m., up 7:00 a.m.; felt tired on waking. Busy afternoon, coffee at 3 p.m., short evening walk. Watch HRV record from 6:40 a.m. available; no conclusion about cortisol.” These values are illustrative, not a recommended target or customer result.</p>
+<h2>At the end of seven days</h2>
+<ul><li>Which routines were consistent? Which days were unusual?</li><li>Did the wearable data agree with how you felt? Note disagreements too.</li><li>What is one question to explore next week, or discuss with a clinician?</li></ul>
+<p>A short personal log cannot diagnose a disorder or distinguish coincidence from cause. Persistent symptoms deserve care independently of any score.</p>
+<p>Continue with the <a href="/stress/apple-watch/">Apple Watch guide</a>, <a href="/how-it-works/">Cortisol+ methodology</a> or <a href="/tools/">free check-ins</a>.</p>
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('print-journal')?.addEventListener('click', () => window.print());
+  });
+</script>
+<style>
+  @media print {
+    :global(header#site-nav), :global(footer), :global(aside), :global(nav), :global(.reading-progress) { display: none !important; }
+    :global(article) { padding: 0 !important; max-width: none !important; }
+    .journal-day { break-inside: avoid; }
+    textarea { min-height: 4em; }
+  }
+</style>
+</ArticleLayout>

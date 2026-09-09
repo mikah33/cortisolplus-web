@@ -1,110 +1,46 @@
 ---
-title: "Welltory vs Cortisol+ stress tracker review"
-description: "Welltory uses phone-camera spot HRV; Cortisol+ uses Apple Watch for continuous tracking. Side-by-side on accuracy, method, and pricing."
+title: "Welltory vs Cortisol+: Apple Watch stress tracking compared"
+description: "Welltory also supports Apple Watch. Compare its documented HRV approach with Cortisol+, including score limitations, subscription questions and product fit."
 pubDate: 2026-05-23
-updatedDate: 2026-07-08
-tags: ["wearables", "cortisol", "stress", "comparisons"]
+updatedDate: 2026-09-09
+tags: [wearables, hrv, stress, comparisons]
+draft: false
 ---
 
-## The short answer
+## What changed in this comparison
 
-**Welltory** is great if you don't have an Apple Watch and want occasional HRV spot checks. **Cortisol+** is built around continuous biometric tracking and cortisol-specific framing — and requires an Apple Watch.
+**Welltory supports Apple Watch; it is not just a phone-camera app.** Our earlier comparison described it too narrowly and made unsupported claims about comparative accuracy, pricing and cortisol tracking. This revision corrects those claims.
 
-## Side-by-side
+**Disclosure:** Cortisol+ publishes this guide. It is a comparison of official documentation and our own product implementation, checked September 9, 2026. We have not conducted a hands-on or clinical accuracy comparison of the two apps.
 
-| | Welltory | Cortisol+ |
+## The main difference to evaluate
+
+[Welltory's Apple Watch documentation](https://help.welltory.com/en/articles/4241383-taking-measurements-with-your-apple-watch) explains its Apple Health connection and use of recorded beat intervals for HRV analysis. It supports a Watch-based workflow as well as other measurement methods.
+
+Cortisol+ combines available wearable inputs into a 0–100 wellness score, with views for HRV, sleep and recovery. Its score uses model assumptions and is not a measured hormone level. The [methodology](/how-it-works/) lists inputs, weights, baseline rules and limitations.
+
+| Question | Welltory | Cortisol+ |
 |---|---|---|
-| Hardware required | Phone camera (optional wearable) | Apple Watch |
-| Measurement type | Spot HRV via phone camera | Continuous HRV, sleep, RHR, temp |
-| Primary metric | Stress + energy scores | Cortisol score (0–100) + pattern |
-| Cortisol framing | Generic stress, not cortisol-specific | Cortisol-specific |
-| Sleep tracking | Limited | Full sleep stage analysis |
-| Best for | Quick checks, no wearable | Continuous tracking, Apple Watch owners |
-| Subscription | Free + premium ($10–$15/mo) | Free + premium |
-| Privacy | Cloud-based | On-device |
-| Data ownership | Stored on Welltory servers | Stays on your iPhone (HealthKit) |
-| Works without internet | No (cloud processing) | Yes (on-device processing) |
+| Apple Watch support | Documented Apple Watch and Apple Health connection | Reads permitted Apple Health data from a compatible Watch |
+| Main interpretation | HRV-based stress and energy analysis, with other health features | A weighted wellness score plus biometric and recovery views |
+| Underlying formula | See Welltory's method documentation | See our published input weights and baseline description |
+| Current price | Check the offer available to your account | Free download; analysis requires a subscription or eligible trial |
+| Is it a cortisol test? | Its Watch HRV workflow is not a hormone test | No; clinical accuracy against cortisol testing has not been established |
 
-## How they work — methodology
+## How to choose without overreading the score
 
-### Welltory
-Uses the phone's camera to detect blood flow in your fingertip (photoplethysmography, PPG), estimating HRV from a 2–3 minute reading. You take readings throughout the day to build a stress profile. Quality of the reading depends on hand stillness and ambient lighting. Welltory validates against ECG and is reasonably accurate per reading, but each reading is a snapshot — gaps between readings are blind spots.
+Use the same practical questions for both apps. Can you see when data was recorded? What happens when a night of sleep is missing? How much history is needed before the baseline is useful? Does the presentation help you understand a routine, or suggest medical certainty it cannot supply?
 
-### Cortisol+
-Pulls continuous data from Apple Watch (heart rate, HRV/SDNN, sleep stages, RHR, wrist temperature, blood oxygen). Computes a rolling cortisol estimate updated throughout the day, with morning/evening pattern visualization. No active measurement needed — runs in the background. The cortisol score combines multiple correlates rather than relying on HRV alone, which improves trend signal at the cost of single-point precision.
+An accuracy claim about measuring heartbeats is different from an accuracy claim about interpreting stress. Neither proves that a model can infer an individual's cortisol concentration. We do not rank either app as more accurate for cortisol.
 
-## Accuracy comparison
+## Subscriptions and privacy
 
-**For HRV specifically**: both methods are reasonably accurate for trend tracking. Welltory's spot measurements have higher per-reading variance (camera quality, finger position, lighting). Cortisol+ inherits Apple Watch's HRV accuracy, which is well-studied and consistent for SDNN — Apple publishes accuracy data per generation of Watch.
+Check current plan details inside each app, including trial eligibility, renewal period and cancellation terms. Our previous price ranges and claims that basic Cortisol+ analysis is free were not a reliable account of current offers.
 
-**For cortisol estimation**: neither measures cortisol. Cortisol is a hormone quantified through blood or saliva testing, not by a phone camera or smartwatch ([StatPearls, *Physiology, Cortisol*](https://www.ncbi.nlm.nih.gov/books/NBK538239/)). Cortisol+ explicitly models cortisol patterns from multiple biometric correlates; Welltory presents a generic "stress" score that's HRV-derived. Both lean on the well-documented link between reduced heart rate variability and higher stress ([Kim et al., 2018](https://pubmed.ncbi.nlm.nih.gov/29486547/)). If the question is "what is my cortisol doing," Cortisol+ is the closer answer; if the question is "am I currently stressed," both work.
+Cortisol+'s core scoring runs on-device, but optional connected services, account and coaching features have separate data flows. Read our [privacy policy](/privacy/). For Welltory, review its current [privacy guidance](https://help.welltory.com/en/articles/3352400-personal-data-privacy) and the permissions requested during setup rather than assuming every feature shares the same processing model.
 
-## Pricing breakdown
+## A practical starting point
 
-| | Welltory | Cortisol+ |
-|---|---|---|
-| Hardware needed | Phone only (free) | Apple Watch ($249+) |
-| Free tier | Limited daily readings | Cortisol score + basic insights |
-| Premium monthly | $10–$15 | TBD (see App Store) |
-| Premium yearly | $80–$120 | TBD |
-| Lifetime / one-time | Not offered | TBD |
+If you already use an Apple Watch, examine each app's actual explanation and subscription offer before choosing. You can also start with the readings available in Apple Health and our free [stress and sleep journal](/resources/stress-sleep-journal/).
 
-If you already own an Apple Watch, Cortisol+ has no hardware cost. If you don't, Welltory is the only path that doesn't require a $250+ purchase.
-
-## Use case fit
-
-**Pick Welltory if:**
-- You don't own an Apple Watch (or any wearable)
-- You want occasional spot checks rather than continuous tracking
-- You prefer measuring on-demand (control over reading timing)
-- Privacy concerns are low (cloud storage is fine for you)
-
-**Pick Cortisol+ if:**
-- You already own an Apple Watch
-- You want continuous tracking without thinking about it
-- You specifically care about cortisol patterns (not just generic stress)
-- You want sleep × cortisol correlation analysis
-- You value on-device privacy
-- You want to track the cortisol pattern through perimenopause, burnout, athletic training, or any chronic condition
-
-## Side effects and limitations
-
-**Welltory limitations:**
-- Cannot capture overnight cortisol patterns (the most interesting time)
-- Cannot track the Cortisol Awakening Response (CAR) without manual morning reading
-- Requires deliberate measurement — you'll miss days when life gets busy
-- Phone camera readings disrupted by tremor, cold hands, dim lighting
-
-**Cortisol+ limitations:**
-- Requires Apple Watch (excludes Android users and watch-less users)
-- Estimates cortisol; cannot replace lab testing
-- Newer app — smaller user community than Welltory's established base
-- Some features require Series 8+ for wrist temperature
-
-## What neither can do
-
-Neither app can:
-- Diagnose Cushing's syndrome, Addison's disease, or any endocrine disorder
-- Replace a 4-point salivary cortisol test for absolute values
-- Tell you your cortisol level in mcg/dL
-
-For diagnostic-grade absolute values, see [our cortisol testing guide](/cortisol/test).
-
-## Can you use both?
-
-Yes — they don't conflict. Some users run Welltory for spot-check confirmation and Cortisol+ for continuous trend tracking. The two together provide better data than either alone, though the marginal value of adding a second app is usually low once one is established.
-
-## Our recommendation
-
-If you have an Apple Watch: Cortisol+ wins on continuous tracking, cortisol-specific framing, and on-device privacy. If you don't and don't want to buy one: Welltory is the right tool. If you're choosing whether to buy an Apple Watch primarily for cortisol tracking, the answer depends on what else you'd use it for — the Watch's broader utility (calls, notifications, fitness, sleep) justifies the cost for most users; cortisol tracking is a bonus.
-
-## Related
-- [How Cortisol+ works](/how-it-works)
-- [Oura vs Whoop for cortisol](/blog/oura-vs-whoop-stress-tracking)
-- [Cortisol risk calculator](/tools/cortisol-calculator)
-- [Cortisol testing guide](/cortisol/test)
-
-## References
-
-- *Physiology, Cortisol.* StatPearls Publishing, NCBI Bookshelf. https://www.ncbi.nlm.nih.gov/books/NBK538239/
-- Kim HG, Cheon EJ, Bai DS, Lee YH, Koo BH. *Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature.* Psychiatry Investigation, 2018. https://pubmed.ncbi.nlm.nih.gov/29486547/
+See the broader [Apple Watch stress-app comparison](/compare/apple-watch-stress-apps/) and [what Apple Watch can tell you about cortisol](/stress/apple-watch/). Neither an app score nor this comparison should determine medical testing or treatment.

@@ -7,51 +7,46 @@ import RelatedLinks from '../../components/RelatedLinks.astro';
 
 const faqs: FAQItem[] = [
   {
-    q: 'How accurate is a cortisol risk quiz?',
-    a: 'Symptom-based quizzes capture self-reported patterns associated with elevated cortisol. They\'re useful for identifying whether you should pursue real testing (saliva, blood) or biometric tracking — but they\'re not diagnostic. The most accurate read on your cortisol pattern comes from continuous HRV and sleep monitoring with a wearable.',
+    "q": "Can an online quiz measure cortisol?",
+    "a": "No. These questions summarize your own observations. They have not been validated to diagnose a condition or estimate hormone levels. Clinical cortisol testing uses a biological sample and medical interpretation."
   },
   {
-    q: 'Should I take a cortisol test if I score high?',
-    a: 'A high score is worth discussing with a doctor, especially if symptoms have been present 3+ months. The most common cortisol tests are 4-point salivary cortisol (best for circadian pattern) and 24-hour urinary free cortisol. Blood cortisol is less useful because it\'s highly time-dependent.',
+    "q": "Are my answers stored or sent to analytics?",
+    "a": "Answers stay in this page while it is open. We do not send answers or results to analytics. Optional website analytics only measures page visits and App Store clicks, according to your privacy choice."
   },
   {
-    q: 'What are the most common signs of high cortisol?',
-    a: 'The most reliable markers are: difficulty falling asleep despite exhaustion, waking 3–5 AM, weight gain concentrated around the midsection, sugar/salt cravings, and feeling "wired but tired." These are also captured in this quiz.',
-  },
-  {
-    q: 'How long does it take to lower cortisol?',
-    a: 'Acute interventions (breathing, walking, sunlight) can lower cortisol within minutes. Lifestyle changes (better sleep, less alcohol, regular exercise) show measurable changes in cortisol patterns within 2–4 weeks. Severe chronic elevation may take 3–6 months to fully normalize.',
-  },
+    "q": "What should I do with my check-in?",
+    "a": "Use it to choose a routine to observe, or to organize questions for a healthcare professional. Seek advice for persistent or concerning symptoms regardless of how you answered."
+  }
 ];
 
 const related = [
-  { href: '/tools/morning-cortisol-test', title: 'Morning cortisol test', hint: 'CAR pattern' },
+  { href: '/tools/morning-cortisol-test', title: 'Morning energy check-in', hint: 'Morning reflection' },
   { href: '/tools/stress-score', title: 'Stress score quiz', hint: 'Day-to-day load' },
-  { href: '/tools/burnout-risk', title: 'Burnout risk assessment', hint: '7 questions' },
+  { href: '/tools/burnout-risk', title: 'Burnout check-in', hint: '7 questions' },
 ];
 
 const schema = webApplication({
-  name: 'Cortisol Risk Calculator',
-  description: 'Free 8-question quiz that estimates your cortisol risk based on stress, sleep, and lifestyle signals.',
-  pathname: '/tools/cortisol-calculator',
+  name: "Cortisol quiz: stress & habits check-in",
+  description: "Reflect on stress, sleep and everyday habits in eight questions. This free cortisol quiz cannot measure hormones or diagnose a condition.",
+  pathname: "Cortisol quiz: stress & habits check-in",
 });
 ---
 
 <BaseLayout
-  title="Cortisol risk calculator — free 60-second quiz"
-  description="Estimate your cortisol risk in 8 questions. Free, no signup, science-backed scoring."
+  title="Cortisol quiz: a 60-second stress & habits check-in"
+  description="Reflect on stress, sleep and everyday habits in eight questions. This free cortisol quiz cannot measure hormones or diagnose a condition."
   image="/screenshots/track-cortisol-levels.png"
   schema={schema}
 >
   <section class="max-w-2xl mx-auto px-6 py-16">
     <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Calculator</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Cortisol risk calculator</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
-      8 questions. 60 seconds. A rough read on whether your cortisol is likely elevated.
-    </p>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Cortisol quiz: stress &amp; habits check-in</h1>
+    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">8 questions about your habits. A useful check-in, without a hormone estimate.</p>
 
-    <CortisolCalculator client:idle />
+    <CortisolCalculator client:load />
 
+    <p class="mt-8 text-sm">For medical context, see <a class="underline" href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus on cortisol testing</a> and our <a class="underline" href="/how-it-works/">wearable score limitations</a>.</p>
     <FAQ items={faqs} />
     <RelatedLinks links={related} />
   </section>

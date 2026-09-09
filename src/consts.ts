@@ -1,9 +1,9 @@
 export const SITE = {
   name: 'Cortisol+',
   fullName: 'Cortisol+ Stress & HRV Monitor',
-  title: 'Cortisol+ — Track your cortisol on Apple Watch',
+  title: 'Cortisol+ | Apple Watch Stress & HRV Tracker',
   description:
-    'Cortisol+ estimates your cortisol levels in real time using Apple Watch biometrics. See your stress, sleep, and recovery — decoded.',
+    'Explore your Apple Watch HRV, sleep and recovery with Cortisol+. A stress tracking app with a wellness score, guided breathing and clear limitations.',
   url: 'https://cortisolplus.com',
   appStoreUrl: 'https://apps.apple.com/app/id6759510126',
   appStoreId: '6759510126',
@@ -20,24 +20,17 @@ export const SITE = {
 /**
  * Live App Store rating from Apple's iTunes lookup API.
  * Refresh manually by running: curl -s "https://itunes.apple.com/lookup?id=6759510126"
- * Last refreshed: 2026-07-08.
+ * Last refreshed: 2026-09-09 (US storefront).
  */
 export const APP_RATING = {
-  value: 4.6,           // averageUserRating (rounded 1dp)
-  precise: 4.63889,     // actual averageUserRating from Apple
-  count: 36,            // userRatingCount
+  value: 4.5,           // averageUserRating (rounded 1dp)
+  precise: 4.48649,     // actual averageUserRating from Apple
+  count: 74,            // userRatingCount
   best: 5,
   worst: 1,
-  lastChecked: '2026-07-08',
+  lastChecked: '2026-09-09',
+  country: 'US',
 } as const;
-
-/**
- * Hand-maintained "last editorially reviewed" date for evergreen medical
- * content pages. Bump ONLY when content is genuinely re-reviewed — it feeds
- * `lastReviewed`/`dateModified` in MedicalWebPage schema. Never derive from the
- * build date (that would falsely re-stamp "reviewed today" on every deploy).
- */
-export const CONTENT_REVIEWED = '2026-07-08';
 
 export const PUBLISHER = {
   name: 'Elevated Systems LLC',

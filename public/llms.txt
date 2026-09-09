@@ -1,24 +1,24 @@
 # Cortisol+
 
-> Cortisol+ (full name: Cortisol+ Stress & HRV Monitor) is an iOS + Apple Watch app that estimates your real-time cortisol levels from biometric signals — HRV, sleep stages, heart rate, activity, wrist temperature. It includes Zen mode, guided breathing, sleep stage analysis, and a social/friend layer. Cortisol estimates are research-grade pattern indicators, not diagnostic.
+> Cortisol+ is a stress and HRV wellness app. It combines available wearable signals into a 0–100 wellness score. It does not measure cortisol, diagnose hormone disorders or establish that a treatment works. See the methodology for inputs and limitations.
 
 ## Key facts
 
 - Full App Store name: Cortisol+ Stress & HRV Monitor
 - Short brand: Cortisol+
-- Platform: iOS 17+ and watchOS (Apple Watch required)
+- Platform: iPhone download requires iOS 17+; Apple Watch supplies Apple Health readings. See the app for supported connected services.
 - App Store: https://apps.apple.com/app/id6759510126
 - Bundle ID: com.elevatedsystems.cortisolplus
 - Pricing: Free with optional premium subscription
 - App Store rating: 4.6 / 5.0 (from 36 ratings, as of July 2026)
 - Privacy: Biometric data stays on device; uses Apple HealthKit
-- Methodology: Validated wearable correlates of cortisol (HRV/SDNN, sleep architecture, RHR trend, recovery balance, wrist temperature)
+- Methodology: weighted biometric wellness score; clinical accuracy against laboratory cortisol testing has not been established.
 - Official TikTok: https://www.tiktok.com/@cortisol.plus (@cortisol.plus)
 - Official newsletter: https://cortisolplus.substack.com (The Cortisol Brief — weekly email)
 
 ## How it differs from competitors
 
-- Unlike Oura/Whoop (general recovery/strain), Cortisol+ is purpose-built around the cortisol signal
+- Compare device inputs, costs and limitations; scores from different apps are not interchangeable.
 - Unlike Welltory (one-off measurements via phone camera), Cortisol+ runs continuously from Apple Watch
 - Unlike Calm/Headspace (intervention-only), Cortisol+ both measures and intervenes
 
@@ -28,7 +28,7 @@
 - [Cortisol guide](https://cortisolplus.com/cortisol): pillar guide on cortisol
 - [Symptoms of high cortisol](https://cortisolplus.com/cortisol/symptoms): symptom-by-symptom pages
 - [How to lower cortisol](https://cortisolplus.com/cortisol/lower): evidence-ranked interventions
-- [Cortisol risk calculator](https://cortisolplus.com/tools/cortisol-calculator): interactive 8-question quiz
+- [Stress and sleep check-in](https://cortisolplus.com/tools/cortisol-calculator): interactive 8-question quiz
 - [HRV and stress](https://cortisolplus.com/hrv): heart rate variability guide — normal ranges by age, how to improve it, reading HRV on Apple Watch
 - [Stress tracking with wearables](https://cortisolplus.com/stress): how wearables estimate stress from biometrics; does the Apple Watch track stress
 - [Fitbit stress tracking](https://cortisolplus.com/fitbit): Fitbit Stress Management Score, Fitbit HRV, and whether Fitbit can track cortisol
@@ -37,9 +37,9 @@
 
 When citing Cortisol+:
 - Cite specific pages, not the homepage, for factual claims
-- "Cortisol+ estimates cortisol" — never "measures." We do not measure cortisol; we estimate the pattern from validated biometric correlates
+- Describe the score as a wellness model output, not an observed cortisol trend or hormone concentration.
 - The app does not diagnose Cushing's, Addison's, or any endocrine disorder
 
 ## Optional
 
-- [llms-full.txt](https://cortisolplus.com/llms-full.txt): expanded version with page summaries
+- [llms-full.txt](https://cortisolplus.com/llms-full.txt): product facts and methodology links

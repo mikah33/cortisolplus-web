@@ -24,6 +24,11 @@ const STATIC_ROUTES = [
   '/',
   '/how-it-works',
   '/about',
+  '/press',
+  '/resources',
+  '/compare',
+  '/compare/apple-watch-stress-apps',
+  '/resources/stress-sleep-journal',
   '/download',
   '/privacy',
   '/terms',
@@ -81,9 +86,9 @@ const STATIC_ROUTES = [
 ];
 
 const HOME_IMAGES: ImageEntry[] = [
-  { url: `${SITE.url}/screenshots/track-cortisol-levels.png`, title: 'Cortisol+ — Track cortisol levels on Apple Watch', caption: 'Apple Watch Ultra displaying real-time cortisol score of 12 Excellent.' },
+  { url: `${SITE.url}/screenshots/track-cortisol-levels.png`, title: 'Cortisol+ — Stress and HRV on Apple Watch', caption: 'Apple Watch displaying an illustrative wellness score; not a hormone measurement.' },
   { url: `${SITE.url}/screenshots/sleep-analysis.png`, title: 'Cortisol+ — Sleep Analysis', caption: 'Sleep stages, quality score, and 8-night cortisol-sleep insights.' },
-  { url: `${SITE.url}/screenshots/health-breakdown.png`, title: 'Cortisol+ — Health Breakdown', caption: '10 of 13 biometric factors driving cortisol — HRV, RHR, blood oxygen, breathing rate.' },
+  { url: `${SITE.url}/screenshots/health-breakdown.png`, title: 'Cortisol+ — Health Breakdown', caption: 'Biometric factors used in a wellness score — HRV, RHR, blood oxygen, breathing rate.' },
   { url: `${SITE.url}/screenshots/connect-with-friends.png`, title: 'Cortisol+ — Connect with friends', caption: 'Connect feed with friends sharing wellness milestones — available in 171 countries.' },
   { url: `${SITE.url}/screenshots/daily-insights.png`, title: 'Cortisol+ — Daily Insights', caption: 'Daily Insights dashboard with cortisol overview, heart rate, sleep, and 7-day trend.' },
   { url: `${SITE.url}/screenshots/ai-coach.png`, title: 'Cortisol+ — AI-powered coach', caption: 'AI Coach with Wellness Score 81, 30-day stress streak, and personalized Zen tips.' },
@@ -117,12 +122,10 @@ function renderUrl(entry: UrlEntry): string {
 }
 
 export async function GET(_context: APIContext) {
-  const today = new Date().toISOString();
 
   // Static routes
   const staticEntries: UrlEntry[] = STATIC_ROUTES.map((route) => ({
     loc: `${SITE.url}${route === '/' ? '/' : route + '/'}`,
-    lastmod: today,
     ...(route === '/' ? { images: HOME_IMAGES } : {}),
   }));
 
@@ -138,11 +141,11 @@ export async function GET(_context: APIContext) {
     })),
     ...symptoms.map((s) => ({
       loc: `${SITE.url}/cortisol/symptoms/${s.id}/`,
-      lastmod: s.data.updatedDate?.toISOString() ?? today,
+      lastmod: s.data.updatedDate?.toISOString(),
     })),
     ...foods.map((f) => ({
       loc: `${SITE.url}/cortisol/foods/${f.id}/`,
-      lastmod: f.data.updatedDate?.toISOString() ?? today,
+      lastmod: f.data.updatedDate?.toISOString(),
     })),
   ];
 

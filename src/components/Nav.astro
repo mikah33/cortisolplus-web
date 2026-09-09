@@ -4,8 +4,8 @@ import AppStoreBadge from './AppStoreBadge.astro';
 ---
 
 <header id="site-nav" class="sticky top-0 z-50 backdrop-blur bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)] transition-shadow duration-300">
-  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="font-semibold text-lg tracking-tight flex items-center gap-2">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="/" class="shrink-0 font-semibold text-lg tracking-tight flex items-center gap-2">
       <img src="/apple-touch-icon.png" alt="Cortisol+" width="28" height="28" class="w-7 h-7 rounded-lg" />
       {SITE.name}
     </a>
@@ -20,12 +20,33 @@ import AppStoreBadge from './AppStoreBadge.astro';
       ))}
     </ul>
 
-    <AppStoreBadge size="sm" />
+    <div class="flex shrink-0 items-center gap-2">
+      <div class="md:hidden"><AppStoreBadge size="sm" label="Get app" /></div>
+      <div class="hidden md:block"><AppStoreBadge size="sm" /></div>
+      <details class="md:hidden" id="mobile-menu">
+        <summary class="cursor-pointer list-none p-3 rounded-lg border border-[color:var(--color-border)] text-sm font-medium" aria-label="Main menu">Menu</summary>
+        <ul class="absolute top-16 inset-x-0 p-4 bg-white border-b border-[color:var(--color-border)] shadow-lg">
+          {NAV.map((item) => <li><a href={item.href} class="block p-3 rounded-lg hover:bg-[color:var(--color-surface)]">{item.label}</a></li>)}
+          <li><a href="/stress/apple-watch/" class="block p-3">Apple Watch guide</a></li>
+          <li><a href="/about/" class="block p-3">About &amp; editorial standards</a></li>
+        </ul>
+      </details>
+    </div>
   </nav>
 </header>
 
 <script>
+  let scrollController: AbortController | undefined;
   function initNavScroll() {
+    scrollController?.abort();
+    scrollController = new AbortController();
+    const menu = document.getElementById('mobile-menu') as HTMLDetailsElement | null;
+    menu?.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
     const nav = document.getElementById('site-nav');
     if (!nav) return;
     const updateNav = () => {
@@ -36,7 +57,7 @@ import AppStoreBadge from './AppStoreBadge.astro';
       }
     };
     updateNav();
-    window.addEventListener('scroll', updateNav, { passive: true });
+    window.addEventListener('scroll', updateNav, { passive: true, signal: scrollController.signal });
   }
   initNavScroll();
   document.addEventListener('astro:after-swap', initNavScroll);

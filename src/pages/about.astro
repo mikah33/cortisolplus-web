@@ -1,81 +1,24 @@
 ---
-import ArticleLayout from '../layouts/ArticleLayout.astro';
-import { PUBLISHER, SITE, APP_RATING } from '../consts';
-
-const orgSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: PUBLISHER.name,
-  legalName: PUBLISHER.legalName,
-  url: PUBLISHER.url,
-  email: PUBLISHER.email,
-  sameAs: [PUBLISHER.url],
-  publishingPrinciples: `${SITE.url}/about/`,
-  knowsAbout: ['Cortisol', 'Stress tracking', 'HRV', 'Sleep', 'Apple Watch', 'Wearable health'],
-  makesOffer: {
-    '@type': 'Offer',
-    itemOffered: {
-      '@type': 'MobileApplication',
-      name: SITE.fullName,
-      url: SITE.appStoreUrl,
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: APP_RATING.value,
-        ratingCount: APP_RATING.count,
-        bestRating: APP_RATING.best,
-      },
-    },
-  },
-};
+import ArticleLayout from "../layouts/ArticleLayout.astro";
 ---
 
 <ArticleLayout
-  title="About Cortisol+ — the team behind the app"
-  description="Why we built Cortisol+, who we are, and the principles we hold ourselves to. Independent, on-device privacy, evidence-first health content with citations."
-  updated="2026-05-23"
-  schema={orgSchema}
+  title="About Cortisol+ & Our Editorial Standards"
+  description="Meet the publisher of Cortisol+, understand our editorial process, and find product limitations, source standards and contact details."
+  updated="2026-09-09"
+  published="2026-05-23"
 >
-  <h2>Why Cortisol+ exists</h2>
-  <p>Stress and cortisol are everywhere in modern wellness conversation, but until recently there was no way to actually see what your cortisol was doing day-to-day. You could get a one-time saliva test, or guess from symptoms, or buy a $300 wearable that called everything "stress" without ever saying the word cortisol.</p>
-
-  <p>Apple Watch already collects every biometric correlated with cortisol — HRV, sleep stages, resting heart rate, recovery patterns, wrist temperature. The data was sitting there. What was missing was an app that combined those signals into a continuous cortisol-pattern estimate and was honest about what that estimate is (a pattern indicator) and isn't (a clinical value).</p>
-
-  <p>Cortisol+ is that app.</p>
-
-  <h2>Who builds Cortisol+</h2>
-  <p>Cortisol+ is built and operated by <a href={PUBLISHER.url} rel="noopener" target="_blank"><strong>{PUBLISHER.name}</strong></a>, an independent software studio focused on consumer health apps and biometric data systems. We started building Cortisol+ because the gap between what wearables can show users and what they actually do was a problem we wanted to solve for ourselves.</p>
-
-  <p>We're not endocrinologists. For medical questions about cortisol, see a doctor. For tools that help you see and improve your daily cortisol pattern, we're here.</p>
-
-  <h2>How we're different</h2>
-  <ul>
-    <li><strong>Cortisol-specific framing.</strong> We don't call it "stress" or "recovery" — we call it cortisol because that's the signal you actually want to understand.</li>
-    <li><strong>Built on the Apple Watch you already own.</strong> No new $300 hardware. If you have any Apple Watch, you have everything Cortisol+ needs.</li>
-    <li><strong>On-device privacy.</strong> Your biometric data never leaves your phone unless you explicitly opt in to cloud sync. We don't sell or share your health data, ever.</li>
-    <li><strong>Independent, not VC-burnout.</strong> We're not chasing a $1B exit; we're building a tool we want to use ourselves.</li>
-    <li><strong>Evidence-first content.</strong> We're committed to citing primary research for specific physiological claims and clearly labeling each claim's evidence level — strong, moderate, or limited. We're still backfilling citations across older pages, and we'd rather flag a gap than pass off affiliate copy as science.</li>
-  </ul>
-
-  <h2>What we promise</h2>
-  <ul>
-    <li>We will never tell you we measure cortisol when we estimate it.</li>
-    <li>We will never push supplements or affiliate products you don't need.</li>
-    <li>We will tell you when our estimate is uncertain (low data quality, baseline still building).</li>
-    <li>We will not gate basic biometric data behind a paywall — your data is yours.</li>
-    <li>We will keep evolving the methodology as the wearable HRV–cortisol literature grows.</li>
-  </ul>
-
-  <h2>How to reach us</h2>
-  <p>Support, feedback, press, partnerships — email <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. We read everything.</p>
-
-  <h2>Editorial standards</h2>
-  <p>Health content on this site follows a consistent process:</p>
-  <ul>
-    <li><strong>How we write.</strong> Each page starts from the primary literature (PubMed/PMC, NIH, and clinical references). Where we make a specific physiological claim, we link the source inline; where the evidence is weak or mixed, we say so rather than overstating it.</li>
-    <li><strong>Evidence grading.</strong> Dosing and intervention pages distinguish "strong evidence," "moderate evidence," and "limited evidence" explicitly.</li>
-    <li><strong>Uncertainty.</strong> We flag it when it exists rather than hiding it, and we never claim to measure cortisol when we estimate it.</li>
-    <li><strong>Freshness.</strong> Pages carry an "Updated" date and are reviewed and re-cited on a recurring cycle by {PUBLISHER.name} editorial.</li>
-    <li><strong>Not medical advice.</strong> Nothing here is a substitute for a clinician; talk to a healthcare provider for diagnosis or treatment.</li>
-  </ul>
-  <!-- TODO: add named medical reviewer (MD/RD) + credentials here once engaged -->
+<h2>Why we build Cortisol+</h2>
+<p>Cortisol+ helps people explore stress and recovery patterns using the wearable signals they already collect. It brings HRV, heart rate, sleep and activity into an accessible daily view. Our responsibility is to explain both the useful context and the limits of those signals.</p>
+<h2>Who is behind the app?</h2>
+<p>Cortisol+ is built and operated by <a href="https://elevatedagency.org/">Elevated Systems LLC</a>. Mikah Albertson leads the product. We are a software publisher, not an endocrinology practice.</p>
+<p>The site's “Cortisol+ Editorial” byline identifies the publisher's editorial work. It does not mean a clinician has reviewed the page. We will name a medical reviewer, their relevant qualifications, the scope and date only when that review has actually taken place.</p>
+<h2>What the product can and cannot do</h2>
+<p>The app calculates a wellness score from biometric inputs. It does not measure cortisol concentration, diagnose a medical condition or establish that a treatment works. We have not established clinical accuracy against laboratory cortisol testing. Read <a href="/how-it-works/">the methodology</a> for the scoring inputs, weights and assumptions.</p>
+<h2>Editorial standards</h2>
+<ul><li><strong>Sources:</strong> link research and authoritative clinical references next to material factual claims. A source link must support the actual claim, not simply discuss the same topic.</li><li><strong>Limitations:</strong> distinguish an association from cause and effect, a small trial from a general recommendation, and a wearable estimate from a clinical test.</li><li><strong>Authorship:</strong> disclose that we publish the app being discussed. Product comparisons identify their sources and whether hands-on testing was performed.</li><li><strong>Dates:</strong> keep the original publication date separate from substantive update dates. A site rebuild does not constitute a new medical review.</li><li><strong>Automation:</strong> generated drafts require editorial review before publication. Software checks catch malformed content, not scientific errors.</li><li><strong>Corrections:</strong> revise unsupported claims, keep useful existing URLs and document meaningful corrections. Older content is being reviewed; a publisher byline is not a claim of independent clinical review.</li></ul>
+<h2>Corrections and contact</h2>
+<p>Send a page URL, the claim in question and any supporting reference to <a href="mailto:admin@elevatedsystems.info">admin@elevatedsystems.info</a>. The same address handles support and press requests.</p>
+<p>On September 9, 2026 we revised our product explanation and website tools to distinguish wellness observations from cortisol measurements, removed unsupported review markup, and began correcting the site's most-used educational references.</p>
+<p>See our <a href="/privacy/">privacy policy</a>, <a href="/terms/">terms</a>, <a href="/download/">official download page</a> and <a href="/press/">press resources</a>.</p>
 </ArticleLayout>

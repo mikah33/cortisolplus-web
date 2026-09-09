@@ -36,6 +36,7 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: npm test
       - run: npm run build
 
       - name: Deploy to Firebase Hosting (live)
@@ -45,3 +46,6 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CORTISOL_PLUS }}
           projectId: cortisol-plus
           channelId: live
+
+      - name: Verify deployed commit, sitemap and substantive content
+        run: npm run verify:live

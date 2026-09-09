@@ -10,7 +10,7 @@ interface Props {
   label?: string;
 }
 
-const { size = 'md', link = true, label = 'App Store' } = Astro.props;
+const { size = 'md', link = true, label = 'US App Store' } = Astro.props;
 
 const fullStars = Math.floor(APP_RATING.value);
 const hasHalf = APP_RATING.value - fullStars >= 0.5;
@@ -29,6 +29,7 @@ const linkProps = link ? { href: SITE.appStoreUrl, target: '_blank', rel: 'noope
 <Tag
   {...linkProps}
   class={`inline-flex items-center ${s.gap} ${s.pad} rounded-full bg-[color:var(--color-surface)] border border-[color:var(--color-border)] ${link ? 'hover:border-[color:var(--color-teal)]/40 transition' : ''}`}
+  title={`US App Store rating checked ${APP_RATING.lastChecked}`}
   aria-label={`Rated ${APP_RATING.value} out of 5 stars on the App Store, from ${APP_RATING.count} ratings`}
 >
   <div class="flex items-center gap-0.5" aria-hidden="true">
@@ -42,5 +43,5 @@ const linkProps = link ? { href: SITE.appStoreUrl, target: '_blank', rel: 'noope
     })}
   </div>
   <span class={`${s.text} font-semibold tabular-nums`}>{APP_RATING.value}</span>
-  <span class={`${s.text} text-[color:var(--color-ink-muted)]`}>· {APP_RATING.count} ratings · {label}</span>
+  <span class={`${s.text} text-[color:var(--color-ink-muted)]`}>· {APP_RATING.count} ratings · {label} · {APP_RATING.lastChecked}</span>
 </Tag>
