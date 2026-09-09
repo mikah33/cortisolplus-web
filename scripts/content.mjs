@@ -20,7 +20,7 @@ export function serializeDraft(input) {
   if (!input || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(input.slug)) throw new Error('Invalid slug');
   if (typeof input.body !== 'string' || input.body.length < 200 || input.body.length > 60000) throw new Error('Invalid body');
   // Automation supplies prose only. Executable MDX requires a separate code review.
-  if (/^\s*(import|export)\s|[<>{}]/m.test(input.body)) throw new Error('Draft must be plain Markdown without executable MDX');
+  if (/^\s*(import|export)\s|[<{}]/m.test(input.body)) throw new Error('Draft must be plain Markdown without executable MDX');
   const data = {
     title: input.title, description: input.description,
     pubDate: new Date().toISOString().slice(0, 10),

@@ -59,6 +59,13 @@ test('unsafe model output releases the topic and never leaves the generator', as
   assert.deepEqual(state.usedSlugs, []);
 });
 
+test('ordinary Markdown blockquotes and navigation separators remain valid prose', async () => {
+  const body = `${article.body}\n\n> This is an educational draft.\n\nSettings > Health is a navigation example, not executable MDX.`;
+  const { result } = run({ response: { ...article, body } });
+  const [item] = await result;
+  assert.equal(parseFrontmatter(serializeDraft(item.json)).body.trim(), body);
+});
+
 test('API failure releases the topic without exposing request credentials', async () => {
   const { result, state } = run({ apiError: new Error('private-credential-from-request') });
   await assert.rejects(result, error => !error.message.includes('private-credential') && /no article was dispatched/.test(error.message));
