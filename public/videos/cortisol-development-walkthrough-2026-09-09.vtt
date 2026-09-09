@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00.000 --> 00:10.000
+This is the real Cortisol+ app in an iPhone Simulator.
+All readings are sample data from a development build.
+
+00:10.000 --> 00:22.000
+The dashboard's 26 is a software wellness score.
+The “Low” label is not a measured cortisol level.
+
+00:22.000 --> 00:34.000
+The detail view shows example inputs:
+HRV 58 ms, sleep 7.8 hours and resting heart rate 58 bpm.
+
+00:34.000 --> 00:45.000
+The bars show saved example readings at different times.
+Changes in this score do not establish a hormone change.
+
+00:45.000 --> 00:58.000
+Back on the dashboard, open the Sleep tab
+to inspect sleep duration, timing and stages.
+
+00:58.000 --> 01:10.000
+Development fixtures can differ between these screens.
+Sleep estimates do not establish why sleep changed.

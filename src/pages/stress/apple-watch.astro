@@ -25,6 +25,25 @@ import ArticleLayout from "../../layouts/ArticleLayout.astro";
 <ol><li>Download Cortisol+ on a compatible iPhone and connect your Apple Watch through Apple Health.</li><li>Choose the Health permissions you want to grant. Missing permissions or limited wear time can reduce available data.</li><li>Open the dashboard and examine the factors behind the score. Look at the HRV, resting heart rate and sleep records, not only the summary number.</li><li>Compare readings over time with notes about sleep, activity and how you feel.</li></ol>
 <figure><img src="/screenshots/health-breakdown.webp" alt="Cortisol+ Health Breakdown screen showing the biometric factors used by the app" width="370" height="800" loading="lazy" class="max-w-[280px] mx-auto rounded-2xl"/><figcaption>Product screenshot; the displayed values are an example, not your personal data.</figcaption></figure>
 <p>Read the <a href="/how-it-works/">full methodology, weights and limitations</a> or explore <a href="/features/hrv-stress-monitoring/">Cortisol+ HRV stress monitoring</a>. The app is free to download; analysis features require an active subscription or an eligible trial. Check the offer shown in the app for current terms.</p>
+<h2 id="walkthrough">Watch the app: dashboard, inputs and sleep</h2>
+<p>This 70-second walkthrough records the real app in an iPhone Simulator. <strong>All readings are sample data.</strong> It was recorded on September 9, 2026 in development version 5.0.2 (12), on iOS 26.5. Screens and wording may differ from the current App Store release. This demonstrates the interface; it is not a test of Watch accuracy or a customer's result.</p>
+<figure>
+  <video controls playsinline preload="none" poster="/videos/cortisol-development-walkthrough-2026-09-09.png" width="576" height="1472" class="w-full max-w-[360px] mx-auto rounded-2xl" aria-label="Cortisol+ development walkthrough with sample data and English captions">
+    <source src="/videos/cortisol-development-walkthrough-2026-09-09.mp4" type="video/mp4" />
+    <track default kind="captions" src="/videos/cortisol-development-walkthrough-2026-09-09.vtt" srclang="en" label="English" />
+    <p><a href="/videos/cortisol-development-walkthrough-2026-09-09.mp4">Download the walkthrough</a> or read the transcript below.</p>
+  </video>
+  <figcaption>Real development app, built-in sample data. No personal health records were used. English captions are on by default; there is no audio.</figcaption>
+</figure>
+<details><summary>Read the walkthrough transcript</summary>
+<p><strong>0:00–0:10:</strong> This is the real Cortisol+ app in an iPhone Simulator. All readings are sample data from a development build.</p>
+<p><strong>0:10–0:22:</strong> The dashboard's 26 is a software wellness score. The “Low” label is not a measured cortisol level.</p>
+<p><strong>0:22–0:34:</strong> The detail view shows example inputs: HRV 58 ms, sleep 7.8 hours and resting heart rate 58 bpm.</p>
+<p><strong>0:34–0:45:</strong> The bars show saved example readings at different times. Changes in this score do not establish a hormone change.</p>
+<p><strong>0:45–0:58:</strong> Back on the dashboard, open the Sleep tab to inspect sleep duration, timing and stages.</p>
+<p><strong>0:58–1:10:</strong> Development fixtures can differ between these screens. Sleep estimates do not establish why sleep changed.</p>
+</details>
+<p>Some labels in this older development build describe a person's recovery too confidently. Interpret them as software-generated labels, not established facts about your body. Our <a href="/how-it-works/">current methodology and limitations</a> explain that distinction.</p>
 <h2>Why readings can be missing or change unexpectedly</h2>
 <p>If your latest sample is missing, follow our <a href="/blog/apple-watch-hrv-not-updating/">Apple Watch HRV troubleshooting guide</a> to compare Apple Health timestamps, check app permissions and review watch settings.</p>
 <p>Background sampling is intermittent, and data must sync to Apple Health before the app can use it. Movement, fit, charging, permissions and software settings can affect recording. Exercise, illness, alcohol, medication, breathing and time of day can also influence HRV and heart rate. These are reasons to check context, not assume every change represents psychological stress.</p>
