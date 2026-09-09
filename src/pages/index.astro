@@ -159,12 +159,12 @@ const homeSchema = [
                   <span class="absolute inline-flex w-full h-full rounded-full bg-[color:var(--color-level-low)] opacity-75 animate-ping"></span>
                   <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-[color:var(--color-level-low)]"></span>
                 </span>
-                Live
+                Example
               </div>
               <span class="tabular-nums">Tue · 2:34 PM</span>
             </div>
 
-            <CortisolGauge score={42} label="Normal" />
+            <CortisolGauge score={42} label="Example score" />
 
             <div class="flex items-center justify-between text-xs">
               <span class="inline-flex items-center gap-1 text-[color:var(--color-level-low)] font-medium">
@@ -227,11 +227,11 @@ const homeSchema = [
         </div>
         <div
           class="text-5xl font-bold tracking-tight tabular-nums bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent"
-          data-count-target={APP_RATING.value}
-          data-count-decimals="1"
-        >0.0</div>
+
+
+        >{APP_RATING.value}</div>
         <div class="text-sm text-[color:var(--color-ink-muted)] mt-1">
-          <span data-count-target={APP_RATING.count}>0</span> ratings · US App Store
+          <span>{APP_RATING.count}</span> ratings · US App Store
         </div>
       </div>
       <div class="md:col-span-2">
@@ -278,10 +278,10 @@ const homeSchema = [
   <!-- VALUE PROPS -->
   <section class="max-w-6xl mx-auto px-6 py-24 border-t border-[color:var(--color-border)] reveal">
     <div class="max-w-3xl mb-14">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Built for accuracy</div>
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Understand the inputs</div>
       <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
-        10 sensors. No guessing.<br/>
-        <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">Every factor</span> that drives your stress.
+        Your wearable readings,<br/>
+        <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">in one place.</span> Explore stress and recovery patterns.
       </h2>
     </div>
 
