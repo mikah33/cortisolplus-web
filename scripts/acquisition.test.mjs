@@ -10,6 +10,8 @@ test('acquisition identifies AI referral without retaining private URL details',
 test('arbitrary campaign strings and quiz data are discarded', () => {
   assert.equal(acquisitionContext('https://cortisolplus.com/?utm_campaign=my-health-answer', '').campaign_name, undefined);
   assert.equal(acquisitionContext('https://cortisolplus.com/?utm_campaign=website-watch-guide', '').campaign_name, 'website-watch-guide');
+  assert.equal(acquisitionContext('https://cortisolplus.com/?utm_campaign=website-my-health-result', '').campaign_name, undefined);
+  assert.equal(acquisitionContext('https://cortisolplus.com/?utm_campaign=website-qa-private', '').campaign_name, 'website-qa');
 });
 test('advertising events are restricted to product pages', () => {
   assert.equal(marketingPage('/features/hrv-stress-monitoring/'), true);

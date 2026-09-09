@@ -8,6 +8,10 @@ const SOURCE_CAMPAIGNS = {
   'bing.com': 'website-bing', 'google.com': 'website-google',
   'duckduckgo.com': 'website-duckduckgo', 'other-referral': 'website-referral',
 };
+const KNOWN_CAMPAIGNS = new Set([
+  'website-watch-guide', 'website-home', 'website-download', 'website-seo',
+  'website-organic', 'website-press', ...Object.values(SOURCE_CAMPAIGNS),
+]);
 
 export function appStoreCampaign(context) {
   // Never forward arbitrary UTM text, health topics, page paths or user IDs to Apple.
@@ -29,11 +33,13 @@ export function acquisitionContext(location, referrer) {
   try { host = new URL(referrer).hostname.replace(/^www\./, ''); } catch {}
   const source = KNOWN_SOURCES.find(s => host === s || host.endsWith(`.${s}`)) || (host && host !== url.hostname ? 'other-referral' : 'direct');
   // No query strings, fragments, searches, quiz answers, free text or full referrers.
-  const campaign = url.searchParams.get('utm_campaign') || '';
+  const suppliedCampaign = url.searchParams.get('utm_campaign') || '';
+  const campaign = /^website-qa(?:-[a-z0-9-]{1,32})?$/.test(suppliedCampaign)
+    ? 'website-qa' : (KNOWN_CAMPAIGNS.has(suppliedCampaign) ? suppliedCampaign : '');
   return {
     landing_path: url.pathname,
     acquisition_source: source,
-    ...( /^website-[a-z0-9-]{1,40}$/.test(campaign) ? { campaign_name: campaign } : {}),
+    ...(campaign ? { campaign_name: campaign } : {}),
   };
 }
 

@@ -24,7 +24,7 @@ App code inspected at `mikah33/cortisolplus` commit `99f7036`: `Cortisol+ iOS/Vi
 
 ## Verification
 
-All 17 initial website tests passed; the attribution follow-up adds two tests, for 19 passing tests. Production build includes 85 canonical routes and excludes the 11 medical drafts. Tests cover acquisition privacy, content serialization, automation validation and exact-release verification; the new checks cover private-parameter removal and preserving links to unrelated apps/hosts. The cloud report has two additional passing tests for final-data requests and failure without side effects or response-body exposure.
+All 17 initial website tests passed; the attribution follow-up adds three tests, for 20 passing tests. Production build includes 85 canonical routes and excludes the 11 medical drafts. Tests cover acquisition privacy, content serialization, automation validation and exact-release verification. The new checks cover private-parameter removal, preserving links to unrelated apps/hosts, and execution of the actual website script through opt-in, ten client page events, one CTA click and consent withdrawal. Both GA4 campaign names and Apple campaign labels use fixed allowed values; QA suffixes are normalized. The cloud report has two additional passing tests for final-data requests and failure without side effects or response-body exposure.
 
 ## Outside evidence
 
