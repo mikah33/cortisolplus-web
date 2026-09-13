@@ -26,6 +26,7 @@ const STATIC_ROUTES = [
   '/about',
   '/press',
   '/resources',
+  '/resources/perplexity',
   '/compare',
   '/compare/apple-watch-stress-apps',
   '/resources/stress-sleep-journal',
