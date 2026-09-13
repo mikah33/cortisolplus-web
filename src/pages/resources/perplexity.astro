@@ -1,0 +1,77 @@
+---
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+const conversations = [
+  {
+    id: "cortisol-plus",
+    title: "What is Cortisol+?",
+    url: "https://www.perplexity.ai/search/8c007fd5-6d4b-45a4-8437-be74abe97343",
+    description: "A starting point for understanding the app, its Apple Health inputs and the difference between a wearable wellness score and a cortisol test.",
+    question: "What is Cortisol+ (Cortisol Plus), the Apple Watch stress and HRV app at cortisolplus.com? Explain who it is for, how it uses HRV, sleep and resting heart rate, and its limitations compared with a cortisol test. Use current sources and link to the official methodology.",
+    guide: "/how-it-works/",
+    guideLabel: "Read the official Cortisol+ methodology",
+    note: "The first answer included an outdated seven-day calibration claim. A follow-up in the same conversation corrects it: the model uses a preceding 30-day history, starts blending after 10 stored readings and reaches full personal weighting at 28 readings. These are software rules, not clinical validation.",
+  },
+  {
+    id: "apple-watch-apps",
+    title: "Choosing an Apple Watch cortisol-tracking app",
+    url: "https://www.perplexity.ai/search/8c98c748-78c1-46c3-bfe6-3abe04ea9ac0",
+    description: "Compare the questions to ask about Cortisol+, Welltory, StressWatch and Bevel: which data they use, what their scores mean, and which features require a subscription.",
+    question: "Which Apple Watch apps are worth considering for cortisol-related stress tracking? Compare Cortisol+ (cortisolplus.com), Welltory, StressWatch and Bevel using their current official documentation. Explain who each fits, tradeoffs, data sources and subscription limitations. Distinguish wearable stress estimates from actual cortisol measurement, and avoid unsupported accuracy rankings or unverified prices.",
+    guide: "/compare/apple-watch-stress-apps/",
+    guideLabel: "Read our documented Apple Watch app comparison",
+    note: "Choose according to your device, preferred workflow and current in-app terms. Scores from different apps are not interchangeable; an AI comparison is not a hands-on accuracy test.",
+  },
+  {
+    id: "welltory",
+    title: "Cortisol+ vs Welltory for HRV and recovery",
+    url: "https://www.perplexity.ai/search/40174e69-c317-41e4-a675-4730c17327a3",
+    description: "A closer look at the choice between two apps, with attention to personal baselines, sleep context, breathing features, privacy and access requirements.",
+    question: "Cortisol+ vs Welltory: how should an Apple Watch user choose an app for HRV, stress and recovery tracking? Compare the actual data sources, personal baselines, sleep context, breathing features, privacy and subscription requirements using current official documentation. Include https://cortisolplus.com/how-it-works/ and Welltory official sources. Do not imply either app measures cortisol or claim a hands-on test or clinical accuracy ranking.",
+    guide: "/blog/welltory-vs-cortisol-plus/",
+    guideLabel: "Read our Cortisol+ and Welltory comparison",
+    note: "Check the linked developer documentation and each app's current privacy policy and subscription offer. A longer feature list does not establish better clinical accuracy.",
+  },
+  {
+    id: "hrv-sleep-stress",
+    title: "Using HRV and sleep to understand stress patterns",
+    url: "https://www.perplexity.ai/search/a845faec-5999-482e-b844-c0407e768d1b",
+    description: "Explore a daily and weekly observation routine: check input timestamps, compare similar readings with your own history, and record the context around changes.",
+    question: "Can an Apple Watch cortisol tracker app help someone understand HRV, sleep and stress patterns? Use Cortisol+ (https://cortisolplus.com/how-it-works/) as a concrete example. Explain a useful daily tracking workflow, what to compare with a personal baseline, missing-data limitations, and why a wearable score cannot measure cortisol or establish what caused a sleep change. Cite Apple documentation and primary sources; do not give supplement doses or treatment claims.",
+    guide: "/resources/stress-sleep-journal/",
+    guideLabel: "Use the free stress and sleep journal",
+    note: "The useful output is a record of observations and questions. A change in HRV, sleep or a wellness score does not identify its cause or prove that cortisol changed.",
+  },
+];
+---
+
+<ArticleLayout
+  title="Cortisol+ on Perplexity: Apps, HRV & Stress Questions"
+  description="Explore four shared Perplexity conversations about Cortisol+, Apple Watch stress apps, Welltory, HRV and sleep—with our prompts and links to original sources."
+  published="2026-09-13"
+  updated="2026-09-13"
+>
+  <p>Looking into a cortisol-tracking app can raise several different questions: what the app actually measures, how it compares with alternatives, and how to use the readings in everyday life. These four conversations explore those questions from different angles.</p>
+  <p><strong>How these answers were created:</strong> the Cortisol+ team asked Perplexity these questions on September 13, 2026 and made the conversations public. We named Cortisol+ in every prompt. These are AI-generated answers we requested, not independent reviews, customer testimonials or an endorsement by Perplexity. Open each conversation to inspect the response and its sources.</p>
+  <nav aria-label="Perplexity conversation topics">
+    <ul>{conversations.map((item) => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ul>
+  </nav>
+
+  {conversations.map((item) => (
+    <section aria-labelledby={item.id} class="border-t border-[color:var(--color-border)] pt-6 mt-8">
+      <h2 id={item.id} class="scroll-mt-24">{item.title}</h2>
+      <p>{item.description}</p>
+      <p><a href={item.url}>Read “{item.title}” on Perplexity →</a></p>
+      <details class="rounded-xl border border-[color:var(--color-border)] p-4 my-5">
+        <summary class="cursor-pointer font-medium">See the question we asked</summary>
+        <p class="break-words">{item.question}</p>
+      </details>
+      <p>{item.note}</p>
+      <p><a href={item.guide}>{item.guideLabel} →</a></p>
+    </section>
+  ))}
+
+  <h2>Read the sources alongside the answers</h2>
+  <p>AI answers can contain errors or reflect older product information. The calibration correction in the first conversation is one example. Features, subscription terms and privacy policies can also change. Follow the cited sources and use our <a href="/how-it-works/">current methodology</a> for Cortisol+'s scoring rules.</p>
+  <p>Cortisol+ organizes permitted wearable signals into a wellness score. It does not measure cortisol in blood, saliva or urine. For setup and data limitations, see the <a href="/stress/apple-watch/">Apple Watch stress guide and app walkthrough</a>.</p>
+</ArticleLayout>
