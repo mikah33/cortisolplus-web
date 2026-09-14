@@ -1,66 +1,66 @@
 {
   "gsc_property": "https://cortisolplus.com/",
-  "pulled_at": "2026-09-09T17:17:53.285940+00:00",
+  "pulled_at": "2026-09-14T03:00:22.181302+00:00",
   "date_range": {
-    "start": "2026-08-31",
-    "end": "2026-09-06"
+    "start": "2026-09-05",
+    "end": "2026-09-11"
   },
   "status": "ok",
   "data_state": "final",
-  "fresh_until": "2026-09-17",
+  "fresh_until": "2026-09-22",
   "totals": [
     {
-      "clicks": 5,
-      "impressions": 495,
-      "ctr": 0.010101010101010102,
-      "position": 29.115151515151513
+      "clicks": 7,
+      "impressions": 468,
+      "ctr": 0.014957264957264958,
+      "position": 25.561965811965813
     }
   ],
   "queries": [
     {
       "keys": [
-        "40ms hrv"
+        "cortisol plus"
       ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 68
+      "clicks": 3,
+      "impressions": 30,
+      "ctr": 0.1,
+      "position": 4.166666666666666
     },
     {
       "keys": [
-        "apple watch cortidol levels"
+        "cortisol app"
+      ],
+      "clicks": 1,
+      "impressions": 3,
+      "ctr": 0.3333333333333333,
+      "position": 9
+    },
+    {
+      "keys": [
+        "60 second cortisol quiz"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 11
+      "position": 9
     },
     {
       "keys": [
         "apple watch cortisol"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 4,
       "ctr": 0,
-      "position": 10.2
+      "position": 10.75
     },
     {
       "keys": [
-        "apple watch cortisol levels"
+        "apple watch stress monitor"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 11
-    },
-    {
-      "keys": [
-        "apple watch stress"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 15
+      "position": 18
     },
     {
       "keys": [
@@ -73,12 +73,30 @@
     },
     {
       "keys": [
+        "apple watch stress tracking"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 18
+    },
+    {
+      "keys": [
         "average hrv by age"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 4,
       "ctr": 0,
       "position": 74
+    },
+    {
+      "keys": [
+        "average hrv by age and gender"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 77
     },
     {
       "keys": [
@@ -91,57 +109,21 @@
     },
     {
       "keys": [
-        "can an apple watch measure cortisol"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 10
-    },
-    {
-      "keys": [
-        "can apple watch detect high cortisol"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 1
-    },
-    {
-      "keys": [
         "can apple watch measure cortisol"
       ],
       "clicks": 0,
-      "impressions": 8,
+      "impressions": 4,
       "ctr": 0,
-      "position": 9.125
-    },
-    {
-      "keys": [
-        "can apple watch measure cortisol levels"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 1
-    },
-    {
-      "keys": [
-        "can apple watch monitor stress"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 30
+      "position": 8
     },
     {
       "keys": [
         "can apple watch track cortisol"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 7
+      "position": 9.5
     },
     {
       "keys": [
@@ -154,52 +136,7 @@
     },
     {
       "keys": [
-        "cortisol app"
-      ],
-      "clicks": 0,
-      "impressions": 7,
-      "ctr": 0,
-      "position": 8.428571428571429
-    },
-    {
-      "keys": [
-        "cortisol apple watch"
-      ],
-      "clicks": 0,
-      "impressions": 9,
-      "ctr": 0,
-      "position": 7.777777777777778
-    },
-    {
-      "keys": [
-        "cortisol face"
-      ],
-      "clicks": 0,
-      "impressions": 9,
-      "ctr": 0,
-      "position": 95.22222222222223
-    },
-    {
-      "keys": [
-        "cortisol face before after"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 70
-    },
-    {
-      "keys": [
-        "cortisol plus"
-      ],
-      "clicks": 0,
-      "impressions": 17,
-      "ctr": 0,
-      "position": 4.411764705882353
-    },
-    {
-      "keys": [
-        "cortisol tracker app"
+        "can my apple watch measure cortisol levels"
       ],
       "clicks": 0,
       "impressions": 1,
@@ -208,7 +145,97 @@
     },
     {
       "keys": [
-        "cortisol watch"
+        "cortisol apple watch"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 9.5
+    },
+    {
+      "keys": [
+        "cortisol chin"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 84
+    },
+    {
+      "keys": [
+        "cortisol face"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 91.25
+    },
+    {
+      "keys": [
+        "cortisol tracker"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 54
+    },
+    {
+      "keys": [
+        "cushing face"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 68.5
+    },
+    {
+      "keys": [
+        "cushing face before and after high cortisol"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 72.5
+    },
+    {
+      "keys": [
+        "cushingoid face"
+      ],
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 70.4
+    },
+    {
+      "keys": [
+        "cushingoid facial appearance"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 68
+    },
+    {
+      "keys": [
+        "cushingoid facies"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 88
+    },
+    {
+      "keys": [
+        "does apple watch measure cortisol"
+      ],
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 8.666666666666668
+    },
+    {
+      "keys": [
+        "does apple watch measure stress like garmin"
       ],
       "clicks": 0,
       "impressions": 1,
@@ -217,111 +244,66 @@
     },
     {
       "keys": [
-        "cushing disease face"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 78
-    },
-    {
-      "keys": [
-        "cushing face"
-      ],
-      "clicks": 0,
-      "impressions": 4,
-      "ctr": 0,
-      "position": 70.75
-    },
-    {
-      "keys": [
-        "cushing syndrome face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 85.5
-    },
-    {
-      "keys": [
-        "cushing's disease face"
-      ],
-      "clicks": 0,
-      "impressions": 3,
-      "ctr": 0,
-      "position": 77
-    },
-    {
-      "keys": [
-        "cushing's face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 73
-    },
-    {
-      "keys": [
-        "cushing's syndrome face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 78.5
-    },
-    {
-      "keys": [
-        "cushingoid face"
-      ],
-      "clicks": 0,
-      "impressions": 4,
-      "ctr": 0,
-      "position": 71.25
-    },
-    {
-      "keys": [
         "does apple watch track cortisol"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 4,
       "ctr": 0,
-      "position": 7.8
+      "position": 8.75
     },
     {
       "keys": [
-        "face before and after high cortisol"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 56
-    },
-    {
-      "keys": [
-        "fitbit stress tracking"
+        "does apple watch track stress"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
+      "position": 24
+    },
+    {
+      "keys": [
+        "facial plethora cushing"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 71
+    },
+    {
+      "keys": [
+        "fitbit stress management score"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 21
+    },
+    {
+      "keys": [
+        "fitbit stress management score meaning"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 18
+    },
+    {
+      "keys": [
+        "fitbit stress score"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11
     },
     {
       "keys": [
         "good hrv by age"
       ],
       "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 73
-    },
-    {
-      "keys": [
-        "healthy hrv by age"
-      ],
-      "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 79
+      "position": 73
     },
     {
       "keys": [
@@ -330,7 +312,7 @@
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 58
+      "position": 61.5
     },
     {
       "keys": [
@@ -339,61 +321,70 @@
       "clicks": 0,
       "impressions": 5,
       "ctr": 0,
-      "position": 70.6
+      "position": 75
     },
     {
       "keys": [
         "heart rate variability chart by age"
       ],
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 5,
       "ctr": 0,
-      "position": 74
+      "position": 79
     },
     {
       "keys": [
         "heart rate variability chart by age and gender"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 78.5
+      "position": 82
     },
     {
       "keys": [
-        "heart rate variability normal range by age"
+        "heart rate variability range by age"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66
+    },
+    {
+      "keys": [
+        "heart rate variability rmssd"
       ],
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 76.5
+      "position": 68.5
     },
     {
       "keys": [
         "heart rate variability stress"
       ],
       "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 58
-    },
-    {
-      "keys": [
-        "high cortisol face"
-      ],
-      "clicks": 0,
       "impressions": 3,
       "ctr": 0,
-      "position": 84
+      "position": 62.666666666666664
     },
     {
       "keys": [
-        "high cortisol vs low cortisol face"
+        "high cortisol levels face"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 73
+      "position": 94
+    },
+    {
+      "keys": [
+        "high cortisol moon face"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 100
     },
     {
       "keys": [
@@ -409,9 +400,27 @@
         "how does fitbit measure stress"
       ],
       "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 14.5
+    },
+    {
+      "keys": [
+        "how to track stress levels on fitbit"
+      ],
+      "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
+      "position": 29
+    },
+    {
+      "keys": [
+        "hr variability by age"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 65
     },
     {
       "keys": [
@@ -424,21 +433,30 @@
     },
     {
       "keys": [
+        "hrv average by age"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 74
+    },
+    {
+      "keys": [
         "hrv by age"
       ],
       "clicks": 0,
       "impressions": 4,
       "ctr": 0,
-      "position": 67.5
+      "position": 73
     },
     {
       "keys": [
         "hrv by age and gender"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 2,
       "ctr": 0,
-      "position": 81
+      "position": 83.5
     },
     {
       "keys": [
@@ -447,7 +465,7 @@
       "clicks": 0,
       "impressions": 4,
       "ctr": 0,
-      "position": 74.25
+      "position": 78.25
     },
     {
       "keys": [
@@ -460,15 +478,6 @@
     },
     {
       "keys": [
-        "hrv distribution by age"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 78
-    },
-    {
-      "keys": [
         "hrv for stress"
       ],
       "clicks": 0,
@@ -478,21 +487,12 @@
     },
     {
       "keys": [
-        "hrv for women by age"
+        "hrv normal range by age"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 78
-    },
-    {
-      "keys": [
-        "hrv normal range by age"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 73
+      "position": 72
     },
     {
       "keys": [
@@ -505,48 +505,66 @@
     },
     {
       "keys": [
+        "hrv ranges by age"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 55
+    },
+    {
+      "keys": [
         "hrv rmssd"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 88
-    },
-    {
-      "keys": [
-        "hrv rmssd meaning"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 83
-    },
-    {
-      "keys": [
-        "hrv sdnn"
       ],
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 61
+      "position": 87.5
+    },
+    {
+      "keys": [
+        "hrv status by age"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 76
+    },
+    {
+      "keys": [
+        "hrv stress"
+      ],
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 63
+    },
+    {
+      "keys": [
+        "is cortisol face real"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 100
     },
     {
       "keys": [
         "low cortisol high cortisol face"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 81
+      "position": 78.5
     },
     {
       "keys": [
-        "low sdnn"
+        "normal heart rate variability by age"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 49
+      "position": 80
     },
     {
       "keys": [
@@ -559,12 +577,30 @@
     },
     {
       "keys": [
+        "normal heart rate variability in milliseconds"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5
+    },
+    {
+      "keys": [
         "normal hrv by age"
       ],
       "clicks": 0,
       "impressions": 3,
       "ctr": 0,
-      "position": 76.66666666666667
+      "position": 71.66666666666667
+    },
+    {
+      "keys": [
+        "plethora on face"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 79
     },
     {
       "keys": [
@@ -573,34 +609,16 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 72
+      "position": 66
     },
     {
       "keys": [
         "rmssd"
       ],
       "clicks": 0,
-      "impressions": 23,
+      "impressions": 21,
       "ctr": 0,
-      "position": 66.6086956521739
-    },
-    {
-      "keys": [
-        "rmssd full form"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 58
-    },
-    {
-      "keys": [
-        "rmssd heart rate"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 79.5
+      "position": 63.095238095238095
     },
     {
       "keys": [
@@ -609,43 +627,25 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 63
+      "position": 62
     },
     {
       "keys": [
-        "rmssd hrv range"
+        "rmssd hrv"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 64
-    },
-    {
-      "keys": [
-        "rmssd low meaning"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 73
+      "position": 84
     },
     {
       "keys": [
         "rmssd meaning"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 80.5
-    },
-    {
-      "keys": [
-        "rmssd normal range"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 53
+      "position": 80.33333333333333
     },
     {
       "keys": [
@@ -663,43 +663,16 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 51
-    },
-    {
-      "keys": [
-        "rmssd vs sdnn"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 45
-    },
-    {
-      "keys": [
-        "round face syndrome"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 73
+      "position": 60
     },
     {
       "keys": [
         "sdnn"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 5,
       "ctr": 0,
-      "position": 49.25
-    },
-    {
-      "keys": [
-        "sdnn heart rate"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 52
+      "position": 44.6
     },
     {
       "keys": [
@@ -712,30 +685,48 @@
     },
     {
       "keys": [
+        "sdnn hrv"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 55
+    },
+    {
+      "keys": [
         "sdnn meaning"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 1,
       "ctr": 0,
-      "position": 54
+      "position": 53
     },
     {
       "keys": [
-        "sdnn normal range"
+        "sleeping hrv by age"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 82
+    },
+    {
+      "keys": [
+        "stress and face swelling"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 40
+      "position": 84
     },
     {
       "keys": [
-        "stress apple watch"
+        "stress and heart rate variability"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 1
+      "position": 65
     },
     {
       "keys": [
@@ -748,30 +739,21 @@
     },
     {
       "keys": [
-        "what causes cortisol face"
+        "stress level apple watch"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 93
+      "position": 24
     },
     {
       "keys": [
-        "what does body responses mean on fitbit"
+        "track stress levels on fitbit"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
-    },
-    {
-      "keys": [
-        "what does cortisol face look like"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 75
+      "position": 27
     },
     {
       "keys": [
@@ -780,89 +762,62 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 11
+      "position": 10
     },
     {
       "keys": [
-        "what is cortisol face"
+        "what is rmssd"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 98
-    },
-    {
-      "keys": [
-        "what is rmssd in heart rate variability"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 66
+      "position": 77
     },
     {
       "keys": [
         "what is sdnn"
       ],
       "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 50
-    },
-    {
-      "keys": [
-        "what is sdnn heart"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 59
-    },
-    {
-      "keys": [
-        "what is sdnn in heart rate"
-      ],
-      "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 59.5
+      "position": 44.5
     }
   ],
   "pages": [
     {
       "keys": [
-        "https://cortisolplus.com/download/"
-      ],
-      "clicks": 2,
-      "impressions": 20,
-      "ctr": 0.1,
-      "position": 8.5
-    },
-    {
-      "keys": [
         "https://cortisolplus.com/"
       ],
-      "clicks": 1,
-      "impressions": 63,
-      "ctr": 0.015873015873015872,
-      "position": 7.603174603174603
+      "clicks": 5,
+      "impressions": 80,
+      "ctr": 0.0625,
+      "position": 7.0125
     },
     {
       "keys": [
-        "https://cortisolplus.com/fitbit/"
+        "https://cortisolplus.com/download/"
       ],
       "clicks": 1,
-      "impressions": 44,
-      "ctr": 0.022727272727272728,
-      "position": 11.931818181818182
+      "impressions": 20,
+      "ctr": 0.05,
+      "position": 8.2
     },
     {
       "keys": [
-        "https://cortisolplus.com/fitbit/cortisol/"
+        "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 1,
-      "impressions": 39,
-      "ctr": 0.02564102564102564,
+      "impressions": 96,
+      "ctr": 0.010416666666666666,
+      "position": 8.875
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/blog"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
       "position": 5
     },
     {
@@ -870,27 +825,45 @@
         "https://cortisolplus.com/blog/ashwagandha-vs-rhodiola-cortisol/"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 12,
       "ctr": 0,
-      "position": 6.5
+      "position": 6.333333333333333
     },
     {
       "keys": [
-        "https://cortisolplus.com/blog/cortisol-acne-breakouts/"
+        "https://cortisolplus.com/blog/cortisol-3am-wakeup/"
       ],
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 48.5
+      "position": 6
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/blog/cortisol-anxiety-link/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
     },
     {
       "keys": [
         "https://cortisolplus.com/blog/cortisol-bloating-gut/"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 4
+      "position": 11
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/blog/cortisol-fatigue-tired/"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 5
     },
     {
       "keys": [
@@ -903,66 +876,66 @@
     },
     {
       "keys": [
-        "https://cortisolplus.com/blog/cortisol-mood-swings/"
+        "https://cortisolplus.com/blog/cortisol-sleep-insomnia/"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 10
+      "position": 3.5
     },
     {
       "keys": [
         "https://cortisolplus.com/blog/cortisol-spike-causes/"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 2,
       "ctr": 0,
-      "position": 30.8
-    },
-    {
-      "keys": [
-        "https://cortisolplus.com/blog/cortisol-spike-meaning/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 77
+      "position": 7.5
     },
     {
       "keys": [
         "https://cortisolplus.com/blog/low-cortisol-elite-meme/"
       ],
       "clicks": 0,
-      "impressions": 13,
+      "impressions": 19,
       "ctr": 0,
-      "position": 8.461538461538462
+      "position": 7.473684210526316
     },
     {
       "keys": [
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
+        "https://cortisolplus.com/cortisol"
       ],
       "clicks": 0,
-      "impressions": 14,
+      "impressions": 4,
       "ctr": 0,
-      "position": 76.5
+      "position": 5
     },
     {
       "keys": [
         "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
       ],
       "clicks": 0,
-      "impressions": 28,
+      "impressions": 29,
       "ctr": 0,
-      "position": 79.89285714285714
+      "position": 69.20689655172414
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/features/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5
     },
     {
       "keys": [
         "https://cortisolplus.com/features/hrv-stress-monitoring/"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 5,
       "ctr": 0,
-      "position": 7
+      "position": 6.6
     },
     {
       "keys": [
@@ -975,70 +948,125 @@
     },
     {
       "keys": [
+        "https://cortisolplus.com/fitbit/"
+      ],
+      "clicks": 0,
+      "impressions": 49,
+      "ctr": 0,
+      "position": 10.612244897959183
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/fitbit/cortisol/"
+      ],
+      "clicks": 0,
+      "impressions": 41,
+      "ctr": 0,
+      "position": 4.682926829268293
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/how-it-works"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 5
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/how-it-works/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11
+    },
+    {
+      "keys": [
         "https://cortisolplus.com/hrv/"
       ],
       "clicks": 0,
-      "impressions": 10,
+      "impressions": 16,
       "ctr": 0,
-      "position": 50.5
+      "position": 48.3125
     },
     {
       "keys": [
         "https://cortisolplus.com/hrv/apple-watch/"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 4,
       "ctr": 0,
-      "position": 10.5
+      "position": 5.5
     },
     {
       "keys": [
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 146,
+      "impressions": 121,
       "ctr": 0,
-      "position": 53.84931506849315
+      "position": 55.85950413223141
     },
     {
       "keys": [
-        "https://cortisolplus.com/stress/apple-watch/"
+        "https://cortisolplus.com/stress/"
       ],
       "clicks": 0,
-      "impressions": 118,
+      "impressions": 2,
       "ctr": 0,
-      "position": 8.296610169491526
+      "position": 3
+    },
+    {
+      "keys": [
+        "https://cortisolplus.com/tools"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 5
     },
     {
       "keys": [
         "https://cortisolplus.com/tools/"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 10
+      "position": 8.5
     }
   ],
   "query_x_page": [
     {
       "keys": [
-        "40ms hrv",
-        "https://cortisolplus.com/hrv/normal-range/"
+        "cortisol plus",
+        "https://cortisolplus.com/"
       ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 68
+      "clicks": 3,
+      "impressions": 30,
+      "ctr": 0.1,
+      "position": 4.166666666666666
     },
     {
       "keys": [
-        "apple watch cortidol levels",
-        "https://cortisolplus.com/stress/apple-watch/"
+        "cortisol app",
+        "https://cortisolplus.com/"
+      ],
+      "clicks": 1,
+      "impressions": 3,
+      "ctr": 0.3333333333333333,
+      "position": 9
+    },
+    {
+      "keys": [
+        "60 second cortisol quiz",
+        "https://cortisolplus.com/tools/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 11
+      "position": 9
     },
     {
       "keys": [
@@ -1046,29 +1074,19 @@
         "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 4,
       "ctr": 0,
-      "position": 10.2
+      "position": 10.75
     },
     {
       "keys": [
-        "apple watch cortisol levels",
+        "apple watch stress monitor",
         "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 11
-    },
-    {
-      "keys": [
-        "apple watch stress",
-        "https://cortisolplus.com/stress/apple-watch/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 15
+      "position": 18
     },
     {
       "keys": [
@@ -1082,13 +1100,33 @@
     },
     {
       "keys": [
+        "apple watch stress tracking",
+        "https://cortisolplus.com/stress/apple-watch/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 18
+    },
+    {
+      "keys": [
         "average hrv by age",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 4,
       "ctr": 0,
       "position": 74
+    },
+    {
+      "keys": [
+        "average hrv by age and gender",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 77
     },
     {
       "keys": [
@@ -1102,53 +1140,13 @@
     },
     {
       "keys": [
-        "can an apple watch measure cortisol",
-        "https://cortisolplus.com/stress/apple-watch/"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 10
-    },
-    {
-      "keys": [
-        "can apple watch detect high cortisol",
-        "https://cortisolplus.com/stress/apple-watch/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 1
-    },
-    {
-      "keys": [
         "can apple watch measure cortisol",
         "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
-      "impressions": 8,
+      "impressions": 4,
       "ctr": 0,
-      "position": 9.125
-    },
-    {
-      "keys": [
-        "can apple watch measure cortisol levels",
-        "https://cortisolplus.com/stress/apple-watch/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 1
-    },
-    {
-      "keys": [
-        "can apple watch monitor stress",
-        "https://cortisolplus.com/stress/apple-watch/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 30
+      "position": 8
     },
     {
       "keys": [
@@ -1156,9 +1154,9 @@
         "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 7
+      "position": 9.5
     },
     {
       "keys": [
@@ -1172,58 +1170,8 @@
     },
     {
       "keys": [
-        "cortisol app",
-        "https://cortisolplus.com/"
-      ],
-      "clicks": 0,
-      "impressions": 7,
-      "ctr": 0,
-      "position": 8.428571428571429
-    },
-    {
-      "keys": [
-        "cortisol apple watch",
+        "can my apple watch measure cortisol levels",
         "https://cortisolplus.com/stress/apple-watch/"
-      ],
-      "clicks": 0,
-      "impressions": 9,
-      "ctr": 0,
-      "position": 7.777777777777778
-    },
-    {
-      "keys": [
-        "cortisol face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
-      "impressions": 9,
-      "ctr": 0,
-      "position": 95.22222222222223
-    },
-    {
-      "keys": [
-        "cortisol face before after",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 70
-    },
-    {
-      "keys": [
-        "cortisol plus",
-        "https://cortisolplus.com/"
-      ],
-      "clicks": 0,
-      "impressions": 17,
-      "ctr": 0,
-      "position": 4.411764705882353
-    },
-    {
-      "keys": [
-        "cortisol tracker app",
-        "https://cortisolplus.com/"
       ],
       "clicks": 0,
       "impressions": 1,
@@ -1232,8 +1180,158 @@
     },
     {
       "keys": [
-        "cortisol watch",
+        "cortisol apple watch",
+        "https://cortisolplus.com/stress/apple-watch/"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 9.5
+    },
+    {
+      "keys": [
+        "cortisol chin",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 84
+    },
+    {
+      "keys": [
+        "cortisol face",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 91.25
+    },
+    {
+      "keys": [
+        "cortisol plus",
+        "https://cortisolplus.com/blog"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
+    },
+    {
+      "keys": [
+        "cortisol plus",
+        "https://cortisolplus.com/cortisol"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
+    },
+    {
+      "keys": [
+        "cortisol plus",
+        "https://cortisolplus.com/download/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
+    },
+    {
+      "keys": [
+        "cortisol plus",
+        "https://cortisolplus.com/how-it-works"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
+    },
+    {
+      "keys": [
+        "cortisol plus",
+        "https://cortisolplus.com/tools"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
+    },
+    {
+      "keys": [
+        "cortisol tracker",
         "https://cortisolplus.com/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 54
+    },
+    {
+      "keys": [
+        "cushing face",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 68.5
+    },
+    {
+      "keys": [
+        "cushing face before and after high cortisol",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 72.5
+    },
+    {
+      "keys": [
+        "cushingoid face",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 70.4
+    },
+    {
+      "keys": [
+        "cushingoid facial appearance",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 68
+    },
+    {
+      "keys": [
+        "cushingoid facies",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 88
+    },
+    {
+      "keys": [
+        "does apple watch measure cortisol",
+        "https://cortisolplus.com/stress/apple-watch/"
+      ],
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 8.666666666666668
+    },
+    {
+      "keys": [
+        "does apple watch measure stress like garmin",
+        "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
       "impressions": 1,
@@ -1242,123 +1340,63 @@
     },
     {
       "keys": [
-        "cushing disease face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 78
-    },
-    {
-      "keys": [
-        "cushing face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 74
-    },
-    {
-      "keys": [
-        "cushing face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
-      "impressions": 3,
-      "ctr": 0,
-      "position": 69.66666666666667
-    },
-    {
-      "keys": [
-        "cushing syndrome face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 85.5
-    },
-    {
-      "keys": [
-        "cushing's disease face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 3,
-      "ctr": 0,
-      "position": 77
-    },
-    {
-      "keys": [
-        "cushing's face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 73
-    },
-    {
-      "keys": [
-        "cushing's syndrome face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 78.5
-    },
-    {
-      "keys": [
-        "cushingoid face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 70.5
-    },
-    {
-      "keys": [
-        "cushingoid face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 72
-    },
-    {
-      "keys": [
         "does apple watch track cortisol",
         "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 4,
       "ctr": 0,
-      "position": 7.8
+      "position": 8.75
     },
     {
       "keys": [
-        "face before and after high cortisol",
+        "does apple watch track stress",
+        "https://cortisolplus.com/stress/apple-watch/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 24
+    },
+    {
+      "keys": [
+        "facial plethora cushing",
         "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 1,
       "ctr": 0,
-      "position": 56
+      "position": 71
     },
     {
       "keys": [
-        "fitbit stress tracking",
+        "fitbit stress management score",
         "https://cortisolplus.com/fitbit/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
+      "position": 21
+    },
+    {
+      "keys": [
+        "fitbit stress management score meaning",
+        "https://cortisolplus.com/fitbit/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 18
+    },
+    {
+      "keys": [
+        "fitbit stress score",
+        "https://cortisolplus.com/fitbit/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 11
     },
     {
       "keys": [
@@ -1366,19 +1404,9 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 73
-    },
-    {
-      "keys": [
-        "healthy hrv by age",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 79
+      "position": 73
     },
     {
       "keys": [
@@ -1388,7 +1416,7 @@
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 58
+      "position": 61.5
     },
     {
       "keys": [
@@ -1398,7 +1426,7 @@
       "clicks": 0,
       "impressions": 5,
       "ctr": 0,
-      "position": 70.6
+      "position": 75
     },
     {
       "keys": [
@@ -1406,9 +1434,9 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 5,
       "ctr": 0,
-      "position": 74
+      "position": 79
     },
     {
       "keys": [
@@ -1416,19 +1444,29 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 78.5
+      "position": 82
     },
     {
       "keys": [
-        "heart rate variability normal range by age",
+        "heart rate variability range by age",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66
+    },
+    {
+      "keys": [
+        "heart rate variability rmssd",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 76.5
+      "position": 68.5
     },
     {
       "keys": [
@@ -1436,29 +1474,29 @@
         "https://cortisolplus.com/hrv/"
       ],
       "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 58
-    },
-    {
-      "keys": [
-        "high cortisol face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
       "impressions": 3,
       "ctr": 0,
-      "position": 84
+      "position": 62.666666666666664
     },
     {
       "keys": [
-        "high cortisol vs low cortisol face",
+        "high cortisol levels face",
         "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 73
+      "position": 94
+    },
+    {
+      "keys": [
+        "high cortisol moon face",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 100
     },
     {
       "keys": [
@@ -1476,9 +1514,29 @@
         "https://cortisolplus.com/fitbit/"
       ],
       "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 14.5
+    },
+    {
+      "keys": [
+        "how to track stress levels on fitbit",
+        "https://cortisolplus.com/fitbit/"
+      ],
+      "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
+      "position": 29
+    },
+    {
+      "keys": [
+        "hr variability by age",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 65
     },
     {
       "keys": [
@@ -1492,13 +1550,23 @@
     },
     {
       "keys": [
+        "hrv average by age",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 74
+    },
+    {
+      "keys": [
         "hrv by age",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 4,
       "ctr": 0,
-      "position": 67.5
+      "position": 73
     },
     {
       "keys": [
@@ -1506,9 +1574,9 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 2,
       "ctr": 0,
-      "position": 81
+      "position": 83.5
     },
     {
       "keys": [
@@ -1518,7 +1586,7 @@
       "clicks": 0,
       "impressions": 4,
       "ctr": 0,
-      "position": 74.25
+      "position": 78.25
     },
     {
       "keys": [
@@ -1532,16 +1600,6 @@
     },
     {
       "keys": [
-        "hrv distribution by age",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 78
-    },
-    {
-      "keys": [
         "hrv for stress",
         "https://cortisolplus.com/hrv/"
       ],
@@ -1552,23 +1610,13 @@
     },
     {
       "keys": [
-        "hrv for women by age",
+        "hrv normal range by age",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 78
-    },
-    {
-      "keys": [
-        "hrv normal range by age",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 73
+      "position": 72
     },
     {
       "keys": [
@@ -1582,33 +1630,53 @@
     },
     {
       "keys": [
+        "hrv ranges by age",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 55
+    },
+    {
+      "keys": [
         "hrv rmssd",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 88
-    },
-    {
-      "keys": [
-        "hrv rmssd meaning",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 83
-    },
-    {
-      "keys": [
-        "hrv sdnn",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 61
+      "position": 87.5
+    },
+    {
+      "keys": [
+        "hrv status by age",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 76
+    },
+    {
+      "keys": [
+        "hrv stress",
+        "https://cortisolplus.com/hrv/"
+      ],
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 63
+    },
+    {
+      "keys": [
+        "is cortisol face real",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 100
     },
     {
       "keys": [
@@ -1616,19 +1684,19 @@
         "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 81
+      "position": 78.5
     },
     {
       "keys": [
-        "low sdnn",
+        "normal heart rate variability by age",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 49
+      "position": 80
     },
     {
       "keys": [
@@ -1642,13 +1710,33 @@
     },
     {
       "keys": [
+        "normal heart rate variability in milliseconds",
+        "https://cortisolplus.com/hrv/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5
+    },
+    {
+      "keys": [
         "normal hrv by age",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 3,
       "ctr": 0,
-      "position": 76.66666666666667
+      "position": 71.66666666666667
+    },
+    {
+      "keys": [
+        "plethora on face",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 79
     },
     {
       "keys": [
@@ -1658,7 +1746,7 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 72
+      "position": 66
     },
     {
       "keys": [
@@ -1666,29 +1754,9 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 23,
+      "impressions": 21,
       "ctr": 0,
-      "position": 66.6086956521739
-    },
-    {
-      "keys": [
-        "rmssd full form",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 58
-    },
-    {
-      "keys": [
-        "rmssd heart rate",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 79.5
+      "position": 63.095238095238095
     },
     {
       "keys": [
@@ -1698,27 +1766,17 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 63
+      "position": 62
     },
     {
       "keys": [
-        "rmssd hrv range",
+        "rmssd hrv",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 64
-    },
-    {
-      "keys": [
-        "rmssd low meaning",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 73
+      "position": 84
     },
     {
       "keys": [
@@ -1726,19 +1784,9 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 3,
       "ctr": 0,
-      "position": 80.5
-    },
-    {
-      "keys": [
-        "rmssd normal range",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 53
+      "position": 80.33333333333333
     },
     {
       "keys": [
@@ -1758,27 +1806,7 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 51
-    },
-    {
-      "keys": [
-        "rmssd vs sdnn",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 45
-    },
-    {
-      "keys": [
-        "round face syndrome",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 73
+      "position": 60
     },
     {
       "keys": [
@@ -1786,19 +1814,9 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 5,
       "ctr": 0,
-      "position": 49.25
-    },
-    {
-      "keys": [
-        "sdnn heart rate",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 52
+      "position": 44.6
     },
     {
       "keys": [
@@ -1812,33 +1830,53 @@
     },
     {
       "keys": [
+        "sdnn hrv",
+        "https://cortisolplus.com/hrv/normal-range/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 55
+    },
+    {
+      "keys": [
         "sdnn meaning",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 1,
       "ctr": 0,
-      "position": 54
+      "position": 53
     },
     {
       "keys": [
-        "sdnn normal range",
+        "sleeping hrv by age",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 40
+      "position": 82
     },
     {
       "keys": [
-        "stress apple watch",
-        "https://cortisolplus.com/stress/apple-watch/"
+        "stress and face swelling",
+        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 1
+      "position": 84
+    },
+    {
+      "keys": [
+        "stress and heart rate variability",
+        "https://cortisolplus.com/hrv/"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 65
     },
     {
       "keys": [
@@ -1852,33 +1890,23 @@
     },
     {
       "keys": [
-        "what causes cortisol face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
+        "stress level apple watch",
+        "https://cortisolplus.com/stress/apple-watch/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 93
+      "position": 24
     },
     {
       "keys": [
-        "what does body responses mean on fitbit",
+        "track stress levels on fitbit",
         "https://cortisolplus.com/fitbit/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
-    },
-    {
-      "keys": [
-        "what does cortisol face look like",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 75
+      "position": 27
     },
     {
       "keys": [
@@ -1888,27 +1916,17 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 11
+      "position": 10
     },
     {
       "keys": [
-        "what is cortisol face",
-        "https://cortisolplus.com/cortisol/symptoms/cortisol-face/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 98
-    },
-    {
-      "keys": [
-        "what is rmssd in heart rate variability",
+        "what is rmssd",
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 66
+      "position": 77
     },
     {
       "keys": [
@@ -1916,58 +1934,38 @@
         "https://cortisolplus.com/hrv/normal-range/"
       ],
       "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 50
-    },
-    {
-      "keys": [
-        "what is sdnn heart",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 59
-    },
-    {
-      "keys": [
-        "what is sdnn in heart rate",
-        "https://cortisolplus.com/hrv/normal-range/"
-      ],
-      "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 59.5
+      "position": 44.5
     }
   ],
   "device": [
     {
       "keys": [
-        "DESKTOP"
+        "MOBILE"
       ],
       "clicks": 4,
-      "impressions": 231,
-      "ctr": 0.017316017316017316,
-      "position": 51.59307359307359
+      "impressions": 233,
+      "ctr": 0.017167381974248927,
+      "position": 9.24892703862661
     },
     {
       "keys": [
-        "MOBILE"
+        "DESKTOP"
       ],
-      "clicks": 1,
-      "impressions": 261,
-      "ctr": 0.0038314176245210726,
-      "position": 9.32567049808429
+      "clicks": 3,
+      "impressions": 231,
+      "ctr": 0.012987012987012988,
+      "position": 41.57142857142857
     },
     {
       "keys": [
         "TABLET"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 4,
       "ctr": 0,
-      "position": 20
+      "position": 51.25
     }
   ],
   "country": [
@@ -1975,10 +1973,19 @@
       "keys": [
         "usa"
       ],
-      "clicks": 3,
-      "impressions": 205,
-      "ctr": 0.014634146341463415,
-      "position": 31.609756097560975
+      "clicks": 5,
+      "impressions": 221,
+      "ctr": 0.02262443438914027,
+      "position": 28.194570135746606
+    },
+    {
+      "keys": [
+        "can"
+      ],
+      "clicks": 1,
+      "impressions": 27,
+      "ctr": 0.037037037037037035,
+      "position": 35.22222222222222
     },
     {
       "keys": [
@@ -1991,21 +1998,12 @@
     },
     {
       "keys": [
-        "zaf"
-      ],
-      "clicks": 1,
-      "impressions": 1,
-      "ctr": 1,
-      "position": 3
-    },
-    {
-      "keys": [
         "are"
       ],
       "clicks": 0,
       "impressions": 7,
       "ctr": 0,
-      "position": 46.57142857142857
+      "position": 19.285714285714285
     },
     {
       "keys": [
@@ -2014,43 +2012,34 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 7
+      "position": 9
     },
     {
       "keys": [
         "aus"
       ],
       "clicks": 0,
-      "impressions": 21,
+      "impressions": 22,
       "ctr": 0,
-      "position": 18.80952380952381
+      "position": 36.77272727272727
     },
     {
       "keys": [
         "aut"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 2,
       "ctr": 0,
-      "position": 72
+      "position": 6.5
     },
     {
       "keys": [
         "bel"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 1,
       "ctr": 0,
-      "position": 57.25
-    },
-    {
-      "keys": [
-        "bgd"
-      ],
-      "clicks": 0,
-      "impressions": 5,
-      "ctr": 0,
-      "position": 53
+      "position": 8
     },
     {
       "keys": [
@@ -2066,9 +2055,9 @@
         "bra"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 3,
       "ctr": 0,
-      "position": 4
+      "position": 21.333333333333332
     },
     {
       "keys": [
@@ -2081,48 +2070,48 @@
     },
     {
       "keys": [
-        "can"
-      ],
-      "clicks": 0,
-      "impressions": 23,
-      "ctr": 0,
-      "position": 35.91304347826087
-    },
-    {
-      "keys": [
         "che"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 2,
       "ctr": 0,
-      "position": 8
+      "position": 6.5
     },
     {
       "keys": [
-        "chn"
+        "col"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 8
+      "position": 2
     },
     {
       "keys": [
-        "cze"
+        "cpv"
       ],
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 1,
       "ctr": 0,
-      "position": 57.5
+      "position": 10
+    },
+    {
+      "keys": [
+        "cyp"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 2
     },
     {
       "keys": [
         "deu"
       ],
       "clicks": 0,
-      "impressions": 19,
+      "impressions": 22,
       "ctr": 0,
-      "position": 19.57894736842105
+      "position": 9.136363636363637
     },
     {
       "keys": [
@@ -2138,36 +2127,45 @@
         "dom"
       ],
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 8,
       "ctr": 0,
-      "position": 6
+      "position": 5.625
     },
     {
       "keys": [
-        "dza"
+        "ecu"
+      ],
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 3.6666666666666665
+    },
+    {
+      "keys": [
+        "egy"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 66
+      "position": 86
     },
     {
       "keys": [
         "esp"
       ],
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 4,
       "ctr": 0,
-      "position": 16.8
+      "position": 33.75
     },
     {
       "keys": [
         "fin"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 2,
       "ctr": 0,
-      "position": 82.33333333333333
+      "position": 54.5
     },
     {
       "keys": [
@@ -2176,16 +2174,16 @@
       "clicks": 0,
       "impressions": 5,
       "ctr": 0,
-      "position": 20.4
+      "position": 8.8
     },
     {
       "keys": [
         "gbr"
       ],
       "clicks": 0,
-      "impressions": 46,
+      "impressions": 32,
       "ctr": 0,
-      "position": 17.26086956521739
+      "position": 25.875
     },
     {
       "keys": [
@@ -2201,36 +2199,27 @@
         "gtm"
       ],
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 1,
       "ctr": 0,
-      "position": 5.5
+      "position": 6
     },
     {
       "keys": [
-        "hrv"
+        "hkg"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 9
-    },
-    {
-      "keys": [
-        "idn"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 11.5
+      "position": 75
     },
     {
       "keys": [
         "ind"
       ],
       "clicks": 0,
-      "impressions": 26,
+      "impressions": 20,
       "ctr": 0,
-      "position": 16.115384615384613
+      "position": 12.95
     },
     {
       "keys": [
@@ -2240,15 +2229,6 @@
       "impressions": 2,
       "ctr": 0,
       "position": 7.5
-    },
-    {
-      "keys": [
-        "irn"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 8
     },
     {
       "keys": [
@@ -2264,54 +2244,27 @@
         "ita"
       ],
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 3,
       "ctr": 0,
-      "position": 20.5
+      "position": 4
     },
     {
       "keys": [
-        "jey"
+        "kwt"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
-    },
-    {
-      "keys": [
-        "jpn"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 6
-    },
-    {
-      "keys": [
-        "lka"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 1
-    },
-    {
-      "keys": [
-        "ltu"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 10.5
+      "position": 11
     },
     {
       "keys": [
         "mex"
       ],
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 1,
       "ctr": 0,
-      "position": 29
+      "position": 8
     },
     {
       "keys": [
@@ -2324,15 +2277,6 @@
     },
     {
       "keys": [
-        "mys"
-      ],
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0,
-      "position": 41.5
-    },
-    {
-      "keys": [
         "nam"
       ],
       "clicks": 0,
@@ -2342,57 +2286,39 @@
     },
     {
       "keys": [
-        "nga"
-      ],
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0,
-      "position": 1
-    },
-    {
-      "keys": [
         "nld"
       ],
       "clicks": 0,
-      "impressions": 31,
+      "impressions": 25,
       "ctr": 0,
-      "position": 55.806451612903224
+      "position": 47.04
     },
     {
       "keys": [
         "nor"
       ],
       "clicks": 0,
-      "impressions": 5,
-      "ctr": 0,
-      "position": 51.8
-    },
-    {
-      "keys": [
-        "nzl"
-      ],
-      "clicks": 0,
       "impressions": 2,
       "ctr": 0,
-      "position": 34
+      "position": 62.5
     },
     {
       "keys": [
-        "pak"
+        "pan"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 1
+      "position": 9
     },
     {
       "keys": [
-        "phl"
+        "per"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 78
+      "position": 4
     },
     {
       "keys": [
@@ -2408,34 +2334,106 @@
         "prt"
       ],
       "clicks": 0,
-      "impressions": 1,
+      "impressions": 3,
       "ctr": 0,
-      "position": 96
+      "position": 3.6666666666666665
     },
     {
       "keys": [
-        "pse"
+        "pry"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 3.5
+    },
+    {
+      "keys": [
+        "qat"
       ],
       "clicks": 0,
       "impressions": 1,
       "ctr": 0,
-      "position": 10
+      "position": 2
+    },
+    {
+      "keys": [
+        "rou"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 6.5
+    },
+    {
+      "keys": [
+        "rus"
+      ],
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "position": 35
+    },
+    {
+      "keys": [
+        "sau"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 66
+    },
+    {
+      "keys": [
+        "sdn"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 5
+    },
+    {
+      "keys": [
+        "sgp"
+      ],
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 22
+    },
+    {
+      "keys": [
+        "srb"
+      ],
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 6
+    },
+    {
+      "keys": [
+        "swe"
+      ],
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "position": 20.25
     }
   ],
   "sitemaps": [
     {
       "path": "https://cortisolplus.com/sitemap.xml",
-      "lastSubmitted": "2026-07-09T15:01:58.328Z",
+      "lastSubmitted": "2026-09-09T18:10:13.078Z",
       "isPending": false,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-07-09T15:02:01.452Z",
+      "lastDownloaded": "2026-09-13T03:50:06.734Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "67",
+          "submitted": "85",
           "indexed": "0"
         },
         {
