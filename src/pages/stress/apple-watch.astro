@@ -4,7 +4,7 @@ import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
 <ArticleLayout
   title="Can Apple Watch Measure Cortisol? Stress & HRV Guide"
-  description="Apple Watch can't measure cortisol directly — but it captures HRV, heart rate, and sleep that reveal your stress pattern. See what each signal shows and how Cortisol+ reads it."
+  description="Can Apple Watch track cortisol? Learn what HRV and sleep readings show, how to review them, and how Cortisol+ uses Apple Health data for wellness tracking."
   updated="2026-09-16"
 >
 <h2>Can Apple Watch measure cortisol?</h2>
@@ -18,6 +18,10 @@ import ArticleLayout from "../../layouts/ArticleLayout.astro";
 <tr><td>Wrist temperature</td><td>Overnight changes on supported models</td><td>Additional context for changes from baseline</td><td>Availability depends on model and settings; not a cortisol sensor</td></tr>
 </tbody></table>
 <p>Apple explains <a href="https://support.apple.com/en-us/120277">heart rate and HRV measurement</a>, <a href="https://support.apple.com/en-us/108906">sleep tracking</a> and <a href="https://support.apple.com/en-us/102674">nightly wrist temperature</a>. Follow the instructions for your particular Watch and software version.</p>
+<h2 id="check-readings">How do I check cortisol levels on Apple Watch?</h2>
+<p><strong>There is no cortisol reading to open on Apple Watch.</strong> To explore the wearable signals used by stress apps, review your heart-rate, HRV and sleep records instead. Keep those observations separate from a hormone-test result.</p>
+<ol><li>On your iPhone, open Health and search for Heart Rate Variability. Review the available samples and their timestamps.</li><li>Review Resting Heart Rate and Sleep over comparable dates. Check which device supplied the data.</li><li>If a reading is missing, use the <a href="/blog/apple-watch-hrv-not-updating/">HRV troubleshooting checklist</a> before interpreting an app score.</li><li>For an organized view, explore <a href="/cortisol/track/#cortisol-tracking-app">what a cortisol tracking app does</a> and inspect its underlying inputs.</li></ol>
+<p><a href="https://support.apple.com/en-us/120277">Apple's heart-rate documentation</a> explains the optical sensor and model-dependent features. Those readings are not a hormone assay; <a href="https://medlineplus.gov/lab-tests/cortisol-test/">cortisol testing uses a biological sample</a>.</p>
 <h2>Does Apple Watch have a stress score?</h2>
 <p>Apple's Mindfulness features support breathing, reflection and recording your State of Mind. A mood check-in is your own report, while a third-party stress score is an interpretation of sensor data. These describe different things and may not agree.</p>
 <p>Cortisol+ combines available signals into its own wellness score. Other apps use different inputs and formulas, so a 60 in one app should not be assumed to mean the same thing as a 60 in another.</p>
@@ -49,7 +53,7 @@ import ArticleLayout from "../../layouts/ArticleLayout.astro";
 <p>Some labels in this older development build describe a person's recovery too confidently. Interpret them as software-generated labels, not established facts about your body. Our <a href="/how-it-works/">current methodology and limitations</a> explain that distinction.</p>
 <h2>Why readings can be missing or change unexpectedly</h2>
 <p>If your latest sample is missing, follow our <a href="/blog/apple-watch-hrv-not-updating/">Apple Watch HRV troubleshooting guide</a> to compare Apple Health timestamps, check app permissions and review watch settings.</p>
-<p>Background sampling is intermittent, and data must sync to Apple Health before the app can use it. Movement, fit, charging, permissions and software settings can affect recording. Exercise, illness, alcohol, medication, breathing and time of day can also influence HRV and heart rate. These are reasons to check context, not assume every change represents psychological stress.</p>
+<p>Sampling frequency depends on the signal, Watch model and settings, and data must sync to Apple Health before the app can use it. Movement, fit, charging, permissions and software settings can affect recording. Exercise, illness, alcohol, medication, breathing and time of day can also influence HRV and heart rate. These are reasons to check context, not assume every change represents psychological stress.</p>
 <h2>Wearable stress versus cortisol testing</h2>
 <p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">Clinical cortisol tests use blood, saliva or urine</a>, with timing and interpretation matched to the question a clinician is investigating. HRV cannot confirm or rule out a hormone disorder. Seek care for persistent or concerning symptoms rather than using a Watch score to decide whether a hormone test is necessary.</p>
 <p>For a practical next step, use our <a href="/resources/stress-sleep-journal/">free observation journal</a>. For the underlying signal, read <a href="/hrv/apple-watch/">HRV on Apple Watch</a> and <a href="/hrv/normal-range/">HRV ranges and measurement methods</a>.</p>
