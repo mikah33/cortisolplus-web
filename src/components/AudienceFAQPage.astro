@@ -27,6 +27,7 @@ const { audience, title, description, intro, faqs, related, image } = Astro.prop
     <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">{intro}</p>
 
     <FAQ items={faqs} title="" />
+    <slot />
 
     <aside class="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-[color:var(--color-surface)] border border-[color:var(--color-border)]">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-2">Cortisol+</div>

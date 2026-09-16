@@ -1,0 +1,35 @@
+---
+import AppStoreBadge from './AppStoreBadge.astro';
+interface Props { videoId: string; title: string; creator: string; summary: string; duration: string; note?: string; }
+const { videoId, title, creator, summary, duration, note } = Astro.props;
+const watchUrl = `https://www.youtube.com/shorts/${videoId}`;
+const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+const schema = {
+  '@context': 'https://schema.org', '@type': 'VideoObject', name: title,
+  description: `${summary} Paid creator promotion published by Cortisol+. Wearable estimates are not cortisol hormone measurements.`,
+  thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+  uploadDate: '2026-09-16', duration, embedUrl,
+  publisher: { '@type': 'Organization', name: 'Cortisol+', url: 'https://cortisolplus.com/' },
+  url: watchUrl,
+};
+---
+<section class="creator-short not-prose" aria-label={title}>
+  <p class="disclosure">Paid creator video · {creator}</p>
+  <h2>{title}</h2>
+  <p>{summary}</p>
+  <iframe src={embedUrl} title={title} width="360" height="640" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+  <p class="context">{note ?? 'The app interprets wearable data; its cortisol score is an estimate, not a measured hormone level. Biological age is also an estimate. This promotional video is not clinical evidence or an independent review.'}</p>
+  <p><a href={watchUrl} target="_blank" rel="noopener noreferrer">Watch this Short on YouTube</a> · <a href="/how-it-works/">Read the methodology</a></p>
+  <AppStoreBadge size="lg" />
+  <p class="context">Free to download. Analysis requires a subscription or an eligible trial. Playback is provided by YouTube.</p>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\u003c')} />
+<style>
+.creator-short { margin: 2.5rem 0; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 1.25rem; background: var(--color-surface); }
+.creator-short h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin: .5rem 0 1rem; }
+.creator-short p { line-height: 1.65; margin: 1rem 0; }
+.creator-short .disclosure { font-size: .8rem; font-weight: 600; color: var(--color-teal-dark); margin-top: 0; }
+.creator-short .context { font-size: .875rem; color: var(--color-ink-muted); }
+.creator-short a { color: var(--color-teal-dark); text-decoration: underline; }
+.creator-short iframe { display: block; width: 100%; max-width: 360px; height: auto; aspect-ratio: 9 / 16; border: 0; border-radius: .75rem; margin: 1.5rem auto; background: #103c35; }
+</style>
