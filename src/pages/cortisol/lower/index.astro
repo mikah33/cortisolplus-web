@@ -1,116 +1,39 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
-import RelatedLinks from '../../../components/RelatedLinks.astro';
-
-import { medicalWebPage } from '../../../lib/schema';
-
-const schema = medicalWebPage({
-  name: 'How to lower cortisol — evidence-ranked interventions',
-  pathname: '/cortisol/lower/',
-});
-
-const faqs: FAQItem[] = [
-  {
-    q: 'What is the fastest way to lower cortisol?',
-    a: 'Acute interventions that work within minutes: 5 minutes of slow paced breathing (6 breaths/min), a 20-minute walk outside in sunlight, a physiological sigh repeated 3–5 times, or a cold-water face splash. For sustained lower cortisol over weeks: fix sleep, reduce alcohol, and add zone 2 cardio 3x/week.',
-  },
-  {
-    q: 'Is there a cortisol-lowering "magic bullet"?',
-    a: 'No, but sleep comes closest. Fixing chronic short sleep moves cortisol more than any supplement, food, or breathing exercise. If you only do one thing, do that. Magnesium glycinate before bed and consistent wake times are the high-leverage starting moves.',
-  },
-  {
-    q: 'How long does it take to lower cortisol?',
-    a: 'Acute drops happen within minutes (breathing, walking, sunlight). Lifestyle changes (sleep timing, reduced alcohol, regular exercise) show measurable pattern changes in 2–4 weeks. Severe chronic elevation may take 3–6 months to fully normalize. Tracking with a wearable lets you see the trend instead of guessing.',
-  },
-  {
-    q: 'Can I lower cortisol without supplements?',
-    a: 'Yes — and most of the leverage is in lifestyle, not supplements. Sleep, sunlight, paced breathing, reduced alcohol, zone 2 cardio, and stable meal timing collectively move cortisol more than any supplement stack. Supplements are useful as additions, not replacements.',
-  },
-];
-
-const interventions = [
-  { href: '/cortisol/lower/sleep', title: 'Sleep', impact: 'Biggest lever', body: 'Fixing chronic short sleep moves cortisol more than any other intervention. Where everyone should start.' },
-  { href: '/cortisol/lower/breathing-exercises', title: 'Breathing exercises', impact: 'Fastest acute drop', body: 'Box breathing, 4-7-8, physiological sigh, resonance breathing. Acute cortisol reduction within minutes.' },
-  { href: '/cortisol/lower/exercise', title: 'Exercise', impact: 'High if dosed right', body: 'Moderate exercise lowers cortisol; excess raises it. Zone 2 cardio + moderate strength is the sweet spot.' },
-  { href: '/cortisol/lower/foods', title: 'Foods', impact: 'Moderate', body: 'Dark chocolate, omega-3 fish, magnesium-rich greens. Plus what to reduce — caffeine, alcohol, ultra-processed.' },
-  { href: '/cortisol/lower/supplements', title: 'Supplements', impact: 'Targeted', body: 'Ashwagandha, magnesium, rhodiola, phosphatidylserine, L-theanine — evidence-ranked with honest dosing.' },
-];
-
-const related = [
-  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'Recognize the signs' },
-  { href: '/cortisol/test', title: 'How to test cortisol', hint: 'At-home, saliva, blood' },
-  { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: '8 questions' },
-];
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 ---
-
-<BaseLayout
-  title="How to lower cortisol: what actually works"
-  description="What actually lowers cortisol — sleep, breathing, exercise, foods, supplements — ranked by evidence. The honest playbook for chronic cortisol regulation."
-  image="/screenshots/track-metrics.png"
-  schema={schema}
->
-  <article class="max-w-4xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">The canonical guide</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How to lower cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12 max-w-2xl">
-      Ranked by evidence and effect size. Most "lower cortisol" advice on the internet is generic wellness copy. Here's what actually moves the needle.
-    </p>
-
-    <div class="prose prose-lg max-w-none mb-12
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline">
-
-      <h2>The one paragraph version</h2>
-      <p>Sleep is the biggest lever — fix that first. Breathing exercises drop cortisol fastest in the moment. Zone 2 cardio 3x/week and moderate strength training 2x/week is the right exercise dose. Dark chocolate, omega-3 fish, and magnesium-rich foods help. Ashwagandha and magnesium glycinate are the two supplements with the strongest evidence. Reduce alcohol — it's the single biggest hidden cortisol-raising input in most people's lives.</p>
-
-      <h2>The hierarchy of impact</h2>
-      <p>If you ranked interventions by how much they actually move cortisol patterns in healthy adults:</p>
-      <ol>
-        <li><strong>Sleep quality and consistency</strong> — biggest single lever</li>
-        <li><strong>Alcohol reduction</strong> — usually the biggest "hidden" win</li>
-        <li><strong>Morning sunlight</strong> — anchors the circadian curve</li>
-        <li><strong>Paced breathing</strong> (daily practice) — direct autonomic regulation</li>
-        <li><strong>Zone 2 cardio</strong> — improves baseline HRV and cortisol</li>
-        <li><strong>Magnesium glycinate</strong> — cheap, broad effect</li>
-        <li><strong>Ashwagandha</strong> — strongest direct cortisol-supplement evidence</li>
-        <li><strong>Stable meal timing + protein at breakfast</strong> — stabilizes blood sugar/cortisol</li>
-        <li><strong>Limiting caffeine to 1 cup before food</strong> — blunts morning cortisol spike</li>
-        <li><strong>Reducing screens 30 min before bed</strong> — protects sleep onset</li>
-      </ol>
-    </div>
-
-    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Deep guides by intervention</h2>
-    <div class="grid md:grid-cols-2 gap-4 mb-16">
-      {interventions.map((i) => (
-        <a href={i.href} class="group block p-6 rounded-2xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:-translate-y-0.5 transition">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-xl font-semibold group-hover:text-[color:var(--color-teal-dark)] transition">{i.title} →</h3>
-            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]">{i.impact}</span>
-          </div>
-          <p class="text-sm text-[color:var(--color-ink-muted)]">{i.body}</p>
-        </a>
-      ))}
-    </div>
-
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline">
-
-      <h2>How to actually do this (the 4-week starter protocol)</h2>
-      <p>Pick three changes. Do them for 4 weeks. Track the trend. Add the next layer once these stick.</p>
-
-      <ol>
-        <li><strong>Week 1–4 base:</strong> Sleep 7+ hours with consistent wake time. Morning sunlight within 1 hour of waking.</li>
-        <li><strong>Week 1–4 base:</strong> 20-minute walk outside daily (counts as both sunlight and zone 2).</li>
-        <li><strong>Week 1–4 base:</strong> Magnesium glycinate 300 mg at bedtime.</li>
-        <li><strong>Optional:</strong> No alcohol for 14 days to baseline. Cut caffeine to 1 cup before food.</li>
-      </ol>
-
-      <p>Use <a href="/how-it-works/">Cortisol+</a> to review available wearable records and understand the assumptions behind its wellness score. It cannot measure cortisol, confirm that an intervention worked or predict when you should see a change.</p>
-    </div>
-
-    <FAQ items={faqs} />
-    <RelatedLinks links={related} />
-  </article>
-</BaseLayout>
+<ArticleLayout title="How to Lower Cortisol Levels Naturally: Evidence & Limits" description="Learn practical stress-management habits, what research says about lowering cortisol naturally, and when high cortisol needs medical evaluation." updated="2026-09-16">
+<p><strong>How to lower cortisol levels depends on why they are elevated.</strong> Sleep habits, physical activity and relaxation can support everyday stress management. A diagnosed cortisol disorder needs cause-specific medical care. Feeling stressed does not establish high cortisol, and lower cortisol is not always better.</p>
+<p>This educational guide is published by Cortisol+, a wearable wellness app. The app does not measure cortisol or treat hormone disorders. We distinguish changes in how you feel from changes confirmed by hormone testing.</p>
+<h2>How to lower cortisol levels naturally</h2>
+<p>Start with practical habits that support sleep and stress management: make time for sleep, keep a workable routine, move regularly at a level suited to you, and try a comfortable relaxation practice. Record what you do and how you feel. These habits can be worthwhile without proving that your cortisol fell. If a test is abnormal or symptoms persist, ask a clinician what the result means before trying to lower a hormone yourself.</p>
+<table><thead><tr><th scope="col">Approach</th><th scope="col">Practical starting point</th><th scope="col">What not to assume</th></tr></thead><tbody>
+<tr><td>Sleep routine</td><td>Protect time for sleep and a consistent schedule when possible</td><td>A better night's sleep does not quantify a cortisol change</td></tr>
+<tr><td>Relaxation</td><td>Try comfortable slow breathing or a short mindfulness practice</td><td>Feeling calmer is not a measured hormone result</td></tr>
+<tr><td>Physical activity</td><td>Choose regular activity appropriate to your health and recovery</td><td>Every workout does not need to lower cortisol immediately</td></tr>
+<tr><td>Routine and support</td><td>Identify manageable stressors and seek support when needed</td><td>A supplement or app cannot remove every cause of stress</td></tr>
+</tbody></table>
+<h2>1. Make sleep a repeatable habit</h2>
+<p><a href="https://www.nhlbi.nih.gov/health/sleep-deprivation/healthy-sleep-habits">NHLBI's healthy-sleep guidance</a> recommends making time for sleep, keeping consistent bed and wake times, and using a quiet wind-down period. It also discusses caffeine and alcohol around bedtime. Pick a change that fits your circumstances rather than trying to follow a rigid online “cortisol reset.”</p>
+<p>Record bedtime, wake time and how rested you feel in our <a href="/resources/stress-sleep-journal/">free sleep and stress journal</a>. If sleep problems persist, seek advice about the sleep problem itself; do not assume cortisol is the cause.</p>
+<h2>2. Use relaxation for stress management</h2>
+<p><a href="https://www.nccih.nih.gov/health/stress">NCCIH summarizes evidence for relaxation, mindfulness and slow breathing</a>. Some studies report changes in cortisol, but results vary by practice, study and population. That evidence does not support promising an exact percentage reduction or a guaranteed effect within minutes for an individual.</p>
+<p>Try a brief practice that feels comfortable. Do not force prolonged breath holds or continue a technique that makes you dizzy or distressed. The goal is a sustainable way to manage stress, not a competitive breathing score.</p>
+<h2>3. Choose sustainable movement and recovery</h2>
+<p>Regular activity can be part of a stress-management routine. Cleveland Clinic's <a href="https://health.clevelandclinic.org/how-to-reduce-cortisol-and-turn-down-the-dial-on-stress">clinician-led overview</a> discusses exercise alongside sleep and relaxation. The right activity depends on your health, preferences and recovery; this page does not prescribe a universal training dose to control a hormone.</p>
+<p>Use your wearable to observe activity and recovery context if it helps. A changing HRV value should not be treated as proof that a workout lowered or raised your cortisol.</p>
+<h2>4. Review the habits around your stress</h2>
+<p>Notice whether caffeine timing, alcohol, work demands or an irregular schedule coincide with poor sleep or feeling overwhelmed. Choose one manageable adjustment and record the experience. If stress is hard to cope with or does not improve, professional support can help; <a href="https://www.nccih.nih.gov/health/stress">NCCIH explains when to seek more help</a>.</p>
+<p>For a specific wearable example, read <a href="/blog/alcohol-hrv-sleep/">alcohol and overnight HRV</a>. Observing two things together does not prove one caused the other.</p>
+<h2>Do supplements lower cortisol?</h2>
+<p>Some supplements have been studied, but “natural” does not mean necessary or risk-free. <a href="https://www.nccih.nih.gov/health/ashwagandha">NCCIH's ashwagandha guidance</a> describes limited evidence, potential interactions and reports of liver injury. Do not start a supplement solely because an app score is high. Discuss suitability with a qualified professional, particularly if you take medication or have a health condition.</p>
+<h2>How long does it take to lower cortisol levels?</h2>
+<p>There is no universal timeline. A brief feeling of calm, a change in sleep, and a clinically meaningful hormone change are different outcomes. If cortisol is being monitored medically, ask your clinician when reassessment is appropriate. This guide does not promise normalization in days, weeks or months.</p>
+<h2>When does high cortisol need medical treatment?</h2>
+<p><a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK explains that Cushing's syndrome involves prolonged exposure to excess cortisol</a> and that treatment depends on the cause. It may involve changes to prescribed treatment or other medical interventions. Do not stop or reduce prescribed glucocorticoid medication yourself; any change needs the prescriber's guidance.</p>
+<p>Persistent symptoms or an abnormal test result warrant an appropriate clinical discussion. A wellness score cannot confirm or rule out an endocrine disorder. Our <a href="/cortisol/test/">at-home testing guide</a> explains the difference between sample collection and interpretation.</p>
+<h2>How can I tell whether my routine is helping?</h2>
+<p>Track the outcome you actually observe: sleep timing, how you feel, or comparable wearable readings. Keep this separate from any laboratory report. Our <a href="/cortisol/track/">guide to tracking cortisol versus everyday stress</a> provides a simple workflow.</p>
+<p>Cortisol+ brings available HRV, sleep and activity data into one view. Its <a href="/how-it-works/">published methodology</a> explains the wellness score and limitations. It cannot measure cortisol or prove that a treatment or lifestyle change worked. Analysis requires a subscription or an eligible trial.</p>
+<h2>Can I lower cortisol naturally without buying anything?</h2>
+<p>You can work on everyday stress-management habits without purchasing a test, app or supplement. Start with a routine you can sustain and use a plain notebook if you want to record observations. If you need medical evaluation, lifestyle tracking is useful context rather than a replacement.</p>
+</ArticleLayout>

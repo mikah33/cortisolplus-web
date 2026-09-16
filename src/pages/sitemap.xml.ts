@@ -41,6 +41,7 @@ const STATIC_ROUTES = [
   '/cortisol/symptoms',
   '/cortisol/levels',
   '/cortisol/test',
+  '/cortisol/track',
   '/cortisol/foods',
   '/cortisol/lower',
   '/cortisol/lower/foods',

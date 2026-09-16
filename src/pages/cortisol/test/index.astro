@@ -1,97 +1,30 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
-import RelatedLinks from '../../../components/RelatedLinks.astro';
-
-import { medicalWebPage } from '../../../lib/schema';
-
-const schema = medicalWebPage({
-  name: 'How to test cortisol at home, saliva, blood, urine',
-  condition: 'Cortisol testing',
-  pathname: '/cortisol/test/',
-});
-
-const faqs: FAQItem[] = [
-  {
-    q: 'How do you test cortisol at home?',
-    a: 'The most accurate at-home cortisol test is a 4-point salivary cortisol kit (Everlywell, Eli Health, ZRT Labs). You spit into vials at wake, +30 min, afternoon, and bedtime, then mail the kit back. Results map your full diurnal curve. A single morning saliva test is cheaper but only captures the peak, not the pattern. Cost: $90–250 USD.',
-  },
-  {
-    q: 'Saliva vs blood vs urine cortisol — which is best?',
-    a: 'Saliva (4-point): best for circadian pattern, the Cortisol Awakening Response, and chronic stress assessment. Blood (serum): single snapshot — used clinically for diagnosing Cushing\'s, Addison\'s, and acute issues. 24-hour urinary free cortisol: integrates total daily output, useful for diagnosing endogenous Cushing\'s. For most consumer health questions, salivary is the right choice.',
-  },
-  {
-    q: 'Does Apple Watch measure cortisol?',
-    a: 'No consumer wearable, including Apple Watch, measures cortisol directly. Cortisol is a hormone that must be measured in blood, saliva, or urine. Wearables can estimate cortisol patterns from validated correlates — primarily HRV, sleep stages, resting heart rate, and recovery balance. Cortisol+ on Apple Watch combines those signals into a continuous cortisol-pattern estimate.',
-  },
-  {
-    q: 'When should I get a cortisol test?',
-    a: 'Consider testing if you have symptoms of chronic cortisol elevation (poor sleep despite exhaustion, 3-5 AM wake-ups, midsection weight gain, sugar cravings, mood disruption) lasting 3+ months. Also if symptoms of Cushing\'s (rapid weight gain, easy bruising, purple stretch marks, facial rounding) or Addison\'s (chronic fatigue, low blood pressure, salt cravings, hyperpigmentation) are present — these are clinical and require a doctor.',
-  },
-  {
-    q: 'How much does a cortisol test cost?',
-    a: 'Single blood cortisol: $30–80 USD with a doctor\'s order. 4-point salivary: $90–250 USD (at-home kits). 24-hour urinary free cortisol: $50–150 USD with order. Insurance often covers testing when ordered by a doctor for symptoms. At-home consumer kits are out-of-pocket but don\'t require an order.',
-  },
-];
-
-const related = [
-  { href: '/cortisol/levels', title: 'Cortisol levels reference', hint: 'Normal ranges' },
-  { href: '/cortisol/symptoms', title: 'Symptoms of high cortisol', hint: 'When to test' },
-  { href: '/how-it-works', title: 'How Cortisol+ estimates cortisol', hint: 'Methodology' },
-];
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 ---
-
-<BaseLayout
-  title="How to test cortisol: saliva, blood & at-home"
-  description="Complete guide to cortisol testing. Compare 4-point salivary, blood, 24-hour urine, and wearable-based pattern tracking. When to test and how to read results."
-  image="/screenshots/health-breakdown.png"
-  schema={schema}
->
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Testing guide</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How to test your cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      Four ways to measure cortisol, what each one actually tells you, and how to choose.
-    </p>
-
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline">
-
-      <h2>Four ways to measure cortisol</h2>
-
-      <h3>1. Salivary cortisol (4-point) — best for pattern</h3>
-      <p>You collect saliva at four points across the day: wake, +30 minutes (CAR), afternoon, and bedtime. Maps your full diurnal curve. This is the gold standard for assessing chronic stress and the Cortisol Awakening Response.</p>
-      <p><strong>Cost:</strong> $90–250 USD at-home (Everlywell, Eli Health, ZRT). <strong>Order:</strong> not required for at-home consumer kits. <strong>Best for:</strong> chronic stress, burnout assessment, CAR evaluation.</p>
-
-      <h3>2. Blood (serum) cortisol — best for clinical diagnosis</h3>
-      <p>A single blood draw, usually morning. Used clinically to diagnose Cushing's syndrome, Addison's disease, and other adrenal pathology. Highly time-dependent — your number is meaningless without knowing what time it was drawn.</p>
-      <p><strong>Cost:</strong> $30–80 USD with order; often insurance-covered. <strong>Order:</strong> required. <strong>Best for:</strong> clinical workup, suspected adrenal disease.</p>
-
-      <h3>3. 24-hour urinary free cortisol — best for total daily output</h3>
-      <p>You collect all urine for 24 hours. The lab measures total cortisol excreted, giving an integrated read of your day's output. Often used to diagnose endogenous Cushing's.</p>
-      <p><strong>Cost:</strong> $50–150 USD. <strong>Order:</strong> required. <strong>Best for:</strong> suspected hypercortisolism.</p>
-
-      <h3>4. Wearable / biometric estimation — best for continuous trend</h3>
-      <p>No wearable measures cortisol directly. They estimate the pattern using HRV, sleep stages, resting heart rate, and recovery balance — all validated correlates. The advantage: continuous data, every day, no needles or vials. The trade-off: estimation, not measurement.</p>
-      <p><strong>Cost:</strong> $0 (with Apple Watch you already own) + free or subscription app. <strong>Order:</strong> none. <strong>Best for:</strong> tracking your pattern over weeks and months, surfacing trends, measuring response to interventions.</p>
-
-      <h2>Which test should you choose?</h2>
-      <p>The honest answer: if you have severe symptoms, see a doctor and get clinical testing. For most people surveilling their stress and cortisol pattern, the right stack is:</p>
-      <ol>
-        <li><strong>Wearable tracking</strong> (continuous, free) for the daily pattern</li>
-        <li><strong>4-point salivary test once</strong> ($150ish) to baseline your actual curve</li>
-        <li><strong>Blood test annually</strong> if your doctor orders it during routine work</li>
-      </ol>
-
-      <h2>How to read your results</h2>
-      <p>See <a href="/cortisol/levels">the cortisol levels reference</a> for normal ranges by time of day, age, and gender. A reading is only meaningful in context of when it was taken and what your baseline pattern looks like.</p>
-
-      <h2>How Cortisol+ fits in</h2>
-      <p><a href="/">Cortisol+</a> doesn't replace a lab test — it gives you the daily pattern that a single test can't show. Most users combine: a one-time saliva test to establish their baseline, then continuous Cortisol+ tracking to watch the trend respond to interventions.</p>
-    </div>
-
-    <FAQ items={faqs} />
-    <RelatedLinks links={related} />
-  </article>
-</BaseLayout>
+<ArticleLayout title="How to Track Cortisol Levels at Home: Testing Guide" description="Compare home saliva and urine collection with blood testing. Learn why timing, instructions and clinical interpretation matter—and what apps cannot measure." updated="2026-09-16">
+<p><strong>Some cortisol tests allow saliva or urine collection at home, following a clinician's or laboratory's instructions.</strong> The sample is used to measure the hormone. A phone questionnaire, HRV reading or Apple Watch wellness score cannot measure your cortisol level.</p>
+<p>Cortisol+ publishes this educational guide. We do not sell a cortisol test, and our app is not a substitute for laboratory testing.</p>
+<h2>How to track cortisol levels at home</h2>
+<ol><li><strong>Define the question with a clinician.</strong> The appropriate test depends on the condition being investigated; feeling stressed does not by itself identify a hormone disorder.</li><li><strong>Confirm the collection method and timing.</strong> Ask whether a home-collected saliva or urine sample is appropriate and how it will be analyzed.</li><li><strong>Follow the exact instructions.</strong> Use the supplied collection, storage and return directions. Tell the clinician about medication and your sleep schedule.</li><li><strong>Keep a collection record.</strong> Note the date, time, sample type and any deviation from the instructions.</li><li><strong>Review the result in context.</strong> Use the laboratory's units and reference range, and ask whether follow-up testing is needed.</li></ol>
+<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus's cortisol-test guide</a> explains blood, urine and saliva testing. Do not substitute a generic four-sample schedule for the protocol you were given.</p>
+<h2>Home collection versus laboratory testing</h2>
+<table><thead><tr><th scope="col">Method</th><th scope="col">What happens</th><th scope="col">Important distinction</th></tr></thead><tbody>
+<tr><td>Saliva</td><td>A sample may be collected at home at specified times</td><td>The timing and purpose matter; no single kit is best for every question</td></tr>
+<tr><td>24-hour urine</td><td>Urine is collected over the instructed period for laboratory analysis</td><td>Following the full protocol matters; ask what to do if a collection is missed</td></tr>
+<tr><td>Blood</td><td>A healthcare professional collects a blood sample, sometimes as part of a wider testing protocol</td><td>A random result is not interchangeable with a timed clinical test</td></tr>
+<tr><td>Wearable or journal</td><td>Records biometric signals or personal observations</td><td>Does not measure cortisol and is not a fourth hormone-test method</td></tr>
+</tbody></table>
+<p><a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK describes how clinicians investigate suspected Cushing's syndrome</a>, including urine, saliva and suppression testing. The diagnostic question determines the approach; this is not a recommendation that everyone routinely screen themselves.</p>
+<h2>Questions to ask before buying a home cortisol kit</h2>
+<ul><li>What clinical question is this test intended to answer?</li><li>Does it require an order, and who reviews abnormal results?</li><li>Which laboratory analyzes it, using which method?</li><li>Are collection timing, storage and shipping instructions clear?</li><li>Does the price include interpretation and follow-up, or just a report?</li><li>How are sample information and results stored and shared?</li></ul>
+<p>Availability, price and ordering requirements vary by provider and location. We do not rank a brand as “most accurate” without comparative evidence, or recommend a routine testing package for ordinary stress.</p>
+<h2>How should I interpret a home cortisol result?</h2>
+<p>Keep the test type, collection time, units and laboratory range together. Cortisol changes during the day, and medicines and health conditions can affect interpretation. A result outside a reference range is a reason to discuss the report with the appropriate clinician, not to diagnose yourself or start a supplement regimen.</p>
+<p>Do not stop prescribed steroid medication to change a test result. Discuss preparation with the prescriber or ordering clinician. NIDDK explains why changes to glucocorticoid treatment require medical supervision.</p>
+<h2>Can I track cortisol at home without a kit?</h2>
+<p>You can keep a <a href="/cortisol/track/">stress, sleep and wearable observation log</a>, but it does not reveal your hormone concentration. Cortisol+ organizes available wearable data into a wellness score; it cannot verify a home test, replace follow-up care or establish whether cortisol is high or low. Read <a href="/how-it-works/">how the score works</a>.</p>
+<h2>Do I need to keep retesting?</h2>
+<p>Ask the clinician interpreting your results. There is no single repeat-testing schedule suitable for everyone. If your aim is to understand daily routines, the <a href="/resources/stress-sleep-journal/">free observation journal</a> may help you organize questions without repeatedly buying tests.</p>
+<h2>What comes after testing?</h2>
+<p>The next step depends on the findings and your clinical context. For general stress-management habits, read <a href="/cortisol/lower/">how to lower cortisol levels naturally: evidence and limits</a>. Lifestyle information does not replace treatment for a diagnosed endocrine disorder.</p>
+</ArticleLayout>
