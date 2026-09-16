@@ -1,0 +1,51 @@
+---
+title: "Apple Health Permissions for Stress Apps: What Access Means"
+description: Understand read and write permissions when connecting stress apps
+  to Apple Health, how to revoke access, and what data timestamps reveal about
+  your wellness tracking.
+pubDate: 2026-09-11
+tags:
+  - Apple Health stress app permissions
+  - stress app permissions
+  - Apple Health privacy
+  - health data access
+  - stress tracking
+draft: true
+targetTool: /tools/cortisol-calculator/
+---
+
+When you grant Apple Health stress app permissions to an app like Cortisol+, you control exactly which health data the app can read or write. Apple's permission model is granular: you can allow a stress app to read your heart rate variability and resting heart rate while denying access to sleep data or other metrics.
+
+## Read Versus Write Permissions
+
+Read permission lets an app retrieve existing data from Apple Health. A stress app with read access to HRV can analyse patterns over time without creating new entries. Write permission allows the app to contribute new data points—such as logging a mindfulness session or recording a perceived stress level. You grant these permissions separately for each data type during initial setup or later in Settings.
+
+Apple Health does not send continuous streams of data to third-party apps. Instead, apps query the Health database when they need information, subject to the permissions you have granted. This architecture means you retain control: revoking read access immediately stops the app from retrieving that data type, even if historical queries occurred before revocation.
+
+## How to Check and Revoke Access
+
+Open the Health app on your iPhone, tap your profile icon, then scroll to Privacy. Select Apps to see every app with Health access. Tap an app name to review which data types it can read or write. Toggle off any category to revoke permission instantly. The app will no longer see new data for that type and cannot access historical entries unless you re-enable the permission.
+
+You can also delete data an app has written to Health. Navigate to Browse in the Health app, select a data category like Heart Rate Variability, tap Show All Data, then swipe left on individual entries to delete them. Each entry shows the source app and timestamp, helping you identify which app contributed which data points.
+
+## Understanding Data Timestamps
+
+Timestamps in Apple Health reveal when data was recorded, not necessarily when the underlying measurement occurred. For example, if you wear an Apple Watch during a workout, the watch may batch heart rate samples and upload them to Health later when syncing. The timestamp reflects the original measurement time, but the data becomes available to apps only after synchronisation.
+
+Stress apps that request historical data will see entries dating back months or years, depending on how long you have used devices like an Apple Watch. Check the timestamp range in your Health data to understand the baseline period an app can analyse. Apps cannot infer or reconstruct deleted data; once you remove entries from Health, they are gone from the app's view as well.
+
+## Privacy Considerations for Stress Apps
+
+Apple's HealthKit framework requires apps to request permission before accessing any health data. According to Apple's guidance, apps must clearly explain why they need each data type. If a stress app asks for weight or nutrition data but only analyses HRV, question whether that access is necessary.
+
+For details on how Cortisol+ handles the data it accesses, see the [privacy page](/privacy/) and [how it works](/how-it-works/) documentation. If you use an Apple Watch for stress tracking, the [Apple Watch stress guide](/stress/apple-watch/) explains which metrics the device collects.
+
+Be aware that once you grant permission, the app can query that data type until you revoke access. Review your Health app permissions periodically, especially if you have installed many wellness apps over time. Remove access for apps you no longer use or trust.
+
+## Limitations of Third-Party Stress Apps
+
+No third-party app can measure cortisol levels or diagnose hormone disorders through Apple Health data. Apps like Cortisol+ analyse patterns in heart rate variability and other metrics, but these analyses are not medical-grade measurements. They provide wellness insights, not clinical assessments. If you have concerns about stress-related health conditions, consult a healthcare professional rather than relying on app-generated scores.
+
+Managing Apple Health stress app permissions gives you transparency and control over your wellness data. Review permissions regularly, check data timestamps to understand what information is available, and revoke access when an app no longer serves your needs.
+
+**Disclaimer:** Cortisol+ is a wellness app that does not measure cortisol, diagnose medical conditions, or possess established clinical accuracy. This article is for educational purposes and does not constitute medical advice. Consult a qualified healthcare provider for concerns about stress or hormone health.
