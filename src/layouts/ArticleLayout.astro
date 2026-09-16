@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
 import AppStoreBadge from '../components/AppStoreBadge.astro';
 import RatingBadge from '../components/RatingBadge.astro';
 import NewsletterCTA from '../components/NewsletterCTA.astro';
@@ -69,6 +70,8 @@ const combinedSchema = schema
       <slot />
     </div>
 
+    <RelatedGuides />
+
     {!hideDisclaimer && (
       <aside class="mt-12 p-5 rounded-xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
         <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly — the app offers a wellness score derived from biometric signals, not a hormone test. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
@@ -79,7 +82,7 @@ const combinedSchema = schema
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-2">Cortisol+</div>
       <h2 class="text-2xl font-bold mb-2">Understand your stress patterns</h2>
       <p class="text-[color:var(--color-ink-muted)] mb-6">
-        Explore Apple Watch HRV, sleep and activity trends with Cortisol+. Read our methodology to understand what its wellness score can and cannot tell you.
+        Explore Apple Watch HRV, sleep and activity trends with Cortisol+. Read <a href="/how-it-works/" class="underline">our methodology</a> to understand what its wellness score can and cannot tell you.
       </p>
       <div class="flex flex-wrap items-center gap-4">
         <AppStoreBadge size="lg" />
