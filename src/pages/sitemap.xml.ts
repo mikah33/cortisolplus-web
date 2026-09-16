@@ -7,6 +7,14 @@ import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../consts';
 
+// Use declared editorial dates, never the build time, for static guide updates.
+const pageSources = import.meta.glob('/src/pages/**/*.astro', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+function editorialDate(route: string): string | undefined {
+  const stem = route === '/' ? '/src/pages/index' : `/src/pages${route}`;
+  const source = pageSources[`${stem}.astro`] ?? pageSources[`${stem}/index.astro`];
+  return source?.match(/\bupdated=["'](\d{4}-\d{2}-\d{2})["']/)?.[1];
+}
+
 interface ImageEntry {
   url: string;
   title: string;
@@ -128,6 +136,7 @@ export async function GET(_context: APIContext) {
   // Static routes
   const staticEntries: UrlEntry[] = STATIC_ROUTES.map((route) => ({
     loc: `${SITE.url}${route === '/' ? '/' : route + '/'}`,
+    lastmod: editorialDate(route),
     ...(route === '/' ? { images: HOME_IMAGES } : {}),
   }));
 

@@ -8,6 +8,7 @@ export const SITE = {
   appStoreUrl: 'https://apps.apple.com/app/id6759510126',
   appStoreId: '6759510126',
   bundleId: 'com.elevatedsystems.cortisolplus',
+  youtube: 'https://www.youtube.com/@CortisolPlus',
   twitter: '@cortisolplus',
   x: 'https://x.com/cortisolplus',
   tiktok: 'https://www.tiktok.com/@cortisol.plus',
@@ -43,6 +44,7 @@ export const PUBLISHER = {
 } as const;
 
 export const SOCIAL_PROFILES = [
+  SITE.youtube,
   SITE.x,
   SITE.tiktok,
   SITE.substack,
