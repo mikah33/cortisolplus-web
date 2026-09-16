@@ -31,3 +31,12 @@ test('campaign decoration leaves other apps, non-HTTPS and lookalike hosts alone
     assert.equal(appStoreCampaignUrl(href, {}), null);
   }
 });
+
+test('additional AI referrers get distinct campaigns, including Gemini before Google', () => {
+  for (const [host, campaign] of [['claude.ai','website-claude'],['gemini.google.com','website-gemini'],['grok.com','website-grok']]) {
+    const context = acquisitionContext('https://cortisolplus.com/', `https://${host}/private-chat`);
+    assert.equal(context.acquisition_source, host);
+    assert.equal(appStoreEvent(context, '/').app_store_campaign, campaign);
+  }
+  assert.equal(acquisitionContext('https://cortisolplus.com/', 'https://fakeclaude.ai/').acquisition_source, 'other-referral');
+});

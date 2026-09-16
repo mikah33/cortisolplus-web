@@ -1,10 +1,11 @@
-const KNOWN_SOURCES = ['chatgpt.com', 'chat.openai.com', 'perplexity.ai', 'copilot.microsoft.com', 'bing.com', 'google.com', 'duckduckgo.com'];
+const KNOWN_SOURCES = ['chatgpt.com', 'chat.openai.com', 'perplexity.ai', 'copilot.microsoft.com', 'claude.ai', 'gemini.google.com', 'grok.com', 'bing.com', 'google.com', 'duckduckgo.com'];
 // Generated in Cortisol+'s App Store Connect campaign UI on 2026-09-09.
 // This public attribution token identifies our developer account, not a visitor.
 export const APP_STORE_PROVIDER = '128296964';
 const SOURCE_CAMPAIGNS = {
   'chatgpt.com': 'website-chatgpt', 'chat.openai.com': 'website-chatgpt',
   'perplexity.ai': 'website-perplexity', 'copilot.microsoft.com': 'website-copilot',
+  'claude.ai': 'website-claude', 'gemini.google.com': 'website-gemini', 'grok.com': 'website-grok',
   'bing.com': 'website-bing', 'google.com': 'website-google',
   'duckduckgo.com': 'website-duckduckgo', 'other-referral': 'website-referral',
 };

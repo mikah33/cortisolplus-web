@@ -39,6 +39,9 @@ jobs:
       - run: npm test
       - run: npm run build
 
+      - name: Plan changed URLs for IndexNow
+        run: node scripts/indexnow.mjs plan
+
       - name: Deploy to Firebase Hosting (live)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -49,3 +52,6 @@ jobs:
 
       - name: Verify deployed commit, sitemap and substantive content
         run: npm run verify:live
+
+      - name: Notify IndexNow after live verification
+        run: node scripts/indexnow.mjs submit
