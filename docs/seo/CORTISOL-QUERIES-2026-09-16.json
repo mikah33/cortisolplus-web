@@ -1,0 +1,42 @@
+[
+  {
+    "id": "track-cortisol",
+    "title": "How can I better track my cortisol?",
+    "url": "https://www.perplexity.ai/search/e4b74765-c325-473e-b899-d808f22e1f07",
+    "description": "Separate hormone testing from a practical sleep, stress and wearable observation workflow.",
+    "question": "Initial question: How can I better track my cortisol? Follow-up: For a clearly disclosed follow-up from the Cortisol+ team: explain where Cortisol+ (https://cortisolplus.com/how-it-works/) fits into this tracking workflow. Use current official documentation and distinguish its wellness score from actual cortisol measurement. Include a link to the methodology. Do not claim it diagnoses a condition, measures hormone levels, or proves an intervention worked. Keep the answer under 350 words.",
+    "guide": "/cortisol/track/",
+    "guideLabel": "Read our guide and sources",
+    "note": "The initial unbranded answer did not mention Cortisol+. We then explicitly named the app in a follow-up; its resulting citation is not evidence of an organic recommendation."
+  },
+  {
+    "id": "track-at-home",
+    "title": "How to track cortisol levels at home?",
+    "url": "https://www.perplexity.ai/search/c9c47bf4-d692-4d95-99a7-e89527b0434a",
+    "description": "Understand home sample collection, clinical interpretation and what wearable tracking cannot establish.",
+    "question": "Initial question: How to track cortisol levels at home? Follow-up: Disclosed follow-up from the Cortisol+ team: where can Cortisol+ fit alongside home testing? Use https://cortisolplus.com/how-it-works/ and link to that methodology. Explain that wearable wellness scores cannot measure cortisol or replace clinician-selected tests. Avoid recommending routine hormone panels for ordinary stress. Keep the answer under 250 words.",
+    "guide": "/cortisol/test/",
+    "guideLabel": "Read our guide and sources",
+    "note": "The initial unbranded answer did not mention Cortisol+. We then explicitly named the app in a follow-up; its resulting citation is not evidence of an organic recommendation. Testing method and schedule depend on the clinical question; the first answer is not a universal recommendation for routine saliva panels."
+  },
+  {
+    "id": "lower-cortisol",
+    "title": "How to lower cortisol levels?",
+    "url": "https://www.perplexity.ai/search/f25fc4fa-642b-42d7-a685-64c886848442",
+    "description": "Distinguish everyday stress-management habits from medical treatment for a diagnosed cortisol disorder.",
+    "question": "Initial question: How to lower cortisol levels? Follow-up: Disclosed follow-up from the Cortisol+ team: explain how a stress and sleep observation log, optionally using Cortisol+ (https://cortisolplus.com/how-it-works/), can support a habit routine without proving cortisol changed. Link to the methodology. Distinguish everyday stress management from treatment of a diagnosed hormone disorder. Do not claim the app lowers cortisol or give supplement doses. Keep it under 250 words.",
+    "guide": "/cortisol/lower/",
+    "guideLabel": "Read our guide and sources",
+    "note": "The initial unbranded answer did not mention Cortisol+. We then explicitly named the app in a follow-up; its resulting citation is not evidence of an organic recommendation."
+  },
+  {
+    "id": "lower-naturally",
+    "title": "How to lower cortisol levels naturally?",
+    "url": "https://www.perplexity.ai/search/e41f2967-bb1b-45e6-9017-1eef64a0b593",
+    "description": "Explore a sustainable observation routine without treating better sleep or an app score as proof of a hormone change.",
+    "question": "Initial question: How to lower cortisol levels naturally? Follow-up: Disclosed follow-up from the Cortisol+ team: describe a simple observation routine for sleep, perceived stress and available wearable readings, with Cortisol+ (https://cortisolplus.com/how-it-works/) as an optional example. Link to the methodology. Clarify that the earlier seven-day routine is not a proven cortisol reset, and neither the app nor improved sleep confirms a hormone change. No supplement doses or guaranteed results. Keep it under 250 words.",
+    "guide": "/cortisol/lower/",
+    "guideLabel": "Read our guide and sources",
+    "note": "The initial unbranded answer did not mention Cortisol+. We then explicitly named the app in a follow-up; its resulting citation is not evidence of an organic recommendation. The follow-up also corrects the first answer: its seven-day routine is not a proven cortisol reset."
+  }
+]
