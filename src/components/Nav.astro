@@ -1,6 +1,5 @@
 ---
 import { SITE, NAV } from '../consts';
-import AppStoreBadge from './AppStoreBadge.astro';
 ---
 
 <header id="site-nav" class="sticky top-0 z-50 backdrop-blur bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)] transition-shadow duration-300">
@@ -21,8 +20,7 @@ import AppStoreBadge from './AppStoreBadge.astro';
     </ul>
 
     <div class="flex shrink-0 items-center gap-2">
-      <div class="md:hidden"><AppStoreBadge size="sm" label="Get app" /></div>
-      <div class="hidden md:block"><AppStoreBadge size="sm" /></div>
+      <a href="/download/" class="inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-semibold bg-[color:var(--color-teal-dark)] text-white hover:brightness-110 transition">Get app</a>
       <details class="md:hidden" id="mobile-menu">
         <summary class="cursor-pointer list-none p-3 rounded-lg border border-[color:var(--color-border)] text-sm font-medium" aria-label="Main menu">Menu</summary>
         <ul class="absolute top-16 inset-x-0 p-4 bg-white border-b border-[color:var(--color-border)] shadow-lg">

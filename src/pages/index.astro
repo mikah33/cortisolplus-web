@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GooglePlayBadge from '../components/GooglePlayBadge.astro';
 import AppStoreBadge from '../components/AppStoreBadge.astro';
 import RatingBadge from '../components/RatingBadge.astro';
 import CortisolGauge from '../components/CortisolGauge.astro';
@@ -119,8 +120,9 @@ const homeSchema = [
             Bring your Apple Watch HRV, sleep and activity into one daily view. Explore recovery habits and try guided breathing. The wellness score is an estimate; it does not measure cortisol in blood, saliva or urine.
           </p>
 
-          <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-8">
+          <div class="flex flex-wrap gap-4 items-center justify-center mb-8">
             <AppStoreBadge size="lg" />
+            <GooglePlayBadge size="lg" />
             <a href="/how-it-works" class="group inline-flex items-center gap-1 text-sm text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-teal-dark)] transition">
               How the score works
               <span class="group-hover:translate-x-1 transition-transform">→</span>

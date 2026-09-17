@@ -1,0 +1,10 @@
+---
+import { SITE } from '../consts';
+interface Props { size?: 'md' | 'lg'; }
+const { size = 'md' } = Astro.props;
+const spacing = size === 'lg' ? 'px-7 py-3.5 text-base gap-2.5' : 'px-5 py-2.5 text-sm gap-2';
+---
+<a href={SITE.googlePlayUrl} class={`inline-flex items-center rounded-full font-semibold shadow-sm transition bg-[color:var(--color-ink)] text-white hover:opacity-90 ${spacing}`}>
+  <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M5 3.5v17l15-8.5z" /></svg>
+  Get it on Google Play
+</a>

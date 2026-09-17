@@ -6,6 +6,7 @@ export const SITE = {
     'Explore your Apple Watch HRV, sleep and recovery with Cortisol+. A stress tracking app with a wellness score, guided breathing and clear limitations.',
   url: 'https://cortisolplus.com',
   appStoreUrl: 'https://apps.apple.com/app/id6759510126',
+  googlePlayUrl: 'https://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus',
   appStoreId: '6759510126',
   bundleId: 'com.elevatedsystems.cortisolplus',
   youtube: 'https://www.youtube.com/@CortisolPlus',
@@ -49,6 +50,7 @@ export const SOCIAL_PROFILES = [
   SITE.tiktok,
   SITE.substack,
   SITE.appStoreUrl,
+  SITE.googlePlayUrl,
   PUBLISHER.url,
 ];
 
