@@ -10,6 +10,41 @@
     "trailingSlash": true,
     "redirects": [
       {
+        "source": "/screenshots/track-cortisol-levels.@(png|webp)",
+        "destination": "/screenshots/live-stress-levels.png",
+        "type": 301
+      },
+      {
+        "source": "/screenshots/health-breakdown.@(png|webp)",
+        "destination": "/screenshots/wearable-insights.png",
+        "type": 301
+      },
+      {
+        "source": "/screenshots/daily-insights.@(png|webp)",
+        "destination": "/screenshots/live-stress-levels.png",
+        "type": 301
+      },
+      {
+        "source": "/screenshots/sleep-analysis.@(png|webp)",
+        "destination": "/screenshots/sleep-quality.png",
+        "type": 301
+      },
+      {
+        "source": "/screenshots/ai-coach.@(png|webp)",
+        "destination": "/screenshots/zen-ai-assistant.png",
+        "type": 301
+      },
+      {
+        "source": "/screenshots/track-metrics.@(png|webp)",
+        "destination": "/screenshots/activities.png",
+        "type": 301
+      },
+      {
+        "source": "/screenshots/connect-with-friends.@(png|webp)",
+        "destination": "/screenshots/bio-age.png",
+        "type": 301
+      },
+      {
         "source": "/sitemap-index.xml",
         "destination": "/sitemap.xml",
         "type": 301

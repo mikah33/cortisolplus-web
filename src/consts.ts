@@ -22,15 +22,15 @@ export const SITE = {
 /**
  * Live App Store rating from Apple's iTunes lookup API.
  * Refresh manually by running: curl -s "https://itunes.apple.com/lookup?id=6759510126"
- * Last refreshed: 2026-09-09 (US storefront).
+ * Last refreshed: 2026-09-27 (US storefront).
  */
 export const APP_RATING = {
-  value: 4.5,           // averageUserRating (rounded 1dp)
-  precise: 4.48649,     // actual averageUserRating from Apple
-  count: 74,            // userRatingCount
+  value: 4.4,           // averageUserRating (rounded 1dp)
+  precise: 4.43925,     // actual averageUserRating from Apple
+  count: 107,           // userRatingCount
   best: 5,
   worst: 1,
-  lastChecked: '2026-09-09',
+  lastChecked: '2026-09-27',
   country: 'US',
 } as const;
 
