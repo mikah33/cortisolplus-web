@@ -1,53 +1,46 @@
 ---
 const screens = [
   {
-    src: '/screenshots/track-cortisol-levels.webp',
-    title: 'Explore your wellness score',
-    caption: 'A model-based score from available wearable readings.',
-    badge: 'Apple Watch companion',
-    alt: 'Cortisol+ on Apple Watch displaying an example score of 12; this is a wellness score, not a cortisol measurement',
+    src: '/screenshots/live-stress-levels.webp',
+    title: 'Live stress levels',
+    caption: 'The Now dial, HRV and resting heart rate at a glance, plus your day\'s average, high and low.',
+    badge: 'Now',
+    alt: 'Cortisol+ Now screen with an arc dial showing an example score of 26 labeled Low, HRV 58 ms, resting heart rate 58 bpm, and a Cortisol card with average 32, high 48 and low 23',
   },
   {
-    src: '/screenshots/sleep-analysis.webp',
-    title: 'Sleep analysis',
-    caption: 'Review available sleep stages and duration alongside recovery trends.',
-    badge: 'Apple Watch essentials',
-    alt: 'Cortisol+ Sleep Analysis showing 8 nights tracked, 7.1 h average sleep, 91/100 average quality score, 92% efficiency, 5/8 nights hitting 7-hour goal, plus a nightly duration bar chart and Insights card noting Great Night and Optimal Duration',
+    src: '/screenshots/wearable-insights.webp',
+    title: 'Insights from your wearable',
+    caption: 'A daily suggestion, then cortisol, sleep and recovery cards built from Apple Health data.',
+    badge: 'Insights',
+    alt: 'Cortisol+ Insights tab on iPhone with a day picker, a suggestion card, Cortisol average 26, Sleep 7.8 hours at 96% quality with 1.3 hours deep, and Recovery with HRV 58 ms, resting heart rate 58 bpm and VO2 max 44.0, next to the Apple Health icon',
   },
   {
-    src: '/screenshots/health-breakdown.webp',
-    title: 'Health breakdown',
-    caption: 'See available readings such as HRV, resting heart rate, sleep and blood oxygen.',
-    badge: 'See the inputs',
-    alt: 'Cortisol+ Health Breakdown screen on iPhone listing 10 of 13 tracked biometric factors — HRV 22 ms, resting heart rate 82 bpm, current heart rate 95 bpm, blood oxygen 95%, breathing rate 19 br/min, skin temperature, calories, steps, VO2 max, walking heart rate',
+    src: '/screenshots/sleep-quality.webp',
+    title: 'Optimize your sleep quality',
+    caption: 'A nightly quality score, time asleep, efficiency and a stage-by-stage timeline.',
+    badge: 'Sleep',
+    alt: 'Cortisol+ Sleep tab showing an example night scored 93 Excellent, 7 hours 47 minutes asleep, 96% efficiency, fell asleep 11:12 PM, woke 7:00 AM, and awake, REM, light and deep sleep stages',
   },
   {
-    src: '/screenshots/connect-with-friends.webp',
-    title: 'Connect with friends',
-    caption: 'Invite friends, earn badges, unlock companions on your wellness journey.',
-    badge: 'Optional social features',
-    alt: 'Cortisol+ Connect feed on iPhone with friends sharing wellness milestones — Joe Onroy Calm Heart resting HR 56 bpm, Alex Chen Heart Harmony HRV 62 ms, Alex Chen Stress Streak 5 days, Sarah Johnson Zen Master — plus invite friends card with code CRT-DEV123 and a 3/3 unlocked badge',
+    src: '/screenshots/activities.webp',
+    title: 'Track all your activities',
+    caption: 'Weekly readiness, cardio load, steps and VO₂ max, with runs, rides, swims, strength and yoga.',
+    badge: 'Fitness',
+    alt: 'Cortisol+ Fitness view with a weekly Readiness chart showing 71 Good, cardio load 14, 9,140 steps, VO2 max 44.0, and workout tiles for bike, strength, run, swim and yoga',
   },
   {
-    src: '/screenshots/daily-insights.webp',
-    title: 'Daily insights',
-    caption: 'Review your wellness score, sleep and available biometric trends.',
-    badge: 'Daily view',
-    alt: 'Cortisol+ Daily Insights dashboard showing Excellent cortisol score 12, heart rate 68 bpm Optimal, sleep duration 8h 30m Restful, plus a 7-day cortisol, high cortisol, and sleep trend line chart',
+    src: '/screenshots/bio-age.webp',
+    title: 'Discover your Bio Age',
+    caption: 'An estimate of your pace of aging from recovery data, and what\'s affecting it.',
+    badge: 'Bio Age',
+    alt: 'Cortisol+ Bio Age screen showing an example Bio Age of 26, 4 years younger, a Pace of Aging of 0.88x on a slower-to-faster scale, and sleep, HRV and resting heart rate tiles',
   },
   {
-    src: '/screenshots/ai-coach.webp',
-    title: 'Your AI-powered coach',
-    caption: 'Prompts for reflecting on routines, sleep and recovery habits.',
-    badge: 'AI technology',
-    alt: 'Cortisol+ AI coach interface showing Wellness Score 81 Excellent, a 30-day low-stress streak, 483 total scans, present-moment check-in CTA, weekly stress trend, and personalized Zen tips for sleep and recovery',
-  },
-  {
-    src: '/screenshots/track-metrics.webp',
-    title: 'Track metrics',
-    caption: 'Monthly and daily health tracking. Take control of your trend.',
-    badge: 'Real Apple Watch metrics',
-    alt: 'Cortisol+ Insights screen displaying 28.5 average cortisol over 4 readings today, fitness panel with HRV 54 ms, resting heart rate 71 bpm, VO2 max 37.6, activity 8,317 steps, sleep duration 7.6 hours with 100 sleep score, and Zen wellness score 75/100',
+    src: '/screenshots/zen-ai-assistant.webp',
+    title: 'Insights from an AI assistant',
+    caption: 'Ask Zen what\'s driving your score and get a plain-English answer from your own numbers.',
+    badge: 'Ask Zen',
+    alt: 'Cortisol+ Zen chat where the user asks "What\'s driving my score today?" and Zen explains the example score of 26 using sleep, HRV and resting heart rate',
   },
 ];
 ---
@@ -59,19 +52,19 @@ const screens = [
       Explore the app
     </h2>
     <p class="text-[color:var(--color-ink-muted)]">
-      Wearable trends, input breakdowns, a wellness coach, sleep views and optional social features. Screens show example values; their score labels do not establish hormone levels or clinical outcomes.
+      The same screens you'll find on the App Store: the Now dial, Insights, Sleep, Fitness, Bio Age and Zen. Screens show example values; their score labels do not establish hormone levels or clinical outcomes.
     </p>
   </div>
 
   <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6">
     {screens.map((s) => (
-      <figure class="shrink-0 w-[240px] md:w-[260px] snap-center group">
-        <div class="rounded-3xl overflow-hidden bg-[color:var(--color-surface)] border border-[color:var(--color-border)] aspect-[370/800] relative">
+      <figure class="shrink-0 w-[240px] md:w-[270px] snap-center group">
+        <div class="rounded-3xl overflow-hidden bg-[#cfe6f7] border border-[color:var(--color-border)] shadow-[0_18px_40px_-24px_rgba(15,20,25,0.35)] aspect-[645/1398] relative">
           <img
             src={s.src}
             alt={s.alt}
-            width="370"
-            height="800"
+            width="645"
+            height="1398"
             loading="lazy"
             decoding="async"
             class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"

@@ -41,47 +41,41 @@ set_meta() {
     "$file"
 }
 
-set_meta "$DIR/track-cortisol-levels.png" \
-  "Cortisol+ — Track cortisol levels on Apple Watch" \
-  "Apple Watch Ultra displaying the Cortisol+ real-time cortisol score of 12 with an Excellent rating. Trusted by 5,000+ users." \
-  "Apple Watch cortisol score" \
-  "Apple Watch Ultra" "real-time cortisol" "HRV" "stress score"
+set_meta "$DIR/live-stress-levels.png" \
+  "Cortisol+ — Live stress levels" \
+  "Cortisol+ Now screen with an arc dial showing an example wellness score of 26 (Low), HRV 58 ms, resting heart rate 58 bpm, and the day's average, high and low. Example values; not a hormone measurement." \
+  "Now dial wellness score" \
+  "stress score" "HRV" "resting heart rate" "Now dial"
 
-set_meta "$DIR/health-breakdown.png" \
-  "Cortisol+ — Health Breakdown of every biometric factor" \
-  "Cortisol+ Health Breakdown screen showing HRV, resting heart rate, blood oxygen, breathing rate, skin temperature, VO2 max and 10 of 13 biometric factors driving cortisol." \
-  "Health Breakdown biometric factors" \
-  "HRV" "resting heart rate" "blood oxygen" "VO2 max" "breathing rate"
+set_meta "$DIR/wearable-insights.png" \
+  "Cortisol+ — Insights from your wearable" \
+  "Cortisol+ Insights tab with a daily suggestion and cortisol, sleep and recovery cards built from Apple Health readings: HRV, resting heart rate, VO2 max, sleep duration and quality." \
+  "Insights from Apple Health" \
+  "Apple Health" "insights" "recovery" "VO2 max" "sleep quality"
 
-set_meta "$DIR/daily-insights.png" \
-  "Cortisol+ — Daily Insights dashboard" \
-  "Cortisol+ Daily Insights dashboard with cortisol score 12 Excellent, heart rate 68 bpm Optimal, sleep duration 8h 30m Restful, plus 7-day biometric trend chart." \
-  "Daily Insights dashboard" \
-  "daily insights" "biometric trends" "sleep quality" "cortisol overview"
-
-set_meta "$DIR/ai-coach.png" \
-  "Cortisol+ — AI-powered wellness coach" \
-  "Cortisol+ AI Coach showing Wellness Score 81 Excellent, 30-day low-stress streak, 483 total scans, weekly stress trend, and personalized Zen tips." \
-  "AI wellness coach" \
-  "AI coach" "wellness score" "stress streak" "Zen mode" "meditation"
-
-set_meta "$DIR/sleep-analysis.png" \
-  "Cortisol+ — Sleep Analysis & sleep stage tracking" \
-  "Cortisol+ Sleep Analysis showing 8 nights tracked, 7.1h average sleep, 91/100 quality score, 92% efficiency, nightly duration chart, and cortisol-sleep insights." \
-  "Sleep Analysis sleep stages" \
+set_meta "$DIR/sleep-quality.png" \
+  "Cortisol+ — Sleep quality" \
+  "Cortisol+ Sleep tab with an example night scored 93 Excellent, 7h 47m asleep, 96% efficiency and awake, REM, light and deep sleep stages." \
+  "Sleep quality and sleep stages" \
   "sleep analysis" "sleep stages" "sleep quality score" "REM" "deep sleep"
 
-set_meta "$DIR/track-metrics.png" \
-  "Cortisol+ — Track Metrics monthly health trends" \
-  "Cortisol+ Insights screen with 28.5 cortisol average, fitness HRV 54 ms, resting heart rate 71 bpm, 8,317 steps, sleep 7.6 hours, Zen wellness score 75/100." \
-  "Track Metrics monthly trends" \
-  "track metrics" "monthly trends" "HRV trend" "activity" "fitness"
+set_meta "$DIR/activities.png" \
+  "Cortisol+ — Activities and readiness" \
+  "Cortisol+ Fitness view with weekly readiness, cardio load, steps, VO2 max, and run, bike, swim, strength and yoga workouts." \
+  "Readiness and activities" \
+  "readiness" "cardio load" "workouts" "steps" "VO2 max"
 
-set_meta "$DIR/connect-with-friends.png" \
-  "Cortisol+ — Connect with friends on your wellness journey" \
-  "Cortisol+ Connect feed with friends sharing wellness milestones — Calm Heart, Heart Harmony, Stress Streaks — plus invite friends, badges, and unlock companions. Available in 171 countries." \
-  "Connect with friends wellness community" \
-  "wellness community" "friends" "badges" "social wellness" "stress streak"
+set_meta "$DIR/bio-age.png" \
+  "Cortisol+ — Bio Age and Pace of Aging" \
+  "Cortisol+ Bio Age screen with an example Bio Age of 26 and a Pace of Aging of 0.88x estimated from recovery data. An estimate, not a medical test." \
+  "Bio Age and Pace of Aging" \
+  "bio age" "pace of aging" "HRV" "resting heart rate" "recovery"
 
-echo "✓ Embedded metadata into 7 screenshots"
+set_meta "$DIR/zen-ai-assistant.png" \
+  "Cortisol+ — Ask Zen" \
+  "Cortisol+ Zen chat explaining what is driving an example score of 26 using sleep, HRV and resting heart rate." \
+  "Ask Zen AI assistant" \
+  "AI assistant" "Zen" "wellness coach" "breathwork" "meditation"
+
+echo "✓ Embedded metadata into 6 screenshots"
 ls -la "$DIR"

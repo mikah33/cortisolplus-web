@@ -96,13 +96,12 @@ const STATIC_ROUTES = [
 ];
 
 const HOME_IMAGES: ImageEntry[] = [
-  { url: `${SITE.url}/screenshots/track-cortisol-levels.png`, title: 'Cortisol+ — Stress and HRV on Apple Watch', caption: 'Apple Watch displaying an illustrative wellness score; not a hormone measurement.' },
-  { url: `${SITE.url}/screenshots/sleep-analysis.png`, title: 'Cortisol+ — Sleep Analysis', caption: 'Sleep stages, quality score, and 8-night cortisol-sleep insights.' },
-  { url: `${SITE.url}/screenshots/health-breakdown.png`, title: 'Cortisol+ — Health Breakdown', caption: 'Biometric factors used in a wellness score — HRV, RHR, blood oxygen, breathing rate.' },
-  { url: `${SITE.url}/screenshots/connect-with-friends.png`, title: 'Cortisol+ — Connect with friends', caption: 'Connect feed with friends sharing wellness milestones — available in 171 countries.' },
-  { url: `${SITE.url}/screenshots/daily-insights.png`, title: 'Cortisol+ — Daily Insights', caption: 'Daily Insights dashboard with cortisol overview, heart rate, sleep, and 7-day trend.' },
-  { url: `${SITE.url}/screenshots/ai-coach.png`, title: 'Cortisol+ — AI-powered coach', caption: 'AI Coach with Wellness Score 81, 30-day stress streak, and personalized Zen tips.' },
-  { url: `${SITE.url}/screenshots/track-metrics.png`, title: 'Cortisol+ — Track Metrics', caption: 'Monthly health tracking with HRV, RHR, activity, and Zen wellness score.' },
+  { url: `${SITE.url}/screenshots/live-stress-levels.png`, title: 'Cortisol+ — Live stress levels', caption: 'The Now dial with an example wellness score, HRV and resting heart rate; not a hormone measurement.' },
+  { url: `${SITE.url}/screenshots/wearable-insights.png`, title: 'Cortisol+ — Insights from your wearable', caption: 'Daily suggestion with cortisol, sleep and recovery cards built from Apple Health readings.' },
+  { url: `${SITE.url}/screenshots/sleep-quality.png`, title: 'Cortisol+ — Sleep quality', caption: 'Nightly sleep score, time asleep, efficiency and sleep stages.' },
+  { url: `${SITE.url}/screenshots/activities.png`, title: 'Cortisol+ — Activities and readiness', caption: 'Weekly readiness, cardio load, steps, VO2 max and workouts.' },
+  { url: `${SITE.url}/screenshots/bio-age.png`, title: 'Cortisol+ — Bio Age and Pace of Aging', caption: 'An estimated Bio Age and pace of aging from recovery data; not a medical test.' },
+  { url: `${SITE.url}/screenshots/zen-ai-assistant.png`, title: 'Cortisol+ — Ask Zen', caption: 'Zen explains what is driving an example score using sleep, HRV and resting heart rate.' },
 ];
 
 function xmlEscape(str: string): string {

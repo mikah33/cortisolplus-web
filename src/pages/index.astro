@@ -3,8 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import GooglePlayBadge from '../components/GooglePlayBadge.astro';
 import AppStoreBadge from '../components/AppStoreBadge.astro';
 import RatingBadge from '../components/RatingBadge.astro';
-import CortisolGauge from '../components/CortisolGauge.astro';
-import TodayPattern from '../components/TodayPattern.astro';
+import NowCard from '../components/NowCard.astro';
 import AppShowcase from '../components/AppShowcase.astro';
 import Testimonials from '../components/Testimonials.astro';
 import { SITE, SOCIAL_PROFILES, APP_RATING, PUBLISHER } from '../consts';
@@ -48,7 +47,7 @@ const homeSchema = [
 <BaseLayout
   title="Cortisol+ | Apple Watch Stress &amp; HRV Tracker"
   description="Explore Apple Watch HRV, sleep and recovery with Cortisol+. Understand your stress patterns with a wellness score, guided breathing and clear limitations."
-  image="/screenshots/track-cortisol-levels.png"
+  image="/screenshots/live-stress-levels.png"
   schema={homeSchema}
 >
   <!-- HERO — premium mesh-gradient background with ambient HRV-wave decoration -->
@@ -150,33 +149,23 @@ const homeSchema = [
           <div class="absolute inset-0 bg-gradient-to-br from-[color:var(--color-teal)]/25 via-[color:var(--color-mint)]/15 to-[color:var(--color-coral)]/25 blur-3xl rounded-full"></div>
           <div
             id="hero-card"
-            class="relative p-8 rounded-3xl bg-[color:var(--color-bg)]/70 backdrop-blur-xl border border-white/40 shadow-[0_30px_80px_-20px_rgba(0,191,166,0.25)] transition-transform duration-300 ease-out"
+            class="relative p-4 md:p-5 rounded-[2rem] bg-[#eef3f8]/90 backdrop-blur-xl border border-white/60 shadow-[0_30px_80px_-20px_rgba(0,191,166,0.25)] transition-transform duration-300 ease-out"
             style="transform-style: preserve-3d; will-change: transform;"
           >
-            <p class="text-xs text-[color:var(--color-ink-muted)] mb-3">Illustrative wellness score · not a hormone measurement</p>
-            <!-- Top header strip -->
-            <div class="flex items-center justify-between mb-2 text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">
+            <div class="flex items-center justify-between px-1 mb-3 text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">
               <div class="flex items-center gap-1.5 font-medium">
                 <span class="relative flex w-1.5 h-1.5">
                   <span class="absolute inline-flex w-full h-full rounded-full bg-[color:var(--color-level-low)] opacity-75 animate-ping"></span>
                   <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-[color:var(--color-level-low)]"></span>
                 </span>
-                Example
+                Now · example
               </div>
               <span class="tabular-nums">Tue · 2:34 PM</span>
             </div>
 
-            <CortisolGauge score={42} label="Example score" />
+            <NowCard />
 
-            <div class="flex items-center justify-between text-xs">
-              <span class="inline-flex items-center gap-1 text-[color:var(--color-level-low)] font-medium">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5"><path d="M7 17l9.5-9.5M7 7h10v10" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 12 12)"/></svg>
-                5 points lower than earlier
-              </span>
-              <span class="text-[color:var(--color-ink-muted)]">7-day avg: 38</span>
-            </div>
-
-            <TodayPattern />
+            <p class="text-[11px] text-[color:var(--color-ink-muted)] mt-3 px-1">Example values from the app's Now screen. The score is a wellness estimate, not a hormone measurement.</p>
           </div>
         </div>
       </div>
@@ -239,7 +228,7 @@ const homeSchema = [
       <div class="md:col-span-2">
         <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-3">Loved by early users</h2>
         <p class="text-[color:var(--color-ink-muted)] mb-4">
-          {APP_RATING.value} out of 5 stars across {APP_RATING.count} ratings on the US App Store, checked September 9, 2026. People with Apple Watches who actually want to understand their stress.
+          {APP_RATING.value} out of 5 stars across {APP_RATING.count} ratings on the US App Store, checked September 27, 2026. People with Apple Watches who actually want to understand their stress.
         </p>
         <AppStoreBadge size="md" />
       </div>
@@ -277,132 +266,207 @@ const homeSchema = [
 
   <Testimonials />
 
-  <!-- VALUE PROPS -->
+  <!-- WHAT'S INSIDE — one card per App Store screen, each with a small piece of the real app UI -->
   <section class="max-w-6xl mx-auto px-6 py-24 border-t border-[color:var(--color-border)] reveal">
     <div class="max-w-3xl mb-14">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Understand the inputs</div>
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">What's inside</div>
       <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
         Your wearable readings,<br/>
         <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">in one place.</span> Explore stress and recovery patterns.
       </h2>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-5">
-      <!-- HRV card -->
-      <a href="/features/hrv-stress-monitoring" class="group relative block p-7 rounded-3xl bg-gradient-to-br from-[color:var(--color-teal)]/8 via-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/15 hover:border-[color:var(--color-teal)]/50 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-teal)]/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-        <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-[color:var(--color-teal)]/15 blur-2xl group-hover:bg-[color:var(--color-teal)]/30 transition-colors duration-500"></div>
-
-        <div class="relative">
-          <div class="flex items-center justify-between mb-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)] flex items-center justify-center text-white shadow-lg shadow-[color:var(--color-teal)]/30 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]">Real-time</span>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Live score -->
+      <a href="/features/hrv-stress-monitoring" class="feature-card group" style="--accent: #00bfa6; --accent-ink: #007569;">
+        <span class="feature-badge">Now</span>
+        <h3 class="feature-title">Live stress score</h3>
+        <p class="feature-body">HRV, resting heart rate and sleep turned into one score through the day, with the inputs a tap away.</p>
+        <div class="feature-ui grid grid-cols-2 gap-2" aria-hidden="true">
+          <div class="mini-tile">
+            <div class="text-[11px] font-semibold text-[#34c759]">HRV</div>
+            <div class="text-lg font-bold tabular-nums leading-tight">58 <span class="text-xs font-medium text-[#8a939c]">ms</span></div>
+            <svg viewBox="0 0 100 24" class="w-full h-5 mt-1" preserveAspectRatio="none"><path d="M0,18 L12,14 L24,16 L36,9 L48,12 L60,6 L72,10 L84,5 L100,7" fill="none" stroke="#34c759" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-
-          <h3 class="text-xl font-bold mb-2 group-hover:text-[color:var(--color-teal-dark)] transition-colors">HRV &amp; stress score</h3>
-          <p class="text-sm text-[color:var(--color-ink-muted)] leading-relaxed mb-5">
-            Review your HRV alongside sleep and activity, with the inputs behind your wellness score.
-          </p>
-
-          <!-- Mini HRV sparkline -->
-          <div class="h-12 mb-4">
-            <svg viewBox="0 0 200 40" class="w-full h-full" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="hrv-area" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="var(--color-teal)" stop-opacity="0.4"/>
-                  <stop offset="100%" stop-color="var(--color-teal)" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0,28 L20,22 L40,18 L60,25 L80,14 L100,20 L120,12 L140,18 L160,10 L180,15 L200,8 L200,40 L0,40 Z" fill="url(#hrv-area)"/>
-              <path d="M0,28 L20,22 L40,18 L60,25 L80,14 L100,20 L120,12 L140,18 L160,10 L180,15 L200,8" fill="none" stroke="var(--color-teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-
-          <div class="flex items-center text-sm font-medium text-[color:var(--color-teal-dark)]">
-            See how it works
-            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="mini-tile">
+            <div class="text-[11px] font-semibold text-[#ef4444]">Resting HR</div>
+            <div class="text-lg font-bold tabular-nums leading-tight">58 <span class="text-xs font-medium text-[#8a939c]">bpm</span></div>
+            <svg viewBox="0 0 100 24" class="w-full h-5 mt-1" preserveAspectRatio="none"><path d="M0,8 L12,10 L24,7 L36,12 L48,11 L60,14 L72,13 L84,16 L100,15" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
+        <span class="feature-link">See how it works <span class="group-hover:translate-x-1 transition-transform">→</span></span>
       </a>
 
-      <!-- Sleep card -->
-      <a href="/features/sleep-cortisol-tracking" class="group relative block p-7 rounded-3xl bg-gradient-to-br from-[color:var(--color-coral)]/10 via-[color:var(--color-coral)]/5 to-white border border-[color:var(--color-coral)]/15 hover:border-[color:var(--color-coral)]/50 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-coral)]/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-        <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-[color:var(--color-coral)]/15 blur-2xl group-hover:bg-[color:var(--color-coral)]/30 transition-colors duration-500"></div>
-
-        <div class="relative">
-          <div class="flex items-center justify-between mb-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[color:var(--color-coral)] to-[color:var(--color-coral-light)] flex items-center justify-center text-white shadow-lg shadow-[color:var(--color-coral)]/30 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-              </svg>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[color:var(--color-coral)]/15 text-[color:var(--color-coral-dark)]">Overnight</span>
+      <!-- Sleep -->
+      <a href="/features/sleep-cortisol-tracking" class="feature-card group" style="--accent: #6e62e5; --accent-ink: #4f46c7;">
+        <span class="feature-badge">Sleep</span>
+        <h3 class="feature-title">Sleep quality</h3>
+        <p class="feature-body">A nightly score with time asleep, efficiency, stages, and an overnight chart of heart rate, HRV, breathing and oxygen.</p>
+        <div class="feature-ui" aria-hidden="true">
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="text-3xl font-bold tabular-nums leading-none">93</span>
+            <span class="text-sm font-semibold text-[#34c759]">Excellent</span>
+            <span class="ml-auto text-[11px] text-[#8a939c] tabular-nums">7h 47m</span>
           </div>
-
-          <h3 class="text-xl font-bold mb-2 group-hover:text-[color:var(--color-coral-dark)] transition-colors">Sleep × cortisol</h3>
-          <p class="text-sm text-[color:var(--color-ink-muted)] leading-relaxed mb-5">
-            Explore sleep stages alongside stress and recovery trends.
-          </p>
-
-          <!-- Mini sleep stages chart -->
-          <div class="h-12 mb-4 flex items-end gap-1">
-            <div class="flex-1 bg-[color:var(--color-coral)]/30 rounded-sm" style="height:35%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/50 rounded-sm" style="height:70%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/80 rounded-sm" style="height:90%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/60 rounded-sm" style="height:55%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/90 rounded-sm" style="height:100%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/40 rounded-sm" style="height:45%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/70 rounded-sm" style="height:75%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/50 rounded-sm" style="height:60%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/30 rounded-sm" style="height:40%"></div>
-            <div class="flex-1 bg-[color:var(--color-coral)]/20 rounded-sm" style="height:30%"></div>
-          </div>
-
-          <div class="flex items-center text-sm font-medium text-[color:var(--color-coral-dark)]">
-            See your sleep impact
-            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="space-y-1.5 text-[10px] text-[#8a939c]">
+            <div class="stage-row"><span>Awake</span><i style="--l:2%; --w:4%; --c:#ff5a5f"></i></div>
+            <div class="stage-row"><span>REM</span><i style="--l:18%; --w:30%; --c:#35c2e6"></i></div>
+            <div class="stage-row"><span>Light</span><i style="--l:6%; --w:78%; --c:#3b82f6"></i></div>
+            <div class="stage-row"><span>Deep</span><i style="--l:10%; --w:22%; --c:#6e62e5"></i></div>
           </div>
         </div>
+        <span class="feature-link">See your sleep view <span class="group-hover:translate-x-1 transition-transform">→</span></span>
       </a>
 
-      <!-- Zen card -->
-      <a href="/features/breathing-zen-mode" class="group relative block p-7 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint)]/40 via-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-mint)]/40 hover:border-[color:var(--color-teal)]/50 hover:shadow-[0_20px_60px_-15px] hover:shadow-[color:var(--color-mint)]/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-        <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-[color:var(--color-mint)]/40 blur-2xl group-hover:bg-[color:var(--color-mint)]/60 transition-colors duration-500"></div>
-
-        <div class="relative">
-          <div class="flex items-center justify-between mb-6">
-            <div class="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint)] to-[color:var(--color-teal)] flex items-center justify-center text-white shadow-lg shadow-[color:var(--color-mint)]/40 group-hover:scale-110 transition-transform duration-300">
-              <div class="absolute inset-2 rounded-xl border-2 border-white/40 group-hover:scale-90 transition-transform duration-[2000ms] ease-in-out"></div>
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 relative">
-                <circle cx="12" cy="12" r="6"/>
-              </svg>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[color:var(--color-teal)]/15 text-[color:var(--color-teal-dark)]">Intervene</span>
+      <!-- Bio Age -->
+      <a href="/download/" class="feature-card group" style="--accent: #34c759; --accent-ink: #1f8a3c;">
+        <span class="feature-badge">Bio Age</span>
+        <h3 class="feature-title">Bio Age &amp; Pace of Aging</h3>
+        <p class="feature-body">An estimate of how fast your body is aging from your recovery data, and what's moving it. An estimate, not a medical test.</p>
+        <div class="feature-ui" aria-hidden="true">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-semibold">Pace of Aging</span>
+            <span class="text-lg font-bold tabular-nums text-[#34c759]">0.88×</span>
           </div>
-
-          <h3 class="text-xl font-bold mb-2 group-hover:text-[color:var(--color-teal-dark)] transition-colors">Zen mode &amp; breathwork</h3>
-          <p class="text-sm text-[color:var(--color-ink-muted)] leading-relaxed mb-5">
-            Guided breathing sessions to make time for a pause and check in with yourself.
-          </p>
-
-          <!-- Breathing rings -->
-          <div class="h-12 mb-4 flex items-center justify-center relative">
-            <div class="absolute w-10 h-10 rounded-full border-2 border-[color:var(--color-teal)]/30 animate-ping"></div>
-            <div class="absolute w-8 h-8 rounded-full border-2 border-[color:var(--color-teal)]/50"></div>
-            <div class="w-4 h-4 rounded-full bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)] shadow-lg shadow-[color:var(--color-teal)]/40"></div>
+          <div class="relative h-2 rounded-full" style="background: linear-gradient(90deg, #34c759, #34c759 30%, #00bfa6 45%, #ffcc40 70%, #ff9500 85%, #ff3b30);">
+            <span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white shadow ring-1 ring-black/10" style="left: 18%;"></span>
           </div>
-
-          <div class="flex items-center text-sm font-medium text-[color:var(--color-teal-dark)]">
-            Try a session
-            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="flex justify-between mt-1.5 text-[10px] font-medium">
+            <span class="text-[#34c759]">Slower</span><span class="text-[#8a939c]">On pace</span><span class="text-[#ff3b30]">Faster</span>
           </div>
         </div>
+        <span class="feature-link">Get the app <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+      </a>
+
+      <!-- Fitness -->
+      <a href="/download/" class="feature-card group" style="--accent: #ff9500; --accent-ink: #b45f00;">
+        <span class="feature-badge">Fitness</span>
+        <h3 class="feature-title">Readiness &amp; activities</h3>
+        <p class="feature-body">Weekly readiness, cardio load, steps and VO₂ max, plus runs, rides, swims, strength and yoga, and a monthly recap.</p>
+        <div class="feature-ui" aria-hidden="true">
+          <div class="flex items-end justify-between gap-3">
+            <div>
+              <div class="text-[11px] font-semibold text-[#34c759]">Good</div>
+              <div class="text-2xl font-bold tabular-nums leading-none">71</div>
+            </div>
+            <div class="flex items-end gap-1.5 h-11 flex-1 justify-end">
+              {[45, 60, 82, 38, 30, 28, 34].map((v, i) => (
+                <div class="flex flex-col items-center gap-1">
+                  <div class="w-2.5 h-9 rounded-full bg-[#34c759]/15 relative overflow-hidden">
+                    <div class="absolute bottom-0 inset-x-0 rounded-full" style={`height:${v}%; background:${i === 2 ? '#34c759' : 'rgba(52,199,89,0.45)'}`}></div>
+                  </div>
+                  <span class={`text-[9px] ${i === 2 ? 'font-bold text-[#0f1419]' : 'text-[#8a939c]'}`}>{'SMTWTFS'[i]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5 mt-3 text-[10px]">
+            <div class="mini-chip"><span class="text-[#ff9500] font-semibold">Cardio load</span><b>14</b></div>
+            <div class="mini-chip"><span class="text-[#ff9500] font-semibold">Steps</span><b>9,140</b></div>
+            <div class="mini-chip"><span class="text-[#3b82f6] font-semibold">VO₂ max</span><b>44.0</b></div>
+          </div>
+        </div>
+        <span class="feature-link">Get the app <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+      </a>
+
+      <!-- Zen -->
+      <a href="/features/breathing-zen-mode" class="feature-card group" style="--accent: #00bfa6; --accent-ink: #007569;">
+        <span class="feature-badge">Zen</span>
+        <h3 class="feature-title">Ask Zen &amp; breathwork</h3>
+        <p class="feature-body">Ask what's driving your score and get an answer from your own numbers, then take a short guided breathing session.</p>
+        <div class="feature-ui space-y-2 text-[11px] leading-snug" aria-hidden="true">
+          <div class="ml-auto w-fit max-w-[85%] px-3 py-1.5 rounded-2xl rounded-br-md bg-[#34c28f] text-white font-medium">What's driving my score today?</div>
+          <div class="w-fit max-w-[92%] px-3 py-1.5 rounded-2xl rounded-bl-md bg-[#f1f3f5] text-[#374151]">You're at 26, in the Low band. Sleep was 7.8 hours and your HRV is strong at 58 ms.</div>
+        </div>
+        <span class="feature-link">Try a session <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+      </a>
+
+      <!-- Apple Watch -->
+      <a href="/stress/apple-watch/" class="feature-card group" style="--accent: #64748b; --accent-ink: #1f2937;">
+        <span class="feature-badge">Apple Watch</span>
+        <h3 class="feature-title">On your wrist</h3>
+        <p class="feature-body">Pebble, Ripple and Bloom change color and mood with your level, or switch to Score mode. Seven complications and one-tap breathing.</p>
+        <div class="feature-ui flex items-center gap-4" aria-hidden="true">
+          <div class="shrink-0 w-[68px] h-[82px] rounded-[20px] bg-[#0f1419] ring-4 ring-[#2a2f35] flex flex-col items-center justify-center text-white">
+            <span class="text-[7px] tracking-[0.2em] text-white/60 font-semibold">CORTISOL</span>
+            <span class="text-2xl font-bold tabular-nums leading-none text-[#34c759]">26</span>
+            <span class="text-[8px] font-bold text-[#34c759] mt-0.5">LOW</span>
+          </div>
+          <ul class="flex flex-wrap gap-1 text-[10px] font-medium">
+            {['Score', 'Companion', 'HRV', 'Resting HR', 'Sleep', 'Sleep & recovery', 'Take a breath'].map((c) => (
+              <li class="px-2 py-0.5 rounded-full bg-[#f1f3f5] text-[#374151]">{c}</li>
+            ))}
+          </ul>
+        </div>
+        <span class="feature-link">Apple Watch guide <span class="group-hover:translate-x-1 transition-transform">→</span></span>
       </a>
     </div>
   </section>
+
+  <style>
+    .feature-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 1.75rem;
+      border-radius: 1.5rem;
+      background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 9%, white), white 60%);
+      border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    a.feature-card:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      box-shadow: 0 20px 60px -15px color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+    .feature-badge {
+      align-self: flex-start;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-ink);
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      margin-bottom: 1rem;
+    }
+    .feature-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-body { font-size: 0.875rem; line-height: 1.6; color: var(--color-ink-muted); margin-bottom: 1.25rem; }
+    .feature-ui {
+      margin-top: auto;
+      padding: 0.875rem 1rem;
+      border-radius: 1.1rem;
+      background: white;
+      box-shadow: 0 1px 2px rgba(15, 20, 25, 0.04), 0 8px 24px -14px rgba(15, 20, 25, 0.18);
+    }
+    .feature-link {
+      display: inline-flex;
+      gap: 0.25rem;
+      margin-top: 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--accent-ink);
+    }
+    .mini-tile { padding: 0.5rem 0.625rem; border-radius: 0.75rem; background: #f7f8fa; }
+    .mini-chip { display: flex; flex-direction: column; padding: 0.375rem 0.5rem; border-radius: 0.6rem; background: #f7f8fa; }
+    .mini-chip b { font-size: 0.8rem; color: #0f1419; }
+    .stage-row { display: grid; grid-template-columns: 2.6rem 1fr; align-items: center; }
+    .stage-row i {
+      position: relative;
+      height: 0.4rem;
+      border-radius: 999px;
+      background: #eef0f3;
+    }
+    .stage-row i::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: var(--l);
+      width: var(--w);
+      border-radius: 999px;
+      background: var(--c);
+    }
+  </style>
 
   <section class="max-w-4xl mx-auto px-6 py-16">
     <h2 class="text-3xl font-bold mb-4">Looking for a cortisol tracker app?</h2>
