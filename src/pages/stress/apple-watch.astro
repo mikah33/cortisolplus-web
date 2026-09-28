@@ -4,16 +4,28 @@ import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
 <ArticleLayout
   title="Can Apple Watch Measure Cortisol? Stress & HRV Guide"
-  description="Apple Watch can't directly measure cortisol — but it records HRV, heart rate and sleep, the signals behind wearable stress scores. See what these readings actually show and how to check them."
-  schema={{
-    '@context': 'https://schema.org', '@type': 'VideoObject',
-    name: 'Cortisol+ app walkthrough: dashboard, inputs and sleep',
-    description: 'Real development app recorded in an iPhone Simulator with sample data. Shows the wellness dashboard, input breakdown and sleep view; not a hormone test or customer result.',
-    thumbnailUrl: 'https://cortisolplus.com/videos/cortisol-development-walkthrough-2026-09-09.png',
-    contentUrl: 'https://cortisolplus.com/videos/cortisol-development-walkthrough-2026-09-09.mp4',
-    uploadDate: '2026-09-09', duration: 'PT1M10S',
-    publisher: { '@type': 'Organization', name: 'Cortisol+', url: 'https://cortisolplus.com/' },
-  }}
+  description="Apple Watch doesn't measure cortisol — but its HRV, heart rate and sleep data are what stress-tracking apps actually read. See what your readings mean and how to check them in Apple Health."
+  schema={[
+    {
+      '@context': 'https://schema.org', '@type': 'VideoObject',
+      name: 'Cortisol+ app walkthrough: dashboard, inputs and sleep',
+      description: 'Real development app recorded in an iPhone Simulator with sample data. Shows the wellness dashboard, input breakdown and sleep view; not a hormone test or customer result.',
+      thumbnailUrl: 'https://cortisolplus.com/videos/cortisol-development-walkthrough-2026-09-09.png',
+      contentUrl: 'https://cortisolplus.com/videos/cortisol-development-walkthrough-2026-09-09.mp4',
+      uploadDate: '2026-09-09', duration: 'PT1M10S',
+      publisher: { '@type': 'Organization', name: 'Cortisol+', url: 'https://cortisolplus.com/' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'Can Apple Watch measure cortisol?', acceptedAnswer: { '@type': 'Answer', text: 'No. Apple Watch does not directly measure cortisol. It records signals such as heart rate, heart rate variability and sleep that apps can use to describe stress and recovery patterns. A wearable wellness score is different from a laboratory cortisol result.' } },
+        { '@type': 'Question', name: 'Does Apple Watch have a stress score?', acceptedAnswer: { '@type': 'Answer', text: "Apple's Mindfulness features support breathing, reflection and recording your State of Mind. A mood check-in is your own report, while a third-party stress score is an interpretation of sensor data. These describe different things and may not agree." } },
+        { '@type': 'Question', name: 'Can an app calculate cortisol from HRV?', acceptedAnswer: { '@type': 'Answer', text: "An app can calculate an estimate or wellness score from HRV, but displaying a number does not establish that it accurately measures your cortisol. Cortisol+ has not established clinical accuracy against cortisol testing. Review the methodology before interpreting its results." } },
+        { '@type': 'Question', name: 'Which Apple Watch stress app should I choose?', acceptedAnswer: { '@type': 'Answer', text: "Compare the data explanation, permissions and subscription offer, not just the score's color." } },
+      ],
+    },
+  ]}
   updated="2026-09-16"
 >
 <h2>Can Apple Watch measure cortisol?</h2>
