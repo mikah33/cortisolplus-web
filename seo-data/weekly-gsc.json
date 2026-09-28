@@ -1,6 +1,6 @@
 {
   "gsc_property": "https://cortisolplus.com/",
-  "pulled_at": "2026-09-28T00:04:10.618025+00:00",
+  "pulled_at": "2026-09-28T12:02:57.769762+00:00",
   "date_range": {
     "start": "2026-09-19",
     "end": "2026-09-25"
@@ -2999,7 +2999,7 @@
       "isPending": false,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-09-25T17:31:31.004Z",
+      "lastDownloaded": "2026-09-28T02:32:46.999Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
@@ -3010,7 +3010,7 @@
         },
         {
           "type": "image",
-          "submitted": "7",
+          "submitted": "6",
           "indexed": "0"
         }
       ]
