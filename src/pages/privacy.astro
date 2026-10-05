@@ -6,10 +6,10 @@ import { PUBLISHER } from '../consts';
 <ArticleLayout
   title="Privacy policy"
   description="How Cortisol+ handles your biometric data: on-device processing, no data selling, opt-in cloud sync, and your rights under GDPR and CCPA — in plain English."
-  updated="2026-05-24"
+  updated="2026-10-05"
   hideDisclaimer={true}
 >
-  <p><strong>Effective date: May 24, 2026.</strong></p>
+  <p><strong>Effective date: October 5, 2026.</strong></p>
   <p>
     This Privacy Policy describes how <strong>{PUBLISHER.name}</strong> ("we," "our," "us")
     collects, uses, and protects information when you use the Cortisol+ mobile app (the "App"),
@@ -23,7 +23,7 @@ import { PUBLISHER } from '../consts';
   <ul>
     <li><strong>Your biometric data stays on your device.</strong> We do not upload your Apple HealthKit data to our servers.</li>
     <li><strong>We do not sell your data — ever.</strong> Not to advertisers, insurers, employers, or third parties.</li>
-    <li><strong>We do not embed ad-tracking SDKs</strong> (no Meta pixel, no TikTok pixel, no Google Analytics in the app).</li>
+    <li><strong>We measure our ads, not your health.</strong> The App includes Meta's SDK (and AppsFlyer on iPhone) so we can tell which ads lead to installs and subscriptions. Health readings are never part of this. See <a href="#ad-measurement">section 3.6</a>.</li>
     <li><strong>You can delete the App and all on-device data at any time.</strong> If you have an account, you can delete it in-app.</li>
   </ul>
 
@@ -85,6 +85,8 @@ import { PUBLISHER } from '../consts';
     All subscription transactions are processed by Apple through the App Store.
     We do not receive your payment method, card details, or full billing information.
     Apple provides us with anonymized transaction identifiers and subscription status only.
+    On Android, subscriptions are processed by Google Play in the same way.
+    We use RevenueCat to check subscription status; it receives your purchase receipts and an app user ID, not your payment details.
   </p>
 
   <h3>3.4 Diagnostic data (opt-in)</h3>
@@ -98,8 +100,28 @@ import { PUBLISHER } from '../consts';
   <p>
     The Website at cortisolplus.com may collect basic, non-identifying analytics
     (page views, referrer, country-level location, browser type) to help us understand
-    which content is useful. We do not use cookies for ad tracking.
-    We do not embed Google Analytics, Meta pixel, or similar trackers.
+    which content is useful. Google Analytics and the Meta Pixel run on the Website only if you opt in;
+    see <a href="#website-analytics">Website analytics and cookie choices</a>.
+  </p>
+
+  <h3 id="ad-measurement">3.6 Advertising measurement (App)</h3>
+  <p>
+    We advertise Cortisol+ on platforms such as Facebook and Instagram. To learn which ads work, the App includes
+    Meta's software development kit (the "Meta SDK") on iPhone and Android, and AppsFlyer on iPhone. These tools collect:
+  </p>
+  <ul>
+    <li>App events: that the App was installed and opened, and when a subscription or free trial starts or renews</li>
+    <li>Device identifiers: your device's advertising identifier (Android advertising ID; on iPhone, only if you allow tracking when asked) and a Meta anonymous ID</li>
+    <li>Basic device information: device model, operating system, app version, language, time zone and IP address</li>
+  </ul>
+  <p>
+    <strong>They never receive your health, biometric, Fitbit, Health Connect or HealthKit data, your stress scores, your name or your email address.</strong>
+    Subscription events may be sent by the App or by RevenueCat, our subscription provider.
+    Meta and AppsFlyer process this data under their own privacy policies and may use it to measure and improve ad delivery.
+  </p>
+  <p>
+    You can limit this at any time. On Android, open Settings → Privacy → Ads (or Settings → Google → Ads) and delete or reset your advertising ID.
+    On iPhone, choose "Ask App Not to Track" when prompted, or turn off Settings → Privacy &amp; Security → Tracking.
   </p>
 
   <h2>4. How we use information</h2>
@@ -108,6 +130,7 @@ import { PUBLISHER } from '../consts';
     <li>Deliver the features you've signed up for (insights, Zen mode, friend connections)</li>
     <li>Provide customer support when you contact us</li>
     <li>Improve the App through aggregate, anonymized analytics (only with your opt-in consent)</li>
+    <li>Measure which of our ads lead to installs and subscriptions (see section 3.6)</li>
     <li>Communicate important service changes, security notices, or required legal updates</li>
     <li>Detect and prevent fraud, abuse, and security incidents</li>
   </ul>
@@ -120,7 +143,7 @@ import { PUBLISHER } from '../consts';
   <ul>
     <li><strong>Consent</strong> — for HealthKit access, diagnostic opt-in, and any optional features</li>
     <li><strong>Contract</strong> — to provide the Service you sign up for</li>
-    <li><strong>Legitimate interest</strong> — for security, fraud prevention, and basic service improvement</li>
+    <li><strong>Legitimate interest</strong> — for security, fraud prevention, basic service improvement, and measuring our advertising (where the law requires consent for ad measurement, we rely on consent instead)</li>
     <li><strong>Legal obligation</strong> — to comply with tax, accounting, and regulatory requirements</li>
   </ul>
 
@@ -128,13 +151,16 @@ import { PUBLISHER } from '../consts';
   <p>We share information only in these limited cases:</p>
   <ul>
     <li><strong>Apple Inc.</strong> — for App Store distribution, subscription billing, and HealthKit infrastructure (governed by Apple's privacy policy)</li>
+    <li><strong>Google</strong> — for Google Play distribution and subscription billing on Android</li>
+    <li><strong>Meta Platforms and AppsFlyer</strong> — the limited advertising-measurement data described in section 3.6</li>
     <li><strong>Cloud hosting providers</strong> — for storing account data only (Cortisol+ accounts are hosted with industry-standard providers; biometric data is never sent to them)</li>
     <li><strong>Friends you connect with in-app</strong> — display name and selected wellness milestones you opt to share</li>
     <li><strong>Legal compliance</strong> — when required by law, subpoena, or to protect rights/safety</li>
     <li><strong>Business transfer</strong> — in the event of a merger or acquisition, with notice and same protections continuing</li>
   </ul>
   <p>
-    <strong>We never sell, rent, or share your personal data for advertising or commercial profiling.</strong>
+    <strong>We never sell or rent your personal data, and we never share health or biometric data for advertising.</strong>
+    The only data shared for advertising purposes is the ad-measurement data described in section 3.6.
   </p>
 
   <h2>7. Where data lives and international transfers</h2>
@@ -171,7 +197,9 @@ import { PUBLISHER } from '../consts';
   <h3>9.2 California residents (CCPA / CPRA)</h3>
   <p>
     You have the right to know what categories of personal information we collect, to delete it, to correct it,
-    to opt out of "sale" or "sharing" (we do neither), and to non-discrimination for exercising your rights.
+    to opt out of "sale" or "sharing", and to non-discrimination for exercising your rights. We do not sell personal information.
+    Sending device identifiers and app events to Meta and AppsFlyer to measure our ads may count as "sharing" for cross-context
+    behavioral advertising; you can opt out by deleting or resetting your advertising ID as described in section 3.6, or by emailing us.
     Verifiable requests: <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>.
   </p>
 
@@ -226,6 +254,10 @@ import { PUBLISHER } from '../consts';
     <li><strong>Apple Inc.</strong> — App Store, HealthKit, Sign in with Apple, iCloud (if you opt into iCloud sync)</li>
     <li><strong>Crash reporting (opt-in)</strong> — anonymized crash data only</li>
     <li><strong>Cloud hosting</strong> — for account data storage (Cortisol+ accounts only; never biometrics)</li>
+    <li><strong>Google</strong> — Google Play and Health Connect on Android; Firebase for accounts, notifications and app configuration</li>
+    <li><strong>RevenueCat and Superwall</strong> — subscription status and paywall screens</li>
+    <li><strong>Meta Platforms</strong> — the Meta SDK, for advertising measurement (section 3.6)</li>
+    <li><strong>AppsFlyer</strong> — advertising measurement on iPhone (section 3.6)</li>
   </ul>
   <p>Each operates under its own privacy policy. We do not embed advertising, tracking, or analytics SDKs in the App beyond those listed.</p>
 
