@@ -60,7 +60,7 @@
     // Consent applies to Apple's broad campaign attribution as well as GA4.
     // Decorate actual hrefs so keyboard and new-tab navigation work normally.
     document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(link => {
-      const campaignUrl = appStoreCampaignUrl(link.href, context);
+      const campaignUrl = appStoreCampaignUrl(link.href, context, location.pathname);
       if (campaignUrl) link.href = campaignUrl;
     });
     const path = location.pathname;

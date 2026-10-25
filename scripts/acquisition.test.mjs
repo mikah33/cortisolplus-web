@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, marketingPage } from '../src/lib/acquisition.js';
+import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, appStoreProductPage, marketingPage } from '../src/lib/acquisition.js';
 
 test('acquisition identifies AI referral without retaining private URL details', () => {
   const context = acquisitionContext('https://cortisolplus.com/tools/?email=person@example.com&score=24#result', 'https://chatgpt.com/c/private-conversation');
@@ -39,4 +39,37 @@ test('additional AI referrers get distinct campaigns, including Gemini before Go
     assert.equal(appStoreEvent(context, '/').app_store_campaign, campaign);
   }
   assert.equal(acquisitionContext('https://cortisolplus.com/', 'https://fakeclaude.ai/').acquisition_source, 'other-referral');
+});
+
+test('social and ad traffic gets broad campaigns even when in-app browsers drop the referrer', () => {
+  for (const [href, referrer, campaign] of [
+    ['https://cortisolplus.com/?fbclid=PRIVATECLICKID', '', 'website-meta'],
+    ['https://cortisolplus.com/', 'https://l.facebook.com/l.php?u=private', 'website-meta'],
+    ['https://cortisolplus.com/', 'https://www.instagram.com/', 'website-meta'],
+    ['https://cortisolplus.com/?utm_source=facebook&utm_medium=paid_social&utm_content=private-ad-name', '', 'website-meta-paid'],
+    ['https://cortisolplus.com/?utm_source=IG&utm_medium=cpc', '', 'website-meta-paid'],
+    ['https://cortisolplus.com/?ttclid=PRIVATECLICKID', '', 'website-tiktok-paid'],
+    ['https://cortisolplus.com/?gclid=PRIVATECLICKID', 'https://www.google.com/', 'website-google-paid'],
+    ['https://cortisolplus.com/', 'https://out.reddit.com/private', 'website-reddit'],
+    ['https://cortisolplus.com/', 'https://t.co/private', 'website-x'],
+    ['https://cortisolplus.com/?utm_source=unknown-newsletter', '', 'website-organic'],
+    ['https://cortisolplus.com/?utm_medium=cpc', '', 'website-organic'],
+  ]) {
+    const context = acquisitionContext(href, referrer);
+    const event = appStoreEvent(context, '/');
+    assert.equal(event.app_store_campaign, campaign, href + ' ' + referrer);
+    assert.ok(!JSON.stringify(event).match(/PRIVATE|private/), href);
+  }
+});
+
+test('approved custom product pages are used only on matching feature pages', () => {
+  const context = acquisitionContext('https://cortisolplus.com/', 'https://www.facebook.com/');
+  assert.equal(appStoreCampaignUrl('https://apps.apple.com/app/id6759510126', context, '/features/sleep-cortisol-tracking/'),
+    'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=website-meta&ppid=3fa541bd-a1e6-4df6-90b0-5e6624d2bcb8&mt=8');
+  assert.equal(appStoreEvent(context, '/features/hrv-stress-monitoring').app_store_product_page, 'hrv-recovery');
+  for (const path of ['/', '/download/', '/cortisol/lower/sleep/', '/blog/hrv-during-sleep/', '/tools/sleep-debt-cortisol/']) {
+    assert.equal(appStoreProductPage(path), null, path);
+    assert.ok(!appStoreCampaignUrl('https://apps.apple.com/app/id6759510126', context, path).includes('ppid'), path);
+    assert.equal(appStoreEvent(context, path).app_store_product_page, 'default');
+  }
 });
