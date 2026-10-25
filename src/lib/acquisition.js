@@ -1,7 +1,4 @@
 const KNOWN_SOURCES = ['chatgpt.com', 'chat.openai.com', 'perplexity.ai', 'copilot.microsoft.com', 'claude.ai', 'gemini.google.com', 'grok.com', 'bing.com', 'google.com', 'duckduckgo.com', 'facebook.com', 'instagram.com', 'threads.net', 'reddit.com', 'youtube.com', 'tiktok.com', 'x.com', 't.co', 'substack.com'];
-// Generated in Cortisol+'s App Store Connect campaign UI on 2026-09-09.
-// This public attribution token identifies our developer account, not a visitor.
-export const APP_STORE_PROVIDER = '128296964';
 const SOURCE_CAMPAIGNS = {
   'chatgpt.com': 'website-chatgpt', 'chat.openai.com': 'website-chatgpt',
   'perplexity.ai': 'website-perplexity', 'copilot.microsoft.com': 'website-copilot',
@@ -26,31 +23,32 @@ const KNOWN_CAMPAIGNS = new Set([
   'website-watch-guide', 'website-home', 'website-download', 'website-seo',
   'website-organic', 'website-press', ...Object.values(SOURCE_CAMPAIGNS),
 ]);
-// Approved custom product pages for product (feature) pages only. Articles and
-// tools keep the default listing so the link never reflects what was read.
-const PRODUCT_PAGES = {
-  '/features/sleep-cortisol-tracking': { name: 'sleep-stress', ppid: '3fa541bd-a1e6-4df6-90b0-5e6624d2bcb8' },
-  '/features/hrv-stress-monitoring': { name: 'hrv-recovery', ppid: 'f1005ae0-abe3-483d-9760-0e0bfb89a71d' },
-};
-
-export function appStoreProductPage(pathname = '') {
-  return PRODUCT_PAGES[pathname.replace(/\/+$/, '')] || null;
-}
 
 export function appStoreCampaign(context) {
-  // Never forward arbitrary UTM text, health topics, page paths or user IDs to Apple.
+  // Never forward arbitrary UTM text, health topics, page paths or user IDs to AppsFlyer.
   if (/^website-qa(?:-[a-z0-9-]+)?$/.test(context.campaign_name || '')) return 'website-qa';
   const campaign = SOURCE_CAMPAIGNS[context.acquisition_source] || 'website-organic';
   return context.acquisition_medium === 'paid' ? `${campaign}-paid` : campaign;
 }
 
-export function appStoreCampaignUrl(href, context, pathname = '') {
+// AppsFlyer OneLink template that the app already handles (see the iOS repo's
+// AppDelegate.onConversionDataSuccess): pid/c become RevenueCat's $mediaSource
+// and $campaign, deep_link_value becomes the acquisition_page. The template
+// redirects iPhones to the default App Store listing.
+export const ONELINK = 'https://cortisolplus.onelink.me/6thZ';
+
+export function isAppStoreLink(href) {
   let url;
-  try { url = new URL(href); } catch { return null; }
-  if (url.protocol !== 'https:' || url.hostname !== 'apps.apple.com' || !/\/id6759510126\/?$/.test(url.pathname)) return null;
+  try { url = new URL(href); } catch { return false; }
+  if (url.protocol !== 'https:') return false;
+  if (url.hostname === 'apps.apple.com') return /\/id6759510126\/?$/.test(url.pathname);
+  return url.origin + url.pathname === ONELINK;
+}
+
+export function appStoreCampaignUrl(href, context) {
+  if (!isAppStoreLink(href)) return null;
   // A new URL ensures private or unrelated parameters cannot hitchhike.
-  const page = appStoreProductPage(pathname);
-  return `https://apps.apple.com/app/apple-store/id6759510126?pt=${APP_STORE_PROVIDER}&ct=${appStoreCampaign(context)}${page ? `&ppid=${page.ppid}` : ''}&mt=8`;
+  return `${ONELINK}?pid=website&c=${appStoreCampaign(context)}&deep_link_value=website`;
 }
 
 export function acquisitionContext(location, referrer) {
@@ -76,10 +74,7 @@ export function acquisitionContext(location, referrer) {
 }
 
 export function appStoreEvent(context, pathname) {
-  return {
-    ...context, page_location: `https://cortisolplus.com${pathname}`, link_domain: 'apps.apple.com',
-    app_store_campaign: appStoreCampaign(context), app_store_product_page: appStoreProductPage(pathname)?.name || 'default',
-  };
+  return { ...context, page_location: `https://cortisolplus.com${pathname}`, link_domain: 'cortisolplus.onelink.me', app_store_campaign: appStoreCampaign(context) };
 }
 
 export const marketingPage = path => path === '/' || /^\/(download|features|how-it-works|about|press)(\/|$)/.test(path);
