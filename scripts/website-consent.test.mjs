@@ -55,7 +55,7 @@ test('actual website script keeps links untagged without consent and sends one a
   assert.equal(page.window.dataLayer, undefined);
 
   page.consent('analytics');
-  assert.equal(page.links[0].href, 'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=website-qa&mt=8');
+  assert.equal(page.links[0].href, 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-qa&deep_link_value=website');
   assert.equal(page.links[1].href, 'https://apps.apple.com/app/id123');
   for (let i = 0; i < 10; i++) page.dispatch('astro:page-load');
   page.click();
