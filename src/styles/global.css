@@ -335,3 +335,8 @@ html[data-platform='ios'] [data-only-block~='ios'],
 html[data-platform='android'] [data-only-block~='android'],
 html[data-platform='other'] [data-only-block~='other'],
 html:not([data-platform]) [data-only-block~='other'] { display: block; }
+
+/* Wide tables in articles scroll sideways on phones instead of squashing. */
+@media (max-width: 767px) {
+  .prose table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
