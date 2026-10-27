@@ -231,11 +231,6 @@ const reviews = reviewsData.reviews;
 
   <style>
     .zen-float { animation: float-slow 6s ease-in-out infinite; }
-    [data-only] { display: none; }
-    :global(html[data-platform='ios']) [data-only='ios'],
-    :global(html[data-platform='android']) [data-only='android'],
-    :global(html[data-platform='other']) [data-only='other'],
-    :global(html:not([data-platform])) [data-only='other'] { display: inline; }
     @media (prefers-reduced-motion: reduce) { .zen-float { animation: none; } }
   </style>
 

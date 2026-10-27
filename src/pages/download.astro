@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GooglePlayBadge from '../components/GooglePlayBadge.astro';
-import AppStoreBadge from '../components/AppStoreBadge.astro';
-import RatingBadge from '../components/RatingBadge.astro';
-import { SITE } from '../consts';
+import GetAppButton from '../components/GetAppButton.astro';
+import { SITE, APP_RATING } from '../consts';
 
 const schema = [
   {
@@ -34,57 +32,94 @@ const schema = [
   image="/screenshots/live-stress-levels.png"
   schema={schema}
 >
-  <section class="max-w-2xl mx-auto px-6 py-24 text-center">
-    <h1 class="text-5xl font-bold tracking-tight mb-4">Get Cortisol+</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-6">
-      Choose the Cortisol+ app for your iPhone or Android device.
-    </p>
-    <div class="flex justify-center mb-8">
-      <RatingBadge size="md" />
-    </div>
-    <div class="flex flex-wrap justify-center gap-4">
-      <AppStoreBadge size="lg" />
-      <GooglePlayBadge size="lg" />
-    </div>
-    <p class="text-sm text-[color:var(--color-ink-muted)] mt-8">
-      The iPhone version requires iOS 17+. Core analysis requires an active subscription or an eligible trial.
-    </p>
-  </section>
+  <div class="mx-auto w-full max-w-[30rem] -mt-14">
+    <!-- Store card, like an App Store listing on the app's sky -->
+    <section class="app-sky px-4 pt-20 pb-6">
+      <div class="app-card p-5">
+        <div class="flex items-center gap-4">
+          <img src="/icon-192.png" alt="Cortisol+ app icon" width="192" height="192" class="w-20 h-20 rounded-[1.375rem] shadow-[0_8px_20px_-8px_rgba(40,96,140,0.55)]" />
+          <div class="min-w-0">
+            <h1 class="text-[1.625rem] leading-tight font-extrabold tracking-tight">Get Cortisol+</h1>
+            <p class="text-[color:var(--color-ink-muted)] leading-snug">Stress &amp; HRV Monitor</p>
+            <a href={SITE.appStoreUrl} class="mt-1 inline-flex items-center gap-1 text-sm font-bold" aria-label={`Rated ${APP_RATING.value} out of 5 from ${APP_RATING.count} App Store ratings`}>
+              <span class="text-[#fbbf24]" aria-hidden="true">★</span>{APP_RATING.value}
+              <span class="font-semibold text-[color:var(--color-ink-muted)]">· {APP_RATING.count} ratings</span>
+            </a>
+          </div>
+        </div>
 
-  <section class="max-w-3xl mx-auto px-6 pb-24">
-    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">What Cortisol+ does</h2>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-4">
-      Cortisol+ brings available HRV, resting heart rate, sleep and activity into one view. Its 0–100 wellness score reflects a model, not a cortisol measurement. Read <a href="/how-it-works/" class="underline">how the score works</a> before interpreting it.
-    </p>
-    <p class="text-[color:var(--color-ink-muted)] mb-8">The app includes wearable trends and guided breathing. A change in the score does not establish that an intervention changed your hormone levels.</p>
+        <p class="mt-4 text-[color:var(--color-ink)]/75 leading-relaxed">
+          <span data-only="ios">The iPhone app, with your Apple Watch.</span>
+          <span data-only="android">The Android app, with Health Connect and Wear OS.</span>
+          <span data-only="other">Choose the Cortisol+ app for your iPhone or Android device.</span>
+        </p>
 
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">Using Android? Visit <a href={SITE.googlePlayUrl} class="underline">Cortisol+ on Google Play</a> for Android compatibility, features and purchase details.</p>
+        <div class="mt-5"><GetAppButton /></div>
 
-    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">What you need on iPhone</h2>
-    <ul class="list-disc pl-5 space-y-2 text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
-      <li><strong class="text-[color:var(--color-ink)]">An iPhone running iOS 17 or later.</strong> This download is the iPhone version.</li>
-      <li><strong class="text-[color:var(--color-ink)]">A compatible Apple Watch paired to that iPhone.</strong> Available measurements depend on Watch model, software, region, permissions and wear time.</li>
-      <li><strong class="text-[color:var(--color-ink)]">Apple Health permissions.</strong> On first launch you grant read access to heart rate, HRV, and sleep. Wearing the Watch overnight gives the app its most useful data.</li>
-    </ul>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
-      The app is free to download. Analysis requires an active subscription or eligible trial. Check the in-app offer for current pricing, trial eligibility and renewal terms.
-    </p>
+        <p class="mt-4 text-xs leading-relaxed text-[color:var(--color-ink-muted)] text-center">
+          Free to download. Core analysis requires an active subscription or an eligible trial.
+        </p>
+      </div>
 
-    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">How the wellness score works</h2>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-4">
-      Apple Watch does not directly measure cortisol. Cortisol+ combines available wearable readings with model assumptions and, as sufficient history accumulates, a personal baseline. HRV, resting heart rate and sleep can vary with stress, exercise, illness and many other factors. A wellness score cannot determine your cortisol level.
-    </p>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">
-      That means Cortisol+ is a pattern tracker, not a medical device. It won't diagnose Cushing's syndrome or adrenal insufficiency, and it's not a substitute for lab testing when a doctor recommends one — read <a href="/how-it-works" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">how it works</a> for the full methodology and its limits.
-    </p>
+      <ul class="app-snap -mx-4 mt-5 pb-1">
+        {['live-stress-levels', 'sleep-quality', 'activities', 'zen-ai-assistant'].map((name) => (
+          <li class="w-[42%]">
+            <img src={`/screenshots/${name}.webp`} alt="" width="645" height="1398" loading="lazy" decoding="async" class="rounded-2xl aspect-[645/1398] w-full object-cover shadow-[0_12px_28px_-18px_rgba(40,96,140,0.6)]" />
+          </li>
+        ))}
+      </ul>
+    </section>
 
-    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Looking for a cortisol tracker app?</h2>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-4">Choose Cortisol+ if you want to organize available Apple Watch stress and recovery signals and understand the factors behind a wellness score. If you need a cortisol concentration or an explanation for symptoms, this app cannot provide that result.</p>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-8">Before choosing a plan, read the <a href="/stress/apple-watch/" class="underline">Apple Watch setup guide</a>, compare <a href="/compare/apple-watch-stress-apps/" class="underline">documented approaches from stress apps</a>, and try the <a href="/resources/stress-sleep-journal/" class="underline">free observation journal</a>. The journal works without an account or subscription.</p>
+    <!-- What you need — follows the visitor's phone -->
+    <section class="px-4 mt-6">
+      <h2 class="px-1 mb-2 text-xl font-extrabold tracking-tight">What you need</h2>
+      <ul class="app-card app-list overflow-hidden" data-only-block="ios other">
+        <li class="p-4"><div class="font-extrabold">iPhone with iOS 17 or later</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">The App Store download is the iPhone version.</p></li>
+        <li class="p-4"><div class="font-extrabold">A compatible Apple Watch</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">Paired to that iPhone. Available measurements depend on Watch model, software, region, permissions and wear time.</p></li>
+        <li class="p-4"><div class="font-extrabold">Apple Health permissions</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">On first launch you grant read access to heart rate, HRV, and sleep. Wearing the Watch overnight gives the app its most useful data.</p></li>
+      </ul>
+      <ul class="app-card app-list overflow-hidden" data-only-block="android">
+        <li class="p-4"><div class="font-extrabold">Android 9 or later</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">Get Cortisol+ from Google Play.</p></li>
+        <li class="p-4"><div class="font-extrabold">Health Connect</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">Built into Android 14 and later, or free from Google Play. On first launch you grant read access to heart rate, HRV and sleep.</p></li>
+        <li class="p-4"><div class="font-extrabold">A watch or ring that syncs to Health Connect</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">Wear OS watches get the Cortisol+ watch app. Available measurements depend on your device, its app, permissions and wear time.</p></li>
+      </ul>
+      <p class="px-1 mt-3 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+        The app is free to download. Analysis requires an active subscription or eligible trial. Check the in-app offer for current pricing, trial eligibility and renewal terms.
+      </p>
+    </section>
 
-    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Your data stays yours</h2>
-    <p class="text-[color:var(--color-ink-muted)] leading-relaxed">
-      The core wellness score is calculated on your device. Optional connected services, account features and coaching have additional data flows. The full details are in our <a href="/privacy" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">privacy policy</a>.
-    </p>
-  </section>
+    <!-- The explanations, kept in full -->
+    <section class="px-4 mt-8 space-y-4">
+      <div class="app-card p-5">
+        <h2 class="text-xl font-extrabold tracking-tight mb-2">What Cortisol+ does</h2>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">
+          Cortisol+ brings available HRV, resting heart rate, sleep and activity into one view. Its 0–100 wellness score reflects a model, not a cortisol measurement. Read <a href="/how-it-works/" class="underline font-semibold text-[color:var(--color-teal-dark)]">how the score works</a> before interpreting it.
+        </p>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed">The app includes wearable trends and guided breathing. A change in the score does not establish that an intervention changed your hormone levels.</p>
+      </div>
+
+      <div class="app-card p-5">
+        <h2 class="text-xl font-extrabold tracking-tight mb-2">How the wellness score works</h2>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">
+          Apple Watch does not directly measure cortisol. Cortisol+ combines available wearable readings with model assumptions and, as sufficient history accumulates, a personal baseline. HRV, resting heart rate and sleep can vary with stress, exercise, illness and many other factors. A wellness score cannot determine your cortisol level.
+        </p>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed">
+          That means Cortisol+ is a pattern tracker, not a medical device. It won't diagnose Cushing's syndrome or adrenal insufficiency, and it's not a substitute for lab testing when a doctor recommends one — read <a href="/how-it-works" class="text-[color:var(--color-teal-dark)] font-semibold underline underline-offset-2">how it works</a> for the full methodology and its limits.
+        </p>
+      </div>
+
+      <div class="app-card p-5">
+        <h2 class="text-xl font-extrabold tracking-tight mb-2">Looking for a cortisol tracker app?</h2>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">Choose Cortisol+ if you want to organize available Apple Watch stress and recovery signals and understand the factors behind a wellness score. If you need a cortisol concentration or an explanation for symptoms, this app cannot provide that result.</p>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed">Before choosing a plan, read the <a href="/stress/apple-watch/" class="underline font-semibold text-[color:var(--color-teal-dark)]">Apple Watch setup guide</a>, compare <a href="/compare/apple-watch-stress-apps/" class="underline font-semibold text-[color:var(--color-teal-dark)]">documented approaches from stress apps</a>, and try the <a href="/resources/stress-sleep-journal/" class="underline font-semibold text-[color:var(--color-teal-dark)]">free observation journal</a>. The journal works without an account or subscription.</p>
+      </div>
+
+      <div class="app-card p-5">
+        <h2 class="text-xl font-extrabold tracking-tight mb-2">Your data stays yours</h2>
+        <p class="text-[color:var(--color-ink-muted)] leading-relaxed">
+          The core wellness score is calculated on your device. Optional connected services, account features and coaching have additional data flows. The full details are in our <a href="/privacy" class="text-[color:var(--color-teal-dark)] font-semibold underline underline-offset-2">privacy policy</a>.
+        </p>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

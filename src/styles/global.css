@@ -246,7 +246,9 @@ nav, header { view-transition-name: app-header; }
    ===================================================================== */
 
 .app-sky {
+  /* Top layer fades whatever part of the sky shows into the page background. */
   background:
+    linear-gradient(180deg, transparent 55%, var(--color-sky-bottom) 100%),
     url('/app-ui/sky.webp') top center / 100% auto no-repeat,
     linear-gradient(180deg, var(--color-sky-top) 0%, var(--color-sky-mid) 40%, var(--color-sky-bottom) 85%);
 }
@@ -329,3 +331,15 @@ nav, header { view-transition-name: app-header; }
   transition: transform 220ms ease, opacity 220ms ease;
 }
 .app-dock[data-hidden='true'] { transform: translateY(110%); opacity: 0; pointer-events: none; }
+
+/* Platform-specific copy. BaseLayout tags <html data-platform="ios|android|other">.
+   data-only shows inline text, data-only-block shows a block for any listed platform. */
+[data-only], [data-only-block] { display: none; }
+html[data-platform='ios'] [data-only='ios'],
+html[data-platform='android'] [data-only='android'],
+html[data-platform='other'] [data-only='other'],
+html:not([data-platform]) [data-only='other'] { display: inline; }
+html[data-platform='ios'] [data-only-block~='ios'],
+html[data-platform='android'] [data-only-block~='android'],
+html[data-platform='other'] [data-only-block~='other'],
+html:not([data-platform]) [data-only-block~='other'] { display: block; }
