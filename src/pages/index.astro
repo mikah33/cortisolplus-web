@@ -85,7 +85,7 @@ const reviews = reviewsData.reviews;
         Explore recovery habits and try guided breathing.
       </p>
 
-      <div id="hero-cta" class="mt-7">
+      <div class="mt-7">
         <GetAppButton />
       </div>
       <a href="/how-it-works/" class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[color:var(--color-teal-dark)]">
@@ -220,13 +220,8 @@ const reviews = reviewsData.reviews;
     <section class="mt-12 px-5 text-center">
       <img src="/app-ui/zen_celebrate.webp" alt="" width="495" height="480" loading="lazy" class="mx-auto h-40 w-auto" />
       <h2 class="mt-3 text-[1.75rem] font-extrabold tracking-tight leading-tight text-balance">Meet Zen and see your first score today</h2>
-      <div id="closing-cta" class="mt-6"><GetAppButton /></div>
+      <div class="mt-6"><GetAppButton /></div>
     </section>
-  </div>
-
-  <!-- Sticky store button once the hero button scrolls away -->
-  <div class="app-dock md:hidden" id="home-dock" data-hidden="true">
-    <div class="mx-auto max-w-[30rem]"><GetAppButton showOther={false} /></div>
   </div>
 
   <style>
@@ -234,27 +229,4 @@ const reviews = reviewsData.reviews;
     @media (prefers-reduced-motion: reduce) { .zen-float { animation: none; } }
   </style>
 
-  <script>
-    // Show the docked button only between the hero button and the closing one,
-    // so there is never a second store button on screen.
-    function initDock() {
-      const dock = document.getElementById('home-dock');
-      const hero = document.getElementById('hero-cta');
-      const closing = document.getElementById('closing-cta');
-      if (!dock || !hero || !closing) return;
-      const state = { heroAbove: false, closingSeen: false };
-      const observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.target === hero) state.heroAbove = !entry.isIntersecting && entry.boundingClientRect.top < 0;
-          if (entry.target === closing) state.closingSeen = entry.isIntersecting || entry.boundingClientRect.top < 0;
-        }
-        dock.dataset.hidden = String(!state.heroAbove || state.closingSeen);
-      });
-      observer.observe(hero);
-      observer.observe(closing);
-      document.addEventListener('astro:before-swap', () => observer.disconnect(), { once: true });
-    }
-    initDock();
-    document.addEventListener('astro:after-swap', initDock);
-  </script>
 </BaseLayout>
