@@ -2,8 +2,10 @@
 import FunnelLayout from '../../layouts/FunnelLayout.astro';
 import StartFlow from '../../components/start/StartFlow.tsx';
 import reviewsData from '../../data/reviews.json';
+import QRCode from 'qrcode';
 import { SITE, APP_RATING } from '../../consts';
 
+const qrSvg = await QRCode.toString(`${SITE.url}/download/`, { type: 'svg', margin: 0, color: { dark: '#121826', light: '#ffffff' } });
 const reviews = reviewsData.reviews.map(({ title, body, author, rating }) => ({ title, body, author, rating }));
 ---
 
@@ -17,6 +19,7 @@ const reviews = reviewsData.reviews.map(({ title, body, author, rating }) => ({ 
     rating={{ value: APP_RATING.value, count: APP_RATING.count }}
     appStoreUrl={SITE.appStoreUrl}
     googlePlayUrl={SITE.googlePlayUrl}
+    qrSvg={qrSvg}
   />
 </FunnelLayout>
 

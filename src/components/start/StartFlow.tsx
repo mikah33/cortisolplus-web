@@ -30,6 +30,8 @@ interface Props {
   rating: { value: number; count: number };
   appStoreUrl: string;
   googlePlayUrl: string;
+  /** QR code (SVG markup) for cortisolplus.com/download/, shown to desktop visitors. */
+  qrSvg: string;
 }
 
 interface Answers {
@@ -92,7 +94,9 @@ function save(step: Step, answers: Answers) {
 }
 
 function detectPlatform(): Platform {
-  const value = document.documentElement.dataset.platform;
+  // ?platform=ios|android previews another phone's version of the flow.
+  const forced = new URLSearchParams(location.search).get('platform');
+  const value = forced || document.documentElement.dataset.platform;
   return value === 'ios' || value === 'android' ? value : 'other';
 }
 
@@ -164,9 +168,13 @@ function PrimaryButton({ children, onClick, disabled }: { children: ReactNode; o
 
 function Screen({ children, footer, center }: { children: ReactNode; footer?: ReactNode; center?: boolean }) {
   return (
-    <div className="flex min-h-[calc(100dvh-3.5rem)] flex-col px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
+    <div className={`flex min-h-[calc(100dvh-3.5rem)] flex-col px-5 ${footer ? '' : 'pb-[calc(1.25rem+env(safe-area-inset-bottom))]'}`}>
       <div className={`flex-1 ${center ? 'flex flex-col justify-center' : 'pt-2'}`}>{children}</div>
-      {footer && <div className="pt-4">{footer}</div>}
+      {footer && (
+        <div className="sticky bottom-0 -mx-5 mt-4 bg-gradient-to-t from-[color:var(--color-sky-bottom)] from-70% to-transparent px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-6">
+          {footer}
+        </div>
+      )}
     </div>
   );
 }
@@ -338,7 +346,7 @@ function StoreButton({ platform, appStoreUrl, googlePlayUrl }: { platform: Platf
 
 // ---------------------------------------------------------------- the flow
 
-export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl }: Props) {
+export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl, qrSvg }: Props) {
   const [step, setStep] = useState<Step>('hi');
   const [answers, setAnswers] = useState<Answers>(DEFAULT_ANSWERS);
   const [platform, setPlatform] = useState<Platform>('other');
@@ -762,28 +770,70 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl 
       screen = <Paywall plan={plan} setPlan={setPlan} rating={rating} onBuy={() => go('done')} webview={webview} platform={platform} />;
       break;
 
-    case 'done':
+    case 'done': {
+      const store = platform === 'android' ? 'Google Play' : 'the App Store';
+      const steps = [
+        { title: 'Download Cortisol+', body: platform === 'other' ? 'Free on the App Store and Google Play.' : `Free on ${store}.` },
+        { title: 'Sign in with the same account', body: 'Your subscription and answers are waiting there.' },
+        {
+          title: wearsWatch ? 'Connect your watch' : platform === 'android' ? 'Connect Health Connect' : 'Connect Apple Health',
+          body: `Allow ${platform === 'android' ? 'Health Connect' : 'Apple Health'} so Zen can read heart rate, HRV and sleep.`,
+        },
+      ];
       screen = (
-        <Screen>
+        <Screen
+          footer={
+            platform === 'other' ? undefined : (
+              <>
+                <StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} />
+                <a href={platform === 'android' ? appStoreUrl : googlePlayUrl} className="mt-3 block text-center text-sm font-bold text-[color:var(--color-ink)]/60 underline underline-offset-2">
+                  {platform === 'android' ? 'On iPhone? Get it on the App Store' : 'On Android? Get it on Google Play'}
+                </a>
+              </>
+            )
+          }
+        >
           {!CHECKOUT_ENABLED && (
-            <div className="mb-4 rounded-2xl border-2 border-dashed border-[#ff9500] bg-white/80 p-3 text-sm font-bold text-[#8a4b00]">
-              Sample screen. Web checkout isn't connected yet, so nothing was charged. This is what buyers will see after paying.
-            </div>
+            <p className="mx-auto mb-3 w-fit rounded-full bg-[#fff4e0] px-3 py-1 text-xs font-extrabold text-[#8a4b00]">
+              Sample screen · nothing was charged
+            </p>
           )}
           <div className="text-center">
-            <img src="/app-ui/zen_celebrate.webp" alt="" width="495" height="480" className="mx-auto h-40 w-auto" />
+            <img src="/app-ui/zen_celebrate.webp" alt="" width="495" height="480" className="confetti-pop mx-auto h-32 w-auto" />
+            <span className="mt-2 inline-block rounded-full bg-[color:var(--color-teal)]/20 px-3 py-1 text-xs font-extrabold tracking-wider text-[color:var(--color-teal-dark)]">PRO UNLOCKED</span>
             <Title>{name ? `You're in, ${name}!` : "You're in!"}</Title>
-            <p className="mt-2 text-[color:var(--color-ink)]/70 font-semibold">Three quick steps and Zen starts tracking your stress.</p>
+            <p className="mt-1 font-semibold text-[color:var(--color-ink)]/70">Get the app to start tracking your stress.</p>
           </div>
-          <ol className="app-card app-list mt-6 overflow-hidden">
-            <li className="flex gap-3 p-4"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[rgba(18,24,38,0.88)] text-sm font-extrabold text-white">1</span><div><div className="font-extrabold">Download Cortisol+</div><p className="text-sm text-[color:var(--color-ink-muted)]">Free from the {platform === 'android' ? 'Google Play Store' : platform === 'ios' ? 'App Store' : 'App Store or Google Play'}.</p></div></li>
-            <li className="flex gap-3 p-4"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[rgba(18,24,38,0.88)] text-sm font-extrabold text-white">2</span><div><div className="font-extrabold">Sign in with the same account</div><p className="text-sm text-[color:var(--color-ink-muted)]">Your subscription and answers are waiting there. We also emailed you a link.</p></div></li>
-            <li className="flex gap-3 p-4"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[rgba(18,24,38,0.88)] text-sm font-extrabold text-white">3</span><div><div className="font-extrabold">{wearsWatch ? 'Connect your watch' : platform === 'android' ? 'Connect Health Connect' : 'Connect Apple Health'}</div><p className="text-sm text-[color:var(--color-ink-muted)]">{platform === 'android' ? 'Allow Health Connect so Zen can read heart rate, HRV and sleep.' : 'Allow Apple Health so Zen can read heart rate, HRV and sleep.'}</p></div></li>
+
+          {platform === 'other' && (
+            <div className="app-card mt-5 flex items-center gap-4 p-4">
+              <div className="h-28 w-28 shrink-0 rounded-xl bg-white p-2" aria-label="QR code to download Cortisol+" role="img" dangerouslySetInnerHTML={{ __html: qrSvg }} />
+              <div>
+                <div className="font-extrabold">Scan with your phone</div>
+                <p className="text-sm leading-snug text-[color:var(--color-ink-muted)]">Point your camera here to download Cortisol+ on your iPhone or Android.</p>
+              </div>
+            </div>
+          )}
+
+          <ol className="mt-5 space-y-3">
+            {steps.map((item, i) => (
+              <li key={item.title} className="flex items-start gap-3">
+                <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-extrabold ${i === 0 ? 'bg-[rgba(18,24,38,0.88)] text-white' : 'bg-white/80 text-[color:var(--color-ink)]'}`}>{i + 1}</span>
+                <div className="pt-0.5">
+                  <div className="font-extrabold leading-tight">{item.title}</div>
+                  <p className="text-sm leading-snug text-[color:var(--color-ink-muted)]">{item.body}</p>
+                </div>
+              </li>
+            ))}
           </ol>
-          <div className="mt-6"><StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} /></div>
+
+          {platform === 'other' && (
+            <div className="mt-6"><StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} /></div>
+          )}
         </Screen>
       );
       break;
+    }
   }
 
   return (
