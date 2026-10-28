@@ -75,3 +75,17 @@ test('actual website script keeps links untagged without consent and sends one a
   assert.equal(reloaded.links[0].href, 'https://apps.apple.com/app/id6759510126');
   assert.equal(reloaded.scripts.length, 0);
 });
+
+test('quiz progress is reported only after consent and only as allowlisted step names', () => {
+  const page = mount();
+  page.dispatch('astro:page-load');
+  page.dispatch('cplus:funnel', { detail: { step: 'question_2' } });
+  assert.equal(page.window.dataLayer, undefined);
+
+  page.consent('analytics');
+  page.dispatch('cplus:funnel', { detail: { step: 'question_2' } });
+  page.dispatch('cplus:funnel', { detail: { step: 'peak=evening' } });
+  const steps = page.window.dataLayer.filter(args => args[0] === 'event' && args[1] === 'funnel_step');
+  assert.equal(JSON.stringify(steps.map(args => args[2].step)), '["question_2"]');
+  assert.equal(page.window.fbq, undefined);
+});

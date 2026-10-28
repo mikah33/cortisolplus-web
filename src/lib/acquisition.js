@@ -11,12 +11,14 @@ const SOURCE_CAMPAIGNS = {
 };
 const KNOWN_CAMPAIGNS = new Set([
   'website-watch-guide', 'website-home', 'website-download', 'website-seo',
-  'website-organic', 'website-press', ...Object.values(SOURCE_CAMPAIGNS),
+  'website-organic', 'website-press', 'website-quiz', ...Object.values(SOURCE_CAMPAIGNS),
 ]);
 
 export function appStoreCampaign(context) {
   // Never forward arbitrary UTM text, health topics, page paths or user IDs to Apple.
   if (/^website-qa(?:-[a-z0-9-]+)?$/.test(context.campaign_name || '')) return 'website-qa';
+  // Visitors who landed on the /start/ ad quiz, whatever the referrer.
+  if (/^\/start(\/|$)/.test(context.landing_path || '') || context.campaign_name === 'website-quiz') return 'website-quiz';
   return SOURCE_CAMPAIGNS[context.acquisition_source] || 'website-organic';
 }
 
@@ -48,4 +50,12 @@ export function appStoreEvent(context, pathname) {
   return { ...context, page_location: `https://cortisolplus.com${pathname}`, link_domain: 'apps.apple.com', app_store_campaign: appStoreCampaign(context) };
 }
 
-export const marketingPage = path => path === '/' || /^\/(download|features|how-it-works|about|press)(\/|$)/.test(path);
+// Step names the /start/ quiz may report. Answers and results are never included.
+export const FUNNEL_STEPS = new Set([
+  'start',
+  ...Array.from({ length: 8 }, (_, i) => `question_${i + 1}`),
+  'result_watch', 'result_no_watch', 'result_android',
+]);
+
+// /start/ is the ad landing quiz: it reports step names only, never answers.
+export const marketingPage = path => path === '/' || /^\/(download|features|how-it-works|about|press|start)(\/|$)/.test(path);
