@@ -40,3 +40,11 @@ test('additional AI referrers get distinct campaigns, including Gemini before Go
   }
   assert.equal(acquisitionContext('https://cortisolplus.com/', 'https://fakeclaude.ai/').acquisition_source, 'other-referral');
 });
+
+test('the /start/ ad quiz gets its own App Store campaign and ad events', () => {
+  const context = acquisitionContext('https://cortisolplus.com/start/?utm_source=facebook&fbclid=private', 'https://l.facebook.com/');
+  assert.equal(context.landing_path, '/start/');
+  assert.equal(appStoreCampaignUrl('https://apps.apple.com/app/id6759510126', context), 'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=website-quiz&mt=8');
+  assert.equal(marketingPage('/start/'), true);
+  assert.equal(marketingPage('/startle/'), false);
+});

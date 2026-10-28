@@ -8,7 +8,7 @@
 </aside>
 
 <script>
-  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, marketingPage } from '../lib/acquisition.js';
+  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, marketingPage, FUNNEL_STEPS } from '../lib/acquisition.js';
   const measurementId = 'G-MMJRJGZDE3';
   const preferenceKey = 'cortisol-website-privacy-v1';
   const production = location.protocol === 'https:' && location.hostname === 'cortisolplus.com';
@@ -100,10 +100,26 @@
       return;
     }
     const link = target?.closest<HTMLAnchorElement>('a[href]');
-    if (!production || !link || !appStoreCampaignUrl(link.href, context) || (choice !== 'analytics' && choice !== 'all')) return;
+    if (production && link?.dataset?.funnelCheckout !== undefined && (choice === 'analytics' || choice === 'all')) {
+      w.gtag?.('event', 'web_checkout_click', { ...context, page_location: `https://cortisolplus.com${location.pathname}`, page_referrer: '', transport_type: 'beacon' });
+      if (choice === 'all' && marketingPage(location.pathname)) w.fbq?.('track', 'InitiateCheckout');
+      return;
+    }
+    const campaignUrl = link && appStoreCampaignUrl(link.href, context);
+    if (!production || !link || !campaignUrl || (choice !== 'analytics' && choice !== 'all')) return;
+    // Links rendered after page load (e.g. quiz results) miss pageView's decoration.
+    link.href = campaignUrl;
     // One delegated handler for all App Store links; client navigation cannot duplicate it.
     w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: '', transport_type: 'beacon' });
     if (choice === 'all' && marketingPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
+  });
+  // Quiz progress from FunnelQuiz: allowlisted step names only, never answers.
+  document.addEventListener('cplus:funnel', (event) => {
+    const step = (event as CustomEvent<{ step?: string }>).detail?.step || '';
+    if (!production || !FUNNEL_STEPS.has(step) || (choice !== 'analytics' && choice !== 'all')) return;
+    w.gtag?.('event', 'funnel_step', { ...context, step, page_location: `https://cortisolplus.com${location.pathname}`, page_referrer: '' });
+    // Device ownership is the only qualifier; it lets ads optimize for Watch owners.
+    if (step === 'result_watch' && choice === 'all' && marketingPage(location.pathname)) w.fbq?.('trackCustom', 'QuizQualified');
   });
   document.addEventListener('astro:page-load', pageView);
 </script>

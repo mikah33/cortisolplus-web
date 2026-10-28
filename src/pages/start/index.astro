@@ -1,0 +1,29 @@
+---
+// Ad landing quiz. Deliberately noindex and kept out of the sitemap.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FunnelQuiz from '../../components/FunnelQuiz.tsx';
+---
+
+<BaseLayout
+  title="What does your stress rhythm look like?"
+  description="A 1-minute check-in about your day, and what your Apple Watch can show you about it."
+  image="/screenshots/live-stress-levels.png"
+  noindex
+  bare
+>
+  <div class="min-h-screen bg-gradient-to-b from-[color:var(--color-mint-soft)] via-white to-white">
+    <div class="max-w-lg mx-auto px-4 pt-5 pb-10 min-h-screen flex flex-col">
+      <header class="flex items-center justify-center mb-8">
+        <span class="text-lg font-bold tracking-tight">Cortisol<span class="text-[color:var(--color-teal)]">+</span></span>
+      </header>
+      <div class="flex-1">
+        <FunnelQuiz client:load />
+      </div>
+      <footer class="mt-12 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-[color:var(--color-ink-muted)]">
+        <a href="/privacy/" class="hover:underline">Privacy</a>
+        <a href="/terms/" class="hover:underline">Terms</a>
+        <button type="button" data-open-privacy class="hover:underline">Privacy choices</button>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>
