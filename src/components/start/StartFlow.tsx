@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import type { WebUser } from './checkout';
 import {
   BUILDING_STEPS,
   CHECKOUT_ENABLED,
@@ -64,12 +65,38 @@ const STEPS = [
   'hi', 'name', 'greet', 'symptoms', 'goals', 'explain',
   'edu0', 'edu1', 'edu2', 'edu3', 'edu4', 'edu5', 'edu6', 'edu7',
   'age', 'gender', 'height', 'weight', 'sleep', 'exercise',
-  'notify', 'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'done',
+  'notify', 'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'account', 'done',
 ] as const;
 type Step = (typeof STEPS)[number];
 
 const QUESTION_STEPS: Step[] = ['age', 'gender', 'height', 'weight', 'sleep', 'exercise'];
 const STORAGE_KEY = 'cp_start_v1';
+const PURCHASE_KEY = 'cp_start_purchase_v1';
+
+interface Purchase {
+  plan: PlanId;
+  email: string | null;
+  /** Anonymous (iPhone) purchases: the link that unlocks Pro in the app. */
+  redeemUrl: string | null;
+  signedIn: boolean;
+}
+
+function readPurchase(): Purchase | null {
+  try {
+    const raw = localStorage.getItem(PURCHASE_KEY);
+    return raw ? (JSON.parse(raw) as Purchase) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writePurchase(purchase: Purchase) {
+  try {
+    localStorage.setItem(PURCHASE_KEY, JSON.stringify(purchase));
+  } catch {
+    /* the download screen still shows now; it just won't survive a reload */
+  }
+}
 
 // ---------------------------------------------------------------- helpers
 
@@ -355,12 +382,21 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   const [ready, setReady] = useState(false); // per-screen "typing finished" gate
   const [plan, setPlan] = useState<PlanId>('yearly');
   const [exitOfferSeen, setExitOfferSeen] = useState(false);
+  const [purchase, setPurchase] = useState<Purchase | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setPlatform(detectPlatform());
     setWebview(inAppBrowser());
     const saved = readSaved();
-    if (saved && saved.step !== 'done') {
+    const bought = readPurchase();
+    if (bought) {
+      // Someone who already paid always lands back on their download screen.
+      setPurchase(bought);
+      if (saved) setAnswers(saved.answers);
+      setStep('done');
+    } else if (saved && saved.step !== 'done') {
       setAnswers(saved.answers);
       setStep(saved.step);
     }
@@ -373,6 +409,11 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   }, [step]);
 
   useEffect(() => save(step, answers), [answers]);
+
+  // The checkout code is large; start fetching it once the paywall is near.
+  useEffect(() => {
+    if (step === 'plan' || step === 'paywall') void import('./checkout');
+  }, [step]);
 
   const update = (patch: Partial<Answers>) => setAnswers((a) => ({ ...a, ...patch }));
   const go = (next: Step) => {
@@ -403,6 +444,64 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   const markReady = useMemo(() => () => setReady(true), []);
   const progress = (STEPS.indexOf(step) + 1) / STEPS.length;
   const qIndex = QUESTION_STEPS.indexOf(step);
+
+  // ------------------------------------------------------------ checkout
+  // iPhone buyers check out without an account and unlock the app with a
+  // redemption link (the iOS app signs in with Apple, which isn't set up for
+  // the web yet). Everyone else signs in with Google first, so the purchase
+  // lands on the same account the Android app uses.
+  const startCheckout = (chosen: PlanId) => {
+    setPlan(chosen);
+    setError('');
+    if (!CHECKOUT_ENABLED) {
+      go('done');
+      return;
+    }
+    if (platform === 'ios') void pay(chosen, null);
+    else go('account');
+  };
+
+  const pay = async (chosen: PlanId, user: WebUser | null) => {
+    setBusy(true);
+    setError('');
+    try {
+      const { checkout, saveAnswers } = await import('./checkout');
+      if (user) await saveAnswers(user.uid, { ...answers, plan: chosen, platform }).catch(() => undefined);
+      const result = await checkout(chosen, user, {
+        $displayName: answers.name.trim(),
+        web_device: answers.device,
+        web_goals: answers.goals.join(','),
+        web_symptoms: answers.symptoms.join(','),
+        web_platform: platform,
+      });
+      if (result.status === 'purchased') {
+        const bought: Purchase = { plan: chosen, email: result.email ?? user?.email ?? null, redeemUrl: result.redeemUrl ?? null, signedIn: !!user };
+        writePurchase(bought);
+        setPurchase(bought);
+        go('done');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Checkout failed. Please try again.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const signInAndPay = async () => {
+    setBusy(true);
+    setError('');
+    try {
+      const { signInWithGoogle } = await import('./checkout');
+      const user = await signInWithGoogle();
+      await pay(plan, user);
+    } catch (err) {
+      const code = (err as { code?: string }).code;
+      if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
+        setError('Sign-in failed. Please try again.');
+      }
+      setBusy(false);
+    }
+  };
 
   const toggle = (key: 'symptoms' | 'goals', id: string) =>
     update({ [key]: answers[key].includes(id) ? answers[key].filter((x) => x !== id) : [...answers[key], id] });
@@ -855,7 +954,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       break;
 
     case 'paywall':
-      screen = <Paywall plan={plan === 'yearlyExit' ? 'yearly' : plan} setPlan={setPlan} rating={rating} onBuy={() => go('done')} webview={webview} platform={platform} />;
+      screen = <Paywall plan={plan === 'yearlyExit' ? 'yearly' : plan} setPlan={setPlan} rating={rating} onBuy={() => startCheckout(plan === 'yearlyExit' ? 'yearly' : plan)} busy={busy} error={error} webview={webview} platform={platform} />;
       break;
 
     case 'exit': {
@@ -865,7 +964,8 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       screen = (
         <Screen center footer={
           <>
-            <PrimaryButton onClick={() => { setPlan('yearlyExit'); go('done'); }}>Claim My Offer</PrimaryButton>
+            <PrimaryButton onClick={() => startCheckout('yearlyExit')} disabled={busy}>{busy ? 'Opening checkout…' : 'Claim My Offer'}</PrimaryButton>
+            {error && <p className="mt-2 text-center text-sm font-bold text-[#c0392b]" role="alert">{error}</p>}
             <button type="button" onClick={() => { setHistory((h) => h.slice(0, -1)); setStep('paywall'); }} className="mt-2 block w-full py-2 text-center text-sm font-bold text-[color:var(--color-ink)]/60">No thanks</button>
             <p className="mt-1 text-center text-xs text-[color:var(--color-ink-muted)]">You'll be charged {money(offer)} today and every year until you cancel.</p>
           </>
@@ -892,11 +992,55 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       break;
     }
 
+    case 'account': {
+      const price = money(PLANS[plan].price);
+      const period = plan === 'weekly' ? 'week' : 'year';
+      screen = (
+        <Screen footer={
+          <>
+            <button
+              type="button"
+              onClick={signInAndPay}
+              disabled={busy}
+              className="app-btn app-btn--light w-full gap-3 disabled:opacity-50"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.7z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6h-4a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.8 3.6-4.9 6.7-4.9z"/></svg>
+              {busy ? 'Opening checkout…' : 'Continue with Google'}
+            </button>
+            {platform === 'other' && (
+              <button type="button" onClick={() => pay(plan, null)} disabled={busy} className="mt-2 block w-full py-2 text-center text-sm font-bold text-[color:var(--color-ink)]/70 disabled:opacity-50">
+                Using an iPhone? Continue without signing in
+              </button>
+            )}
+            {error && <p className="mt-2 text-center text-sm font-bold text-[#c0392b]" role="alert">{error}</p>}
+            <p className="mt-3 text-center text-xs text-[color:var(--color-ink-muted)]">Next: {price} per {period}, charged today. Cancel anytime.</p>
+          </>
+        }>
+          <img src={IMG('zen_new_tour_connect')} alt="" width="200" height="270" className="mx-auto h-36 w-auto" />
+          <div className="text-center">
+            <Title>Save your plan</Title>
+            <p className="mt-2 font-semibold text-[color:var(--color-ink)]/70">
+              Sign in with Google so your plan and subscription are waiting when you open Cortisol+ on your Android.
+            </p>
+          </div>
+          <ul className="app-card mt-6 space-y-3 p-4 text-sm font-bold">
+            <li className="flex gap-2"><span aria-hidden="true">✓</span>Use the same Google account in the app to unlock Pro</li>
+            <li className="flex gap-2"><span aria-hidden="true">✓</span>Your answers carry over, so you skip setup</li>
+            <li className="flex gap-2"><span aria-hidden="true">✓</span>Manage or cancel anytime from your receipt email</li>
+          </ul>
+        </Screen>
+      );
+      break;
+    }
+
     case 'done': {
       const store = platform === 'android' ? 'Google Play' : 'the App Store';
+      const unlockUrl = purchase?.redeemUrl ?? null;
       const steps = [
         { title: 'Download Cortisol+', body: platform === 'other' ? 'Free on the App Store and Google Play.' : `Free on ${store}.` },
-        { title: 'Sign in with the same account', body: 'Your subscription and answers are waiting there.' },
+        unlockUrl
+          ? { title: 'Tap "Unlock Pro" on this phone', body: 'It opens Cortisol+ and turns on your subscription. We emailed you the same link.' }
+          : { title: 'Sign in with the same Google account', body: purchase?.email ? `Use ${purchase.email} — your subscription and answers are waiting.` : 'Your subscription and answers are waiting there.' },
         {
           title: wearsWatch ? 'Connect your watch' : platform === 'android' ? 'Connect Health Connect' : 'Connect Apple Health',
           body: `Allow ${platform === 'android' ? 'Health Connect' : 'Apple Health'} so Zen can read heart rate, HRV and sleep.`,
@@ -908,14 +1052,19 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
             platform === 'other' ? undefined : (
               <>
                 <StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} />
-                <a href={platform === 'android' ? appStoreUrl : googlePlayUrl} className="mt-3 block text-center text-sm font-bold text-[color:var(--color-ink)]/60 underline underline-offset-2">
-                  {platform === 'android' ? 'On iPhone? Get it on the App Store' : 'On Android? Get it on Google Play'}
-                </a>
+                {unlockUrl && (
+                  <a href={unlockUrl} className="app-btn app-btn--light mt-2.5 w-full">Unlock Pro in the app</a>
+                )}
+                {!unlockUrl && (
+                  <a href={platform === 'android' ? appStoreUrl : googlePlayUrl} className="mt-3 block text-center text-sm font-bold text-[color:var(--color-ink)]/60 underline underline-offset-2">
+                    {platform === 'android' ? 'On iPhone? Get it on the App Store' : 'On Android? Get it on Google Play'}
+                  </a>
+                )}
               </>
             )
           }
         >
-          {!CHECKOUT_ENABLED && (
+          {!purchase && (
             <p className="mx-auto mb-3 w-fit rounded-full bg-[#fff4e0] px-3 py-1 text-xs font-extrabold text-[#8a4b00]">
               Sample screen · nothing was charged
             </p>
@@ -950,7 +1099,10 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
           </ol>
 
           {platform === 'other' && (
-            <div className="mt-6"><StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} /></div>
+            <div className="mt-6 grid gap-2.5">
+              <StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} />
+              {unlockUrl && <a href={unlockUrl} className="app-btn app-btn--light w-full">Unlock Pro in the app</a>}
+            </div>
           )}
         </Screen>
       );
@@ -1105,8 +1257,8 @@ function PlanReveal({ name, wearsWatch, onCommit }: { name: string; wearsWatch: 
   );
 }
 
-function Paywall({ plan, setPlan, rating, onBuy, webview, platform }: {
-  plan: 'weekly' | 'yearly'; setPlan: (p: PlanId) => void; rating: Props['rating']; onBuy: () => void;
+function Paywall({ plan, setPlan, rating, onBuy, busy, error, webview, platform }: {
+  plan: 'weekly' | 'yearly'; setPlan: (p: PlanId) => void; rating: Props['rating']; onBuy: () => void; busy: boolean; error: string;
   webview: ReturnType<typeof inAppBrowser>; platform: Platform;
 }) {
   const weekly = PLANS.weekly.price;
@@ -1169,7 +1321,8 @@ function Paywall({ plan, setPlan, rating, onBuy, webview, platform }: {
         )}
 
         <p className="mt-5 text-center text-sm font-bold text-[color:var(--color-ink)]/70">Cancel anytime. No commitment.</p>
-        <div className="mt-3"><PrimaryButton onClick={onBuy}>Start My Journey ›</PrimaryButton></div>
+        <div className="mt-3"><PrimaryButton onClick={onBuy} disabled={busy}>{busy ? 'Opening checkout…' : 'Start My Journey ›'}</PrimaryButton></div>
+        {error && <p className="mt-2 text-center text-sm font-bold text-[#c0392b]" role="alert">{error}</p>}
         <p className="mt-3 text-center text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
           You'll be charged {plan === 'yearly' ? `${money(yearly)} today and every year` : `${money(weekly)} today and every week`} until you cancel.
         </p>

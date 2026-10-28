@@ -117,8 +117,8 @@ export const PLANS = {
 } as const;
 export type PlanId = keyof typeof PLANS;
 
-// Web checkout isn't connected yet. While false, the paywall's button opens
-// the post-purchase screen labeled as a sample.
-export const CHECKOUT_ENABLED = false;
+// Real checkout through RevenueCat Web Billing (see checkout.ts). Set false to
+// fall back to the labeled sample screen.
+export const CHECKOUT_ENABLED = true;
 
 export const IMG = img;
