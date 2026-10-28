@@ -64,7 +64,7 @@ const STEPS = [
   'hi', 'name', 'greet', 'symptoms', 'goals', 'explain',
   'edu0', 'edu1', 'edu2', 'edu3', 'edu4', 'edu5', 'edu6', 'edu7',
   'age', 'gender', 'height', 'weight', 'sleep', 'exercise',
-  'notify', 'device', 'social', 'building', 'ready', 'plan', 'paywall', 'done',
+  'notify', 'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'done',
 ] as const;
 type Step = (typeof STEPS)[number];
 
@@ -354,6 +354,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   const [history, setHistory] = useState<Step[]>([]);
   const [ready, setReady] = useState(false); // per-screen "typing finished" gate
   const [plan, setPlan] = useState<PlanId>('yearly');
+  const [exitOfferSeen, setExitOfferSeen] = useState(false);
 
   useEffect(() => {
     setPlatform(detectPlatform());
@@ -379,6 +380,12 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     setStep(next);
   };
   const back = () => {
+    // Like the app, the first back-out from the paywall gets the one-time offer.
+    if (step === 'paywall' && !exitOfferSeen) {
+      setExitOfferSeen(true);
+      go('exit');
+      return;
+    }
     setHistory((h) => {
       const prev = h[h.length - 1];
       if (prev) setStep(prev);
@@ -405,7 +412,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   };
 
   // ------------------------------------------------------------ top bar
-  const showBack = history.length > 0 && !['building', 'ready', 'plan', 'done'].includes(step);
+  const showBack = (history.length > 0 || step === 'paywall') && !['building', 'ready', 'plan', 'exit', 'done'].includes(step);
   const topBar = (
     <div className="sticky top-0 z-10 flex h-14 items-center gap-3 px-3">
       <button
@@ -848,8 +855,42 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       break;
 
     case 'paywall':
-      screen = <Paywall plan={plan} setPlan={setPlan} rating={rating} onBuy={() => go('done')} webview={webview} platform={platform} />;
+      screen = <Paywall plan={plan === 'yearlyExit' ? 'yearly' : plan} setPlan={setPlan} rating={rating} onBuy={() => go('done')} webview={webview} platform={platform} />;
       break;
+
+    case 'exit': {
+      const regular = PLANS.yearly.price;
+      const offer = PLANS.yearlyExit.price;
+      const pct = Math.round((1 - offer / regular) * 100);
+      screen = (
+        <Screen center footer={
+          <>
+            <PrimaryButton onClick={() => { setPlan('yearlyExit'); go('done'); }}>Claim My Offer</PrimaryButton>
+            <button type="button" onClick={() => { setHistory((h) => h.slice(0, -1)); setStep('paywall'); }} className="mt-2 block w-full py-2 text-center text-sm font-bold text-[color:var(--color-ink)]/60">No thanks</button>
+            <p className="mt-1 text-center text-xs text-[color:var(--color-ink-muted)]">You'll be charged {money(offer)} today and every year until you cancel.</p>
+          </>
+        }>
+          <div className="text-center">
+            <span className="inline-block rounded-full bg-[rgba(18,24,38,0.9)] px-3 py-1 text-[11px] font-extrabold tracking-wider text-white">EXCLUSIVE — ONE-TIME OFFER</span>
+            <img src="/app-ui/zen_new_normal.webp" alt="" width="342" height="480" className="confetti-pop mx-auto mt-4 h-40 w-auto" />
+            <Title>Wait! Is price your hold-up?</Title>
+            <p className="mt-2 font-semibold text-[color:var(--color-ink)]/70">
+              An exclusive discount, just for you. <strong className="text-[color:var(--color-ink)]">This is the only time you'll see this offer.</strong>
+            </p>
+          </div>
+          <div className="relative mt-6 rounded-[1.5rem] border-[2.5px] border-[rgba(18,24,38,0.9)] bg-white/95 p-5">
+            <span className="absolute -top-3 right-4 rounded-full bg-[color:var(--color-teal)] px-2.5 py-0.5 text-xs font-extrabold text-[color:var(--color-ink)]">SAVE {pct}%</span>
+            <div className="text-sm font-extrabold">Yearly</div>
+            <div className="mt-1 flex items-baseline gap-2">
+              <span className="text-lg font-bold text-[color:var(--color-ink-muted)] line-through tabular-nums">{money(regular)}</span>
+              <span className="text-3xl font-extrabold tabular-nums">{money(offer)}</span>
+              <span className="text-sm font-bold text-[color:var(--color-ink-muted)]">per year</span>
+            </div>
+          </div>
+        </Screen>
+      );
+      break;
+    }
 
     case 'done': {
       const store = platform === 'android' ? 'Google Play' : 'the App Store';
@@ -1065,13 +1106,13 @@ function PlanReveal({ name, wearsWatch, onCommit }: { name: string; wearsWatch: 
 }
 
 function Paywall({ plan, setPlan, rating, onBuy, webview, platform }: {
-  plan: PlanId; setPlan: (p: PlanId) => void; rating: Props['rating']; onBuy: () => void;
+  plan: 'weekly' | 'yearly'; setPlan: (p: PlanId) => void; rating: Props['rating']; onBuy: () => void;
   webview: ReturnType<typeof inAppBrowser>; platform: Platform;
 }) {
   const weekly = PLANS.weekly.price;
   const yearly = PLANS.yearly.price;
   const savePct = Math.round((1 - yearly / (weekly * 52)) * 100);
-  const tile = (id: PlanId, children: ReactNode, badge: string) => {
+  const tile = (id: 'weekly' | 'yearly', children: ReactNode, badge: string) => {
     const on = plan === id;
     return (
       <button

@@ -107,11 +107,13 @@ export const PERKS = [
   { label: 'Calm sessions with Zen', image: img('perk_calm') },
 ];
 
-// Placeholder web prices: the iOS US prices. Replace with the RevenueCat Web
-// Billing offering once web products exist.
+// Web prices (set October 27, 2026). Swap for the RevenueCat Web Billing
+// offering once web products exist.
 export const PLANS = {
-  weekly: { id: 'weekly', price: 8.99 },
-  yearly: { id: 'yearly', price: 59.99 },
+  weekly: { id: 'weekly', price: 14.99 },
+  yearly: { id: 'yearly', price: 83.99 },
+  // One-time exit offer, shown the first time someone backs out of the paywall.
+  yearlyExit: { id: 'yearlyExit', price: 59.99 },
 } as const;
 export type PlanId = keyof typeof PLANS;
 
