@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { WebUser } from './checkout';
 import {
   BUILDING_STEPS,
   CHECKOUT_ENABLED,
@@ -65,7 +64,7 @@ const STEPS = [
   'hi', 'name', 'greet', 'symptoms', 'goals', 'explain',
   'edu0', 'edu1', 'edu2', 'edu3', 'edu4', 'edu5', 'edu6', 'edu7',
   'age', 'gender', 'height', 'weight', 'sleep', 'exercise',
-  'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'account', 'done',
+  'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'done',
 ] as const;
 type Step = (typeof STEPS)[number];
 
@@ -76,9 +75,10 @@ const PURCHASE_KEY = 'cp_start_purchase_v1';
 interface Purchase {
   plan: PlanId;
   email: string | null;
-  /** Anonymous (iPhone) purchases: the link that unlocks Pro in the app. */
+  /** The one-time link that unlocks Pro in the app (rc-9fb3e14b26://…). */
   redeemUrl: string | null;
-  signedIn: boolean;
+  /** The same link as an https URL, for a QR code a phone can scan. */
+  redeemUrlRedirect?: string | null;
 }
 
 function readPurchase(): Purchase | null {
@@ -446,10 +446,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   const qIndex = QUESTION_STEPS.indexOf(step);
 
   // ------------------------------------------------------------ checkout
-  // iPhone buyers check out without an account and unlock the app with a
-  // redemption link (the iOS app signs in with Apple, which isn't set up for
-  // the web yet). Everyone else signs in with Google first, so the purchase
-  // lands on the same account the Android app uses.
+  // Everyone checks out without an account. RevenueCat returns a one-time
+  // redemption link (also emailed) that opens the app and unlocks Pro on
+  // whatever account the app is using. Sign-in on the web can come later.
   const startCheckout = (chosen: PlanId) => {
     setPlan(chosen);
     setError('');
@@ -457,17 +456,15 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       go('done');
       return;
     }
-    if (platform === 'ios') void pay(chosen, null);
-    else go('account');
+    void pay(chosen);
   };
 
-  const pay = async (chosen: PlanId, user: WebUser | null) => {
+  const pay = async (chosen: PlanId) => {
     setBusy(true);
     setError('');
     try {
-      const { checkout, saveAnswers } = await import('./checkout');
-      if (user) await saveAnswers(user.uid, { ...answers, plan: chosen, platform }).catch(() => undefined);
-      const result = await checkout(chosen, user, {
+      const { checkout } = await import('./checkout');
+      const result = await checkout(chosen, {
         $displayName: answers.name.trim(),
         web_device: answers.device,
         web_goals: answers.goals.join(','),
@@ -475,7 +472,12 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
         web_platform: platform,
       });
       if (result.status === 'purchased') {
-        const bought: Purchase = { plan: chosen, email: result.email ?? user?.email ?? null, redeemUrl: result.redeemUrl ?? null, signedIn: !!user };
+        const bought: Purchase = {
+          plan: chosen,
+          email: result.email ?? null,
+          redeemUrl: result.redeemUrl ?? null,
+          redeemUrlRedirect: result.redeemUrlRedirect ?? null,
+        };
         writePurchase(bought);
         setPurchase(bought);
         go('done');
@@ -487,21 +489,19 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     }
   };
 
-  const signInAndPay = async () => {
-    setBusy(true);
-    setError('');
-    try {
-      const { signInWithGoogle } = await import('./checkout');
-      const user = await signInWithGoogle();
-      await pay(plan, user);
-    } catch (err) {
-      const code = (err as { code?: string }).code;
-      if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
-        setError('Sign-in failed. Please try again.');
-      }
-      setBusy(false);
-    }
-  };
+  // On a computer the unlock link can't open the phone app, so show it as a
+  // QR code to scan with the phone once Cortisol+ is installed.
+  const [unlockQr, setUnlockQr] = useState('');
+  useEffect(() => {
+    const target = purchase?.redeemUrlRedirect;
+    if (step !== 'done' || platform !== 'other' || !target) return;
+    let live = true;
+    import('qrcode')
+      .then((QR) => QR.toString(target, { type: 'svg', margin: 0, color: { dark: '#121826', light: '#ffffff' } }))
+      .then((svg) => live && setUnlockQr(svg))
+      .catch(() => undefined);
+    return () => { live = false; };
+  }, [step, platform, purchase]);
 
   const toggle = (key: 'symptoms' | 'goals', id: string) =>
     update({ [key]: answers[key].includes(id) ? answers[key].filter((x) => x !== id) : [...answers[key], id] });
@@ -949,58 +949,17 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       break;
     }
 
-    case 'account': {
-      const price = money(PLANS[plan].price);
-      const period = plan === 'weekly' ? 'week' : 'year';
-      screen = (
-        <Screen footer={
-          <>
-            <button
-              type="button"
-              onClick={signInAndPay}
-              disabled={busy}
-              className="app-btn app-btn--light w-full gap-3 disabled:opacity-50"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.7z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6h-4a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.8 3.6-4.9 6.7-4.9z"/></svg>
-              {busy ? 'Opening checkout…' : 'Continue with Google'}
-            </button>
-            {platform === 'other' && (
-              <button type="button" onClick={() => pay(plan, null)} disabled={busy} className="mt-2 block w-full py-2 text-center text-sm font-bold text-[color:var(--color-ink)]/70 disabled:opacity-50">
-                Using an iPhone? Continue without signing in
-              </button>
-            )}
-            {error && <p className="mt-2 text-center text-sm font-bold text-[#c0392b]" role="alert">{error}</p>}
-            <p className="mt-3 text-center text-xs text-[color:var(--color-ink-muted)]">Next: {price} per {period}, charged today. Cancel anytime.</p>
-          </>
-        }>
-          <img src={IMG('zen_new_tour_connect')} alt="" width="200" height="270" className="mx-auto h-36 w-auto" />
-          <div className="text-center">
-            <Title>Save your plan</Title>
-            <p className="mt-2 font-semibold text-[color:var(--color-ink)]/70">
-              Sign in with Google so your plan and subscription are waiting when you open Cortisol+ on your Android.
-            </p>
-          </div>
-          <ul className="app-card mt-6 space-y-3 p-4 text-sm font-bold">
-            <li className="flex gap-2"><span aria-hidden="true">✓</span>Use the same Google account in the app to unlock Pro</li>
-            <li className="flex gap-2"><span aria-hidden="true">✓</span>Your answers carry over, so you skip setup</li>
-            <li className="flex gap-2"><span aria-hidden="true">✓</span>Manage or cancel anytime from your receipt email</li>
-          </ul>
-        </Screen>
-      );
-      break;
-    }
-
     case 'done': {
       const store = platform === 'android' ? 'Google Play' : 'the App Store';
       const unlockUrl = purchase?.redeemUrl ?? null;
       const steps = [
         { title: 'Download Cortisol+', body: platform === 'other' ? 'Free on the App Store and Google Play.' : `Free on ${store}.` },
-        unlockUrl
-          ? { title: 'Tap "Unlock Pro" on this phone', body: 'It opens Cortisol+ and turns on your subscription. We emailed you the same link.' }
-          : { title: 'Sign in with the same Google account', body: purchase?.email ? `Use ${purchase.email} — your subscription and answers are waiting.` : 'Your subscription and answers are waiting there.' },
+        platform === 'other'
+          ? { title: 'Scan the unlock code with that phone', body: 'It opens Cortisol+ and turns on your subscription. We emailed you the same link.' }
+          : { title: 'Tap "Unlock Pro" on this phone', body: 'It opens Cortisol+ and turns on your subscription. We emailed you the same link.' },
         {
-          title: wearsWatch ? 'Connect your watch' : platform === 'android' ? 'Connect Health Connect' : 'Connect Apple Health',
-          body: `Allow ${platform === 'android' ? 'Health Connect' : 'Apple Health'} so Zen can read heart rate, HRV and sleep.`,
+          title: wearsWatch ? 'Connect your watch' : platform === 'android' ? 'Connect Health Connect' : platform === 'ios' ? 'Connect Apple Health' : 'Connect your health data',
+          body: `Allow ${platform === 'android' ? 'Health Connect' : platform === 'ios' ? 'Apple Health' : 'Apple Health or Health Connect'} so Zen can read heart rate, HRV and sleep.`,
         },
       ];
       screen = (
@@ -1009,10 +968,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
             platform === 'other' ? undefined : (
               <>
                 <StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} />
-                {unlockUrl && (
+                {unlockUrl ? (
                   <a href={unlockUrl} className="app-btn app-btn--light mt-2.5 w-full">Unlock Pro in the app</a>
-                )}
-                {!unlockUrl && (
+                ) : (
                   <a href={platform === 'android' ? appStoreUrl : googlePlayUrl} className="mt-3 block text-center text-sm font-bold text-[color:var(--color-ink)]/60 underline underline-offset-2">
                     {platform === 'android' ? 'On iPhone? Get it on the App Store' : 'On Android? Get it on Google Play'}
                   </a>
@@ -1037,8 +995,17 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
             <div className="app-card mt-5 flex items-center gap-4 p-4">
               <div className="h-28 w-28 shrink-0 rounded-xl bg-white p-2" aria-label="QR code to download Cortisol+" role="img" dangerouslySetInnerHTML={{ __html: qrSvg }} />
               <div>
-                <div className="font-extrabold">Scan with your phone</div>
-                <p className="text-sm leading-snug text-[color:var(--color-ink-muted)]">Point your camera here to download Cortisol+ on your iPhone or Android.</p>
+                <div className="font-extrabold">1. Get the app</div>
+                <p className="text-sm leading-snug text-[color:var(--color-ink-muted)]">Point your phone's camera here to download Cortisol+ on your iPhone or Android.</p>
+              </div>
+            </div>
+          )}
+          {platform === 'other' && unlockQr && (
+            <div className="app-card mt-3 flex items-center gap-4 p-4">
+              <div className="h-28 w-28 shrink-0 rounded-xl bg-white p-2" aria-label="QR code that unlocks Pro in the app" role="img" dangerouslySetInnerHTML={{ __html: unlockQr }} />
+              <div>
+                <div className="font-extrabold">2. Then scan to unlock Pro</div>
+                <p className="text-sm leading-snug text-[color:var(--color-ink-muted)]">Once Cortisol+ is installed, scan this with the same phone. The link works once and expires in an hour; your email has a fresh one.</p>
               </div>
             </div>
           )}
@@ -1058,22 +1025,15 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
           {purchase && (
             <div className="app-glass mt-5 p-4 text-sm leading-relaxed">
               <div className="font-extrabold">Not brought right in?</div>
-              {unlockUrl ? (
-                <p className="text-[color:var(--color-ink)]/75">
-                  Tap <strong>Unlock Pro in the app</strong> again, or the link in your email. Once Pro is unlocked, you can always get it back with <strong>Restore Purchases</strong> in the app.
-                </p>
-              ) : (
-                <p className="text-[color:var(--color-ink)]/75">
-                  Sign in with {purchase.email ? <strong>{purchase.email}</strong> : 'the same Google account'}, then tap <strong>Restore Purchases</strong> in the app.
-                </p>
-              )}
+              <p className="text-[color:var(--color-ink)]/75">
+                {platform === 'other' ? 'Scan the unlock code again' : <>Tap <strong>Unlock Pro in the app</strong> again</>}, or use the link in your email. Once Pro is unlocked, you can always get it back with <strong>Restore Purchases</strong> in the app.
+              </p>
             </div>
           )}
 
           {platform === 'other' && (
             <div className="mt-6 grid gap-2.5">
               <StoreButton platform={platform} appStoreUrl={appStoreUrl} googlePlayUrl={googlePlayUrl} />
-              {unlockUrl && <a href={unlockUrl} className="app-btn app-btn--light w-full">Unlock Pro in the app</a>}
             </div>
           )}
         </Screen>
