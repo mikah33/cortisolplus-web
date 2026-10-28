@@ -65,7 +65,7 @@ const STEPS = [
   'hi', 'name', 'greet', 'symptoms', 'goals', 'explain',
   'edu0', 'edu1', 'edu2', 'edu3', 'edu4', 'edu5', 'edu6', 'edu7',
   'age', 'gender', 'height', 'weight', 'sleep', 'exercise',
-  'notify', 'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'account', 'done',
+  'device', 'social', 'building', 'ready', 'plan', 'paywall', 'exit', 'account', 'done',
 ] as const;
 type Step = (typeof STEPS)[number];
 
@@ -836,49 +836,6 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       );
       break;
 
-    case 'notify': {
-      // The app's notification primer. The web can't ask for push permission,
-      // so this previews the alerts and the app asks after sign-in.
-      const alerts = [
-        { title: 'Cortisol Spike Detected', body: name ? `Hey ${name}, your stress jumped to 62. Try a breathing exercise.` : 'Your stress jumped to 62. Try a breathing exercise.', time: 'now' },
-        { title: 'Achievement Unlocked!', body: name ? `Nice work ${name} — you hit 10,000 steps today.` : 'You hit 10,000 steps — your cortisol thanks you.', time: '1h' },
-        { title: name ? `Good Morning, ${name}!` : 'Good Morning!', body: 'You slept 8.2h. Scan now to see your stress.', time: '8:00' },
-      ];
-      screen = (
-        <Screen footer={
-          <>
-            <PrimaryButton onClick={next}>Continue</PrimaryButton>
-            <p className="mt-3 text-center text-xs font-semibold text-[color:var(--color-ink)]/60">You'll turn on alerts in the app after you sign in.</p>
-          </>
-        }>
-          <div className="text-center">
-            <Title>Don't Miss a Stress Spike</Title>
-            <p className="mt-2 font-semibold text-[color:var(--color-ink)]/70">We'll let you know when your cortisol is rising so you can take action fast</p>
-          </div>
-          <div className="mx-auto mt-6 max-w-[20rem] overflow-hidden rounded-[2.5rem] border-[6px] border-[#121826] bg-gradient-to-b from-[#5aa7e0] to-[#9fd0f3] px-3 pb-6 pt-5 shadow-[0_24px_50px_-24px_rgba(18,24,38,0.6)]" aria-hidden="true">
-            <div className="text-center text-white">
-              <div className="text-sm font-semibold opacity-90">Monday, June 3</div>
-              <div className="text-6xl font-bold leading-none tracking-tight">9:41</div>
-            </div>
-            <ul className="mt-5 space-y-2">
-              {alerts.map((alert, i) => (
-                <li key={alert.title} className="notif-in rounded-2xl bg-white/80 p-2.5 backdrop-blur" style={{ animationDelay: `${300 + i * 450}ms` }}>
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-[color:var(--color-ink)]/60">
-                    <img src="/apple-touch-icon.png" alt="" width="16" height="16" className="h-4 w-4 rounded" />
-                    CORTISOL+
-                    <span className="ml-auto font-semibold">{alert.time}</span>
-                  </div>
-                  <div className="mt-1 text-[13px] font-extrabold leading-tight">{alert.title}</div>
-                  <div className="text-[12px] leading-snug text-[color:var(--color-ink)]/80">{alert.body}</div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Screen>
-      );
-      break;
-    }
-
     case 'device': {
       // The app's "Connect Your Device" screen. Picking happens here; the
       // actual connection happens in the app after sign-in.
@@ -898,8 +855,8 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
         }>
           <img src={IMG('zen_watch')} alt="" width="480" height="480" className="mx-auto h-40 w-auto" />
           <div className="text-center">
-            <Title>Connect Your Device</Title>
-            <p className="mt-1 font-semibold text-[color:var(--color-ink)]/70">Pick where your health data comes from so I can track your stress.</p>
+            <Title>Which device will you use with Cortisol+?</Title>
+            <p className="mt-1 font-semibold text-[color:var(--color-ink)]/70">Pick the watch or ring you'll connect in the app, so I can set up your plan around it.</p>
           </div>
           <label className="app-glass mt-5 flex h-14 items-center gap-2 !rounded-full px-5">
             <span className="sr-only">Your device</span>
@@ -922,7 +879,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-center text-xs font-semibold text-[color:var(--color-ink)]/60">You'll connect it in the app after you sign in. We only read the data you allow.</p>
+          <p className="mt-3 text-center text-xs font-semibold text-[color:var(--color-ink)]/60">You'll connect it in the app in a couple of taps. We only read the data you allow.</p>
         </Screen>
       );
       break;
@@ -1097,6 +1054,21 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
               </li>
             ))}
           </ol>
+
+          {purchase && (
+            <div className="app-glass mt-5 p-4 text-sm leading-relaxed">
+              <div className="font-extrabold">Not brought right in?</div>
+              {unlockUrl ? (
+                <p className="text-[color:var(--color-ink)]/75">
+                  Tap <strong>Unlock Pro in the app</strong> again, or the link in your email. Once Pro is unlocked, you can always get it back with <strong>Restore Purchases</strong> in the app.
+                </p>
+              ) : (
+                <p className="text-[color:var(--color-ink)]/75">
+                  Sign in with {purchase.email ? <strong>{purchase.email}</strong> : 'the same Google account'}, then tap <strong>Restore Purchases</strong> in the app.
+                </p>
+              )}
+            </div>
+          )}
 
           {platform === 'other' && (
             <div className="mt-6 grid gap-2.5">
