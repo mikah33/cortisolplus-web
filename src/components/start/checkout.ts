@@ -140,8 +140,15 @@ export async function checkout(plan: PlanId, user: WebUser | null, attributes: R
       customerEmail: user?.email ?? undefined,
       metadata: { source: 'cortisolplus.com/start', plan },
     });
-    const active = ENTITLEMENT in result.customerInfo.entitlements.active;
-    if (!active) throw new Error('The payment went through but Pro is not active yet. Please contact support.');
+    // A completed payment always gets the unlock screen. For anonymous buyers
+    // the entitlement may not be reported as active on the web customer yet;
+    // it is granted to the app user when the redemption link is opened.
+    if (!(ENTITLEMENT in result.customerInfo.entitlements.active)) {
+      console.info('[checkout] Paid; entitlement not yet active on web customer', {
+        active: Object.keys(result.customerInfo.entitlements.active),
+        redeemUrl: result.redemptionInfo?.redeemUrl ?? null,
+      });
+    }
     return { status: 'purchased', redeemUrl: result.redemptionInfo?.redeemUrl, email: result.customerEmail };
   } catch (error) {
     if (error instanceof PurchasesError && error.errorCode === ErrorCode.UserCancelledError) {
