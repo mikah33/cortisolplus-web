@@ -64,7 +64,7 @@ const STEPS = [
   'hi', 'name', 'greet', 'symptoms', 'goals', 'explain',
   'edu0', 'edu1', 'edu2', 'edu3', 'edu4', 'edu5', 'edu6', 'edu7',
   'age', 'gender', 'height', 'weight', 'sleep', 'exercise',
-  'device', 'social', 'building', 'ready', 'plan', 'paywall', 'done',
+  'notify', 'device', 'social', 'building', 'ready', 'plan', 'paywall', 'done',
 ] as const;
 type Step = (typeof STEPS)[number];
 
@@ -730,16 +730,97 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       );
       break;
 
-    case 'device':
+    case 'notify': {
+      // The app's notification primer. The web can't ask for push permission,
+      // so this previews the alerts and the app asks after sign-in.
+      const alerts = [
+        { title: 'Cortisol Spike Detected', body: name ? `Hey ${name}, your stress jumped to 62. Try a breathing exercise.` : 'Your stress jumped to 62. Try a breathing exercise.', time: 'now' },
+        { title: 'Achievement Unlocked!', body: name ? `Nice work ${name} — you hit 10,000 steps today.` : 'You hit 10,000 steps — your cortisol thanks you.', time: '1h' },
+        { title: name ? `Good Morning, ${name}!` : 'Good Morning!', body: 'You slept 8.2h. Scan now to see your stress.', time: '8:00' },
+      ];
       screen = (
-        <Screen>
-          <img src={IMG('zen_watch')} alt="" width="480" height="480" className="mx-auto h-36 w-auto" />
-          <Title>What do you wear?</Title>
-          <p className="mt-1 text-[color:var(--color-ink-muted)]">You'll connect it in the app after you sign in, so I can track your stress.</p>
-          <div className="mt-5"><ChoiceList options={devices(platform)} selected={[answers.device]} onToggle={(id) => pickAndAdvance('device', id)} /></div>
+        <Screen footer={
+          <>
+            <PrimaryButton onClick={next}>Continue</PrimaryButton>
+            <p className="mt-3 text-center text-xs font-semibold text-[color:var(--color-ink)]/60">You'll turn on alerts in the app after you sign in.</p>
+          </>
+        }>
+          <div className="text-center">
+            <Title>Don't Miss a Stress Spike</Title>
+            <p className="mt-2 font-semibold text-[color:var(--color-ink)]/70">We'll let you know when your cortisol is rising so you can take action fast</p>
+          </div>
+          <div className="mx-auto mt-6 max-w-[20rem] overflow-hidden rounded-[2.5rem] border-[6px] border-[#121826] bg-gradient-to-b from-[#5aa7e0] to-[#9fd0f3] px-3 pb-6 pt-5 shadow-[0_24px_50px_-24px_rgba(18,24,38,0.6)]" aria-hidden="true">
+            <div className="text-center text-white">
+              <div className="text-sm font-semibold opacity-90">Monday, June 3</div>
+              <div className="text-6xl font-bold leading-none tracking-tight">9:41</div>
+            </div>
+            <ul className="mt-5 space-y-2">
+              {alerts.map((alert, i) => (
+                <li key={alert.title} className="notif-in rounded-2xl bg-white/80 p-2.5 backdrop-blur" style={{ animationDelay: `${300 + i * 450}ms` }}>
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-[color:var(--color-ink)]/60">
+                    <img src="/apple-touch-icon.png" alt="" width="16" height="16" className="h-4 w-4 rounded" />
+                    CORTISOL+
+                    <span className="ml-auto font-semibold">{alert.time}</span>
+                  </div>
+                  <div className="mt-1 text-[13px] font-extrabold leading-tight">{alert.title}</div>
+                  <div className="text-[12px] leading-snug text-[color:var(--color-ink)]/80">{alert.body}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Screen>
       );
       break;
+    }
+
+    case 'device': {
+      // The app's "Connect Your Device" screen. Picking happens here; the
+      // actual connection happens in the app after sign-in.
+      const options = devices(platform);
+      const selected = answers.device && answers.device !== 'none' ? answers.device : options[0].id;
+      const healthApp = platform === 'android' ? 'Health Connect' : 'Apple Health';
+      const isWatch = WATCH_DEVICES.has(selected);
+      const checklist = isWatch
+        ? ['Device paired & worn recently', 'Heart rate data available', `${healthApp} access permission`, 'Stress companion on your watch']
+        : [`Device syncs to ${healthApp}`, 'Heart rate data available', `${healthApp} access permission`];
+      screen = (
+        <Screen footer={
+          <>
+            <PrimaryButton onClick={() => { update({ device: selected }); next(); }}>Continue</PrimaryButton>
+            <button type="button" onClick={() => { update({ device: 'none' }); next(); }} className="mt-2 block w-full py-2 text-center text-sm font-bold text-[color:var(--color-ink)]/70">Continue without device</button>
+          </>
+        }>
+          <img src={IMG('zen_watch')} alt="" width="480" height="480" className="mx-auto h-40 w-auto" />
+          <div className="text-center">
+            <Title>Connect Your Device</Title>
+            <p className="mt-1 font-semibold text-[color:var(--color-ink)]/70">Pick where your health data comes from so I can track your stress.</p>
+          </div>
+          <label className="app-glass mt-5 flex h-14 items-center gap-2 !rounded-full px-5">
+            <span className="sr-only">Your device</span>
+            <select
+              value={selected}
+              onChange={(event) => update({ device: event.target.value })}
+              className="h-full flex-1 appearance-none bg-transparent text-lg font-extrabold outline-none"
+            >
+              {options.filter((o) => o.id !== 'none').map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
+            </select>
+            <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+          </label>
+          <ul className="app-card mt-4 space-y-3 p-4">
+            {checklist.map((item) => (
+              <li key={item} className="flex items-center gap-3 font-bold">
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[color:var(--color-teal)] text-white" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="3.5"><path d="M5 12.5l4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-center text-xs font-semibold text-[color:var(--color-ink)]/60">You'll connect it in the app after you sign in. We only read the data you allow.</p>
+        </Screen>
+      );
+      break;
+    }
 
     case 'social':
       screen = <SocialProof reviews={reviews} rating={rating} platform={platform} onContinue={next} />;
