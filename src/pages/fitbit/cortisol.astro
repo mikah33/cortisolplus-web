@@ -18,8 +18,8 @@ const faqs: FAQItem[] = [
     a: 'No. Fitbit — like every consumer wearable — cannot measure cortisol. Cortisol is a hormone measured in blood, saliva, or urine in a lab. Fitbit measures physiological signals that are influenced by cortisol and the stress response, chiefly heart rate, heart-rate variability (HRV), electrodermal activity, and sleep. Its stress features estimate physical strain from those proxies.',
   },
   {
-    q: 'Does the Fitbit Stress Management Score reflect cortisol?',
-    a: "Indirectly and imperfectly. The score is built from HRV, heart rate, EDA, exertion, and sleep — signals that shift with autonomic arousal, which is coupled to the HPA axis that releases cortisol. So a persistently low score can accompany a period of elevated cortisol, but the score is not a cortisol reading and shouldn't be treated as one.",
+    q: 'Does Fitbit Resilience (formerly the Stress Management Score) reflect cortisol?',
+    a: "Indirectly and imperfectly. Resilience, which replaced the Stress Management Score in 2026, is built from HRV, heart rate, EDA, exertion, and sleep — signals that shift with autonomic arousal, which is coupled to the HPA axis that releases cortisol. So a run of Low ratings can accompany a period of elevated cortisol, but Resilience is not a cortisol reading and shouldn't be treated as one.",
   },
   {
     q: 'How is HRV related to cortisol?',
@@ -31,13 +31,13 @@ const faqs: FAQItem[] = [
   },
   {
     q: 'Can Cortisol+ use my Fitbit data?',
-    a: 'Cortisol+ is bringing its cortisol-pattern estimation to Fitbit data via Google Health Connect — this is rolling out, not a shipped Fitbit feature yet. Today the app runs on Apple Watch (iOS 17+). If you use a Fitbit, you can join the Apple Watch app now or watch for Fitbit support as it becomes available.',
+    a: 'Cortisol+ is bringing its cortisol-pattern estimation to Fitbit data via Health Connect — that support is on the way, not a shipped Fitbit feature yet. Today Cortisol+ works with Apple Health on iPhone and Apple Watch, and with Health Connect on Android. If you use a Fitbit, watch for Fitbit support via Health Connect as it becomes available.',
   },
 ];
 
 const related = [
   { href: '/fitbit/', title: 'Fitbit stress tracking', hint: 'The full overview' },
-  { href: '/fitbit/stress-management-score/', title: 'Stress Management Score', hint: 'How it is built' },
+  { href: '/fitbit/stress-management-score/', title: 'Resilience (Stress Management Score)', hint: 'How it is built' },
   { href: '/fitbit/hrv/', title: 'Fitbit HRV explained', hint: 'The cortisol proxy' },
   { href: '/cortisol/', title: 'Cortisol, explained', hint: 'The hormone itself' },
   { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'Signals to estimate' },
@@ -78,7 +78,7 @@ const related = [
         <li><strong>Electrodermal activity (EDA)</strong> — skin conductance changes from sweat gland activity, on devices with the EDA sensor.</li>
         <li><strong>Sleep</strong> — quantity and quality, which both reflect and regulate stress.</li>
       </ul>
-      <p>These feed the <a href="/fitbit/stress-management-score/">Stress Management Score</a> and Readiness Score. They're genuine signals — just not hormones.</p>
+      <p>These feed Fitbit's daily <a href="/fitbit/stress-management-score/">Resilience rating (formerly the Stress Management Score)</a> and Readiness Score. They're genuine signals — just not hormones.</p>
 
       <h2>The HRV–cortisol link</h2>
       <p>Here's why the proxies work at all. Your body has two main stress systems, and they're coupled:</p>
@@ -94,14 +94,14 @@ const related = [
 
       <h2>Where Cortisol+ fits — honestly</h2>
       <p>Cortisol+ is an app that estimates your cortisol <em>pattern</em> from wearable biometrics — the same family of proxies (HRV, heart rate, sleep) discussed above — and presents it as a day-by-day trend rather than a lab value. To be clear about what it is: it's an estimate built on physiological proxies, not a cortisol measurement, and no app can replace a blood or saliva test when a clinical answer is needed.</p>
-      <p>On platforms: Cortisol+ runs on <strong>Apple Watch (iOS 17+)</strong> today. It is <strong>bringing its cortisol-pattern estimation to Fitbit data via Google Health Connect</strong> — that support is on the way, not a shipped Fitbit feature yet. If you use a Fitbit and want to start now, the Apple Watch app is available; otherwise, Fitbit support is coming. Either way, the honest framing holds: you're looking at an informed estimate of a cortisol pattern, built from signals your wearable already trusts for stress.</p>
+      <p>On platforms: Cortisol+ works with <strong>Apple Health on iPhone and Apple Watch</strong> and with <strong>Health Connect on Android</strong> today. It is <strong>bringing its cortisol-pattern estimation to Fitbit data via Health Connect</strong> — that support is on the way, not a shipped Fitbit feature yet. Whatever device you use, the honest framing holds: you're looking at an informed estimate of a cortisol pattern, built from signals your wearable already trusts for stress.</p>
 
       <h2>Sources</h2>
       <ul>
         <li><a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Kim HG et al. Stress and Heart Rate Variability: A Meta-Analysis. Psychiatry Investig. 2018.</a></li>
         <li><a href="https://pubmed.ncbi.nlm.nih.gov/22178086/" rel="nofollow">Thayer JF et al. A meta-analysis of HRV and neuroimaging studies. Neurosci Biobehav Rev. 2012.</a></li>
         <li><a href="https://pubmed.ncbi.nlm.nih.gov/19488073/" rel="nofollow">Chrousos GP. Stress and disorders of the stress system (HPA axis &amp; cortisol). Nat Rev Endocrinol. 2009.</a></li>
-        <li><a href="https://support.google.com/fitbit/answer/14237928?hl=en" rel="nofollow">Fitbit / Google Health Help — Manage stress &amp; mindfulness (Stress Management Score)</a></li>
+        <li><a href="https://support.google.com/googlehealth/answer/14237928?hl=en" rel="nofollow">Google Health Help — Manage stress &amp; mindfulness (Resilience, formerly the Stress Management Score)</a></li>
       </ul>
     </div>
 
