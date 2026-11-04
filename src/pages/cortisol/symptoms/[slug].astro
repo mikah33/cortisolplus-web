@@ -23,7 +23,7 @@ const relatedFromFrontmatter = entry.data.relatedSymptoms
 
 const others = all.filter((s) => s.id !== entry.id).slice(0, 3);
 const related = (relatedFromFrontmatter.length > 0 ? relatedFromFrontmatter : others).slice(0, 3).map((s) => ({
-  href: `/cortisol/symptoms/${s.id}`,
+  href: `/cortisol/symptoms/${s.id}/`,
   title: s.data.title,
   hint: 'Symptom guide',
 }));

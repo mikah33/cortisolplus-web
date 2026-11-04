@@ -1,46 +1,202 @@
 ---
-import ArticleLayout from "../layouts/ArticleLayout.astro";
+// The methodology page every score claim on the site links to. Redesigned in
+// the app style (Nov 4, 2026); the facts, weights and sources are unchanged
+// from the Sep 9 revision, with Health Connect / Wear OS and the watch
+// companions added.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroCTA from '../components/HeroCTA.astro';
+import { SITE, PUBLISHER } from '../consts';
+
+const title = 'How Cortisol+ Works: Stress Score, Inputs & Limits';
+const description = 'The watch signals behind the Cortisol+ wellness score, how each is weighted, how your personal baseline forms, when it updates and the limits of HRV-based stress tracking.';
+const published = '2026-05-23';
+const updated = '2026-11-04';
+const canonical = new URL('/how-it-works/', SITE.url).toString();
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: new URL(SITE.ogImage, SITE.url).toString(),
+  datePublished: published,
+  dateModified: updated,
+  author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  publisher: { '@type': 'Organization', name: PUBLISHER.name, url: PUBLISHER.url, logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` } },
+  mainEntityOfPage: canonical,
+};
+
+const updatedLabel = new Date(`${updated}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const short = [
+  { title: 'Reads your watch', body: 'HRV, sleep, resting heart rate and more, with your permission.', image: '/app-ui/zen_new_tour_connect.webp' },
+  { title: 'Scores 0–100', body: 'One wellness score through the day. Lower means less strain.', image: '/app-ui/zen_new_tour_now.webp' },
+  { title: 'Not a cortisol test', body: 'It models wearable signals. It is not a blood, saliva or urine result.', image: '/app-ui/start/zen_explain.webp' },
+];
+
+// Base weights before missing-data adjustments and model modifiers.
+const inputs = [
+  { name: 'Heart rate variability (HRV)', weight: 20, note: 'Compared with a source-appropriate baseline' },
+  { name: 'Sleep', weight: 20, note: 'A sleep score derived from available sleep data' },
+  { name: 'Resting heart rate', weight: 18, note: 'Difference from baseline' },
+  { name: 'Respiratory rate', weight: 9, note: 'Difference from baseline' },
+  { name: 'Activity', weight: 8, note: 'Steps and active energy; defaults are used when absent' },
+  { name: 'Blood oxygen', weight: 5, note: 'Available oxygen readings' },
+  { name: 'Cardio fitness estimate (VO₂ max)', weight: 5, note: 'Available fitness estimate' },
+  { name: 'Walking heart rate', weight: 5, note: 'Difference from baseline' },
+  { name: 'Heart rate recovery', weight: 5, note: 'Available post-workout recovery' },
+  { name: 'Workout recovery', weight: 5, note: 'Time since workout and estimated intensity' },
+];
+
+const steps = [
+  { title: 'Read the available inputs', body: 'Health permissions and a connected device determine which records can be used. Missing measurements are not equivalent to normal measurements.' },
+  { title: 'Compare signals with a baseline', body: 'The model starts with population defaults. Its baseline uses an exponentially weighted history from the preceding 30 days, begins blending after 10 stored readings and reaches full personal weighting at 28 readings. That is a reading count, not a guarantee of calibration after seven calendar days.' },
+  { title: 'Combine factor scores', body: 'Smooth scoring curves convert inputs into factor values. Available factors are combined with weights; missing factors are excluded where supported, while activity can use defaults. Freshness adjustments affect some weights.' },
+  { title: 'Apply model modifiers', body: "Adjustments for recent trends, combinations of elevated factors, time of day and consecutive elevated days, then limited to 0–100. A daily curve partly reflects the model's time-of-day assumptions; it is not an observed cortisol curve." },
+];
+
+const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Breathing', 'Recording time', 'Watch fit', 'Missing data', 'Changing data source'];
 ---
 
-<ArticleLayout
-  title="How Cortisol+ Works: Stress Score, Inputs & Limits"
-  description="Understand the Apple Watch signals behind Cortisol+, its wellness score, personal baseline, update timing and the limits of HRV-based stress tracking."
-  updated="2026-09-09"
-  published="2026-05-23"
->
-<h2>What does Cortisol+ measure?</h2>
-<p><strong>Cortisol+ brings wearable stress and recovery signals into one view. It does not measure cortisol.</strong> Apple Watch records heart-related and activity data; Cortisol+ reads permitted data through Apple Health and calculates a 0–100 wellness score. The app calls this its cortisol score, but the number is not a blood, saliva or urine hormone concentration.</p>
-<p>A lower score reflects less strain according to the app's model. It does not establish that your cortisol is low, normal or healthy. A high score cannot diagnose an endocrine condition.</p>
-<h2>Which signals contribute to the score?</h2>
-<p>The current scoring implementation uses the following base weights. They are software design choices, not clinically established contributions to cortisol production. Available data varies by device, region, permissions and wear time.</p>
-<table><caption>Base weights before missing-data adjustments and model modifiers</caption><thead><tr><th scope="col">Input</th><th scope="col">Base weight</th><th scope="col">Interpretation in the app</th></tr></thead><tbody>
-<tr><td>Heart rate variability (HRV)</td><td>20%</td><td>Compared with a source-appropriate baseline</td></tr>
-<tr><td>Sleep</td><td>20%</td><td>A sleep score derived from available sleep data</td></tr>
-<tr><td>Resting heart rate</td><td>18%</td><td>Difference from baseline</td></tr>
-<tr><td>Respiratory rate</td><td>9%</td><td>Difference from baseline</td></tr>
-<tr><td>Activity</td><td>8%</td><td>Steps and active energy; defaults are used when absent</td></tr>
-<tr><td>Blood oxygen</td><td>5%</td><td>Available oxygen readings</td></tr>
-<tr><td>Cardio fitness estimate (VO₂ max)</td><td>5%</td><td>Available fitness estimate</td></tr>
-<tr><td>Walking heart rate</td><td>5%</td><td>Difference from baseline</td></tr>
-<tr><td>Heart rate recovery</td><td>5%</td><td>Available post-workout recovery</td></tr>
-<tr><td>Workout recovery</td><td>5%</td><td>Time since workout and estimated intensity</td></tr>
-</tbody></table>
-<p>Some measurements appear elsewhere in the app without being separate weighted score factors. For example, the app can read wrist temperature, but it is not one of these ten weighted inputs.</p>
-<h2>How the calculation works</h2>
-<ol><li><strong>Read the available inputs.</strong> Health permissions and a connected device determine which records can be used. Missing measurements are not equivalent to normal measurements.</li>
-<li><strong>Compare relevant signals with a baseline.</strong> The model starts with population defaults. Its scoring baseline uses an exponentially weighted history from the preceding 30 days, begins blending after 10 stored readings and reaches full personal weighting at 28 readings. That is a reading count, not a guarantee of calibration after seven calendar days.</li>
-<li><strong>Combine factor scores.</strong> Smooth scoring curves convert inputs into factor values. Available factors are combined with weights; missing factors are excluded where supported, while activity can use defaults. Freshness adjustments affect some weights.</li>
-<li><strong>Apply model modifiers.</strong> The score includes adjustments for recent trends, combinations of elevated factors, time of day and consecutive elevated days. It is then limited to 0–100. A daily curve partly reflects the model's time-of-day assumptions; it is not an observed cortisol curve.</li></ol>
-<p>Apple Watch HRV uses SDNN. Other supported data sources can use RMSSD, which is a different statistic. The scoring code separates source-specific HRV history; comparing a number from one method directly with another can be misleading.</p>
-<h2>How often does it update?</h2>
-<p>Cortisol+ updates from the data available when analysis runs and when supported background updates arrive. Apple Watch background sampling and Health sync are intermittent. Opening the app or refreshing does not create a fresh hormone measurement, and an updated screen can still contain older sensor readings. Check timestamps and data availability before interpreting a change.</p>
-<p>Apple describes <a href="https://support.apple.com/en-us/120277">how its heart-rate measurements work</a> and <a href="https://support.apple.com/en-us/108790">how cardio fitness is estimated</a>. Device settings, battery use, movement and sync can affect availability.</p>
-<h2>What is supported by research, and what is not?</h2>
-<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5900369/">Kim and colleagues' review of stress and HRV</a> supports studying HRV as an indicator of autonomic responses to stress. That evidence does not validate Cortisol+'s formula, prove that HRV predicts a person's cortisol level, or establish diagnostic accuracy.</p>
-<p><strong>We have not established clinical accuracy of the app's score against laboratory cortisol testing.</strong> Software checks verify aspects of implementation; they do not demonstrate a medical outcome. We do not claim the score can detect Cushing's syndrome, Addison's disease, predict burnout or prove that a supplement is working.</p>
-<h2>What can affect your reading?</h2>
-<p>Exercise, illness, alcohol, medication, posture, breathing, recording time, watch fit, missing data and changes in data source can affect the inputs. A change may have several explanations. Look at trends together with how you feel, rather than treating a single score as a diagnosis or a reason to change medication.</p>
-<h2>A useful way to start</h2>
-<p>Connect your device, enable only the Health permissions you want to share, and inspect the input timestamps. Use the <a href="/resources/stress-sleep-journal/">seven-day stress and sleep journal</a> to note your routine alongside your readings. The journal helps you ask better questions; an uncontrolled week of tracking cannot prove cause and effect.</p>
-<p>Read our <a href="/stress/apple-watch/">Apple Watch cortisol and stress guide</a>, <a href="/cortisol/test/">cortisol testing guide</a> and <a href="/privacy/">privacy policy</a>. Core scoring runs on-device; optional account, connected-service and coaching features have their own data flows described in the policy.</p>
-</ArticleLayout>
+<BaseLayout {title} {description} schema={schema}>
+  <!-- HERO -->
+  <section class="app-sky relative -mt-[5.5rem] overflow-hidden px-5 pt-[6.5rem] pb-14 text-center">
+    <div class="mx-auto max-w-xl">
+      <img src="/app-ui/start/zen_explain.webp" alt="" width="400" height="400" fetchpriority="high" class="hiw-art mx-auto h-40 w-auto drop-shadow-[0_18px_24px_rgba(40,96,140,0.25)]" />
+      <div class="mt-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[color:var(--color-teal-dark)]">Methodology</div>
+      <h1 class="mt-1 text-[2.25rem] leading-[1.05] font-extrabold tracking-tight text-balance sm:text-5xl">How Cortisol+ works</h1>
+      <p class="mx-auto mt-3 max-w-md text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty">The signals behind your score, how each one is weighted, and what the score can and can't tell you.</p>
+      <p class="mt-4 text-xs font-semibold text-[color:var(--color-ink-muted)]">Updated {updatedLabel} · By the {SITE.name} team</p>
+    </div>
+  </section>
+
+  <div class="relative mx-auto -mt-8 max-w-xl px-4 pb-4">
+    <!-- SHORT VERSION -->
+    <section aria-labelledby="short-heading">
+      <h2 id="short-heading" class="sr-only">The short version</h2>
+      <ul class="grid gap-3">
+        {short.map((s) => (
+          <li class="app-card flex items-center gap-4 p-4">
+            <img src={s.image} alt="" width="200" height="270" loading="lazy" class="h-14 w-auto shrink-0" />
+            <div>
+              <div class="font-extrabold text-[1.0625rem]">{s.title}</div>
+              <p class="mt-0.5 text-sm leading-snug text-[color:var(--color-ink-muted)]">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-4 px-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">
+        <strong class="text-[color:var(--color-ink)]">Cortisol+ brings wearable stress and recovery signals into one view. It does not measure cortisol.</strong>
+        It reads permitted data through Apple Health on iPhone or Health Connect on Android and calculates a 0–100 wellness score. The app calls this its cortisol score, but a lower score reflects less strain according to the app's model. It does not establish that your cortisol is low, normal or healthy, and a high score cannot diagnose an endocrine condition.
+      </p>
+    </section>
+
+    <!-- INPUTS -->
+    <section class="mt-12" aria-labelledby="inputs-heading">
+      <h2 id="inputs-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight">What goes into your score</h2>
+      <p class="mt-1 px-1 text-[color:var(--color-ink-muted)]">Base weights before missing-data adjustments and model modifiers. They are software design choices, not clinically established contributions to cortisol production.</p>
+      <ul class="app-card mt-4 divide-y divide-[color:var(--color-surface-2)] p-1">
+        {inputs.map((i) => (
+          <li class="px-4 py-3">
+            <div class="flex items-baseline justify-between gap-3">
+              <span class="font-bold">{i.name}</span>
+              <span class="shrink-0 text-sm font-extrabold tabular-nums text-[color:var(--color-teal-dark)]">{i.weight}%</span>
+            </div>
+            <div class="mt-1.5 h-2 rounded-full bg-[color:var(--color-surface-2)]" aria-hidden="true">
+              <div class="h-full rounded-full bg-[color:var(--color-teal)]" style={`width:${i.weight * 5}%`}></div>
+            </div>
+            <p class="mt-1 text-xs leading-snug text-[color:var(--color-ink-muted)]">{i.note}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-3 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">Available data varies by device, region, permissions and wear time. Some measurements appear elsewhere in the app without being weighted score factors; for example, the app can read wrist temperature, but it is not one of these ten inputs.</p>
+    </section>
+
+    <!-- CALCULATION -->
+    <section class="mt-12" aria-labelledby="calc-heading">
+      <h2 id="calc-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">How the score is calculated</h2>
+      <ol class="grid gap-3">
+        {steps.map((s, i) => (
+          <li class="app-card flex gap-4 p-4">
+            <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[color:var(--color-ink)] text-sm font-extrabold text-white">{i + 1}</span>
+            <div>
+              <div class="font-extrabold text-[1.0625rem]">{s.title}</div>
+              <p class="mt-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-3 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">Apple Watch HRV uses SDNN. Other supported data sources can use RMSSD, a different statistic. The scoring code keeps HRV history separate per source; comparing a number from one method directly with another can be misleading.</p>
+    </section>
+
+    <!-- COMPANION -->
+    <section class="mt-12" aria-labelledby="companion-heading">
+      <h2 id="companion-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight">Your companion shows the score</h2>
+      <p class="mt-1 px-1 text-[color:var(--color-ink-muted)]">On your watch, Pebble, Ripple or Bloom reflects your latest score and its level: calm when it's Low, worried when it's High.</p>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <figure class="app-card overflow-hidden p-2">
+          <img src="/app-ui/watch/pebble-low.webp" alt="Pebble on the Cortisol+ watch screen, calm at a Low score of 22" width="416" height="496" loading="lazy" class="w-full rounded-[1.25rem] bg-black" />
+          <figcaption class="px-1 pt-2 pb-1 text-xs font-bold">Low · calm</figcaption>
+        </figure>
+        <figure class="app-card overflow-hidden p-2">
+          <img src="/app-ui/watch/bloom-high.webp" alt="Bloom on the Cortisol+ watch screen, worried at a High score of 72" width="416" height="496" loading="lazy" class="w-full rounded-[1.25rem] bg-black" />
+          <figcaption class="px-1 pt-2 pb-1 text-xs font-bold">High · worried</figcaption>
+        </figure>
+      </div>
+      <p class="mt-2 px-1 text-xs text-[color:var(--color-ink-muted)]">Watch screens use sample data.</p>
+    </section>
+
+    <!-- UPDATES -->
+    <section class="mt-12" aria-labelledby="updates-heading">
+      <div class="app-card p-5">
+        <h2 id="updates-heading" class="text-[1.375rem] font-extrabold tracking-tight leading-tight">How often does it update?</h2>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">Cortisol+ updates from the data available when analysis runs and when supported background updates arrive. Watch background sampling and health-data sync are intermittent. Opening the app or refreshing does not create a fresh hormone measurement, and an updated screen can still contain older sensor readings. Check timestamps and data availability before interpreting a change.</p>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">Apple describes <a class="hiw-link" href="https://support.apple.com/en-us/120277">how its heart-rate measurements work</a> and <a class="hiw-link" href="https://support.apple.com/en-us/108790">how cardio fitness is estimated</a>. Device settings, battery use, movement and sync can affect availability.</p>
+      </div>
+    </section>
+
+    <!-- EVIDENCE -->
+    <section class="mt-12" aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">What research supports, and what it doesn't</h2>
+      <div class="grid gap-3">
+        <div class="app-card p-5">
+          <div class="text-sm font-extrabold text-[#1f9d6b]">Supported</div>
+          <p class="mt-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]"><a class="hiw-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5900369/">Kim and colleagues' review of stress and HRV</a> supports studying HRV as an indicator of autonomic responses to stress.</p>
+        </div>
+        <div class="app-card p-5">
+          <div class="text-sm font-extrabold text-[#c0392b]">Not established</div>
+          <p class="mt-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">That evidence does not validate Cortisol+'s formula, prove that HRV predicts a person's cortisol level, or establish diagnostic accuracy. <strong class="text-[color:var(--color-ink)]">We have not established clinical accuracy of the app's score against laboratory cortisol testing.</strong> Software checks verify aspects of implementation; they do not demonstrate a medical outcome. We do not claim the score can detect Cushing's syndrome or Addison's disease, predict burnout or prove that a supplement is working.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AFFECTS -->
+    <section class="mt-12" aria-labelledby="affects-heading">
+      <h2 id="affects-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight">What can affect your reading</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {affects.map((a) => <li class="rounded-full bg-white px-3.5 py-2 text-sm font-bold shadow-[0_1px_2px_rgba(15,20,25,0.06)]">{a}</li>)}
+      </ul>
+      <p class="mt-3 px-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">A change may have several explanations. Look at trends together with how you feel, rather than treating a single score as a diagnosis or a reason to change medication.</p>
+    </section>
+
+    <!-- START -->
+    <section class="mt-12" aria-labelledby="start-heading">
+      <div class="app-card p-5">
+        <h2 id="start-heading" class="text-[1.375rem] font-extrabold tracking-tight leading-tight">A useful way to start</h2>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">Connect your device, enable only the health permissions you want to share, and check the input timestamps. Use the <a class="hiw-link" href="/resources/stress-sleep-journal/">seven-day stress and sleep journal</a> to note your routine alongside your readings. It helps you ask better questions; an uncontrolled week of tracking cannot prove cause and effect.</p>
+        <div class="mt-5"><HeroCTA /></div>
+      </div>
+      <p class="mt-4 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">Read our <a class="hiw-link" href="/stress/apple-watch/">Apple Watch cortisol and stress guide</a>, <a class="hiw-link" href="/cortisol/test/">cortisol testing guide</a> and <a class="hiw-link" href="/privacy/">privacy policy</a>. Core scoring runs on-device; optional account, connected-service and coaching features have their own data flows described in the policy.</p>
+    </section>
+
+    <aside class="mt-10 rounded-2xl bg-white/60 p-4 text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
+      <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly; the app offers a wellness score derived from biometric signals, not a hormone test. For diagnosis, testing or treatment of any medical condition, consult a qualified healthcare provider. First published {new Date(`${published}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}.
+    </aside>
+  </div>
+
+  <style>
+    .hiw-art { animation: float-slow 6s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .hiw-art { animation: none; } }
+    .hiw-link { color: var(--color-teal-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  </style>
+</BaseLayout>

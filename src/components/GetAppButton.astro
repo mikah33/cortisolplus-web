@@ -1,16 +1,14 @@
 ---
-// One store button that follows the visitor's phone: App Store on iPhone and
-// iPad, Google Play on Android. Both links are rendered so attribution
-// (src/lib/acquisition.js) still sees a real apps.apple.com href; the platform
-// class set in BaseLayout's head hides the one that doesn't apply.
+import GooglePlayIcon from './icons/GooglePlayIcon.astro';
+// App Store and Google Play buttons, always both visible. The platform class
+// set in BaseLayout's head only puts the visitor's own store first.
 import { SITE } from '../consts';
 
 interface Props {
   variant?: 'dark' | 'light';
   class?: string;
-  showOther?: boolean;
 }
-const { variant = 'dark', class: className = '', showOther = true } = Astro.props;
+const { variant = 'dark', class: className = '' } = Astro.props;
 const btn = `app-btn w-full ${variant === 'light' ? 'app-btn--light' : ''}`;
 ---
 
@@ -20,25 +18,13 @@ const btn = `app-btn w-full ${variant === 'light' ? 'app-btn--light' : ''}`;
     Get it on the App Store
   </a>
   <a href={SITE.googlePlayUrl} class={btn} data-store="android">
-    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path d="M5 3.5v17l15-8.5z" /></svg>
+    <GooglePlayIcon class="h-5 w-5" />
     Get it on Google Play
   </a>
-  {showOther && (
-    <p class="get-app-other mt-3 text-center text-sm text-[color:var(--color-ink-muted)]">
-      <a href={SITE.googlePlayUrl} data-store-other="android" class="underline underline-offset-2">On Android? Get it on Google Play</a>
-      <a href={SITE.appStoreUrl} data-store-other="ios" class="underline underline-offset-2">On iPhone? Get it on the App Store</a>
-    </p>
-  )}
 </div>
 
 <style>
   .get-app { display: grid; gap: 0.625rem; }
-  /* Unknown platform (desktop, bots): show both buttons, no "other" link. */
-  .get-app-other { display: none; }
-  :global(html[data-platform='ios']) [data-store='android'],
-  :global(html[data-platform='android']) [data-store='ios'] { display: none; }
-  :global(html[data-platform='ios']) .get-app-other,
-  :global(html[data-platform='android']) .get-app-other { display: block; }
-  :global(html[data-platform='ios']) [data-store-other='ios'],
-  :global(html[data-platform='android']) [data-store-other='android'] { display: none; }
+  /* Visitor's own store first; both always shown. */
+  :global(html[data-platform='android']) [data-store='android'] { order: -1; }
 </style>

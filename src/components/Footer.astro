@@ -1,52 +1,63 @@
 ---
 import { SITE } from '../consts';
+import GooglePlayIcon from './icons/GooglePlayIcon.astro';
+import { APPLE_PATH } from '../lib/storeIcons';
 
+// Footer leads with the free check-ins: "60 second cortisol quiz" is the
+// site's best-converting search entry. Everything else folds into Explore.
+const tools = [
+  { href: '/tools/cortisol-calculator/', title: 'Stress & habits', meta: '8 questions · 60 sec', image: '/app-ui/zen_presenting_new.webp' },
+  { href: '/tools/morning-cortisol-test/', title: 'Morning routine', meta: '6 questions', image: '/app-ui/start/goal_sleep.webp' },
+  { href: '/tools/stress-score/', title: 'Stress score', meta: '6 questions', image: '/app-ui/start/symptom_stressed.webp' },
+  { href: '/tools/burnout-risk/', title: 'Burnout', meta: '7 questions', image: '/app-ui/start/symptom_fatigued.webp' },
+  { href: '/tools/sleep-debt-cortisol/', title: 'Sleep habits', meta: '6 questions', image: '/app-ui/start/symptom_unrested.webp' },
+];
 const groups = [
   {
     title: 'Tools',
     links: [
-      ['/tools/cortisol-calculator', 'Stress & habits check-in'],
-      ['/tools/morning-cortisol-test', 'Morning routine check-in'],
-      ['/tools/stress-score', 'Stress score quiz'],
-      ['/tools/burnout-risk', 'Burnout check-in'],
-      ['/tools/sleep-debt-cortisol', 'Sleep habits check-in'],
+      ['/tools/cortisol-calculator/', 'Stress & habits check-in'],
+      ['/tools/morning-cortisol-test/', 'Morning routine check-in'],
+      ['/tools/stress-score/', 'Stress score quiz'],
+      ['/tools/burnout-risk/', 'Burnout check-in'],
+      ['/tools/sleep-debt-cortisol/', 'Sleep habits check-in'],
     ],
   },
   {
     title: 'Cortisol guide',
     links: [
-      ['/cortisol', 'Full guide'],
-      ['/cortisol/symptoms', 'Symptoms'],
-      ['/cortisol/symptoms/cortisol-face', 'Cortisol face'],
-      ['/cortisol/lower', 'How to lower'],
-      ['/cortisol/foods/ashwagandha', 'Ashwagandha'],
+      ['/cortisol/', 'Full guide'],
+      ['/cortisol/symptoms/', 'Symptoms'],
+      ['/cortisol/symptoms/cortisol-face/', 'Cortisol face'],
+      ['/cortisol/lower/', 'How to lower'],
+      ['/cortisol/foods/ashwagandha/', 'Ashwagandha'],
     ],
   },
   {
     title: 'For you',
     links: [
-      ['/faq-perimenopause', 'Perimenopause'],
-      ['/faq-burnout', 'Burnout'],
-      ['/faq-shift-workers', 'Shift workers'],
-      ['/faq-athletes', 'Athletes'],
+      ['/faq-perimenopause/', 'Perimenopause'],
+      ['/faq-burnout/', 'Burnout'],
+      ['/faq-shift-workers/', 'Shift workers'],
+      ['/faq-athletes/', 'Athletes'],
     ],
   },
   {
     title: 'HRV & devices',
     links: [
-      ['/hrv', 'HRV & stress'],
-      ['/hrv/normal-range', 'Normal HRV by age'],
-      ['/stress/apple-watch', 'Apple Watch stress'],
-      ['/fitbit', 'Fitbit stress'],
-      ['/fitbit/cortisol', 'Fitbit & cortisol'],
+      ['/hrv/', 'HRV & stress'],
+      ['/hrv/normal-range/', 'Normal HRV by age'],
+      ['/stress/apple-watch/', 'Apple Watch stress'],
+      ['/fitbit/', 'Fitbit stress'],
+      ['/fitbit/cortisol/', 'Fitbit & cortisol'],
     ],
   },
   {
     title: 'Product',
     links: [
-      ['/how-it-works', 'How it works'],
-      ['/download', 'Download'],
-      ['/about', 'About'],
+      ['/how-it-works/', 'How it works'],
+      ['/download/', 'Download'],
+      ['/about/', 'About'],
       ['/compare/', 'Compare apps'],
       ['/resources/', 'Free resources'],
       ['/press/', 'Press & product facts'],
@@ -55,53 +66,81 @@ const groups = [
   {
     title: 'Legal',
     links: [
-      ['/privacy', 'Privacy'],
-      ['/terms', 'Terms'],
+      ['/privacy/', 'Privacy'],
+      ['/terms/', 'Terms'],
       ['/.well-known/security.txt', 'Security'],
     ],
   },
 ];
+const legal = groups.find((g) => g.title === 'Legal')?.links ?? [];
 ---
 
-<footer class="mt-24 pb-10">
+<footer class="mt-12 pb-10">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="app-card p-5 mb-4">
-      <div class="font-extrabold text-lg flex items-center gap-2.5 mb-1">
-        <img src="/apple-touch-icon.png" alt="" width="32" height="32" class="w-8 h-8 rounded-[10px]" />
-        {SITE.name}
+    <!-- Free check-ins -->
+    <h2 class="px-1 pb-2 text-[0.8125rem] font-bold text-[color:var(--color-ink-muted)]">Free check-ins</h2>
+    <ul class="app-snap -mx-4 sm:-mx-6 pb-2" style="padding-inline:1rem;scroll-padding-inline:1rem">
+      {tools.map((tool) => (
+        <li class="w-[40%] max-w-[10.5rem]">
+          <a href={tool.href} class="app-card flex h-full flex-col p-3.5 active:scale-[0.98] transition">
+            <img src={tool.image} alt="" width="120" height="120" loading="lazy" class="h-14 w-14 object-contain" />
+            <span class="mt-2 font-extrabold leading-tight">{tool.title}</span>
+            <span class="mt-0.5 text-xs font-semibold text-[color:var(--color-ink-muted)]">{tool.meta}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Newsletter -->
+    <div class="app-card mt-4 flex items-center gap-3 p-4">
+      <div class="min-w-0 flex-1">
+        <div class="font-extrabold">{SITE.substackName}</div>
+        <p class="text-sm leading-snug text-[color:var(--color-ink-muted)]">Weekly notes on stress, sleep and HRV.</p>
       </div>
-      <p class="text-[color:var(--color-ink-muted)] mb-4">Stress, HRV and recovery insights.</p>
-      <div class="flex flex-wrap gap-2 text-sm font-bold">
-        <a href={SITE.appStoreUrl} class="px-3.5 py-2 rounded-full bg-[color:var(--color-ink)]/90 text-white">App Store</a>
-        <a href={SITE.googlePlayUrl} class="px-3.5 py-2 rounded-full bg-[color:var(--color-ink)]/90 text-white">Google Play</a>
-        <a href={SITE.youtube} class="px-3.5 py-2 rounded-full bg-[color:var(--color-surface-2)]">YouTube</a>
-        <a href={SITE.tiktok} target="_blank" rel="noopener" class="px-3.5 py-2 rounded-full bg-[color:var(--color-surface-2)]">TikTok {SITE.tiktokHandle}</a>
-      </div>
+      <a href={SITE.substack} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-[color:var(--color-teal)] px-4 py-2 text-sm font-bold text-[color:var(--color-ink)] active:scale-95 transition">Subscribe</a>
     </div>
 
-    <div class="app-card p-5 mb-4">
-      <div class="text-sm font-bold text-[color:var(--color-ink-muted)] mb-1">{SITE.substackName}</div>
-      <p class="mb-3 leading-relaxed">Weekly notes on cortisol, stress, sleep, and HRV — backed by research, not TikTok takes.</p>
-      <a href={SITE.substack} target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 rounded-full bg-[color:var(--color-teal)] text-[color:var(--color-ink)] font-bold text-sm active:scale-95 transition">Subscribe free</a>
-    </div>
-
-    <div class="grid gap-4 md:grid-cols-3">
-      {groups.map((group) => (
-        <section>
-          <h2 class="px-1 pb-1.5 text-[0.8125rem] font-bold text-[color:var(--color-ink-muted)]">{group.title}</h2>
-          <ul class="app-card app-list overflow-hidden text-[0.9375rem] font-semibold">
+    <!-- Explore: everything else, folded -->
+    <h2 class="mt-6 px-1 pb-2 text-[0.8125rem] font-bold text-[color:var(--color-ink-muted)]">Explore</h2>
+    <div class="app-card app-list overflow-hidden">
+      {groups.filter((g) => g.title !== 'Legal' && g.title !== 'Tools').map((group) => (
+        <details class="group">
+          <summary class="app-row cursor-pointer list-none font-semibold">
+            <span>{group.title} <span class="ml-1 text-xs font-semibold text-[color:var(--color-ink-muted)]">{group.links.length}</span></span>
+            <span class="app-chevron transition-transform group-open:rotate-90">›</span>
+          </summary>
+          <ul class="flex flex-wrap gap-2 px-4 pb-4">
             {group.links.map(([href, label]) => (
-              <li><a href={href} class="app-row">{label}<span class="app-chevron">›</span></a></li>
+              <li><a href={href} class="inline-block rounded-full bg-[color:var(--color-surface-2)] px-3.5 py-2 text-sm font-semibold active:scale-95 transition">{label}</a></li>
             ))}
           </ul>
-        </section>
+        </details>
       ))}
     </div>
 
-    <div class="px-1 mt-8 text-xs leading-relaxed text-[color:var(--color-ink-muted)] space-y-2">
+    <!-- Brand -->
+    <div class="app-card mt-6 p-5">
+      <div class="flex items-center gap-2.5 text-lg font-extrabold">
+        <img src="/apple-touch-icon.png" alt="" width="32" height="32" class="h-8 w-8 rounded-[10px]" />
+        {SITE.name}
+      </div>
+      <p class="mt-1 text-[color:var(--color-ink-muted)]">Stress, HRV and recovery insights.</p>
+      <div class="mt-4 flex flex-wrap gap-2 text-sm font-bold">
+        <a href={SITE.appStoreUrl} class="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--color-ink)]/90 px-3.5 py-2 text-white"><svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 -mt-0.5" aria-hidden="true"><path d={APPLE_PATH} /></svg>App Store</a>
+        <a href={SITE.googlePlayUrl} class="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--color-ink)]/90 px-3.5 py-2 text-white"><GooglePlayIcon class="h-4 w-4" />Google Play</a>
+        <a href={SITE.youtube} class="rounded-full bg-[color:var(--color-surface-2)] px-3.5 py-2">YouTube</a>
+        <a href={SITE.tiktok} target="_blank" rel="noopener" class="rounded-full bg-[color:var(--color-surface-2)] px-3.5 py-2">TikTok {SITE.tiktokHandle}</a>
+      </div>
+    </div>
+
+    <!-- Legal and fine print, last -->
+    <nav aria-label="Legal" class="mt-6 flex flex-wrap gap-x-4 gap-y-1 px-1 text-sm font-semibold">
+      {legal.map(([href, label]) => <a href={href} class="underline-offset-2 hover:underline">{label}</a>)}
+      <button data-open-privacy class="font-semibold underline-offset-2 hover:underline">Privacy choices</button>
+    </nav>
+    <div class="mt-3 space-y-1.5 px-1 text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
       <p>The wellness score does not measure cortisol or provide a diagnosis. Consult a healthcare provider for medical advice.</p>
       <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
-      <button data-open-privacy class="underline underline-offset-2 font-semibold text-[color:var(--color-ink)]">Privacy choices</button>
     </div>
   </div>
 </footer>

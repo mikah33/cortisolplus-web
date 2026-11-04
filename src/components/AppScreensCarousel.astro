@@ -1,0 +1,40 @@
+---
+// ON THE BACK BURNER (Nov 4, 2026): not mounted. The "Everything in one place"
+// swipe-through of App Store screenshots, removed from the homepage. To bring
+// it back, import this in pages/index.astro and place <AppScreensCarousel />
+// after the "It gets more personal every day" section.
+// Note: the first screenshot shows "#1 Cortisol App" and "4.6"; the live US
+// rating is 4.5 and the #1 claim needs a source before reuse.
+const screens = [
+  { src: '/screenshots/live-stress-levels.webp', badge: 'Now', title: 'Live stress score', href: '/features/hrv-stress-monitoring/', caption: 'HRV, resting heart rate and sleep turned into one score through the day.', alt: 'Cortisol+ Now screen with an arc dial showing an example score of 26 labeled Low, HRV 58 ms and resting heart rate 58 bpm' },
+  { src: '/screenshots/wearable-insights.webp', badge: 'Insights', title: 'Insights from your wearable', href: '/features/hrv-stress-monitoring/', caption: 'A daily suggestion, then cortisol, sleep and recovery cards from your health data.', alt: 'Cortisol+ Insights tab with a suggestion card and Cortisol, Sleep and Recovery cards' },
+  { src: '/screenshots/sleep-quality.webp', badge: 'Sleep', title: 'Sleep quality', href: '/features/sleep-cortisol-tracking/', caption: 'A nightly score with time asleep, efficiency and a stage-by-stage timeline.', alt: 'Cortisol+ Sleep tab showing an example night scored 93 Excellent with sleep stages' },
+  { src: '/screenshots/activities.webp', badge: 'Fitness', title: 'Readiness & activities', href: '/download/', caption: 'Weekly readiness, cardio load, steps and VO₂ max, plus your workouts.', alt: 'Cortisol+ Fitness view with a weekly Readiness chart showing 71 Good' },
+  { src: '/screenshots/bio-age.webp', badge: 'Bio Age', title: 'Bio Age & Pace of Aging', href: '/download/', caption: 'An estimate of your pace of aging from recovery data. Not a medical test.', alt: 'Cortisol+ Bio Age screen showing an example Pace of Aging of 0.88x' },
+  { src: '/screenshots/zen-ai-assistant.webp', badge: 'Zen', title: 'Ask Zen & breathwork', href: '/features/breathing-zen-mode/', caption: 'Ask what is driving your score, then take a short guided breathing session.', alt: 'Cortisol+ Zen chat explaining an example score of 26 using sleep, HRV and resting heart rate' },
+];
+---
+
+    <!-- INSIDE THE APP — swipe through the real screens -->
+    <section class="mt-12" aria-labelledby="inside-heading">
+      <div class="px-5 mb-4">
+        <h2 id="inside-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">Everything in one place</h2>
+        <p class="mt-1 text-[color:var(--color-ink-muted)]">Swipe through the app. Screens show example values.</p>
+      </div>
+      <ul class="app-snap pb-2">
+        {screens.map((s) => (
+          <li class="w-[72%]">
+            <a href={s.href} class="block">
+              <div class="rounded-[1.75rem] overflow-hidden bg-[#cfe6f7] aspect-[645/1398] shadow-[0_18px_40px_-24px_rgba(40,96,140,0.55)]">
+                <img src={s.src} alt={s.alt} width="645" height="1398" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+              </div>
+              <div class="mt-3 px-1">
+                <span class="text-xs font-extrabold text-[color:var(--color-teal-dark)]">{s.badge}</span>
+                <div class="font-extrabold text-[1.0625rem]">{s.title}</div>
+                <div class="text-sm text-[color:var(--color-ink-muted)] leading-snug">{s.caption}</div>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>

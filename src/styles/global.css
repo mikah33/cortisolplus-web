@@ -319,6 +319,55 @@ nav, header { view-transition-name: app-header; }
 .app-snap::-webkit-scrollbar { display: none; }
 .app-snap > * { scroll-snap-align: start; flex: 0 0 auto; }
 
+/* Home page Now / Sleep / Bio Age card carousel */
+.card-track {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* swipes sideways only; vertical scroll goes to the page */
+  touch-action: pan-x pan-y;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  align-items: flex-start;
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-track::-webkit-scrollbar { display: none; }
+.card-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; padding: 0 1px 0.75rem; }
+/* iOS-style segmented control; the thumb follows the swipe. */
+.card-seg {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: min(100%, 15rem);
+  margin-inline: auto;
+  padding: 2px;
+  border-radius: 0.625rem;
+  background: rgba(118, 118, 128, 0.12);
+}
+.card-seg__thumb {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc((100% - 4px) / 3);
+  border-radius: 0.5rem;
+  background: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04);
+  transition: transform 0.12s ease-out;
+}
+.card-seg__btn {
+  position: relative;
+  padding: 0.25rem 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.card-seg__btn[aria-selected='true'] { opacity: 1; }
+.card-dot { width: 6px; height: 6px; border-radius: 999px; background: #d4d9e0; transition: width 0.25s, background-color 0.25s; }
+.card-dot.is-on { width: 18px; background: var(--color-ink); }
+
 /* Room under the footer for the sticky download bar on phones */
 @media (max-width: 767px) {
   .app-page { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }

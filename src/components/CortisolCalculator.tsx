@@ -6,7 +6,7 @@ interface Question {
   options: { label: string; weight: number }[];
 }
 
-const QUESTIONS: Question[] = [
+export const QUESTIONS: Question[] = [
   {
     id: 'sleep',
     prompt: 'How many hours do you typically sleep?',

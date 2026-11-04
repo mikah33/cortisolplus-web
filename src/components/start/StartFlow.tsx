@@ -1,3 +1,4 @@
+import { GooglePlayIcon } from '../icons/StoreIcons';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   BUILDING_STEPS,
@@ -17,6 +18,7 @@ import {
   type Platform,
   type PlanId,
 } from './content';
+import { readPurchase, writePurchase, type Purchase } from './purchase';
 
 export interface Review {
   title: string;
@@ -70,33 +72,6 @@ type Step = (typeof STEPS)[number];
 
 const QUESTION_STEPS: Step[] = ['age', 'gender', 'height', 'weight', 'sleep', 'exercise'];
 const STORAGE_KEY = 'cp_start_v1';
-const PURCHASE_KEY = 'cp_start_purchase_v1';
-
-interface Purchase {
-  plan: PlanId;
-  email: string | null;
-  /** The one-time link that unlocks Pro in the app (rc-9fb3e14b26://…). */
-  redeemUrl: string | null;
-  /** The same link as an https URL, for a QR code a phone can scan. */
-  redeemUrlRedirect?: string | null;
-}
-
-function readPurchase(): Purchase | null {
-  try {
-    const raw = localStorage.getItem(PURCHASE_KEY);
-    return raw ? (JSON.parse(raw) as Purchase) : null;
-  } catch {
-    return null;
-  }
-}
-
-function writePurchase(purchase: Purchase) {
-  try {
-    localStorage.setItem(PURCHASE_KEY, JSON.stringify(purchase));
-  } catch {
-    /* the download screen still shows now; it just won't survive a reload */
-  }
-}
 
 // ---------------------------------------------------------------- helpers
 
@@ -239,6 +214,23 @@ function ChoiceList({ options, selected, onToggle, multi }: {
   );
 }
 
+// Profile questions fill the screen like the app: question and Zen's reason at
+// the top, an illustration in the middle, the control low near the thumb.
+function ProfileStep({ title, why, art, footer, children }: {
+  title: string; why: string; art: string; footer?: boolean; children: ReactNode;
+}) {
+  return (
+    <div className={`flex flex-col ${footer ? 'min-h-[calc(100dvh-12rem)]' : 'min-h-[calc(100dvh-5.5rem)]'}`}>
+      <Title>{title}</Title>
+      <p className="mt-2 text-[1.0625rem] leading-snug text-[color:var(--color-ink)]/70">{why}</p>
+      <div className="flex min-h-[9rem] flex-1 items-center justify-center py-4">
+        <img src={art} alt="" width="400" height="400" className="max-h-[32dvh] w-auto drop-shadow-[0_14px_20px_rgba(40,96,140,0.22)]" />
+      </div>
+      {children}
+    </div>
+  );
+}
+
 function Title({ children }: { children: ReactNode }) {
   return <h1 className="text-[1.75rem] font-extrabold leading-[1.15] tracking-tight text-balance">{children}</h1>;
 }
@@ -247,7 +239,7 @@ function Slider({ min, max, value, onChange, label, display }: {
   min: number; max: number; value: number; onChange: (v: number) => void; label: string; display: string;
 }) {
   return (
-    <div className="app-glass mt-10 px-5 py-8 text-center">
+    <div className="app-glass px-5 py-7 text-center">
       <div className="text-[3.5rem] font-extrabold leading-none tabular-nums tracking-tight">{display}</div>
       <input
         type="range"
@@ -307,30 +299,37 @@ function SleepStages({ stages, color }: { stages: [string, string, number][]; co
   );
 }
 
+// The real watch screens (simulator captures, sample data) cycling through the
+// companions: Pebble calm at Low, Ripple at Elevated, Bloom worried at High.
 function WatchFace({ platform }: { platform: Platform }) {
   const states = [
-    { score: 22, band: 'Low', color: '#34c759', hrv: 54, rhr: 65 },
-    { score: 55, band: 'Elevated', color: '#ff9500', hrv: 38, rhr: 76 },
-    { score: 72, band: 'High', color: '#ff3b30', hrv: 29, rhr: 81 },
+    { src: '/app-ui/watch/pebble-low.webp', label: 'Pebble, calm at a Low score of 22' },
+    { src: '/app-ui/watch/ripple-elevated.webp', label: 'Ripple at an Elevated score of 55' },
+    { src: '/app-ui/watch/bloom-high.webp', label: 'Bloom, worried at a High score of 72' },
   ];
   const [index, setIndex] = useState(0);
   useEffect(() => {
     if (prefersReducedMotion()) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % states.length), 2000);
+    const id = setInterval(() => setIndex((i) => (i + 1) % states.length), 2200);
     return () => clearInterval(id);
   }, []);
-  const s = states[index];
   const round = platform === 'android';
   return (
-    <div className={`mx-auto grid h-44 w-40 place-items-center bg-[#0f1419] text-white ring-[6px] ring-[#2a2f35] shadow-xl ${round ? 'rounded-full h-44 w-44' : 'rounded-[2.4rem]'}`}>
-      <div className="text-center">
-        <div className="text-[10px] font-semibold text-white/60">9:41</div>
-        <div className="text-[9px] font-bold tracking-[0.2em] text-white/60">CORTISOL</div>
-        <div className="text-5xl font-extrabold leading-none tabular-nums transition-colors" style={{ color: s.color }}>{s.score}</div>
-        <div className="text-xs font-extrabold" style={{ color: s.color }}>{s.band}</div>
-        <div className="mt-1 text-[10px] font-semibold text-white/70 tabular-nums">HRV {s.hrv} · RHR {s.rhr}</div>
-        <div className="text-[9px] text-white/50">Updated just now</div>
-      </div>
+    <div
+      role="img"
+      aria-label={`Cortisol+ watch companion: ${states[index].label}`}
+      className={`relative mx-auto overflow-hidden bg-black ring-[6px] ring-[#2a2f35] shadow-xl ${round ? 'h-48 w-48 rounded-full' : 'h-[13.5rem] w-44 rounded-[2.4rem]'}`}
+    >
+      {states.map((st, i) => (
+        <img
+          key={st.src}
+          src={st.src}
+          alt=""
+          width="416"
+          height="496"
+          className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${round ? 'object-cover scale-[1.35] object-[50%_38%]' : 'object-contain p-2'} ${i === index ? 'opacity-100' : 'opacity-0'}`}
+        />
+      ))}
     </div>
   );
 }
@@ -362,7 +361,7 @@ function StoreButton({ platform, appStoreUrl, googlePlayUrl }: { platform: Platf
   );
   const google = (
     <a href={googlePlayUrl} className="app-btn w-full">
-      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true"><path d="M5 3.5v17l15-8.5z" /></svg>
+      <GooglePlayIcon className="h-5 w-5" />
       Get it on Google Play
     </a>
   );
@@ -778,8 +777,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     case 'age':
       screen = (
         <Screen footer={<PrimaryButton onClick={next}>Continue</PrimaryButton>}>
-          <Title>How old are you?</Title>
-          <Slider min={13} max={100} value={answers.age} onChange={(age) => update({ age })} label="Age" display={String(answers.age)} />
+          <ProfileStep footer title="How old are you?" why="Your age helps me read your HRV and Bio Age against people like you." art="/app-ui/zen_new_tour_bioage.webp">
+            <Slider min={13} max={100} value={answers.age} onChange={(age) => update({ age })} label="Age" display={String(answers.age)} />
+          </ProfileStep>
         </Screen>
       );
       break;
@@ -787,8 +787,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     case 'gender':
       screen = (
         <Screen>
-          <Title>What's your gender?</Title>
-          <div className="mt-6"><ChoiceList options={GENDERS} selected={[answers.gender]} onToggle={(id) => pickAndAdvance('gender', id)} /></div>
+          <ProfileStep title="What's your gender?" why="Heart-rate ranges differ, so this keeps your baseline fair." art="/app-ui/zen_new_normal.webp">
+            <ChoiceList options={GENDERS} selected={[answers.gender]} onToggle={(id) => pickAndAdvance('gender', id)} />
+          </ProfileStep>
         </Screen>
       );
       break;
@@ -796,7 +797,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     case 'height':
       screen = (
         <Screen footer={<PrimaryButton onClick={next}>Continue</PrimaryButton>}>
-          <Title>What's your height?</Title>
+          <ProfileStep footer title="What's your height?" why="Used with your weight for activity and recovery estimates." art="/app-ui/zen_new_tour_fitness.webp">
           <Slider
             min={48}
             max={95}
@@ -805,6 +806,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
             label="Height in inches"
             display={`${Math.floor(answers.heightIn / 12)}′ ${answers.heightIn % 12}″`}
           />
+          </ProfileStep>
         </Screen>
       );
       break;
@@ -812,8 +814,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     case 'weight':
       screen = (
         <Screen footer={<PrimaryButton onClick={next}>Continue</PrimaryButton>}>
-          <Title>What's your weight range?</Title>
-          <Slider min={80} max={400} value={answers.weight} onChange={(weight) => update({ weight })} label="Weight in pounds" display={`${answers.weight} lbs`} />
+          <ProfileStep footer title="What's your weight range?" why="It sharpens your activity and recovery numbers." art="/app-ui/zen_new_low.webp">
+            <Slider min={80} max={400} value={answers.weight} onChange={(weight) => update({ weight })} label="Weight in pounds" display={`${answers.weight} lbs`} />
+          </ProfileStep>
         </Screen>
       );
       break;
@@ -821,8 +824,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     case 'sleep':
       screen = (
         <Screen>
-          <Title>How many hours do you typically sleep?</Title>
-          <div className="mt-6"><ChoiceList options={SLEEP} selected={[answers.sleep]} onToggle={(id) => pickAndAdvance('sleep', id)} /></div>
+          <ProfileStep title="How many hours do you typically sleep?" why="Sleep is one of the biggest inputs to your score." art="/app-ui/zen_new_tour_sleep.webp">
+            <ChoiceList options={SLEEP} selected={[answers.sleep]} onToggle={(id) => pickAndAdvance('sleep', id)} />
+          </ProfileStep>
         </Screen>
       );
       break;
@@ -830,8 +834,9 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     case 'exercise':
       screen = (
         <Screen>
-          <Title>How often do you exercise?</Title>
-          <div className="mt-6"><ChoiceList options={EXERCISE} selected={[answers.exercise]} onToggle={(id) => pickAndAdvance('exercise', id)} /></div>
+          <ProfileStep title="How often do you exercise?" why="Training changes how fast you recover, so I factor it in." art="/app-ui/zen_new_breathe.webp">
+            <ChoiceList options={EXERCISE} selected={[answers.exercise]} onToggle={(id) => pickAndAdvance('exercise', id)} />
+          </ProfileStep>
         </Screen>
       );
       break;
@@ -1204,34 +1209,39 @@ function Paywall({ plan, setPlan, rating, onBuy, busy, error, webview, platform 
         role="radio"
         aria-checked={on}
         onClick={() => setPlan(id)}
-        className={`relative flex-1 rounded-[1.25rem] border-[2.5px] bg-white/90 px-3 pb-3 pt-5 text-left transition active:scale-[0.98] ${on ? 'border-[rgba(18,24,38,0.9)]' : 'border-transparent'}`}
+        className={`relative flex-1 rounded-[1.25rem] border-[2.5px] bg-white/90 px-3 pb-3 pt-6 text-left transition active:scale-[0.98] ${on ? 'border-[rgba(18,24,38,0.9)]' : 'border-transparent'}`}
       >
-        <span className={`absolute -top-2.5 left-3 rounded-full px-2 py-0.5 text-[11px] font-extrabold ${on ? 'bg-[rgba(18,24,38,0.9)] text-white' : 'bg-[color:var(--color-surface-2)]'}`}>{badge}</span>
+        <span className={`absolute -top-3.5 left-3 rounded-full px-3 py-1 text-[13px] font-extrabold shadow-sm ${on ? 'bg-[rgba(18,24,38,0.9)] text-white' : 'bg-[color:var(--color-surface-2)]'}`}>{badge}</span>
         {children}
       </button>
     );
   };
   return (
-    <div className="flex min-h-[calc(100dvh-3.5rem)] flex-col">
-      <img src={IMG('paywall_header')} alt="" width="480" height="300" className="-mt-14 w-full [mask-image:linear-gradient(to_bottom,black_60%,transparent)]" />
-      <div className="-mt-8 flex-1 px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-center gap-2">
-          <Stars className="h-5 w-5" value={rating.value} />
-          <span className="text-lg font-extrabold tabular-nums">{rating.value}</span>
-          <span className="text-sm font-semibold text-[color:var(--color-ink-muted)]">· {rating.count} App Store ratings</span>
+    // One screen, no scrolling: the header art shrinks with the viewport and
+    // everything else is sized to fit down to an iPhone SE.
+    <div className="flex h-[calc(100dvh-3.5rem)] flex-col overflow-hidden">
+      <img src={IMG('paywall_header')} alt="" width="480" height="300" className="-mt-14 h-[26dvh] min-h-0 w-full shrink object-cover object-[50%_30%] [mask-image:linear-gradient(to_bottom,black_60%,transparent)]" />
+      <div className="-mt-6 flex flex-1 flex-col justify-between px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+        <div>
+          <div className="flex items-center justify-center gap-2">
+            <Stars className="h-4 w-4" value={rating.value} />
+            <span className="font-extrabold tabular-nums">{rating.value}</span>
+            <span className="text-sm font-semibold text-[color:var(--color-ink-muted)]">· {rating.count} App Store ratings</span>
+          </div>
+          <h1 className="mt-2 text-center text-[1.75rem] font-extrabold leading-tight tracking-tight">Explore Calmer Days</h1>
+
+          <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2">
+            {PERKS.map((perk) => (
+              <li key={perk.label} className="flex items-center gap-2 text-sm font-bold leading-tight">
+                <img src={perk.image} alt="" width="32" height="32" className="h-8 w-8 shrink-0 object-contain" />
+                {perk.label}
+              </li>
+            ))}
+          </ul>
         </div>
-        <h1 className="mt-3 text-center text-[2rem] font-extrabold tracking-tight">Explore Calmer Days</h1>
 
-        <ul className="mt-4 space-y-2">
-          {PERKS.map((perk) => (
-            <li key={perk.label} className="flex items-center gap-3 font-bold">
-              <img src={perk.image} alt="" width="36" height="36" className="h-9 w-9 object-contain" />
-              {perk.label}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 flex gap-3" role="radiogroup" aria-label="Choose a plan">
+        <div>
+        <div className="mt-4 flex gap-3" role="radiogroup" aria-label="Choose a plan">
           {tile('weekly', (
             <>
               <div className="text-sm font-extrabold">Weekly</div>
@@ -1242,8 +1252,8 @@ function Paywall({ plan, setPlan, rating, onBuy, busy, error, webview, platform 
           {tile('yearly', (
             <>
               <div className="text-sm font-extrabold">Yearly</div>
-              <div className="mt-1 text-2xl font-extrabold tabular-nums">{money(yearly)}<span className="text-sm">/yr</span></div>
-              <div className="text-xs font-semibold text-[color:var(--color-ink-muted)]">billed annually · {money(yearly / 12)}/mo</div>
+              <div className="mt-1 text-2xl font-extrabold tabular-nums">{money(yearly / 12)}<span className="text-sm">/mo</span></div>
+              <div className="text-xs font-semibold text-[color:var(--color-ink-muted)]">{money(yearly)} billed yearly</div>
             </>
           ), `Save ${savePct}%`)}
         </div>
@@ -1252,15 +1262,14 @@ function Paywall({ plan, setPlan, rating, onBuy, busy, error, webview, platform 
           <p className="mt-4 rounded-2xl bg-white/80 p-3 text-sm font-semibold">Apple Pay isn't available inside this app's browser. Open this page in Safari to use it, or pay by card here.</p>
         )}
 
-        <p className="mt-5 text-center text-sm font-bold text-[color:var(--color-ink)]/70">Cancel anytime. No commitment.</p>
-        <div className="mt-3"><PrimaryButton onClick={onBuy} disabled={busy}>{busy ? 'Opening checkout…' : 'Start My Journey ›'}</PrimaryButton></div>
+        <p className="mt-3 text-center text-sm font-bold text-[color:var(--color-ink)]/70">Cancel anytime. No commitment.</p>
+        <div className="mt-2.5"><PrimaryButton onClick={onBuy} disabled={busy}>{busy ? 'Opening checkout…' : 'Start My Journey ›'}</PrimaryButton></div>
         {error && <p className="mt-2 text-center text-sm font-bold text-[#c0392b]" role="alert">{error}</p>}
-        <p className="mt-3 text-center text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
-          You'll be charged {plan === 'yearly' ? `${money(yearly)} today and every year` : `${money(weekly)} today and every week`} until you cancel.
-        </p>
-        <p className="mt-4 text-center text-xs font-semibold text-[color:var(--color-ink-muted)]">
+        <p className="mt-2.5 text-center text-[11px] leading-snug text-[color:var(--color-ink-muted)]">
+          You'll be charged {plan === 'yearly' ? `${money(yearly)} today and every year` : `${money(weekly)} today and every week`} until you cancel.{' '}
           <a href="/privacy/" className="underline">Privacy</a> · <a href="/terms/" className="underline">Terms</a>
         </p>
+        </div>
       </div>
     </div>
   );

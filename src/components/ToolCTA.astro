@@ -9,7 +9,11 @@ interface Props {
   tool?: string;
 }
 
-const { tool = '/tools/cortisol-calculator' } = Astro.props;
+const { tool: rawTool = '/tools/cortisol-calculator' } = Astro.props;
+// Frontmatter may give the tool with or without a trailing slash; the map uses
+// the bare path and links always get the slash (the canonical URL).
+const tool = rawTool.replace(/\/$/, '');
+const toolHref = `${tool}/`;
 
 // Map of tool URLs → display metadata
 const TOOLS: Record<string, { name: string; tagline: string; questions: number; duration: string; accent: 'teal' | 'coral' | 'mint' }> = {
@@ -68,7 +72,7 @@ const s = accentStyles[t.accent];
   <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-2 mt-2">{t.name}</h2>
   <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-xl leading-relaxed">{t.tagline}</p>
   <a
-    href={tool}
+    href={toolHref}
     class={`inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-br ${s.button} text-white font-semibold text-sm shadow-sm hover:brightness-110 transition`}
   >
     Start the {t.questions}-question quiz
