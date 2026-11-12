@@ -1,35 +1,90 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="Cortisol Levels Chart: Normal Ranges, Age & Time of Day"
   description="Understand cortisol reference ranges, sample timing, age and testing method. Compare source-specific examples and learn why your lab report matters."
-  updated="2026-09-16"
+  updated="2026-11-12"
 >
+<InShort points={[
+  'There is <strong>no single normal cortisol number</strong> for everyone.',
+  'Use the <strong>reference range printed on your own lab report</strong>.',
+  'Cortisol+ <strong>can\'t tell you</strong> if your cortisol level is normal.',
+]} />
+
 <h2>What is a normal cortisol level?</h2>
-<p><strong>A cortisol result needs a sample type, collection time, unit and laboratory reference interval.</strong> A generic online chart cannot classify every person's result. Cortisol changes through the day, and a serum result cannot be compared directly with a saliva or urine result.</p>
+<p><strong>A cortisol result only makes sense with its sample type, collection time, unit and the lab's own reference range.</strong></p>
+<p>A general chart online can't sort every person's result. Cortisol changes through the day. And a blood (serum) result can't be compared directly with a saliva or urine result.</p>
+
 <h2 id="cortisol-levels-chart">Cortisol levels chart: blood-test reference ranges</h2>
-<p>These are examples from named sources, not interchangeable diagnostic cutoffs. Use the reference interval on your own report.</p>
-<table><caption>Examples of published serum cortisol reference intervals</caption><thead><tr><th scope="col">Source and group</th><th scope="col">Timing</th><th scope="col">Range</th></tr></thead><tbody>
-<tr><td><a href="https://www.mayocliniclabs.com/test-catalog/Overview/8545">Mayo Clinic Laboratories CORT, adults 18+</a></td><td>a.m.</td><td>7–25 mcg/dL</td></tr>
-<tr><td>Mayo CORT, adults 18+</td><td>p.m.</td><td>2–14 mcg/dL</td></tr>
-<tr><td><a href="https://medlineplus.gov/ency/article/003693.htm">MedlinePlus blood-test example</a></td><td>8 a.m.</td><td>5–25 mcg/dL (138–690 nmol/L)</td></tr>
-</tbody></table>
-<p>The difference between these examples shows why “normal cortisol” is not one universal number. Tests performed after a suppression or stimulation medicine have their own interpretation.</p>
+<p><strong>These are examples from named sources, not cut-offs for diagnosis.</strong> Use the reference range on your own report.</p>
+<p class="text-sm font-semibold text-[color:var(--color-ink-muted)]">Examples of published serum cortisol reference intervals</p>
+<div class="not-prose my-4 grid gap-3 sm:grid-cols-3">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]"><a href="https://www.mayocliniclabs.com/test-catalog/Overview/8545" class="text-[color:var(--color-teal-dark)] hover:underline">Mayo Clinic Laboratories CORT, adults 18+</a></p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Morning (a.m.):</strong> 7–25 mcg/dL</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Mayo CORT, adults 18+</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Afternoon (p.m.):</strong> 2–14 mcg/dL</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]"><a href="https://medlineplus.gov/ency/article/003693.htm" class="text-[color:var(--color-teal-dark)] hover:underline">MedlinePlus blood-test example</a></p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>8 a.m.:</strong> 5–25 mcg/dL (138–690 nmol/L)</p>
+  </div>
+</div>
+<p>These examples don't match each other. That's why "normal cortisol" isn't one universal number.</p>
+<p>Tests done after a suppression or stimulation medicine are read in their own way.</p>
+
+<ZenTip image="/app-ui/zen_presenting_new.webp">
+  When you get a result, look for <strong>four things</strong> on the report: sample type, time collected, unit and reference range.
+</ZenTip>
+
 <h2>Normal cortisol levels by age</h2>
-<p>Mayo's CORT assay lists separate pediatric intervals and an adult category beginning at 18. It does not provide a different target for every adult decade. Do not invent a goal for your 30s, 40s or 60s by extrapolating a social-media chart. For a child's result, use the age-specific interval from the testing laboratory and the child's clinician.</p>
-<h2>Time of day and the daily curve</h2>
-<p>Blood cortisol generally follows a daily rhythm, with higher morning and lower late-evening levels. A single sample is one observation, not a complete day of hormone output. Record when the sample was collected and follow the instructions for that test.</p>
+<p><strong>Mayo's CORT test lists separate ranges for children and one adult range starting at 18.</strong> It doesn't give a different target for each adult decade.</p>
+<p>Don't make up a goal for your 30s, 40s or 60s by stretching a social-media chart.</p>
+<p>For a child's result, use the age-specific range from the testing lab and the child's doctor.</p>
+
+<h2>How does time of day change cortisol?</h2>
+<p><strong>Blood cortisol usually follows a daily rhythm: higher in the morning and lower late in the evening.</strong></p>
+<p>One sample is one snapshot, not a full day of hormone output. Write down when the sample was taken, and follow the instructions for that test.</p>
+
 <h2 id="normal-levels-women">What are normal cortisol levels in women?</h2>
-<p><strong>There is no single cortisol number that is normal for every woman.</strong> The <a href="https://www.mayocliniclabs.com/test-catalog/Overview/8545">Mayo CORT serum assay</a> uses the adult morning and afternoon intervals shown above rather than a separate female range. Pregnancy, estrogen medication, collection time and the laboratory method matter when interpreting a result.</p>
-<p>Pregnancy and estrogen-containing medication can affect total serum cortisol and its binding proteins. Mayo's assay documentation describes these and other interpretation cautions. An online gender-based correction is not a substitute for that context. Tell your clinician what medicines and supplements you use; do not stop prescribed medication to change a result without medical guidance.</p>
-<h2>Saliva and urine are different measurements</h2>
-<p>In a clinical evaluation, the question determines the test. <a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK describes late-night salivary cortisol, 24-hour urinary free cortisol and dexamethasone suppression testing</a> among the approaches used when Cushing's syndrome is suspected. A four-point wellness panel is not automatically the right next step for nonspecific fatigue.</p>
-<h2>What to do with an unexpected result</h2>
-<ul><li>Check the sample type, units, collection time and printed reference interval.</li><li>Ask the ordering clinician how your symptoms, medication and test protocol affect interpretation.</li><li>Ask whether follow-up testing is needed. A reference-range flag is not a diagnosis by itself.</li></ul>
+<p><strong>There is no single cortisol number that is normal for every woman.</strong> The <a href="https://www.mayocliniclabs.com/test-catalog/Overview/8545">Mayo CORT blood test</a> uses the adult morning and afternoon ranges above, not a separate female range.</p>
+<p>Pregnancy, estrogen medicine, collection time and the lab's method all matter when reading a result.</p>
+<p>Pregnancy and medicines containing estrogen can affect total blood cortisol and the proteins that carry it. Mayo's test documentation lists these and other cautions. An online "correction" for gender can't replace that context.</p>
+<p>Tell your doctor which medicines and supplements you take. <strong>Don't stop a prescribed medicine to change a result</strong> without medical advice.</p>
+
+<ZenPicture src="/app-ui/start/zen_explain.webp" caption="Blood, saliva and urine tests each measure cortisol differently." />
+
+<h2>Are saliva and urine tests different?</h2>
+<p><strong>Yes. They are different measurements.</strong> In a medical check-up, the question decides the test.</p>
+<p><a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK describes late-night saliva cortisol, 24-hour urine free cortisol and dexamethasone suppression testing</a>. These are some of the tests used when doctors suspect Cushing's syndrome.</p>
+<p>A four-point wellness panel isn't automatically the right next step for general tiredness.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>What should I do with an unexpected result?</h2>
+<ul>
+  <li>Check the sample type, units, collection time and the reference range printed on the report.</li>
+  <li>Ask the doctor who ordered the test how your symptoms, medicines and the test method affect the result.</li>
+  <li>Ask whether you need a follow-up test. A result flagged outside the range is not a diagnosis by itself.</li>
+</ul>
+
 <h2>Can Cortisol+ tell me whether my level is normal?</h2>
-<p>No. Cortisol+ displays wearable stress and recovery signals and a wellness score. It cannot determine whether blood, saliva or urine cortisol is normal. A 0–100 app score must never be substituted into a laboratory chart.</p>
-<p>Read our <a href="/how-it-works/">methodology and limitations</a>, <a href="/stress/apple-watch/">Apple Watch guide</a> and <a href="/cortisol/test/">testing guide</a>.</p>
+<p><strong>No.</strong> Cortisol+ shows wearable stress and recovery signals and a wellness score. It can't tell whether your blood, saliva or urine cortisol is normal.</p>
+<p>Never put a 0–100 app score into a lab chart.</p>
+<p>Read our <a href="/how-it-works/">methodology and limits</a>, <a href="/stress/apple-watch/">Apple Watch guide</a> and <a href="/cortisol/test/">testing guide</a>.</p>
 <p><small>Correction, September 9, 2026: replaced unsourced universal ranges and fixed percentage claims with source-specific examples and clearer test limitations. This is an editorial update, not a clinical review.</small></p>
 </ArticleLayout>
