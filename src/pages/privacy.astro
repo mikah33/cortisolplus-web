@@ -42,17 +42,17 @@ import { PUBLISHER } from '../consts';
   <h3>3.1 Biometric data from Apple HealthKit (on-device only)</h3>
   <p>With your explicit consent, the App reads the following data types from Apple HealthKit:</p>
   <ul>
-    <li>Heart rate, heart rate variability (HRV / SDNN), resting heart rate</li>
+    <li>Heart rate, heart rate variability (HRV / SDNN, and RMSSD where available), resting heart rate, walking heart rate</li>
     <li>Sleep stages (REM, deep, core, awake) and sleep timing</li>
     <li>Wrist temperature deviation (Apple Watch Series 8+)</li>
-    <li>Blood oxygen (SpO₂)</li>
-    <li>Activity (steps, active calories, VO₂ max, workouts)</li>
-    <li>Date of birth and biological sex (used only to personalize baselines)</li>
+    <li>Blood oxygen (SpO₂) and respiratory rate</li>
+    <li>Activity (steps, active calories, VO₂ max, workouts and workout routes)</li>
+    <li>Year of birth, if you allow it (used only to personalize baselines)</li>
   </ul>
   <p>
     <strong>This data is processed entirely on your device.</strong>
     It is never uploaded to our servers, never shared with third parties, and never used for advertising.
-    We use HealthKit in read-only mode and never write data back to your Health record.
+    The App writes to Apple Health only when you ask it to: workouts and nights of sleep you log by hand, and breathing sessions saved as Mindful Minutes. It never changes or deletes data from other sources.
   </p>
 
   <h3>3.1a Biometric data from Fitbit via the Google Health API (optional)</h3>
@@ -66,7 +66,7 @@ import { PUBLISHER } from '../consts';
     <li>Activity (steps, active calories, cardio fitness / VO₂ max)</li>
   </ul>
   <p>
-    <strong>Google user data is handled the same way as HealthKit data: processed on your device, read-only, never sold, never used for advertising.</strong>
+    <strong>Google user data is processed on your device like HealthKit data. Access to it is read-only, and it is never sold or used for advertising.</strong>
     You can disconnect Fitbit at any time in the App (Settings → Health Data) or revoke access at
     <a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>.
   </p>

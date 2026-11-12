@@ -1,0 +1,77 @@
+---
+title: "Why Stress Scores Differ Between Apps (and How to Compare Them)"
+description: "Garmin, Apple Watch Readiness, Google Health and Cortisol+ each turn your watch data into a different number. Here's what each scale means and how to compare them fairly."
+pubDate: 2026-09-16
+updatedDate: 2026-11-12
+tags: [stress, hrv, apple watch, comparisons]
+draft: false
+targetTool: /tools/stress-score/
+---
+
+## Why does every app give me a different stress score?
+
+**Because each app measures different signals, at different times, on its own scale, and none of them is a standard "stress" unit.** One app reads heart rate variability (HRV) only while you're still; another blends sleep, resting heart rate and activity across the whole day. Some scales count up with strain, others count up with readiness. Two scores from the same night can disagree without either being broken.
+
+No wearable score measures stress hormones. They're estimates built from heart, sleep and activity data.
+
+## Four real scales, side by side
+
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Garmin Stress level</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">0–100 from HRV while you're inactive. 0–25 rest, 26–50 low, 51–75 medium, 76–100 high. <strong>Higher = more stress.</strong></p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Apple Watch Readiness</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">0–10 from activity, Sleep Score and overnight vitals; Series 12 and Ultra 4 on watchOS 27. Not called a stress score. <strong>Higher = more ready.</strong></p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Google Health (Fitbit)</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">The Stress Management Score became <strong>Resilience</strong> when the Fitbit app was renamed in 2026, alongside Body Responses from the EDA sensor.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Cortisol+</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">0–100 wellness score from ten weighted inputs, led by HRV, sleep and resting heart rate, against your own baseline. <strong>Lower = less strain.</strong></p>
+  </div>
+</div>
+
+*Sources: Garmin's [Heart Rate Variability and Stress Level](https://www8.garmin.com/manuals/webhelp/GUID-D93137A9-B374-4A24-8A4D-A66C9AC91265/EN-US/GUID-9282196F-D969-404D-B678-F48A13D8D0CB.html) manual page; [iClarified on Apple's Readiness score](https://www.iclarified.com/102426/apple-watch-readiness-score-how-it-works-and-which-models-support-it); our [Fitbit stress guide](/fitbit/); [How Cortisol+ works](/how-it-works/).*
+
+The first thing to check with any app is the direction. A 70 on Garmin and a 70 on Cortisol+ both point toward strain, while a 7 on Apple's Readiness points the other way.
+
+## What makes two scores disagree?
+
+### Different inputs
+
+**An HRV-only score and a multi-signal score answer different questions.** Garmin's Stress level comes from HRV. Apple's Readiness mixes training load, sleep and overnight vitals. Cortisol+ weights HRV and sleep at 20% each and resting heart rate at 18%, then smaller signals such as respiratory rate and activity ([methodology](/how-it-works/)). A hard workout or a short night can move one score a lot and another barely at all.
+
+### Different measurement timing
+
+**When the data is collected matters as much as what is collected.** Garmin measures while you're inactive, so a stressful but active afternoon may not register. Apple's Readiness updates during the day as calories, naps and daytime heart rate come in. An overnight-only number and an all-day number can disagree for good reason.
+
+### Different HRV math
+
+**Not every app means the same thing by "HRV."** Apple Health has long stored HRV as SDNN, while many other wearables report RMSSD. The two are calculated differently, so their values aren't directly comparable. Even the same metric can differ between sensors and wear routines. See [HRV on Apple Watch](/hrv/apple-watch/) for what Apple records.
+
+### Different baselines
+
+**Most scores compare you with yourself, and each app builds that baseline its own way.** Cortisol+ starts from population defaults, blends in your own history after 10 stored readings, and is fully personal at 28. A new app, or a new watch, can read high or low for its first few weeks for that reason alone.
+
+## How do you compare apps fairly?
+
+**Compare trends within each app, never raw numbers across apps.** A move from 40 to 60 over two weeks inside one app tells you something. A 40 in one app next to a 60 in another tells you almost nothing.
+
+1. Use the same watch and your normal wear routine, including wearing it to sleep.
+2. Write down each app's scale and direction before comparing anything.
+3. Compare like with like: overnight against overnight, not one app's morning number against another's evening one.
+4. When scores disagree, open Apple Health and look at the underlying HRV, resting heart rate and sleep for those days.
+5. Note life context such as late meals, alcohol, illness or travel. A [stress and sleep journal](/resources/stress-sleep-journal/) keeps this in one place.
+6. After a week or two, keep the app whose explanations you find most useful, not the one with the "best" number.
+
+If you're choosing an app, our [comparison of Apple Watch stress apps](/compare/apple-watch-stress-apps/) lays out what each one reads and shows.
+
+[See Cortisol+ on the App Store](https://apps.apple.com/app/id6759510126). Analysis requires a subscription or eligible trial.
+
+## What a stress score can't tell you
+
+A score summarises how your body's measurable signals compare with a baseline. It can't tell you *why* they changed, diagnose a condition, or measure cortisol, which needs a lab test ([cortisol testing options](/cortisol/test/)). Treat any score as a prompt to look at your sleep, training and routine, and talk to a clinician about symptoms that worry you.

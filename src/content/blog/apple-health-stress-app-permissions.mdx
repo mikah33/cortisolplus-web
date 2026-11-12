@@ -1,0 +1,96 @@
+---
+title: "Apple Health Permissions for Stress Apps: What Read and Write Access Mean"
+description: "What a stress app can do with Apple Health read and write access, how to check or turn it off on iPhone, what deleting data does, and exactly what Cortisol+ reads and writes."
+pubDate: 2026-09-11
+updatedDate: 2026-11-12
+tags: [apple health, privacy, stress, apple watch]
+draft: false
+targetTool: /tools/stress-score/
+---
+
+## What does it mean to give a stress app Apple Health access?
+
+**You choose, one data type at a time, whether an app may read from Apple Health, write to it, or neither.** A stress app usually asks to *read* heart rate variability (HRV), resting heart rate and sleep. *Write* access is separate and only matters if the app saves something back, such as a breathing session. You can change both later in the Health app.
+
+Apple also requires every app to explain why it wants Health data on the permission screen, and to disclose the specific health data it collects ([App Review Guideline 5.1.3](https://developer.apple.com/app-store/review/guidelines/#health-and-health-research)).
+
+## Read access vs write access
+
+<div class="not-prose my-6 overflow-hidden rounded-2xl border border-[color:var(--color-border)] text-[0.9375rem] leading-snug">
+  <div class="grid grid-cols-2 bg-[color:var(--color-mint-soft)] font-extrabold text-[color:var(--color-ink)]">
+    <div class="px-4 py-3">Read</div>
+    <div class="px-4 py-3 border-l border-[color:var(--color-border)]">Write</div>
+  </div>
+  <div class="divide-y divide-[color:var(--color-border)]">
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">What it allows</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">The app can see records of that type, including past ones</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">The app can add new records of that type</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Typical stress-app use</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">HRV, resting heart rate, sleep, activity</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Mindful minutes, or entries you log by hand</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">If you say no</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">The app sees no data of that type</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Nothing is saved to Health; the feature may still work inside the app</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+Two details are easy to miss:
+
+- **An app can't tell whether you declined read access.** HealthKit is built so a denied type simply looks empty. If a stress app says it has "no HRV data," check its permissions before assuming your watch isn't recording.
+- **Write access doesn't let an app change other sources' data.** An app can only remove records it wrote itself.
+
+## How do you check or turn off an app's access?
+
+**In the Health app: tap your profile picture, then under Privacy tap Apps, and choose the app** ([Apple Support](https://support.apple.com/108779)). Each data type has its own switch for reading and writing. Turn off anything you don't want that app to use.
+
+Turning off read access stops the app reading that type from then on. It doesn't reach into the app and erase what the app has already done with the data, such as scores it calculated or anything it copied to its own servers. That's why it's worth reading an app's privacy policy for *where* it keeps health data, not just what it reads.
+
+## What happens when you delete data or the app?
+
+- **To delete what an app wrote to Health:** Health app → profile picture → Apps → the app → **Delete All Data from [app]**. To remove single entries, open the data type under Browse, tap **Show All Data**, then **Edit**.
+- **Deleting the app itself** doesn't remove the records it wrote to Health. Delete those first if you want them gone.
+- **Deleting your own Apple Watch records** removes them from Health and from what apps can read in future. An app that stores data on its own servers may still hold copies; its privacy policy should say how to request deletion.
+
+## What are apps allowed to do with Health data?
+
+**Under Apple's rules, apps may not use Health data for advertising, marketing or data mining, may not store personal health information in iCloud, and must not write false data into HealthKit** ([Guideline 5.1.3](https://developer.apple.com/app-store/review/guidelines/#health-and-health-research)). Health data can be used to provide a benefit directly to you, and sharing it for health research needs your permission.
+
+A quick test: if an app asks for data types that have nothing to do with what it shows you, such as nutrition data for a stress score, you can say no to those.
+
+## What does Cortisol+ read and write?
+
+**Cortisol+ reads the heart, sleep and activity data its wellness score uses, and writes only what you ask it to save.** Its [privacy policy](/privacy/) says HealthKit data is processed on your iPhone and isn't uploaded to its servers.
+
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Reads (with your permission)</p>
+    <p class="mt-2 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Heart rate variability, heart rate, resting and walking heart rate, respiratory rate, blood oxygen, sleeping wrist temperature, sleep, steps, active energy, VO₂ max, and workouts with their routes</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Writes (only when you use the feature)</p>
+    <p class="mt-2 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Breathing sessions as Mindful Minutes, plus workouts and nights of sleep you log by hand</p>
+  </div>
+</div>
+
+How each signal feeds the score, and its weight, is published on [How Cortisol+ works](/how-it-works/). The score is a wellness estimate from wearable signals; it doesn't measure cortisol.
+
+[See Cortisol+ on the App Store](https://apps.apple.com/app/id6759510126). Analysis requires a subscription or eligible trial.
+
+## A two-minute permissions check
+
+1. Open Health → profile picture → **Apps**, and look at every app listed.
+2. For each one, turn off any data type it doesn't need for what you use it for.
+3. Remove apps you no longer use. Tap **Delete All Data from [app]** first if you don't want to keep what they wrote.
+4. If a stress app shows missing HRV or sleep, check its read switches before troubleshooting your watch. Our [Apple Watch stress guide](/stress/apple-watch/) covers what the watch records.
