@@ -1,29 +1,85 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="How to Track Stress with a Wearable: HRV, Sleep & Limits"
   description="Learn what wearable stress scores use, why apps can disagree, and how to review HRV and sleep without mistaking a wellness score for cortisol testing."
-  updated="2026-09-09"
+  updated="2026-11-12"
 >
+<InShort points={[
+  'A wearable records <strong>body signals</strong>. It does not measure stress or cortisol.',
+  'Different apps use <strong>different formulas</strong>, so their scores can disagree.',
+  'Start with the <strong>raw readings and their times</strong>, then look at scores.',
+]} />
+
 <h2>Can a wearable measure stress?</h2>
-<p><strong>A wearable records signals that can inform a stress estimate; it does not directly measure your psychological stress or cortisol concentration.</strong> Heart rate, HRV and sleep describe different aspects of your body. Apps combine some of these records with their own assumptions.</p>
-<h2>Start with the underlying records</h2>
-<table><thead><tr><th scope="col">Record</th><th scope="col">Useful question</th><th scope="col">What it cannot establish</th></tr></thead><tbody>
-<tr><td>HRV</td><td>How does a reading compare with my history using the same measurement method?</td><td>The amount of cortisol or the cause of a change</td></tr>
-<tr><td>Heart rate</td><td>Was I resting, moving or exercising when this was recorded?</td><td>Whether psychological stress caused a faster pulse</td></tr>
-<tr><td>Sleep</td><td>How much sleep was recorded and is the record complete?</td><td>Why I woke up or whether a hormone disorder is present</td></tr>
-<tr><td>Wrist temperature</td><td>Does my device support it, and what is the recorded change?</td><td>A direct cortisol or core-temperature reading</td></tr>
-</tbody></table>
-<p>For Apple Watch, see Apple's descriptions of <a href="https://support.apple.com/en-us/120277">heart measurements</a>, <a href="https://support.apple.com/en-us/108906">sleep</a> and <a href="https://support.apple.com/en-us/102674">wrist temperature</a>. Availability varies with device, settings and wear time.</p>
-<h2>Why two stress apps can disagree</h2>
-<p>Apps can use different records, time windows, baselines and formulas. An HRV statistic such as SDNN is also different from RMSSD; compare like with like. A score of 60 in one app is not a standardized equivalent of 60 in another.</p>
-<p>Check the latest measurement time, missing inputs and explanation behind the number. More frequent app updates do not necessarily mean a sensor took a new reading. Apple Watch background sampling is intermittent.</p>
-<h2>How Cortisol+ uses the data</h2>
-<p>Cortisol+ combines available HRV, sleep, heart rate and activity-related factors into a 0–100 wellness score. Its <a href="/how-it-works/">published methodology</a> explains the weights, baseline process and missing-data limitations. The score does not model an established cortisol concentration or clinically validated hormone curve.</p>
-<p>Use it to explore recorded patterns and ask better questions about your routine. Do not use it to diagnose burnout, overtraining or a hormone disorder, or to verify that a supplement worked.</p>
-<h2>A practical way to begin</h2>
-<ol><li>Find the original readings and their timestamps in your health app.</li><li>Check which permissions and measurements your chosen stress app uses.</li><li>Review comparable readings over time alongside brief notes about your routine.</li><li>Keep symptoms and clinical decisions separate from a wearable score.</li></ol>
+<p><strong>No, not directly.</strong> A wearable records signals that can feed into a stress estimate. It does not measure your mental stress or how much cortisol you have.</p>
+<p>Heart rate, heart rate variability (HRV) and sleep each show a different part of how your body is doing. Apps combine some of these with their own assumptions.</p>
+
+<h2>What should I look at first?</h2>
+<p><strong>Start with the records underneath the score.</strong> Each one answers a useful question, but each has limits.</p>
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">HRV</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Ask:</strong> how does this reading compare with my history, using the same way of measuring?</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]"><strong>Can't tell you:</strong> how much cortisol you have, or why it changed.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Heart rate</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Ask:</strong> was I resting, moving or exercising when this was recorded?</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]"><strong>Can't tell you:</strong> whether mental stress made your pulse faster.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Sleep</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Ask:</strong> how much sleep was recorded, and is the record complete?</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]"><strong>Can't tell you:</strong> why you woke up, or whether you have a hormone disorder.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Wrist temperature</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Ask:</strong> does my device support it, and what change was recorded?</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]"><strong>Can't tell you:</strong> your cortisol or your core body temperature directly.</p>
+  </div>
+</div>
+<p>For Apple Watch, see Apple's pages on <a href="https://support.apple.com/en-us/120277">heart measurements</a>, <a href="https://support.apple.com/en-us/108906">sleep</a> and <a href="https://support.apple.com/en-us/102674">wrist temperature</a>. What's available depends on your device, settings and how much you wear it.</p>
+
+<ZenPicture src="/app-ui/start/zen_watch.webp" caption="Check the readings first. The score comes second." />
+
+<h2>Why do two stress apps disagree?</h2>
+<p><strong>They can use different records, time windows, baselines and formulas.</strong></p>
+<p>Even "HRV" can mean different things. One measure, SDNN, is not the same as another, RMSSD, so compare like with like. A 60 in one app is not the same as a 60 in another.</p>
+<p>Check when the latest reading was taken, what's missing, and how the app explains the number.</p>
+<p>An app updating more often doesn't mean the sensor took a new reading. Apple Watch takes background readings only now and then.</p>
+
+<h2>How does Cortisol+ use the data?</h2>
+<p><strong>Cortisol+ combines the HRV, sleep, heart rate and activity data it can get into a 0–100 wellness score.</strong></p>
+<p>Its <a href="/how-it-works/">published methodology</a> explains the weights, how it learns your baseline, and the limits when data is missing. The score does not model a proven cortisol level or a clinically tested hormone curve.</p>
+<p>Use it to explore your patterns and ask better questions about your routine.</p>
+<p>Don't use it to diagnose burnout, overtraining or a hormone disorder, or to check whether a supplement worked.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>How do I get started?</h2>
+<ol>
+  <li>Find the original readings and their times in your health app.</li>
+  <li>Check which permissions and measurements your stress app uses.</li>
+  <li>Look at similar readings over time, with short notes about your routine.</li>
+  <li>Keep symptoms and medical decisions separate from a wearable score.</li>
+</ol>
+
+<ZenTip image="/app-ui/zen_new_tour_now.webp">
+  Jot down <strong>one line a day</strong> about sleep, caffeine or a busy day. It makes your readings easier to understand later.
+</ZenTip>
+
 <p>Our <a href="/stress/apple-watch/">Apple Watch stress guide</a>, <a href="/compare/apple-watch-stress-apps/">app comparison</a> and <a href="/resources/stress-sleep-journal/">free observation journal</a> help with those steps.</p>
 </ArticleLayout>
