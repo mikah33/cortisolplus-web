@@ -2,11 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
-import GetAppButton from '../../components/GetAppButton.astro';
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
 import { medicalWebPage } from '../../lib/schema';
 
-const UPDATED = '2026-10-27';
+const UPDATED = '2026-11-12';
 
 const schema = medicalWebPage({
   name: 'Fitbit Stress Management Score is now Resilience: how it works',
@@ -70,8 +72,11 @@ const related = [
 
 const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
   prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-  prose-headings:scroll-mt-24
-  prose-p:text-[color:var(--color-ink)] prose-li:text-[color:var(--color-ink)]
+  prose-headings:text-balance prose-headings:scroll-mt-24
+  prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+  prose-h3:mt-8 prose-h3:mb-2
+  prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+  prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
   prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
   prose-strong:text-[color:var(--color-ink)]`;
 ---
@@ -87,23 +92,18 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Fitbit</div>
       <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Fitbit Stress Management Score is now Resilience</h1>
       <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
-        Looking for your 1–100 stress number? It's gone. Fitbit's Stress Management Score was replaced by Resilience, a daily Optimal, Balanced or Low rating in the Google Health app. Here's what feeds it, where to find it, and the habits that actually move it.
+        Looking for your 1–100 stress number? It's gone. Fitbit's Stress Management Score was replaced by Resilience, a daily Optimal, Balanced or Low rating in the Google Health app. Here's what feeds it, where to find it, and the habits that really move it.
       </p>
       <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
         Updated {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })} · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a>
       </p>
     </header>
 
-    <!-- Quick answer -->
-    <section class="app-card px-5 py-5 sm:px-8 mb-4" aria-labelledby="quick-answer">
-      <h2 id="quick-answer" class="text-lg font-extrabold tracking-tight mb-3">Quick answer</h2>
-      <ul class="space-y-2.5 text-[0.98rem] leading-relaxed text-[color:var(--color-ink)]">
-        <li><strong>What happened?</strong> Since May 19, 2026, the Stress Management Score is called <strong>Resilience</strong>, and the Fitbit app is the Google Health app.</li>
-        <li><strong>How it's rated:</strong> <strong>Optimal</strong>, <strong>Balanced</strong> or <strong>Low</strong> — no longer a number from 1 to 100.</li>
-        <li><strong>What feeds it:</strong> 10+ factors in three groups — responsiveness (heart rate, HRV, EDA), exertion balance, and sleep patterns.</li>
-        <li><strong>Where to find it:</strong> Google Health app → <strong>Health</strong> tab → <strong>Mental wellbeing</strong> → <strong>Resilience</strong>. Not Premium-only.</li>
-      </ul>
-    </section>
+    <InShort points={[
+      'Since May 19, 2026, the Stress Management Score is called <strong>Resilience</strong>.',
+      'It\'s now <strong>Optimal, Balanced or Low</strong>, not a number from 1 to 100.',
+      'Find it: Google Health app → <strong>Health</strong> → <strong>Mental wellbeing</strong>. Not Premium-only.',
+    ]} />
 
     <!-- On this page -->
     <nav class="app-card overflow-hidden mb-6" aria-label="On this page">
@@ -117,70 +117,97 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
 
     <div class={proseCard}>
       <h2 id="what-changed">What happened to the Fitbit Stress Management Score?</h2>
-      <p><strong>It was replaced by Resilience.</strong> On May 19, 2026 the Fitbit app became the <strong>Google Health app</strong> (<a href="https://blog.google/products-and-platforms/products/google-health/google-health-app/">Google's announcement</a>). In Google's own words, "in the Mental Wellbeing section, Resilience replaces Stress score," and it is "described as Optimal, Balanced, or Low, instead of a numerical value" (<a href="https://support.google.com/googlehealth/answer/17068213?hl=en">Google Health Help — what's new</a>).</p>
-      <p>If you remember the old score, Resilience will feel familiar: it uses the same three categories of inputs. What changed is the name, the location in the app, and that you now get a label instead of a 1–100 number. Your Fitbit device keeps working the same way.</p>
+      <p><strong>It was replaced by Resilience.</strong></p>
+      <p>On May 19, 2026, the Fitbit app became the <strong>Google Health app</strong> (<a href="https://blog.google/products-and-platforms/products/google-health/google-health-app/">Google's announcement</a>).</p>
+      <p>In Google's own words, "in the Mental Wellbeing section, Resilience replaces Stress score." It is "described as Optimal, Balanced, or Low, instead of a numerical value" (<a href="https://support.google.com/googlehealth/answer/17068213?hl=en">Google Health Help — what's new</a>).</p>
+      <p>If you remember the old score, Resilience will feel familiar. It uses the same three groups of inputs. What changed:</p>
+      <ul>
+        <li>the name</li>
+        <li>where it sits in the app</li>
+        <li>you now get a label instead of a 1–100 number</li>
+      </ul>
+      <p>Your Fitbit device keeps working the same way.</p>
 
       <h2 id="what-is-resilience">What Resilience is</h2>
-      <p>Google describes Resilience as a measure of "your capacity for the day ahead" — "your body's ability to absorb and bounce back from physical and mental strain" (<a href="https://support.google.com/googlehealth/answer/14237928?hl=en">Google Health Help — Manage stress &amp; mindfulness</a>).</p>
-      <p>Like the score it replaced, it reads <em>physical</em> signals, not your mood. You can feel calm and get a Low rating after a hard workout or a short night, or feel frazzled and see Optimal if your body's signals stayed steady. And it is not a hormone test: no Fitbit measures cortisol.</p>
+      <p>Google describes Resilience as a measure of "your capacity for the day ahead": "your body's ability to absorb and bounce back from physical and mental strain" (<a href="https://support.google.com/googlehealth/answer/14237928?hl=en">Google Health Help — Manage stress &amp; mindfulness</a>).</p>
+      <p><strong>Like the old score, it reads <em>physical</em> signals, not your mood.</strong></p>
+      <ul>
+        <li>You can feel calm and get a Low rating after a hard workout or a short night.</li>
+        <li>You can feel frazzled and see Optimal if your body's signals stayed steady.</li>
+      </ul>
+      <p>And it's not a hormone test. No Fitbit measures cortisol.</p>
 
       <h2 id="how-it-works">What feeds Resilience</h2>
-      <p>Per Google, more than ten factors feed the rating, grouped into three categories:</p>
+      <p>Google says more than ten factors feed the rating, in three groups:</p>
 
-      <h3>Responsiveness</h3>
-      <p>Uses <strong>heart rate</strong>, <strong>heart-rate variability (HRV)</strong> and <strong>electrodermal activity (EDA)</strong> data to assess how hard your body worked to manage physical and mental demands. A body that worked hard yesterday tends to show it in a lower <a href="/fitbit/hrv/">overnight HRV</a> and a higher heart rate.</p>
+      <div class="not-prose my-6 grid gap-3">
+        <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+          <h3 class="font-extrabold text-[color:var(--color-ink)]">Responsiveness</h3>
+          <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Uses <strong>heart rate</strong>, <strong>heart rate variability (HRV)</strong> and <strong>electrodermal activity (EDA)</strong> data to see how hard your body worked to handle physical and mental demands. A body that worked hard yesterday tends to show a lower <a class="text-[color:var(--color-teal-dark)]" href="/fitbit/hrv/">overnight HRV</a> and a higher heart rate.</p>
+        </div>
+        <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+          <h3 class="font-extrabold text-[color:var(--color-ink)]">Exertion balance</h3>
+          <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Weighs the short-term demand of recent exercise against the longer-term benefit of your movement over the past week. One very hard session in an otherwise quiet week can lower your rating, even though exercise is good for you.</p>
+        </div>
+        <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+          <h3 class="font-extrabold text-[color:var(--color-ink)]">Sleep patterns</h3>
+          <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">How well and how much you slept last night and over the last week. A short or broken night is one of the quickest ways to see your rating dip.</p>
+        </div>
+      </div>
 
-      <h3>Exertion balance</h3>
-      <p>Weighs the short-term demand of recent exercise against the longer-term benefit of your movement over the past week. A single very hard session in an otherwise quiet week can lower your rating even though exercise is good for you.</p>
+      <ZenTip image="/app-ui/zen_new_tour_sleep.webp">
+        Want a steadier rating? Start with sleep. It's one of the <strong>quickest ways</strong> to see your Resilience change.
+      </ZenTip>
 
-      <h3>Sleep patterns</h3>
-      <p>The quality and quantity of your sleep last night and over the last week. A short or broken night is one of the quickest ways to see your rating dip.</p>
-    </div>
-
-    <!-- Mid-article CTA -->
-    <aside class="my-6 app-sky rounded-3xl overflow-hidden px-5 pt-6 pb-6 text-center" aria-labelledby="sms-cta">
-      <img src="/app-ui/zen_presenting_new.webp" alt="" width="306" height="480" loading="lazy" class="mx-auto h-28 w-auto" />
-      <h2 id="sms-cta" class="mt-2 text-2xl font-extrabold tracking-tight">See the signals behind your rating in one daily view</h2>
-      <p class="mt-2 mb-5 text-[color:var(--color-ink)]/75 leading-relaxed text-pretty">
-        Cortisol+ reads HRV, sleep and heart rate from Apple Health on iPhone and Apple Watch, or from Health Connect on Android. Fitbit support via Health Connect is on the way — it isn't a shipped feature yet. Its score is a wellness estimate, not a cortisol test; <a href="/how-it-works/" class="underline font-semibold">see the methodology</a>.
-      </p>
-      <GetAppButton />
-    </aside>
-
-    <div class={proseCard}>
       <h2 id="where-to-find">Where to find Resilience in the Google Health app</h2>
       <ol>
         <li><strong>Wear a compatible device and let it sync.</strong> Resilience works on Fitbit Charge 4, 5 and 6, Inspire 2 and 3, Luxe, the Sense series, Versa 2, 3 and 4, Google Pixel Watch 2 and later, and Google Fitbit Air.</li>
         <li><strong>Open the Google Health app</strong> (formerly the Fitbit app) and tap the <strong>Health</strong> tab.</li>
         <li>Under <em>Focus areas</em>, tap <strong>Mental wellbeing</strong>, then <strong>Resilience</strong>.</li>
       </ol>
-      <p>From Mental wellbeing you can also open <strong>Body responses</strong> on Sense devices and Pixel Watch 2 and later — see <a href="/fitbit/">our Fitbit stress tracking overview</a>. Resilience is not a Premium-only feature; Google Health Premium (formerly Fitbit Premium) unlocks additional content and stress management tips. Navigation and device lists are from <a href="https://support.google.com/googlehealth/answer/14237928?hl=en">Google Health Help</a>; menus can differ by app version and region.</p>
+      <p>From Mental wellbeing, you can also open <strong>Body responses</strong> on Sense devices and Pixel Watch 2 and later. See <a href="/fitbit/">our Fitbit stress tracking overview</a>.</p>
+      <p><strong>Resilience is not a Premium-only feature.</strong> Google Health Premium (formerly Fitbit Premium) unlocks extra content and stress management tips.</p>
+      <p>Menus and device lists come from <a href="https://support.google.com/googlehealth/answer/14237928?hl=en">Google Health Help</a>. They can differ by app version and region.</p>
 
       <h2 id="how-to-read">How to read Optimal, Balanced and Low</h2>
-      <p>Optimal is the best of the three ratings, then Balanced, then Low. Google doesn't publish the cutoffs behind each label, so the old advice about "good" numbers on the 1–100 scale no longer applies — and there's no official threshold to compare with anyone else.</p>
-      <p>The most useful habit is to ignore any one day and watch the trend. A single Low after a big workout or a bad night is expected. A run of Low days over one to two weeks is the signal worth acting on.</p>
+      <p><strong>Optimal is the best of the three ratings, then Balanced, then Low.</strong></p>
+      <p>Google doesn't publish the cutoffs behind each label. So old advice about "good" numbers on the 1–100 scale no longer applies. There's no official line to compare with anyone else.</p>
+      <p><strong>The most useful habit: ignore any one day and watch the trend.</strong> One Low after a big workout or a bad night is expected. A run of Low days over one to two weeks is the signal worth acting on.</p>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
 
       <h2 id="why-low">Why your rating dropped</h2>
-      <p>Because the rating is built from responsiveness, exertion balance and sleep, a Low day usually traces back to one of these:</p>
+      <p>The rating is built from responsiveness, exertion balance and sleep. So a Low day usually comes back to one of these:</p>
       <ul>
-        <li><strong>Sleep:</strong> a short or fragmented night, or several in a row.</li>
+        <li><strong>Sleep:</strong> a short or broken night, or several in a row.</li>
         <li><strong>Training spike:</strong> a hard session that's out of line with your past week.</li>
-        <li><strong>Lower HRV or higher heart rate than usual:</strong> which alcohol, illness or a stressful evening can all cause.</li>
+        <li><strong>Lower HRV or higher heart rate than usual:</strong> alcohol, illness or a stressful evening can all cause this.</li>
       </ul>
 
       <h2 id="improve">How to improve Resilience (and the old Stress Management Score)</h2>
-      <p>Google's own suggestions are simple, and they line up with the inputs above:</p>
+      <p>Google's own tips are simple, and they match the inputs above:</p>
       <ol>
-        <li><strong>Protect sleep.</strong> Set a consistent bedtime and aim for at least 7 hours a night.</li>
-        <li><strong>Move regularly.</strong> Consistent exercise helps mood and health, and steady weekly activity keeps exertion balance from swinging.</li>
-        <li><strong>Build up training gradually</strong> and keep genuine easy days, rather than stacking hard sessions.</li>
-        <li><strong>Try a relaxing activity</strong> such as meditation, mindfulness or breathing exercises.</li>
-        <li><strong>Go easy on alcohol,</strong> especially close to bedtime, since it tends to disrupt sleep and lower overnight HRV.</li>
+        <li><strong>Protect sleep.</strong> Keep a regular bedtime and aim for at least 7 hours a night.</li>
+        <li><strong>Move regularly.</strong> Regular exercise helps mood and health. Steady weekly activity also keeps exertion balance from swinging.</li>
+        <li><strong>Build up training slowly</strong> and keep real easy days, rather than stacking hard sessions.</li>
+        <li><strong>Try something relaxing,</strong> such as meditation, mindfulness or breathing exercises.</li>
+        <li><strong>Go easy on alcohol,</strong> especially close to bedtime. It tends to disturb sleep and lower overnight HRV.</li>
       </ol>
-      <p>Expect changes over days to weeks. HRV and sleep are slow-moving signals, so the rating rewards consistency, not one good day.</p>
+      <p>Expect changes over days to weeks. HRV and sleep move slowly, so the rating rewards steady habits, not one good day.</p>
+
+      <ZenPicture src="/app-ui/zen_new_breathe.webp" caption="Breathing exercises are one of Google's own tips for a better rating." />
 
       <h2 id="limits">What Resilience can't tell you</h2>
-      <p>Resilience is a proxy. It can't measure cortisol, and it can't tell a stressful day from a hard workout. If you want to understand cortisol patterns specifically — the hormone people usually mean by "stress" — see <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a> Cortisol+ estimates cortisol patterns from wearable signals and works with Apple Health on iPhone and Apple Watch and with Health Connect on Android; Fitbit support via Health Connect is on the way, not a shipped feature.</p>
+      <p><strong>Resilience is a stand-in signal.</strong> It can't measure cortisol, and it can't tell a stressful day from a hard workout.</p>
+      <p>Want to understand cortisol patterns, the hormone people usually mean by "stress"? See <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a></p>
+      <p>Cortisol+ estimates cortisol patterns from wearable signals. Its score is a wellness estimate, not a cortisol test (<a href="/how-it-works/">see the methodology</a>). It works with Apple Health on iPhone and Apple Watch, and with Health Connect on Android. Fitbit support via Health Connect is on the way. It isn't a shipped feature yet.</p>
 
       <h2>Sources</h2>
       <ul>
