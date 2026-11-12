@@ -1,18 +1,24 @@
 ---
 import { SITE, NAV } from '../consts';
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
 ---
 
-<header id="site-nav" class="sticky top-0 z-50 backdrop-blur bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)] transition-shadow duration-300">
-  <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <a href="/" class="shrink-0 font-semibold text-lg tracking-tight flex items-center gap-2">
-      <img src="/apple-touch-icon.png" alt="Cortisol+" width="28" height="28" class="w-7 h-7 rounded-lg" />
+<header id="site-nav" class="sticky top-0 z-50 transition-[background-color,box-shadow] duration-300">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
+    <a href="/" class="shrink-0 font-extrabold text-[1.0625rem] tracking-tight flex items-center gap-2">
+      <img src="/apple-touch-icon.png" alt="" width="30" height="30" class="w-[30px] h-[30px] rounded-[9px] shadow-sm" />
       {SITE.name}
     </a>
 
-    <ul class="hidden md:flex items-center gap-8 text-sm text-[color:var(--color-ink-muted)]">
+    <ul class="hidden md:flex items-center gap-1 text-[0.9375rem] font-semibold">
       {NAV.map((item) => (
         <li>
-          <a href={item.href} class="hover:text-[color:var(--color-ink)] transition-colors">
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class="px-3.5 py-2 rounded-full text-[color:var(--color-ink)]/70 hover:text-[color:var(--color-ink)] hover:bg-white/60 aria-[current=page]:bg-white aria-[current=page]:text-[color:var(--color-ink)] transition-colors"
+          >
             {item.label}
           </a>
         </li>
@@ -20,18 +26,34 @@ import { SITE, NAV } from '../consts';
     </ul>
 
     <div class="flex shrink-0 items-center gap-2">
-      <a href="/download/" class="inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-semibold bg-[color:var(--color-teal-dark)] text-white hover:brightness-110 transition">Get app</a>
+      <a href="/download/" class="hidden md:inline-flex items-center h-9 rounded-full px-4 text-sm font-bold bg-[color:var(--color-ink)]/90 text-white hover:bg-[color:var(--color-ink)] active:scale-95 transition">Get app</a>
       <details class="md:hidden" id="mobile-menu">
-        <summary class="cursor-pointer list-none p-3 rounded-lg border border-[color:var(--color-border)] text-sm font-medium" aria-label="Main menu">Menu</summary>
-        <ul class="absolute top-16 inset-x-0 p-4 bg-white border-b border-[color:var(--color-border)] shadow-lg">
-          {NAV.map((item) => <li><a href={item.href} class="block p-3 rounded-lg hover:bg-[color:var(--color-surface)]">{item.label}</a></li>)}
-          <li><a href="/stress/apple-watch/" class="block p-3">Apple Watch guide</a></li>
-          <li><a href="/about/" class="block p-3">About &amp; editorial standards</a></li>
-        </ul>
+        <summary class="cursor-pointer list-none w-9 h-9 grid place-items-center rounded-full bg-white/70 backdrop-blur border border-white/80 shadow-sm" aria-label="Main menu">
+          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <div class="absolute top-14 inset-x-0 px-4 pb-4">
+          <ul class="app-list overflow-hidden rounded-3xl bg-white shadow-[0_18px_40px_-16px_rgba(40,96,140,0.45)] text-[1.0625rem] font-semibold">
+            {NAV.map((item) => (
+              <li><a href={item.href} class="app-row" aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}<span class="app-chevron">›</span></a></li>
+            ))}
+            <li><a href="/stress/apple-watch/" class="app-row">Apple Watch guide<span class="app-chevron">›</span></a></li>
+            <li><a href="/about/" class="app-row">About &amp; editorial standards<span class="app-chevron">›</span></a></li>
+          </ul>
+        </div>
       </details>
     </div>
   </nav>
 </header>
+
+<style>
+  #mobile-menu summary::-webkit-details-marker { display: none; }
+  #site-nav.is-scrolled {
+    background: rgba(244, 249, 253, 0.82);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    backdrop-filter: blur(18px) saturate(1.6);
+    box-shadow: 0 1px 0 rgba(18, 24, 38, 0.06);
+  }
+</style>
 
 <script>
   let scrollController: AbortController | undefined;
@@ -47,13 +69,7 @@ import { SITE, NAV } from '../consts';
     });
     const nav = document.getElementById('site-nav');
     if (!nav) return;
-    const updateNav = () => {
-      if (window.scrollY > 12) {
-        nav.classList.add('shadow-[0_1px_20px_rgba(0,0,0,0.04)]', 'bg-[color:var(--color-bg)]/95');
-      } else {
-        nav.classList.remove('shadow-[0_1px_20px_rgba(0,0,0,0.04)]', 'bg-[color:var(--color-bg)]/95');
-      }
-    };
+    const updateNav = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
     updateNav();
     window.addEventListener('scroll', updateNav, { passive: true, signal: scrollController.signal });
   }

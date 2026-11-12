@@ -1,0 +1,33 @@
+---
+// Hero: Zen with the watch companions Pebble, Ripple and Bloom. One GPT Image
+// 2.5 illustration made from the app's Zen artwork and the companion shapes in
+// the watch captures (apps/cortisol-marketing/hero-zen/).
+---
+
+<img
+  src="/app-ui/zen_companions.webp"
+  alt="Zen, the Cortisol+ guide, introducing the watch companions Pebble, Ripple and Bloom"
+  width="1100"
+  height="882"
+  fetchpriority="high"
+  decoding="async"
+  class="hero-companions"
+/>
+
+<style>
+  .hero-companions {
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+    height: auto;
+    margin: 0 auto;
+    /* The illustration stops at Zen's knees; fade it into the sky. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    animation: companions-float 6s ease-in-out infinite;
+  }
+  @keyframes companions-float { 50% { translate: 0 -5px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-companions { animation: none; }
+  }
+</style>

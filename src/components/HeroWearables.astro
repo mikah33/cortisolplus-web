@@ -1,0 +1,35 @@
+---
+// ON THE BACK BURNER (Nov 4, 2026): not mounted. Swap <HeroCompanions /> for
+// <HeroWearables /> in pages/index.astro to bring the device lineup back.
+// Hero devices: one studio render (GPT Image 2.5) of the lineup, so lighting,
+// scale and angles match. The real Cortisol+ watch captures are composited
+// onto the two screens: Pebble on the square watch, Bloom on the round watch.
+// The Fitbit Air and the ring have no display. Sources and the compositing
+// script: apps/cortisol-marketing/hero-devices/. Simulator sample data.
+---
+
+<img
+  src="/app-ui/devices/lineup.webp"
+  alt="Cortisol+ on a square smartwatch showing Pebble at Low 22 and a round smartwatch showing Bloom at Normal 42, beside a screenless fitness band and a smart ring. Example values."
+  width="1200"
+  height="802"
+  fetchpriority="high"
+  decoding="async"
+  class="hero-lineup"
+/>
+
+<style>
+  .hero-lineup {
+    display: block;
+    width: 100%;
+    max-width: 26rem;
+    height: auto;
+    margin: 0.5rem auto 0;
+    filter: drop-shadow(0 22px 26px rgba(30, 70, 110, 0.22));
+    animation: lineup-float 7s ease-in-out infinite;
+  }
+  @keyframes lineup-float { 50% { translate: 0 -5px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-lineup { animation: none; }
+  }
+</style>

@@ -22,15 +22,15 @@ export const SITE = {
 /**
  * Live App Store rating from Apple's iTunes lookup API.
  * Refresh manually by running: curl -s "https://itunes.apple.com/lookup?id=6759510126"
- * Last refreshed: 2026-09-27 (US storefront).
+ * Last refreshed: 2026-11-04 (US storefront, via `asc reviews ratings --app 6759510126`).
  */
 export const APP_RATING = {
-  value: 4.4,           // averageUserRating (rounded 1dp)
-  precise: 4.43925,     // actual averageUserRating from Apple
-  count: 107,           // userRatingCount
+  value: 4.5,           // averageUserRating (rounded 1dp)
+  precise: 4.45378,     // actual averageUserRating from Apple
+  count: 238,           // userRatingCount
   best: 5,
   worst: 1,
-  lastChecked: '2026-09-27',
+  lastChecked: '2026-11-04',
   country: 'US',
 } as const;
 
@@ -55,8 +55,8 @@ export const SOCIAL_PROFILES = [
 ];
 
 export const NAV = [
-  { label: 'How it works', href: '/how-it-works' },
-  { label: 'Cortisol', href: '/cortisol' },
-  { label: 'Tools', href: '/tools' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'How it works', href: '/how-it-works/' },
+  { label: 'Cortisol', href: '/cortisol/' },
+  { label: 'Tools', href: '/tools/' },
+  { label: 'Blog', href: '/blog/' },
 ] as const;
