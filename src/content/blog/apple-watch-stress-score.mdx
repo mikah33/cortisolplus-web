@@ -12,7 +12,7 @@ import ZenTip from '../../components/article/ZenTip.astro';
 import ZenPicture from '../../components/article/ZenPicture.astro';
 
 <InShort points={[
-  'Apple Watch has <strong>no built-in stress score</strong>.',
+  'Apple Watch has <strong>no built-in stress score</strong>. Newest models have Readiness, which isn\'t one.',
   'It tracks heart rate, HRV and sleep, which <strong>other apps</strong> turn into a score.',
   'Treat any stress score as <strong>one clue</strong>, not a diagnosis.',
 ]} />
@@ -21,7 +21,9 @@ import ZenPicture from '../../components/article/ZenPicture.astro';
 
 **No. If you're looking for an Apple Watch stress score built into the watch, you won't find one.**
 
-Fitbit and Garmin watches have one. Apple doesn't include a stress measurement or a "body battery" feature.
+Fitbit and Garmin have their own stress features. Apple doesn't include a stress measurement or a "body battery" feature.
+
+The newest models (Apple Watch Series 12 and Ultra 4, on watchOS 27) do have a **Readiness score**. It runs from 0 to 10 and is built from your activity, Sleep Score and overnight vitals. A higher number means you're more ready for the day. Apple doesn't call it a stress score ([how Readiness works](https://www.iclarified.com/102426/apple-watch-readiness-score-how-it-works-and-which-models-support-it)).
 
 But your Apple Watch still tracks data linked to stress. Other apps use that data to estimate your stress. Below: what the watch tracks, how apps turn it into a score, and how accurate that is.
 
@@ -32,7 +34,7 @@ Your Apple Watch records several things that change when you're stressed:
 - **Heart rate:** tracked all day and night.
 - **Heart rate variability (HRV):** the change in time between heartbeats, measured during sleep and rest.
 - **Breathing rate:** breaths per minute while you sleep.
-- **Blood oxygen:** SpO2 levels (on Series 6 and newer).
+- **Blood oxygen:** SpO2 levels (on Series 6 and newer, where available; availability varies by country).
 - **Activity and workouts:** how you move and how hard you exercise.
 - **Sleep:** time asleep and sleep stages (on watchOS 9 and newer).
 
@@ -68,7 +70,7 @@ Learn more in our [Apple Watch HRV guide](/hrv/apple-watch/).
 
 **It depends on the data and the formula.**
 
-Apple Watch heart rate and HRV readings are fairly accurate for a wrist device. Research shows they're close to chest-strap monitors for most people at rest.
+Apple Watch heart rate and HRV readings are generally best when you're still, such as at rest or asleep.
 
 They can be less reliable during hard movement. They can also be less reliable for people with darker skin or tattoos on their wrists.
 
@@ -93,11 +95,11 @@ Apple hasn't made a stress score, probably for a few reasons:
 2. **Mistakes could cause problems.** Telling someone they're stressed when they're not (a false positive), or missing real stress (a false negative), could do harm. Apple tends to be careful with health features.
 3. **Stress needs context and personal tuning.** What stresses you might not stress someone else. Apps that focus on stress can tune their formulas faster than Apple can update watchOS.
 
-Apple may add a stress feature one day. It has added sleep tracking, cycle tracking and cardio fitness scores over time. For now, stress measurement is left to other apps.
+Apple has added sleep tracking, cycle tracking, cardio fitness and, on the newest models, a Readiness score over time. Readiness isn't a stress score, though. For now, stress measurement is left to other apps.
 
 ## Check your stress level now
 
-Want to see where you stand today? Try our free [stress assessment tool](/tools/stress-score/). It gives you a starting point based on your stress symptoms and shows what might be adding to them.
+Want to see where you stand today? Try our free [stress assessment tool](/tools/stress-score/). It helps you reflect on your stress symptoms and the habits that might be adding to them.
 
 <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
   <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />

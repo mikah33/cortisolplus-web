@@ -44,11 +44,11 @@ import ZenPicture from '../../components/article/ZenPicture.astro';
 <ul>
   <li>Where the data comes from, and how it was recorded, both matter.</li>
   <li>SDNN and RMSSD are different calculations. A number from one device can't always be compared directly with another.</li>
-  <li>Background readings are taken now and then. They are not a nonstop stream of cortisol data.</li>
+  <li>Background readings are taken now and then. They are not a nonstop stream of data, and they are not cortisol readings.</li>
 </ul>
 
 <h2>How does it learn your normal?</h2>
-<p><strong>The baseline uses up to 30 days of stored readings.</strong> It slowly blends your own history with default values.</p>
+<p><strong>The baseline draws on your readings from the past 30 days.</strong> It starts with population defaults, begins blending in your own history after 10 stored readings, and is fully personal at 28 readings. That's a count of readings, not calendar days.</p>
 <p>Which signals are available, and how recent they are, affect the result.</p>
 <p>The <a href="/how-it-works/">methodology page</a> lists the actual weights, baseline rules and limits.</p>
 
