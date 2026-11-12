@@ -64,7 +64,7 @@ const accentStyles: Record<string, { from: string; to: string; border: string; b
 const s = accentStyles[t.accent];
 ---
 
-<aside class={`mt-12 p-8 rounded-2xl bg-gradient-to-br ${s.from} ${s.to} border ${s.border}`}>
+<aside class={`not-prose mt-12 p-8 rounded-2xl bg-gradient-to-br ${s.from} ${s.to} border ${s.border}`}>
   <div class="flex items-start justify-between gap-4 mb-1">
     <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral-dark)] font-medium">Take the test</div>
     <div class="text-xs text-[color:var(--color-ink-muted)] tabular-nums">{t.questions} Q · {t.duration}</div>
@@ -78,5 +78,7 @@ const s = accentStyles[t.accent];
     Start the {t.questions}-question quiz
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
-  <p class="text-xs text-[color:var(--color-ink-muted)] mt-4">Free. No signup. Instant result.</p>
+  <p class="text-xs text-[color:var(--color-ink-muted)] mt-4">
+    Free. No signup. Instant result. Or <a href="/start/" data-start-cta class="font-semibold text-[color:var(--color-teal-dark)] underline underline-offset-2">skip to your personal plan</a>.
+  </p>
 </aside>

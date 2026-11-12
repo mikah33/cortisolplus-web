@@ -228,7 +228,9 @@ nav, header { view-transition-name: app-header; }
 }
 
 /* Readable text colors preserve the brighter brand colors for decoration. */
-.prose a { color: var(--color-teal-dark); text-decoration: underline; text-underline-offset: 3px; }
+/* Buttons and cards inside articles opt out with .not-prose; this plain rule
+   otherwise outranks Tailwind utilities and turned their white text green. */
+.prose a:not(:where(.not-prose, .not-prose *)) { color: var(--color-teal-dark); text-decoration: underline; text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--color-teal-dark); outline-offset: 4px; }
 #site-nav { view-transition-name: app-header; }
 #site-nav nav, article header { view-transition-name: none; }
