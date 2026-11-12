@@ -63,9 +63,9 @@ The app does not measure cortisol, and we have not established clinical accuracy
 
 I am affiliated with the product; any review should reflect your independent experience.
 
-Mikah
+The Cortisol+ team, Elevated Systems LLC
 
-Choose a small set of relevant wearable-app reviewers/newsletters based on actual recent coverage. Record why each fits, a verified contact route, date, disclosure, response and resulting referral/citation. Do not send this draft without Mikah's explicit authorization to contact recipients.
+Choose a small set of relevant wearable-app reviewers/newsletters based on actual recent coverage. Record why each fits, a verified contact route, date, disclosure, response and resulting referral/citation. Do not send this draft without the owners' explicit authorization to contact recipients.
 
 ## Baseline and later review
 

@@ -88,7 +88,7 @@ URL: https://startupbase.io/submit
 | Tagline (60 char) | Estimate your cortisol from Apple Watch HRV + sleep |
 | Website | https://cortisolplus.com |
 | Description | Cortisol+ is the first iOS app purpose-built around the cortisol signal in your wearable data. By combining HRV, resting heart rate, sleep architecture, respiratory rate, and wrist temperature — all pulled from Apple HealthKit — it produces a daily cortisol score that learns your personal baseline over 7 days. 200 active users, 4.9★ in the App Store. Includes a free public calculator at cortisolplus.com/tools/cortisol-calculator. |
-| Founder | Mikah Albertson |
+| Company | Elevated Systems LLC |
 | Stage | Live |
 
 ---

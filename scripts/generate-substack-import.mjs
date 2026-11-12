@@ -26,9 +26,9 @@ const OUT_FILE = path.join(OUT_DIR, 'cortisolplus-substack.xml');
 const SITE_URL = 'https://cortisolplus.com';
 const SITE_TITLE = 'Cortisol+ Blog';
 const SITE_DESCRIPTION = 'Cortisol, stress, sleep, HRV, and wearable health science — explained.';
-const AUTHOR_NAME = 'Mikah Albertson';
+const AUTHOR_NAME = 'Cortisol+ Editorial';
 const AUTHOR_EMAIL = 'admin@cortisolplus.com';
-const AUTHOR_LOGIN = 'mikah';
+const AUTHOR_LOGIN = 'cortisolplus';
 
 // Configure marked for GFM
 marked.setOptions({

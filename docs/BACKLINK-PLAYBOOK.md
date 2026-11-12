@@ -13,7 +13,7 @@ you want to pick this up cold.
 
 > I'm running backlink / distribution work for cortisolplus.com (iOS
 > app: Cortisol+, stress-from-biometrics tracker, 200 users, 4.9★).
-> The marketing site is at `/Users/mikahalbertson/cortisolplus-web`
+> The marketing site is at `~/Repos/websites/cortisolplus-web`
 > (Astro + Tailwind, Netlify). The plan lives at
 > `docs/BACKLINK-PLAYBOOK.md` and the running log at
 > `docs/DISTRIBUTION-LOG.md`. Locked post drafts are in
@@ -87,7 +87,7 @@ DR 70+ backlinks for ~5 min of writing each.
 1. Open the Featured sign-in link in your inbox
 2. Set expertise tags: `stress, cortisol, HRV, Apple Watch,
    biohacking, sleep, wearables, recovery`
-3. Set bio (1 sentence): *"Mikah Albertson — built Cortisol+,
+3. Set bio (1 sentence): *"The Cortisol+ team — built Cortisol+,
    an iOS app that estimates cortisol from Apple Watch biometrics.
    200 users, 4.9★."*
 4. Add headshot URL
