@@ -2,39 +2,96 @@
 title: "Oura vs WHOOP vs Apple Watch: Stress Tracking Compared"
 description: "Compare the documented stress features of Oura, WHOOP and Apple Watch with Cortisol+. Understand sampling, subscriptions and limits before choosing."
 pubDate: 2026-05-23
-updatedDate: 2026-09-09
+updatedDate: 2026-11-12
 tags: [cortisol, comparisons]
 showToolCTA: false
 ---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
-**Disclosure:** Cortisol+ publishes this documentation-based comparison. Official feature descriptions were checked September 9, 2026. We have not performed a hands-on comparison or a clinical accuracy study of these products.
+<InShort points={[
+  'Oura and WHOOP both compare your <strong>heart rate and HRV</strong> with your own baseline.',
+  'Cortisol+ builds a 0–100 wellness score from <strong>Apple Health records</strong>.',
+  'No stress score is a <strong>hormone result</strong>. None measure cortisol.',
+]} />
 
-## What is different about their stress features?
+**Disclosure:** Cortisol+ publishes this comparison, based on each company's own documents. We checked the official feature descriptions on September 9, 2026. We have not tested these products hands-on, and we have not done a medical accuracy study.
 
-| Platform | Documented approach | What to check |
-|---|---|---|
-| Oura | Daytime Stress uses heart rate, HRV, motion and temperature relative to a personal baseline | Ring generation, membership, wear time and gaps during activity |
-| WHOOP | Stress Monitor uses heart rate and HRV relative to a baseline, with movement considered | The stress graph, timestamps and features included in the current membership |
-| Apple Watch with Cortisol+ | Available Apple Health records feed a weighted 0–100 wellness model | Health permissions, available samples, baseline assumptions and analysis access |
+## How are their stress features different?
+
+**Each one uses your heart data in its own way.** Here's what each company documents, and what to check before you choose.
+
+<div class="not-prose my-6 grid gap-3">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Oura</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>How it works:</strong> Daytime Stress uses heart rate, heart rate variability (HRV), motion and temperature, compared with your personal baseline.</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Check:</strong> ring generation, membership, wear time and gaps during activity.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">WHOOP</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>How it works:</strong> Stress Monitor uses heart rate and HRV compared with a baseline, and takes movement into account.</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Check:</strong> the stress graph, the timestamps, and which features your current membership includes.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Apple Watch with Cortisol+</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>How it works:</strong> available Apple Health records feed a weighted 0–100 wellness model.</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]"><strong>Check:</strong> Health permissions, available readings, baseline assumptions and access to the analysis.</p>
+  </div>
+</div>
 
 ## Oura Daytime Stress
 
-Oura says Daytime Stress is available on Gen3 and later with an active membership. Its graph updates during waking periods when the ring is worn and the user is relatively inactive; activity, sleep and recording issues can leave gaps. These are documented operating limits, not findings from our own testing. See [Oura's Daytime Stress documentation](https://support.ouraring.com/hc/en-us/articles/21205822135315-Daytime-Stress).
+**Oura says Daytime Stress works on Gen3 rings and later, with an active membership.**
+
+Its graph updates while you're awake, wearing the ring and fairly still. Activity, sleep and recording problems can leave gaps.
+
+These are limits Oura documents, not results from our own testing. See [Oura's Daytime Stress documentation](https://support.ouraring.com/hc/en-us/articles/21205822135315-Daytime-Stress).
+
+<ZenTip image="/app-ui/zen_new_low.webp">
+  Gaps in a daytime stress graph are normal. Most trackers only read stress <strong>while you're fairly still</strong>.
+</ZenTip>
 
 ## WHOOP Stress Monitor
 
-WHOOP has a dedicated Stress Monitor. Its published description uses a 0–3 scale based on heart rate and HRV compared with a personal baseline and accounts for movement. It also describes stress history and breathing features. Our earlier statement that WHOOP lacked a stress-specific metric was incorrect. See [WHOOP's feature explanation](https://www.whoop.com/us/en/thelocker/introducing-stress-monitor-a-new-way-to-monitor-manage-stress/).
+**WHOOP has its own Stress Monitor.**
+
+WHOOP describes a 0–3 scale based on heart rate and HRV compared with your personal baseline. It also accounts for movement. WHOOP also describes stress history and breathing features.
+
+We said earlier that WHOOP didn't have a stress-specific measure. **That was wrong.** See [WHOOP's feature explanation](https://www.whoop.com/us/en/thelocker/introducing-stress-monitor-a-new-way-to-monitor-manage-stress/).
 
 ## Apple Watch with Cortisol+
 
-Apple Watch records HRV as SDNN, and background recording is intermittent. Opening an app does not guarantee a new HRV sample. Cortisol+ uses available records and model assumptions rather than a cortisol sensor. See our [Apple Watch guide](/stress/apple-watch/) and [complete methodology](/how-it-works/).
+Apple Watch saves HRV as a measure called **SDNN**, and it only records in the background now and then. Opening an app doesn't guarantee a new HRV reading.
 
-The app is free to download; analysis requires a subscription or an eligible trial. Optional connected services have additional data flows beyond the on-device score. Review the [privacy policy](/privacy/) and the offer shown in the app.
+**Cortisol+ uses the records that are available, plus model assumptions. It has no cortisol sensor.** See our [Apple Watch guide](/stress/apple-watch/) and [full method](/how-it-works/).
 
-## How to make a useful comparison
+The app is free to download. The analysis needs a subscription or an eligible trial. Optional connected services send data in more ways than the on-device score does. Check the [privacy policy](/privacy/) and the offer shown in the app.
 
-Compare the form you will actually wear, the records you can inspect, handling of missing data and the full current hardware-plus-membership offer in your region. We have removed outdated prices, battery figures and unsupported “best accuracy” rankings from this page.
+<ZenPicture src="/app-ui/start/zen_watch.webp" caption="Ring, strap or watch: pick the one you'll actually wear every day." />
 
-A vendor stress score is not a standardized hormone result. Do not compare absolute SDNN and RMSSD values as though they were the same measure. A product with more frequent updates has not thereby demonstrated better cortisol accuracy.
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+## How do I compare them fairly?
 
-If you already have an Apple Watch, the [stress-app comparison](/compare/apple-watch-stress-apps/) explains the documented approaches of Cortisol+, Welltory, StressWatch and Bevel. It also provides questions to check during a real trial.
+Compare:
+
+- the device you'll actually wear (ring, strap or watch)
+- the records you can look at yourself
+- how each one handles missing data
+- the full current hardware-plus-membership offer where you live
+
+We've removed old prices, battery figures and unsupported "best accuracy" rankings from this page.
+
+**A company's stress score is not a standard hormone result.**
+
+- Don't compare SDNN and RMSSD numbers as if they were the same measure.
+- A product that updates more often hasn't shown better cortisol accuracy just by doing so.
+
+Already have an Apple Watch? The [stress-app comparison](/compare/apple-watch-stress-apps/) explains how Cortisol+, Welltory, StressWatch and Bevel each work, based on their documents. It also lists questions to check during a real trial.

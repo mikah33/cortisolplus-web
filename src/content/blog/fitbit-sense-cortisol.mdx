@@ -5,68 +5,105 @@ pubDate: 2026-07-13
 tags: [wearables, cortisol, stress, comparisons, hrv]
 draft: false
 targetTool: /tools/cortisol-calculator
-updatedDate: 2026-09-09
+updatedDate: 2026-11-12
 ---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
-The Fitbit Sense promises advanced stress tracking, but does it actually measure cortisol? The short answer is no. The **Fitbit Sense cortisol** tracking claim is a common misunderstanding. While Fitbit markets stress management features, the device doesn't directly measure your cortisol levels. Instead, it uses an electrodermal activity (EDA) sensor that tracks something completely different.
+<InShort points={[
+  'No. The Fitbit Sense <strong>does not measure cortisol</strong>.',
+  'Its EDA sensor reads tiny <strong>sweat changes</strong> on your skin.',
+  'Cortisol needs a <strong>blood, saliva or urine</strong> test.',
+]} />
 
-Understanding what your wearable actually measures matters if you're trying to manage stress or track your body's stress hormone patterns. Let's break down what the Fitbit Sense does, what it doesn't do, and what that means for tracking your actual stress response.
+## Does the Fitbit Sense measure cortisol?
 
-## What the Fitbit Sense EDA sensor actually measures
+**No.** The Fitbit Sense offers advanced stress tracking, but it doesn't measure cortisol.
 
-The Fitbit Sense includes an EDA sensor on its watch face. When you place your palm over the sensor during a guided session, it measures tiny electrical changes in your skin. These changes reflect sweat gland activity, which increases when your sympathetic nervous system activates.
+"Fitbit Sense cortisol tracking" is a common mix-up. Fitbit sells stress management features, but the watch doesn't read your cortisol levels. Instead, it uses an **electrodermal activity (EDA) sensor**, which tracks something completely different.
 
-EDA goes by several names:
+Knowing what your watch really measures matters if you're trying to manage stress or follow your stress hormone patterns. Here's what the Sense does, what it doesn't, and what that means for you.
 
-- Electrodermal activity (EDA)
-- Galvanic skin response (GSR)
-- Skin conductance
+## What does the EDA sensor measure?
 
-The sensor picks up microscopic amounts of sweat that appear before you'd notice feeling sweaty. Your sweat glands are controlled by your autonomic nervous system, the same system that triggers your fight-or-flight response. When you feel stressed, anxious, or emotionally aroused, your sweat glands become more active, and the EDA sensor detects this as higher skin conductance.
+The Fitbit Sense has an EDA sensor on its face. During a guided session, you put your palm over it. It then measures **tiny electrical changes in your skin**.
 
-The key point: EDA reflects your sympathetic nervous system activity in real-time. It's a snapshot of your current arousal state during a specific moment when you're sitting still with your hand on the sensor.
+These changes come from your sweat glands. Sweat glands get more active when your sympathetic nervous system (your "fight or flight" side) switches on.
 
-## How EDA differs from cortisol
+EDA has a few names:
 
-Cortisol is a hormone produced by your adrenal glands. It follows a daily rhythm, typically peaking 30-45 minutes after you wake up and declining throughout the day. Cortisol responds to stress, but on a slower timeline than your immediate nervous system reactions.
+- electrodermal activity (EDA)
+- galvanic skin response (GSR)
+- skin conductance
 
-Here's the fundamental difference:
+The sensor picks up tiny amounts of sweat, before you'd ever feel sweaty. Your sweat glands are run by your autonomic nervous system, the same system behind fight or flight. When you feel stressed, anxious or emotionally stirred up, your sweat glands get busier. The sensor sees this as higher skin conductance.
 
-- **EDA responds in seconds:** When something startles you or you feel anxious, your skin conductance changes within moments
-- **Cortisol responds in minutes to hours:** Your cortisol rises 15-30 minutes after a stressor begins and can stay elevated for hours
+**The key point: EDA shows your fight-or-flight activity in real time.** It's a snapshot of how stirred up you are at one moment, while you sit still with your hand on the sensor.
 
-Think of EDA as measuring your body's alarm system going off. Cortisol is more like measuring the hormones that help you deal with the emergency over the following hours. They're related to stress, but they're measuring completely different biological processes at different timescales.
+<ZenPicture src="/app-ui/start/zen_watch.webp" caption="A Sense EDA scan is a snapshot of one moment, not a hormone test." />
 
-The [Fitbit Stress Management Score](/fitbit/stress-management-score/) combines EDA readings with other metrics like heart rate variability, sleep, and activity patterns. This creates a broader picture of your stress load, but it still isn't measuring cortisol directly.
+## How is EDA different from cortisol?
 
-## Why wearables can't measure cortisol from your wrist
+Cortisol is a hormone made by your adrenal glands. It follows a daily rhythm. It usually peaks 30 to 45 minutes after you wake up, then falls through the day.
 
-No consumer wearable can measure cortisol from your wrist right now. Cortisol exists in your blood, saliva, and urine—not in measurable amounts on your skin surface. The only validated ways to test cortisol involve collecting these body fluids:
+Cortisol does respond to stress, but more slowly than your nervous system.
 
-- Blood tests (usually done in the morning)
-- Saliva samples (often collected at multiple times throughout the day)
-- Urine collection (typically 24-hour samples)
+- **EDA reacts in seconds.** When something startles you or you feel anxious, your skin conductance changes within moments.
+- **Cortisol reacts over minutes to hours.** It rises 15 to 30 minutes after a stressor starts and can stay high for hours.
 
-Some research companies are working on sweat-based cortisol sensors, but these aren't commercially available and face significant technical challenges. Sweat cortisol levels are much lower than in saliva or blood, making them harder to measure accurately.
+Think of EDA as your body's alarm going off. Cortisol is more like the hormones that help you deal with the emergency over the next few hours. Both are linked to stress, but they're completely different body processes on different timescales.
 
-Fitbit has never claimed to measure cortisol directly. The confusion comes from their marketing around stress tracking, which some people interpret as cortisol measurement. For more context on what Fitbit can and cannot tell you about cortisol, check out our detailed breakdown at [Fitbit and cortisol tracking](/fitbit/cortisol/).
+The [Fitbit Stress Management Score](/fitbit/stress-management-score/) mixes EDA readings with other data, like heart rate variability (HRV), sleep and activity. That gives a broader picture of your stress load. But it still doesn't measure cortisol.
 
-## What Fitbit Sense stress data actually tells you
+## Why can't a watch measure cortisol?
 
-Even though the Fitbit Sense doesn't track cortisol, its EDA sensor and Stress Management Score can still provide useful information:
+**No consumer wearable can measure cortisol from your wrist right now.**
 
-**The EDA scan shows your sympathetic nervous system activation.** High EDA readings during your scan suggest your body is in a more aroused state. Lower readings suggest you're more relaxed. This can help you learn which activities or breathing exercises actually calm your nervous system.
+Cortisol is in your blood, saliva and urine. It isn't on your skin in amounts a watch can measure. The only proven ways to test cortisol use these body fluids:
 
-**The Stress Management Score combines multiple signals.** By looking at your EDA sessions, heart rate variability, sleep quality, and activity levels, Fitbit creates a daily score. Lower scores suggest higher overall stress load. This composite metric might correlate with your cortisol patterns over time, but it's not measuring the hormone itself.
+- **Blood tests**, usually done in the morning
+- **Saliva samples**, often taken at several times through the day
+- **Urine collection**, usually over 24 hours
 
-**Patterns matter more than single readings.** One high EDA reading doesn't mean much. But if you notice consistently elevated readings or declining Stress Management Scores over weeks, it might signal that your stress load is increasing. This could correlate with changes in your cortisol patterns, even though you're not measuring cortisol directly.
+Some research companies are working on sweat-based cortisol sensors. But they aren't for sale, and they face big technical problems. Sweat has much less cortisol than saliva or blood, so it's harder to measure accurately.
 
-## Estimate your cortisol pattern
+Fitbit has never claimed to measure cortisol. The confusion comes from its stress-tracking marketing, which some people read as cortisol measurement.
 
-Use the [free stress and sleep journal](/resources/stress-sleep-journal/) to record observations in your own words. A symptom questionnaire cannot estimate cortisol concentrations or determine whether hormone testing is needed.
+For more on what Fitbit can and can't tell you about cortisol, see our [Fitbit and cortisol tracking](/fitbit/cortisol/) guide.
 
-## Track the biomarkers that predict cortisol changes
+<ZenTip image="/app-ui/zen_new_tour_bioage.webp">
+  Curious about your actual cortisol? That's a question for a <strong>doctor and a lab test</strong>, not a watch scan.
+</ZenTip>
 
-Cortisol+ brings available Apple Watch HRV, sleep and activity into one view. Its wellness score is not a cortisol measurement and cannot prove that a treatment or lifestyle change worked. Read the [methodology and limitations](/how-it-works/) before interpreting the score.
+## What does Fitbit Sense stress data tell you?
 
-Not medical advice. Consult a healthcare provider for diagnosis or treatment.
+Even without cortisol, the EDA sensor and Stress Management Score can still be useful.
+
+**The EDA scan shows fight-or-flight activity.** High readings during a scan suggest your body is more stirred up. Lower readings suggest you're more relaxed. This can help you learn which activities or breathing exercises really calm you down.
+
+**The Stress Management Score mixes several signals.** Fitbit looks at your EDA sessions, HRV, sleep quality and activity, and gives you a daily score. Lower scores suggest a higher overall stress load. Over time, this score might line up with your cortisol patterns, but it's not measuring the hormone itself.
+
+**Patterns matter more than single readings.** One high EDA reading doesn't mean much. But steadily high readings, or Stress Management Scores falling over weeks, might mean your stress load is growing. That could line up with changes in your cortisol patterns, even though you're not measuring cortisol.
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+## Keep a stress and sleep journal
+
+Use the [free stress and sleep journal](/resources/stress-sleep-journal/) to note what you notice, in your own words.
+
+A symptom questionnaire can't estimate cortisol levels, and it can't tell you whether you need a hormone test.
+
+## What Cortisol+ can and can't do
+
+Cortisol+ brings your available Apple Watch HRV, sleep and activity into one view.
+
+**Its wellness score is not a cortisol measurement.** It can't prove that a treatment or lifestyle change worked. Read the [method and limits](/how-it-works/) before you read too much into the score.
+
+Not medical advice. Talk to a healthcare provider for diagnosis or treatment.

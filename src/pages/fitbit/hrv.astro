@@ -2,11 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
-import GetAppButton from '../../components/GetAppButton.astro';
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
 import { medicalWebPage } from '../../lib/schema';
 
-const UPDATED = '2026-10-27';
+const UPDATED = '2026-11-12';
 
 const schema = medicalWebPage({
   name: 'Fitbit HRV: where to find it and what it means',
@@ -61,8 +63,11 @@ const toc = [
 
 const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
   prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-  prose-headings:scroll-mt-24
-  prose-p:text-[color:var(--color-ink)] prose-li:text-[color:var(--color-ink)]
+  prose-headings:text-balance prose-headings:scroll-mt-24
+  prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+  prose-h3:mt-8 prose-h3:mb-2
+  prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+  prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
   prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
   prose-strong:text-[color:var(--color-ink)]`;
 ---
@@ -78,23 +83,18 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Fitbit</div>
       <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Fitbit HRV: where to find it and what it means</h1>
       <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
-        Heart-rate variability is one of the most useful numbers your Fitbit collects — and one of the most misread. Here's where it lives in the Google Health app, how it's measured, and how to actually interpret it.
+        Heart rate variability is one of the most useful numbers your Fitbit collects. It's also one of the most misread. Here's where it lives in the Google Health app, how it's measured, and how to read it.
       </p>
       <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
         Updated {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })} · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a>
       </p>
     </header>
 
-    <!-- Quick answer -->
-    <section class="app-card px-5 py-5 sm:px-8 mb-4" aria-labelledby="quick-answer">
-      <h2 id="quick-answer" class="text-lg font-extrabold tracking-tight mb-3">Quick answer</h2>
-      <ul class="space-y-2.5 text-[0.98rem] leading-relaxed text-[color:var(--color-ink)]">
-        <li><strong>Where to find it:</strong> Google Health app (formerly the Fitbit app) → <strong>Health</strong> tab → <strong>Vitals</strong> → <strong>Heart rate variability</strong>.</li>
-        <li><strong>How it's measured:</strong> RMSSD from your heart-rate data, read while you sleep. Wear your device to bed.</li>
-        <li><strong>Normal HRV?</strong> There's no single normal. Compare against your own baseline and trend.</li>
-        <li><strong>Why it matters:</strong> HRV feeds Fitbit's daily <a href="/fitbit/stress-management-score/" class="text-[color:var(--color-teal-dark)] font-semibold">Resilience rating</a> (formerly the Stress Management Score). It is not a cortisol reading.</li>
-      </ul>
-    </section>
+    <InShort image="/app-ui/start/zen_watch.webp" points={[
+      'Find it: Google Health app → <strong>Health</strong> → <strong>Vitals</strong> → <strong>Heart rate variability</strong>.',
+      'Measured <strong>while you sleep</strong> (RMSSD). Wear your device to bed.',
+      'There\'s <strong>no single normal</strong>. Compare with your own baseline and trend.',
+    ]} />
 
     <!-- On this page -->
     <nav class="app-card overflow-hidden mb-6" aria-label="On this page">
@@ -107,63 +107,87 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
     </nav>
 
     <div class={proseCard}>
-      <p class="!text-[color:var(--color-ink-muted)] text-sm sm:text-base"><strong>2026 name changes:</strong> on May 19, 2026 the Fitbit app became the <strong>Google Health app</strong>, and Health Metrics moved under <strong>Vitals</strong> (<a href="https://support.google.com/googlehealth/answer/17068213?hl=en">Google Health Help — what's new</a>). Your Fitbit still measures HRV the same way; only the app labels moved.</p>
+      <p class="!text-[color:var(--color-ink-muted)] text-sm sm:text-base"><strong>2026 name changes:</strong> on May 19, 2026, the Fitbit app became the <strong>Google Health app</strong>, and Health Metrics moved under <strong>Vitals</strong> (<a href="https://support.google.com/googlehealth/answer/17068213?hl=en">Google Health Help — what's new</a>). Your Fitbit still measures HRV the same way. Only the app labels moved.</p>
 
       <h2 id="where-to-find">Where to find HRV in the Google Health app</h2>
-      <p>HRV isn't on the main Today screen. To find it:</p>
+      <p><strong>HRV isn't on the main Today screen.</strong> To find it:</p>
       <ol>
         <li><strong>Wear a compatible device to sleep and let it sync.</strong> Google lists HRV on Fitbit Air, Alta HR, Blaze, Charge 2 to 6, Inspire 2 and 3, Inspire HR, Luxe, the Sense and Versa series, and Pixel Watch models. Most vitals need at least 3 hours of quality sleep, so check after you wake up.</li>
         <li><strong>Open the Google Health app</strong> (formerly the Fitbit app) and tap the <strong>Health</strong> tab.</li>
         <li>Tap <strong>Vitals</strong> and look for <strong>Heart rate variability</strong>.</li>
       </ol>
-      <p>Formerly, in the Fitbit app, HRV lived under the Today tab → Health Metrics. Google calculates personal ranges for vitals from up to 30 days of data, so the history view is where HRV becomes genuinely useful. The path above is from <a href="https://support.google.com/googlehealth/answer/14236917?hl=en">Google Health Help — Track your vitals</a>; menus can differ by app version and region.</p>
+      <p>In the old Fitbit app, HRV was under the Today tab → Health Metrics.</p>
+      <p>Google works out your personal ranges for vitals from up to 30 days of data. So the history view is where HRV becomes really useful.</p>
+      <p>The steps above come from <a href="https://support.google.com/googlehealth/answer/14236917?hl=en">Google Health Help — Track your vitals</a>. Menus can differ by app version and region.</p>
 
       <h2 id="what-is-hrv">What HRV actually is</h2>
-      <p>Your heart doesn't beat like a metronome. The gap between beats constantly varies by milliseconds, and that variation is <strong>heart-rate variability</strong>. It's governed by your autonomic nervous system: the parasympathetic ("rest and digest") branch increases variability, while the sympathetic ("fight or flight") branch reduces it. So, counterintuitively, <strong>more</strong> variability usually signals better recovery and stronger vagal tone.</p>
+      <p>Your heart doesn't beat like a metronome. The gap between beats keeps changing by milliseconds. That change is <strong>heart rate variability (HRV)</strong>.</p>
+      <p>Your autonomic nervous system controls it:</p>
+      <ul>
+        <li>The "rest and digest" side (parasympathetic) <strong>increases</strong> the variation.</li>
+        <li>The "fight or flight" side (sympathetic) <strong>reduces</strong> it.</li>
+      </ul>
+      <p>So, oddly, <strong>more</strong> variation usually means better recovery and stronger vagal tone.</p>
 
       <h2 id="how-measured">How Fitbit measures it: overnight RMSSD</h2>
-      <p>Google says it uses the <strong>RMSSD</strong> formula — the root mean square of successive differences between heartbeats, a standard measure of short-term, parasympathetically-driven variability — to determine HRV from your heart-rate data. Like the other vitals, it's read <strong>while you sleep</strong>.</p>
-      <p>Overnight measurement is a deliberate choice. During the day HRV is pushed around by movement, posture, meals, caffeine, and momentary stress, making daytime readings noisy and hard to compare. Measuring while you're still and relaxed produces a cleaner nightly value that better reflects your body's recovery from the day.</p>
-    </div>
+      <p><strong>Google says it uses the RMSSD formula to work out HRV from your heart-rate data, while you sleep.</strong></p>
+      <p>RMSSD stands for "root mean square of successive differences" between heartbeats. It's a standard measure of short-term variation, driven mostly by the "rest and digest" side. Like the other vitals, it's read <strong>while you sleep</strong>.</p>
+      <p>Measuring overnight is on purpose. During the day, HRV gets pushed around by movement, posture, meals, caffeine and passing stress. That makes daytime readings noisy and hard to compare.</p>
+      <p>Measuring while you're still and relaxed gives a cleaner nightly number. It better reflects how your body is recovering from the day.</p>
 
-    <!-- Mid-article CTA -->
-    <aside class="my-6 app-sky rounded-3xl overflow-hidden px-5 pt-6 pb-6 text-center" aria-labelledby="hrv-cta">
-      <img src="/app-ui/zen_presenting_new.webp" alt="" width="306" height="480" loading="lazy" class="mx-auto h-28 w-auto" />
-      <h2 id="hrv-cta" class="mt-2 text-2xl font-extrabold tracking-tight">See your HRV trend next to sleep and heart rate</h2>
-      <p class="mt-2 mb-5 text-[color:var(--color-ink)]/75 leading-relaxed text-pretty">
-        Cortisol+ reads these signals from Apple Health on iPhone and Apple Watch, or from Health Connect on Android. Fitbit support via Health Connect is on the way — it isn't a shipped feature yet. Its score is a wellness estimate, not a cortisol test; <a href="/how-it-works/" class="underline font-semibold">see the methodology</a>.
-      </p>
-      <GetAppButton />
-    </aside>
+      <ZenTip image="/app-ui/zen_new_tour_sleep.webp">
+        No HRV this morning? Check you <strong>wore your device to bed</strong> and slept at least 3 hours, then let it sync.
+      </ZenTip>
 
-    <div class={proseCard}>
       <h2 id="normal-hrv">What's a normal HRV?</h2>
-      <p>There is no universal "normal." HRV is one of the most individually variable metrics in physiology — it drops with age, and differs by sex, fitness, genetics, and measurement method. Google itself notes that age, sex, sleep, hormones, circadian rhythm, caffeine, alcohol, exercise and stress can all affect HRV. Healthy adults can range from the teens to well over 100 ms. Published reference work on HRV norms stresses exactly this spread, which is why comparing your number to a friend's is close to meaningless.</p>
-      <p>What matters is <strong>your baseline and your trend</strong>. After a few weeks of overnight readings, you have a personal range. From then on, the useful question is whether tonight's value is within your range, and whether the multi-day trend is rising (recovering) or falling (accumulating load).</p>
+      <p><strong>There is no universal "normal".</strong> HRV is one of the most personal numbers in the body.</p>
+      <p>It drops with age. It differs by sex, fitness, genes and how it's measured. Google itself notes that age, sex, sleep, hormones, circadian rhythm (your body clock), caffeine, alcohol, exercise and stress can all affect HRV.</p>
+      <p>Healthy adults can range from the teens to well over 100 ms. Published research on HRV norms stresses this spread. That's why comparing your number with a friend's is close to meaningless.</p>
+      <p><strong>What matters is your baseline and your trend.</strong> After a few weeks of overnight readings, you'll have a personal range. Then the useful questions are:</p>
+      <ul>
+        <li>Is tonight's number within your range?</li>
+        <li>Is the trend over several days rising (recovering) or falling (building load)?</li>
+      </ul>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
 
       <h2 id="hrv-stress">HRV, stress, and recovery</h2>
-      <p>HRV is one of the best-validated non-invasive markers of stress load. A meta-analysis of stress studies found HRV consistently falls under psychological stress, driven by reduced parasympathetic activity. Google puts it plainly: "a significant drop in HRV suggests that your body may be experiencing stress, strain, or showing potential signs of illness." In practice, a suppressed overnight HRV often accompanies:</p>
+      <p><strong>HRV is one of the best-proven non-invasive markers of stress load.</strong></p>
+      <p>A meta-analysis (a study pooling many studies) found HRV keeps falling under mental stress, driven by less "rest and digest" activity. Google puts it plainly: "a significant drop in HRV suggests that your body may be experiencing stress, strain, or showing potential signs of illness."</p>
+      <p>In real life, a low overnight HRV often comes with:</p>
       <ul>
-        <li>Poor or short sleep</li>
-        <li>Alcohol the evening before</li>
-        <li>Illness or the onset of one</li>
-        <li>Hard training or overtraining without recovery</li>
-        <li>Acute psychological stress and dehydration</li>
+        <li>poor or short sleep</li>
+        <li>alcohol the evening before</li>
+        <li>illness, or the start of one</li>
+        <li>hard training or overtraining without recovery</li>
+        <li>sudden mental stress, and dehydration</li>
       </ul>
-      <p>This is also why HRV feeds Fitbit's daily <a href="/fitbit/stress-management-score/">Resilience rating (formerly the Stress Management Score)</a> and Readiness Score. A single low night is usually noise; a sustained downward trend is the signal worth acting on — often by protecting sleep, easing training, and cutting evening alcohol.</p>
+      <p>That's also why HRV feeds Fitbit's daily <a href="/fitbit/stress-management-score/">Resilience rating (formerly the Stress Management Score)</a> and Readiness Score. It is not a cortisol reading.</p>
+      <p><strong>One low night is usually noise. A steady downward trend is the signal worth acting on.</strong> Often that means protecting sleep, easing training and cutting evening alcohol.</p>
 
       <h2 id="raise-hrv">How to raise your HRV</h2>
-      <p>HRV is a slow-moving average, so it responds to consistent habits rather than one-off efforts:</p>
+      <p>HRV is a slow-moving average. It responds to steady habits, not one-off efforts:</p>
       <ul>
-        <li><strong>Sleep</strong> — the largest single lever; consistent 7+ hours matters most.</li>
-        <li><strong>Limit alcohol</strong>, which suppresses overnight HRV for hours.</li>
-        <li><strong>Slow breathing</strong> — a few minutes at ~6 breaths per minute raises vagal tone.</li>
-        <li><strong>Aerobic fitness</strong> built gradually over weeks.</li>
-        <li><strong>Hydration and consistent meal timing.</strong></li>
+        <li><strong>Sleep:</strong> the biggest single lever. A steady 7+ hours matters most.</li>
+        <li><strong>Limit alcohol.</strong> It lowers overnight HRV for hours.</li>
+        <li><strong>Slow breathing:</strong> a few minutes at about 6 breaths per minute raises vagal tone.</li>
+        <li><strong>Aerobic fitness</strong>, built up slowly over weeks.</li>
+        <li><strong>Drinking enough water, and regular meal times.</strong></li>
       </ul>
 
+      <ZenPicture src="/app-ui/zen_new_breathe.webp" caption="A few minutes of slow breathing is one of the easiest habits to start." />
+
       <h2 id="hrv-cortisol">HRV and cortisol</h2>
-      <p>Because HRV reflects the autonomic nervous system, and the autonomic system is coupled to the HPA axis that releases cortisol, HRV is widely used as an accessible proxy for the stress that also drives cortisol. It isn't a cortisol measurement — no wearable does that — but the pattern is informative. We cover this fully in <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a> Cortisol+ uses this kind of biometric pattern to estimate cortisol trends. It works with Apple Health on iPhone and Apple Watch and with Health Connect on Android; Fitbit support via Health Connect is on the way, not a shipped feature.</p>
+      <p>HRV reflects your autonomic nervous system. That system is linked to the HPA axis, which releases cortisol. So HRV is widely used as an easy stand-in for the stress that also drives cortisol.</p>
+      <p><strong>It isn't a cortisol measurement. No wearable does that.</strong> But the pattern is informative. We cover this fully in <a href="/fitbit/cortisol/">Can Fitbit track cortisol?</a></p>
+      <p>Cortisol+ uses this kind of body-signal pattern to estimate cortisol trends. Its score is a wellness estimate, not a cortisol test (<a href="/how-it-works/">see the methodology</a>). It works with Apple Health on iPhone and Apple Watch, and with Health Connect on Android. Fitbit support via Health Connect is on the way. It isn't a shipped feature yet.</p>
 
       <h2>Sources</h2>
       <ul>
