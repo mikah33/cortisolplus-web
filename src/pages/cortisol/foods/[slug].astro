@@ -16,7 +16,7 @@ const { entry, all } = Astro.props;
 const { Content } = await render(entry);
 
 const others = all.filter((f) => f.id !== entry.id).slice(0, 3).map((f) => ({
-  href: `/cortisol/foods/${f.id}`,
+  href: `/cortisol/foods/${f.id}/`,
   title: f.data.title,
   hint: f.data.effect === 'lowers' ? 'Lowers cortisol' : f.data.effect === 'raises' ? 'Raises cortisol' : 'Neutral',
 }));

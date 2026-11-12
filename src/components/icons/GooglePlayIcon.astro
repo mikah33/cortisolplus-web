@@ -1,0 +1,8 @@
+---
+import { PLAY_PARTS } from '../../lib/storeIcons';
+interface Props { class?: string }
+const { class: className = 'h-5 w-5' } = Astro.props;
+---
+<svg viewBox="0 0 24 24" class={className} aria-hidden="true">
+  {PLAY_PARTS.map((p) => <path d={p.d} fill={p.fill} stroke={p.fill} stroke-width="0.6" stroke-linejoin="round" />)}
+</svg>

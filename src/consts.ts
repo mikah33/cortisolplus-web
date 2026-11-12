@@ -1,13 +1,15 @@
 export const SITE = {
   name: 'Cortisol+',
   fullName: 'Cortisol+ Stress & HRV Monitor',
-  title: 'Cortisol+ — Track your cortisol on Apple Watch',
+  title: 'Cortisol+ | Apple Watch Stress & HRV Tracker',
   description:
-    'Cortisol+ estimates your cortisol levels in real time using Apple Watch biometrics. See your stress, sleep, and recovery — decoded.',
+    'Explore your Apple Watch HRV, sleep and recovery with Cortisol+. A stress tracking app with a wellness score, guided breathing and clear limitations.',
   url: 'https://cortisolplus.com',
   appStoreUrl: 'https://apps.apple.com/app/id6759510126',
+  googlePlayUrl: 'https://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus',
   appStoreId: '6759510126',
   bundleId: 'com.elevatedsystems.cortisolplus',
+  youtube: 'https://www.youtube.com/@CortisolPlus',
   twitter: '@cortisolplus',
   x: 'https://x.com/cortisolplus',
   tiktok: 'https://www.tiktok.com/@cortisol.plus',
@@ -20,24 +22,17 @@ export const SITE = {
 /**
  * Live App Store rating from Apple's iTunes lookup API.
  * Refresh manually by running: curl -s "https://itunes.apple.com/lookup?id=6759510126"
- * Last refreshed: 2026-07-08.
+ * Last refreshed: 2026-11-04 (US storefront, via `asc reviews ratings --app 6759510126`).
  */
 export const APP_RATING = {
-  value: 4.6,           // averageUserRating (rounded 1dp)
-  precise: 4.63889,     // actual averageUserRating from Apple
-  count: 36,            // userRatingCount
+  value: 4.5,           // averageUserRating (rounded 1dp)
+  precise: 4.45378,     // actual averageUserRating from Apple
+  count: 238,           // userRatingCount
   best: 5,
   worst: 1,
-  lastChecked: '2026-07-08',
+  lastChecked: '2026-11-04',
+  country: 'US',
 } as const;
-
-/**
- * Hand-maintained "last editorially reviewed" date for evergreen medical
- * content pages. Bump ONLY when content is genuinely re-reviewed — it feeds
- * `lastReviewed`/`dateModified` in MedicalWebPage schema. Never derive from the
- * build date (that would falsely re-stamp "reviewed today" on every deploy).
- */
-export const CONTENT_REVIEWED = '2026-07-08';
 
 export const PUBLISHER = {
   name: 'Elevated Systems LLC',
@@ -50,16 +45,18 @@ export const PUBLISHER = {
 } as const;
 
 export const SOCIAL_PROFILES = [
+  SITE.youtube,
   SITE.x,
   SITE.tiktok,
   SITE.substack,
   SITE.appStoreUrl,
+  SITE.googlePlayUrl,
   PUBLISHER.url,
 ];
 
 export const NAV = [
-  { label: 'How it works', href: '/how-it-works' },
-  { label: 'Cortisol', href: '/cortisol' },
-  { label: 'Tools', href: '/tools' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'How it works', href: '/how-it-works/' },
+  { label: 'Cortisol', href: '/cortisol/' },
+  { label: 'Tools', href: '/tools/' },
+  { label: 'Blog', href: '/blog/' },
 ] as const;

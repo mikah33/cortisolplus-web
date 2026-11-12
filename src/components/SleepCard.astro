@@ -1,0 +1,74 @@
+---
+// The iPhone app's Sleep tab, rebuilt in HTML: last night's score, the Sleep
+// duration card (total time, efficiency, fell asleep, woke up) and the
+// stage bars. Values are examples taken from the App Store screenshot.
+interface Props {
+  score?: number;
+  label?: string;
+  total?: string;
+  efficiency?: number;
+  fellAsleep?: string;
+  wokeUp?: string;
+}
+const {
+  score = 93,
+  label = 'Excellent',
+  total = '7h 47m',
+  efficiency = 96,
+  fellAsleep = '11:12 PM',
+  wokeUp = '7:00 AM',
+} = Astro.props;
+
+// Stage bars: share of the longest stage, colors as in the app.
+const stages = [
+  { name: 'Awake', time: '18m', minutes: 18, color: '#ff4d6d', track: '#ffe1e7' },
+  { name: 'REM', time: '1h 36m', minutes: 96, color: '#2ec4d6', track: '#d8f4f7' },
+  { name: 'Light', time: '4h 54m', minutes: 294, color: '#3b82f6', track: '#dbe8fd' },
+  { name: 'Deep', time: '1h 18m', minutes: 78, color: '#6d4fd8', track: '#e6e0fa' },
+];
+const longest = Math.max(...stages.map((s) => s.minutes));
+---
+
+<div class="select-none">
+  <div class="px-1">
+    <div class="flex items-baseline gap-2">
+      <span class="text-[3.25rem] font-extrabold tracking-tight tabular-nums leading-none">{score}</span>
+      <span class="text-lg font-bold text-[#34c759]">{label}</span>
+    </div>
+    <p class="mt-1.5 text-sm text-[color:var(--color-ink-muted)] leading-snug">A great night. Your body got the rest it needed.</p>
+  </div>
+
+  <div class="sleep-card mt-3 px-4 py-4">
+    <div class="flex items-center gap-2 font-bold">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-[#6d4fd8]" aria-hidden="true"><path d="M3 18v-6.5A2.5 2.5 0 0 1 5.5 9H11v5h10v4h-2v-2H5v2H3zm4-6a2 2 0 1 1 0-.01V12zM13 9h5a3 3 0 0 1 3 3v1h-8V9z" /></svg>
+      Sleep duration
+    </div>
+    <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
+      <div><dt class="text-xs font-semibold text-[#6d4fd8]">Total time</dt><dd class="text-xl font-bold tabular-nums">{total}</dd></div>
+      <div><dt class="text-xs font-semibold text-[#34c759]">Efficiency</dt><dd class="text-xl font-bold tabular-nums">{efficiency}<span class="text-xs font-semibold text-[color:var(--color-ink-muted)]"> %</span></dd></div>
+      <div><dt class="text-xs font-medium text-[color:var(--color-ink-muted)]">Fell asleep</dt><dd class="text-xl font-bold tabular-nums">{fellAsleep}</dd></div>
+      <div><dt class="text-xs font-medium text-[color:var(--color-ink-muted)]">Woke up</dt><dd class="text-xl font-bold tabular-nums">{wokeUp}</dd></div>
+    </dl>
+    <ul class="mt-4 space-y-2.5">
+      {stages.map((s) => (
+        <li>
+          <div class="flex justify-between text-xs font-semibold">
+            <span style={`color:${s.color}`}>{s.name}</span>
+            <span class="tabular-nums text-[color:var(--color-ink-muted)]">{s.time}</span>
+          </div>
+          <div class="mt-1 h-2.5 rounded-full" style={`background:${s.track}`}>
+            <div class="h-full rounded-full" style={`width:${Math.max(6, (s.minutes / longest) * 100).toFixed(1)}%;background:${s.color}`}></div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .sleep-card {
+    background: white;
+    border-radius: 1.4rem;
+    box-shadow: 0 1px 2px rgba(15, 20, 25, 0.04), 0 8px 24px -12px rgba(15, 20, 25, 0.12);
+  }
+</style>

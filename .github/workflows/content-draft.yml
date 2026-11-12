@@ -1,0 +1,42 @@
+name: Prepare editorial content draft
+on:
+  repository_dispatch:
+    types: [content-draft]
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: content-drafts
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Serialize structured input as a draft
+        id: draft
+        run: node scripts/create-content-draft.mjs
+      - run: npm test
+      - name: Validate full rendered page before accepting draft
+        env:
+          DRAFT_SLUG: ${{ steps.draft.outputs.slug }}
+        run: node scripts/validate-draft-build.mjs "$DRAFT_SLUG"
+      - name: Open an editorial draft pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRAFT_SLUG: ${{ steps.draft.outputs.slug }}
+        run: |
+          git switch -c "content/$DRAFT_SLUG"
+          git add "src/content/blog/$DRAFT_SLUG.mdx"
+          git -c user.name=content-draft-bot -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Draft article: $DRAFT_SLUG"
+          git push origin "content/$DRAFT_SLUG"
+          if ! gh pr create --draft --base main --head "content/$DRAFT_SLUG" --title "Editorial draft: $DRAFT_SLUG" --body-file automation/EDITORIAL-REVIEW.md; then
+            echo "::error::Draft branch saved, but GitHub did not allow PR creation. Open the comparison linked in the job summary; no article was published."
+            echo "Draft retained: https://github.com/${GITHUB_REPOSITORY}/compare/main...content/${DRAFT_SLUG}?expand=1" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi

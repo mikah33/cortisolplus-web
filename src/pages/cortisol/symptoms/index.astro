@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import RelatedLinks from '../../../components/RelatedLinks.astro';
 import { getCollection } from 'astro:content';
-import { SITE, CONTENT_REVIEWED } from '../../../consts';
+import { SITE } from '../../../consts';
 
 const symptoms = await getCollection('symptoms');
 
@@ -13,8 +13,6 @@ const schema = [
     name: 'Symptoms of high cortisol',
     about: { '@type': 'MedicalCondition', name: 'Hypercortisolism' },
     audience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
-    lastReviewed: CONTENT_REVIEWED,
-    dateModified: CONTENT_REVIEWED,
     mainEntityOfPage: `${SITE.url}/cortisol/symptoms/`,
   },
   {
@@ -38,11 +36,11 @@ const schema = [
 <BaseLayout
   title="Signs of high cortisol — full symptom index"
   description="High and low cortisol symptoms explained — cortisol face, belly fat, 3am waking, fatigue — how symptoms cluster, and when it's time to see a doctor."
-  image="/screenshots/health-breakdown.png"
+  image="/screenshots/wearable-insights.png"
   schema={schema}
 >
   <section class="max-w-4xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral)] font-medium mb-3">Symptoms</div>
+    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral-dark)] font-medium mb-3">Symptoms</div>
     <h1 class="text-5xl font-bold tracking-tight mb-6">Symptoms of high cortisol</h1>
     <p class="text-xl text-[color:var(--color-ink-muted)] mb-8">
       Recognize the signs your cortisol may be chronically elevated — and learn which
@@ -120,9 +118,9 @@ const schema = [
     )}
 
     <RelatedLinks links={[
-      { href: '/cortisol/symptoms/cortisol-face', title: 'Cortisol face', hint: 'The most-searched symptom' },
-      { href: '/cortisol/levels', title: 'Normal cortisol levels', hint: 'Reference ranges' },
-      { href: '/cortisol/lower', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
+      { href: '/cortisol/symptoms/cortisol-face/', title: 'Cortisol face', hint: 'The most-searched symptom' },
+      { href: '/cortisol/levels/', title: 'Normal cortisol levels', hint: 'Reference ranges' },
+      { href: '/cortisol/lower/', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
     ]} />
   </section>
 </BaseLayout>

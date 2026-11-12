@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "apple-watch-hrv-not-updating",
+    "title": "Apple Watch HRV not updating: what to check before interpreting stress",
+    "primaryKeyword": "Apple Watch HRV not updating",
+    "angle": "Troubleshooting missing or stale readings, separate from interpreting an actual measurement. Explain timestamps, watch fit, available Health data and app permissions. Do not promise continuous HRV sampling or suggest changing medical features to force readings.",
+    "internalLinks": ["/hrv/apple-watch/", "/stress/apple-watch/", "/how-it-works/"],
+    "sources": ["https://support.apple.com/en-us/120277", "https://www.apple.com/legal/privacy/data/en/health-app/"]
+  },
+  {
+    "slug": "apple-health-stress-app-permissions",
+    "title": "Apple Health permissions for stress apps: what access means",
+    "primaryKeyword": "Apple Health stress app permissions",
+    "angle": "Explain read versus write permissions, revoking access and checking the timestamp of available data. Do not invent Cortisol+ menu labels or claim all data stays on-device; defer to the actual privacy and methodology pages.",
+    "internalLinks": ["/privacy/", "/how-it-works/", "/stress/apple-watch/"],
+    "sources": ["https://www.apple.com/legal/privacy/data/en/health-app/", "https://support.apple.com/en-ca/guide/security/sec88be9900f/web"]
+  },
+  {
+    "slug": "compare-stress-scores-between-apps",
+    "title": "Why stress scores differ between apps",
+    "primaryKeyword": "why stress scores differ between apps",
+    "angle": "Explain differences in inputs, measurement timing and scoring definitions. Use the published Cortisol+ method only as one documented example. Do not invent head-to-head testing, competitors' formulas, universal cutoffs or clinical accuracy.",
+    "internalLinks": ["/compare/apple-watch-stress-apps/", "/how-it-works/", "/hrv/apple-watch/"],
+    "sources": ["https://support.apple.com/en-us/120277", "https://cortisolplus.com/how-it-works/"]
+  },
+  {
+    "slug": "stress-journal-with-wearable-data",
+    "title": "How to keep a stress journal alongside wearable data",
+    "primaryKeyword": "stress journal with wearable data",
+    "angle": "A practical guide to recording sleep, routine, context and timestamps using the existing free journal. Explain that observing an association does not establish causation and neither a journal nor a wellness score measures cortisol. No treatment plan or promised health outcome.",
+    "internalLinks": ["/resources/stress-sleep-journal/", "/how-it-works/", "/cortisol/test/"],
+    "sources": ["https://cortisolplus.com/resources/stress-sleep-journal/", "https://cortisolplus.com/how-it-works/"]
+  }
+]

@@ -1,113 +1,146 @@
 ---
 import { SITE } from '../consts';
+import GooglePlayIcon from './icons/GooglePlayIcon.astro';
+import { APPLE_PATH } from '../lib/storeIcons';
+
+// Footer leads with the free check-ins: "60 second cortisol quiz" is the
+// site's best-converting search entry. Everything else folds into Explore.
+const tools = [
+  { href: '/tools/cortisol-calculator/', title: 'Stress & habits', meta: '8 questions · 60 sec', image: '/app-ui/zen_presenting_new.webp' },
+  { href: '/tools/morning-cortisol-test/', title: 'Morning routine', meta: '6 questions', image: '/app-ui/start/goal_sleep.webp' },
+  { href: '/tools/stress-score/', title: 'Stress score', meta: '6 questions', image: '/app-ui/start/symptom_stressed.webp' },
+  { href: '/tools/burnout-risk/', title: 'Burnout', meta: '7 questions', image: '/app-ui/start/symptom_fatigued.webp' },
+  { href: '/tools/sleep-debt-cortisol/', title: 'Sleep habits', meta: '6 questions', image: '/app-ui/start/symptom_unrested.webp' },
+];
+const groups = [
+  {
+    title: 'Tools',
+    links: [
+      ['/tools/cortisol-calculator/', 'Stress & habits check-in'],
+      ['/tools/morning-cortisol-test/', 'Morning routine check-in'],
+      ['/tools/stress-score/', 'Stress score quiz'],
+      ['/tools/burnout-risk/', 'Burnout check-in'],
+      ['/tools/sleep-debt-cortisol/', 'Sleep habits check-in'],
+    ],
+  },
+  {
+    title: 'Cortisol guide',
+    links: [
+      ['/cortisol/', 'Full guide'],
+      ['/cortisol/symptoms/', 'Symptoms'],
+      ['/cortisol/symptoms/cortisol-face/', 'Cortisol face'],
+      ['/cortisol/lower/', 'How to lower'],
+      ['/cortisol/foods/ashwagandha/', 'Ashwagandha'],
+    ],
+  },
+  {
+    title: 'For you',
+    links: [
+      ['/faq-perimenopause/', 'Perimenopause'],
+      ['/faq-burnout/', 'Burnout'],
+      ['/faq-shift-workers/', 'Shift workers'],
+      ['/faq-athletes/', 'Athletes'],
+    ],
+  },
+  {
+    title: 'HRV & devices',
+    links: [
+      ['/hrv/', 'HRV & stress'],
+      ['/hrv/normal-range/', 'Normal HRV by age'],
+      ['/stress/apple-watch/', 'Apple Watch stress'],
+      ['/fitbit/', 'Fitbit stress'],
+      ['/fitbit/cortisol/', 'Fitbit & cortisol'],
+    ],
+  },
+  {
+    title: 'Product',
+    links: [
+      ['/how-it-works/', 'How it works'],
+      ['/download/', 'Download'],
+      ['/about/', 'About'],
+      ['/compare/', 'Compare apps'],
+      ['/resources/', 'Free resources'],
+      ['/press/', 'Press & product facts'],
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      ['/privacy/', 'Privacy'],
+      ['/terms/', 'Terms'],
+      ['/.well-known/security.txt', 'Security'],
+    ],
+  },
+];
+const legal = groups.find((g) => g.title === 'Legal')?.links ?? [];
 ---
 
-<footer class="border-t border-[color:var(--color-border)] mt-32">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-6 gap-8 text-sm">
-    <div class="md:col-span-2">
-      <div class="font-semibold text-base mb-2 flex items-center gap-2">
-        <img src="/apple-touch-icon.png" alt="Cortisol+" width="24" height="24" class="w-6 h-6 rounded-md" />
+<footer class="mt-12 pb-10">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Free check-ins -->
+    <h2 class="px-1 pb-2 text-[0.8125rem] font-bold text-[color:var(--color-ink-muted)]">Free check-ins</h2>
+    <ul class="app-snap -mx-4 sm:-mx-6 pb-2" style="padding-inline:1rem;scroll-padding-inline:1rem">
+      {tools.map((tool) => (
+        <li class="w-[40%] max-w-[10.5rem]">
+          <a href={tool.href} class="app-card flex h-full flex-col p-3.5 active:scale-[0.98] transition">
+            <img src={tool.image} alt="" width="120" height="120" loading="lazy" class="h-14 w-14 object-contain" />
+            <span class="mt-2 font-extrabold leading-tight">{tool.title}</span>
+            <span class="mt-0.5 text-xs font-semibold text-[color:var(--color-ink-muted)]">{tool.meta}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Newsletter -->
+    <div class="app-card mt-4 flex items-center gap-3 p-4">
+      <div class="min-w-0 flex-1">
+        <div class="font-extrabold">{SITE.substackName}</div>
+        <p class="text-sm leading-snug text-[color:var(--color-ink-muted)]">Weekly notes on stress, sleep and HRV.</p>
+      </div>
+      <a href={SITE.substack} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-[color:var(--color-teal)] px-4 py-2 text-sm font-bold text-[color:var(--color-ink)] active:scale-95 transition">Subscribe</a>
+    </div>
+
+    <!-- Explore: everything else, folded -->
+    <h2 class="mt-6 px-1 pb-2 text-[0.8125rem] font-bold text-[color:var(--color-ink-muted)]">Explore</h2>
+    <div class="app-card app-list overflow-hidden">
+      {groups.filter((g) => g.title !== 'Legal' && g.title !== 'Tools').map((group) => (
+        <details class="group">
+          <summary class="app-row cursor-pointer list-none font-semibold">
+            <span>{group.title} <span class="ml-1 text-xs font-semibold text-[color:var(--color-ink-muted)]">{group.links.length}</span></span>
+            <span class="app-chevron transition-transform group-open:rotate-90">›</span>
+          </summary>
+          <ul class="flex flex-wrap gap-2 px-4 pb-4">
+            {group.links.map(([href, label]) => (
+              <li><a href={href} class="inline-block rounded-full bg-[color:var(--color-surface-2)] px-3.5 py-2 text-sm font-semibold active:scale-95 transition">{label}</a></li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </div>
+
+    <!-- Brand -->
+    <div class="app-card mt-6 p-5">
+      <div class="flex items-center gap-2.5 text-lg font-extrabold">
+        <img src="/apple-touch-icon.png" alt="" width="32" height="32" class="h-8 w-8 rounded-[10px]" />
         {SITE.name}
       </div>
-      <p class="text-[color:var(--color-ink-muted)] mb-4 max-w-xs">
-        Real-time cortisol estimation from Apple Watch biometrics.
-      </p>
-      <a href={SITE.appStoreUrl} class="inline-flex items-center gap-1.5 text-xs text-[color:var(--color-teal-dark)] hover:text-[color:var(--color-teal)] font-medium">
-        Get on App Store →
-      </a>
-      <div class="mt-4 flex items-center gap-3">
-        <a href={SITE.tiktok} target="_blank" rel="noopener" aria-label="Cortisol+ on TikTok" class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/>
-          </svg>
-        </a>
-        <a href={SITE.tiktok} class="text-xs text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-teal)]">{SITE.tiktokHandle}</a>
+      <p class="mt-1 text-[color:var(--color-ink-muted)]">Stress, HRV and recovery insights.</p>
+      <div class="mt-4 flex flex-wrap gap-2 text-sm font-bold">
+        <a href={SITE.appStoreUrl} class="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--color-ink)]/90 px-3.5 py-2 text-white"><svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 -mt-0.5" aria-hidden="true"><path d={APPLE_PATH} /></svg>App Store</a>
+        <a href={SITE.googlePlayUrl} class="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--color-ink)]/90 px-3.5 py-2 text-white"><GooglePlayIcon class="h-4 w-4" />Google Play</a>
+        <a href={SITE.youtube} class="rounded-full bg-[color:var(--color-surface-2)] px-3.5 py-2">YouTube</a>
+        <a href={SITE.tiktok} target="_blank" rel="noopener" class="rounded-full bg-[color:var(--color-surface-2)] px-3.5 py-2">TikTok {SITE.tiktokHandle}</a>
       </div>
     </div>
 
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Tools</div>
-      <ul class="space-y-2">
-        <li><a href="/tools/cortisol-calculator" class="hover:text-[color:var(--color-teal)]">Cortisol risk calculator</a></li>
-        <li><a href="/tools/morning-cortisol-test" class="hover:text-[color:var(--color-teal)]">Morning cortisol test</a></li>
-        <li><a href="/tools/stress-score" class="hover:text-[color:var(--color-teal)]">Stress score quiz</a></li>
-        <li><a href="/tools/burnout-risk" class="hover:text-[color:var(--color-teal)]">Burnout assessment</a></li>
-        <li><a href="/tools/sleep-debt-cortisol" class="hover:text-[color:var(--color-teal)]">Sleep debt × cortisol</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Cortisol guide</div>
-      <ul class="space-y-2">
-        <li><a href="/cortisol" class="hover:text-[color:var(--color-teal)]">Full guide</a></li>
-        <li><a href="/cortisol/symptoms" class="hover:text-[color:var(--color-teal)]">Symptoms</a></li>
-        <li><a href="/cortisol/symptoms/cortisol-face" class="hover:text-[color:var(--color-teal)]">Cortisol face</a></li>
-        <li><a href="/cortisol/lower" class="hover:text-[color:var(--color-teal)]">How to lower</a></li>
-        <li><a href="/cortisol/foods/ashwagandha" class="hover:text-[color:var(--color-teal)]">Ashwagandha</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">For you</div>
-      <ul class="space-y-2">
-        <li><a href="/faq-perimenopause" class="hover:text-[color:var(--color-teal)]">Perimenopause</a></li>
-        <li><a href="/faq-burnout" class="hover:text-[color:var(--color-teal)]">Burnout</a></li>
-        <li><a href="/faq-shift-workers" class="hover:text-[color:var(--color-teal)]">Shift workers</a></li>
-        <li><a href="/faq-athletes" class="hover:text-[color:var(--color-teal)]">Athletes</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">HRV &amp; devices</div>
-      <ul class="space-y-2">
-        <li><a href="/hrv" class="hover:text-[color:var(--color-teal)]">HRV &amp; stress</a></li>
-        <li><a href="/hrv/normal-range" class="hover:text-[color:var(--color-teal)]">Normal HRV by age</a></li>
-        <li><a href="/stress/apple-watch" class="hover:text-[color:var(--color-teal)]">Apple Watch stress</a></li>
-        <li><a href="/fitbit" class="hover:text-[color:var(--color-teal)]">Fitbit stress</a></li>
-        <li><a href="/fitbit/cortisol" class="hover:text-[color:var(--color-teal)]">Fitbit &amp; cortisol</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="max-w-6xl mx-auto px-6 pb-8 grid md:grid-cols-3 gap-8 text-sm">
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">{SITE.substackName}</div>
-      <p class="text-[color:var(--color-ink-muted)] mb-3 leading-relaxed">
-        Weekly notes on cortisol, stress, sleep, and HRV — backed by research, not TikTok takes.
-      </p>
-      <a
-        href={SITE.substack}
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[color:var(--color-ink)] text-white font-semibold text-xs hover:opacity-90 transition"
-      >
-        Subscribe — free →
-      </a>
-    </div>
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Product</div>
-      <ul class="space-y-2">
-        <li><a href="/how-it-works" class="hover:text-[color:var(--color-teal)]">How it works</a></li>
-        <li><a href="/download" class="hover:text-[color:var(--color-teal)]">Download</a></li>
-        <li><a href="/about" class="hover:text-[color:var(--color-teal)]">About</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="text-[color:var(--color-ink-muted)] uppercase text-xs tracking-wider mb-3">Legal</div>
-      <ul class="space-y-2">
-        <li><a href="/privacy" class="hover:text-[color:var(--color-teal)]">Privacy</a></li>
-        <li><a href="/terms" class="hover:text-[color:var(--color-teal)]">Terms</a></li>
-        <li><a href="/.well-known/security.txt" class="hover:text-[color:var(--color-teal)]">Security</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="border-t border-[color:var(--color-border)]">
-    <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-[color:var(--color-ink-muted)] flex flex-col md:flex-row justify-between gap-2">
-      <div>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</div>
-      <div>
-        Cortisol estimates are not medical diagnostics. Consult a healthcare provider for medical advice.
-      </div>
+    <!-- Legal and fine print, last -->
+    <nav aria-label="Legal" class="mt-6 flex flex-wrap gap-x-4 gap-y-1 px-1 text-sm font-semibold">
+      {legal.map(([href, label]) => <a href={href} class="underline-offset-2 hover:underline">{label}</a>)}
+      <button data-open-privacy class="font-semibold underline-offset-2 hover:underline">Privacy choices</button>
+    </nav>
+    <div class="mt-3 space-y-1.5 px-1 text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
+      <p>The wellness score does not measure cortisol or provide a diagnosis. Consult a healthcare provider for medical advice.</p>
+      <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
     </div>
   </div>
 </footer>

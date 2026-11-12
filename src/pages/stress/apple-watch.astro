@@ -1,113 +1,239 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import FAQ, { type FAQItem } from '../../components/FAQ.astro';
-import RelatedLinks from '../../components/RelatedLinks.astro';
-
-import { medicalWebPage } from '../../lib/schema';
-
-const schema = medicalWebPage({
-  name: 'Does the Apple Watch track stress?',
-  pathname: '/stress/apple-watch/',
-});
-
-const faqs: FAQItem[] = [
-  {
-    q: 'Does the Apple Watch have a stress score?',
-    a: 'No. Unlike Fitbit (Stress Management Score) or Garmin (Body Battery / Stress), the Apple Watch does not output a single native stress number. It records the biometric signals stress affects — heart rate, HRV and sleep — but leaves interpretation to Apple\'s wellbeing features or to third-party apps.',
-  },
-  {
-    q: 'What stress-related features does the Apple Watch have natively?',
-    a: 'Two main ones. The Mindfulness app offers Breathe and Reflect sessions and can log your State of Mind — a subjective mood check, not a physiological measurement. Separately, Health surfaces high and low heart-rate notifications and your HRV and sleep data. None of these is labelled a "stress score", but together they cover the raw signals.',
-  },
-  {
-    q: 'Can the Apple Watch measure cortisol?',
-    a: 'No wrist device can measure cortisol. Cortisol is a hormone measured in blood, saliva or urine. What the Apple Watch can do is record the autonomic signals — HRV, heart rate, sleep, wrist temperature — that shift alongside cortisol, which is the basis on which apps like Cortisol+ estimate a cortisol trend.',
-  },
-  {
-    q: 'How do third-party stress apps use the Apple Watch?',
-    a: 'They read the signals Apple already records through HealthKit — mainly HRV and heart rate, often sleep and wrist temperature too — and run their own model to estimate a stress state. The watch supplies the raw physiology; the app supplies the interpretation Apple deliberately leaves out.',
-  },
-  {
-    q: 'Which Apple Watch models capture the best stress signals?',
-    a: 'Any Apple Watch with an optical heart sensor records heart rate and HRV. Series 8 and later (plus Ultra and SE 3) add an overnight wrist-temperature sensor, and any model running a recent watchOS supports sleep tracking and State of Mind logging — so newer models give a stress app more inputs to work with.',
-  },
-];
-
-const related = [
-  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'The core signal' },
-  { href: '/hrv/apple-watch/', title: 'HRV on Apple Watch', hint: 'Find your numbers' },
-  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check yours now' },
-  { href: '/hrv/', title: 'HRV explained', hint: 'What it means' },
-  { href: '/cortisol/', title: 'Cortisol guide', hint: 'The hormone itself' },
-  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'The method' },
-];
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import GetAppButton from "../../components/GetAppButton.astro";
 ---
 
-<BaseLayout
-  title="Does the Apple Watch track stress?"
-  description="The honest answer: Apple Watch has no native stress score like Fitbit or Garmin, but it records the HRV, heart-rate and sleep signals stress apps rely on."
-  image="/screenshots/health-breakdown.png"
-  schema={schema}
+<ArticleLayout
+  title="Apple Watch Cortisol Tracking: Best Apps & What HRV Actually Shows (2026)"
+  description="Find the best Apple Watch cortisol app. HRV, heart rate and sleep are the real stress signals — learn what each reveals, then compare 5 top apps side by side."
+  schema={[
+    {
+      '@context': 'https://schema.org', '@type': 'VideoObject',
+      name: 'Cortisol+ app walkthrough: dashboard, inputs and sleep',
+      description: 'Real development app recorded in an iPhone Simulator with sample data. Shows the wellness dashboard, input breakdown and sleep view; not a hormone test or customer result.',
+      thumbnailUrl: 'https://cortisolplus.com/videos/cortisol-development-walkthrough-2026-09-09.png',
+      contentUrl: 'https://cortisolplus.com/videos/cortisol-development-walkthrough-2026-09-09.mp4',
+      uploadDate: '2026-09-09', duration: 'PT1M10S',
+      publisher: { '@type': 'Organization', name: 'Cortisol+', url: 'https://cortisolplus.com/' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'Can Apple Watch measure cortisol?', acceptedAnswer: { '@type': 'Answer', text: 'No. Apple Watch does not directly measure cortisol. It records signals such as heart rate, heart rate variability and sleep that apps can use to describe stress and recovery patterns. A wearable wellness score is different from a laboratory cortisol result.' } },
+        { '@type': 'Question', name: 'Does Apple Watch track cortisol?', acceptedAnswer: { '@type': 'Answer', text: 'No. Apple Watch does not track cortisol, and Apple Health has no cortisol reading from the Watch. What it can track over time is heart rate, HRV and sleep. Those trends describe how your body is responding, not how much cortisol you have.' } },
+        { '@type': 'Question', name: 'How do I check cortisol levels on Apple Watch?', acceptedAnswer: { '@type': 'Answer', text: "You can't check cortisol levels on Apple Watch. There is no cortisol reading to open. To explore the wearable signals used by stress apps, review your heart-rate, HRV and sleep records instead. Keep those observations separate from a hormone-test result." } },
+        { '@type': 'Question', name: 'Is there a cortisol tracker for Apple Watch?', acceptedAnswer: { '@type': 'Answer', text: 'Not one that measures the hormone. Apps sold as a cortisol tracker for Apple Watch, including Cortisol+, read your Watch data from Apple Health and calculate a score. That score is an interpretation of HRV, heart rate and sleep, not a cortisol level.' } },
+        { '@type': 'Question', name: 'Does Apple Watch have a stress score?', acceptedAnswer: { '@type': 'Answer', text: "Apple's Mindfulness features support breathing, reflection and recording your State of Mind. A mood check-in is your own report, while a third-party stress score is an interpretation of sensor data. These describe different things and may not agree." } },
+        { '@type': 'Question', name: 'Can an app calculate cortisol from HRV?', acceptedAnswer: { '@type': 'Answer', text: "An app can calculate an estimate or wellness score from HRV, but displaying a number does not establish that it accurately measures your cortisol. Cortisol+ has not established clinical accuracy against cortisol testing. Review the methodology before interpreting its results." } },
+        { '@type': 'Question', name: 'Which Apple Watch stress app should I choose?', acceptedAnswer: { '@type': 'Answer', text: "Compare the data explanation, permissions and subscription offer, not just the score's color." } },
+      ],
+    },
+  ]}
+  updated="2026-10-28"
 >
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Stress tracking</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Does the Apple Watch track stress?</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      Short answer: not with a single "stress score" the way Fitbit and Garmin do — but it records almost every signal a stress app needs.
-    </p>
+<aside class="quick-answer not-prose" aria-labelledby="quick-answer-title">
+  <p id="quick-answer-title" class="quick-answer-label">Quick answer</p>
+  <p><strong>No, Apple Watch cannot measure or track cortisol.</strong> It has no cortisol sensor and shows no cortisol level.</p>
+  <p>It records heart rate, heart rate variability (HRV) and sleep. Apps such as Cortisol+ turn those signals into a wellness score, not a hormone reading. Only a <a href="https://medlineplus.gov/lab-tests/cortisol-test/">blood, saliva or urine test</a> measures cortisol.</p>
+</aside>
 
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+<nav class="toc not-prose" aria-label="On this page">
+  <p class="toc-label">On this page</p>
+  <ol>
+    <li><a href="#measure">Can Apple Watch measure cortisol?</a></li>
+    <li><a href="#track">Does Apple Watch track cortisol?</a></li>
+    <li><a href="#signals">What the Watch records instead</a></li>
+    <li><a href="#check-readings">How to check cortisol levels on Apple Watch</a></li>
+    <li><a href="#cortisol-tracker">Cortisol tracker apps for Apple Watch</a></li>
+    <li><a href="#start">Start tracking stress with Apple Watch</a></li>
+    <li><a href="#walkthrough">Watch the app walkthrough</a></li>
+    <li><a href="#testing">Wearable stress versus cortisol testing</a></li>
+  </ol>
+</nav>
 
-      <h2>The honest answer</h2>
-      <p>The Apple Watch does <strong>not</strong> produce a native, proprietary stress score. If you are coming from a Fitbit — which shows a daily Stress Management Score — or a Garmin, with its Body Battery and all-day Stress metric, the first thing to know is that Apple made a different choice. There is no single 0–100 "stress" number anywhere in watchOS or the Health app.</p>
-      <p>What the Apple Watch <em>does</em> do is quietly record the physiological signals that stress changes. The number is missing; the raw data is not.</p>
+<h2 id="measure">Can Apple Watch measure cortisol?</h2>
+<p><strong>No. Apple Watch does not directly measure cortisol.</strong> It records signals such as heart rate, heart rate variability and sleep that apps can use to describe stress and recovery patterns. A wearable wellness score is different from a laboratory cortisol result.</p>
+<p>If you searched for “Apple Watch cortisol” or a cortisol tracker app, this distinction matters. Cortisol+ helps you explore wearable trends, but cannot tell you how much cortisol is in your blood, saliva or urine.</p>
+<p><strong>Want to see those signals as a daily stress score?</strong> <a href="https://apps.apple.com/app/id6759510126">Get Cortisol+ for iPhone and Apple Watch</a> (free to download; analysis needs a subscription or eligible trial), or <a href="/compare/apple-watch-stress-apps/">compare five Apple Watch stress apps</a> first.</p>
 
-      <h2>What the Apple Watch actually captures</h2>
-      <p>Three of these feed directly into stress estimation:</p>
-      <ul>
-        <li><strong>Heart rate variability (HRV)</strong> — the beat-to-beat timing variation that is the most validated wearable stress marker. A 2018 meta-analysis of 37 studies found HRV consistently changes in response to stress. The watch logs it throughout the day; you can find it under <a href="/hrv/apple-watch/">HRV in the Health app</a>.</li>
-        <li><strong>Heart rate</strong> — resting and continuous, including high/low heart-rate notifications.</li>
-        <li><strong>Sleep</strong> — duration, timing and stages, which matter because partial sleep loss is shown to raise cortisol the next evening.</li>
-        <li><strong>Wrist temperature</strong> — sampled overnight on Series 8 and later, Ultra and SE 3; a slow, contextual signal rather than a direct stress reading.</li>
-      </ul>
+<h2 id="track">Does Apple Watch track cortisol?</h2>
+<p>No. Apple Watch does not track cortisol, and Apple Health has no cortisol reading from the Watch. What it can track over time is heart rate, HRV and sleep. Those trends describe how your body is responding, not how much cortisol you have.</p>
 
-      <h2>Apple's native wellbeing features</h2>
-      <p>Apple ships two things that touch stress — but it is worth being precise about what each one is.</p>
+<h2 id="signals">What the Watch records, and what it cannot establish</h2>
+<div class="signals not-prose">
+  <section class="signal" aria-labelledby="sig-hr">
+    <h3 id="sig-hr">Heart rate</h3>
+    <dl>
+      <dt>What is recorded</dt><dd>Beats per minute; background samples and workout measurements</dd>
+      <dt>Possible use</dt><dd>See activity and resting patterns</dd>
+      <dt>Limit</dt><dd>A faster pulse has many causes</dd>
+    </dl>
+  </section>
+  <section class="signal" aria-labelledby="sig-hrv">
+    <h3 id="sig-hrv">HRV</h3>
+    <dl>
+      <dt>What is recorded</dt><dd>SDNN, a measure of variation in beat intervals</dd>
+      <dt>Possible use</dt><dd>Compare readings with your own history</dd>
+      <dt>Limit</dt><dd>Not a cortisol concentration or diagnosis</dd>
+    </dl>
+  </section>
+  <section class="signal" aria-labelledby="sig-sleep">
+    <h3 id="sig-sleep">Sleep</h3>
+    <dl>
+      <dt>What is recorded</dt><dd>Estimated time asleep and supported sleep stages</dd>
+      <dt>Possible use</dt><dd>Review sleep alongside daytime wellbeing</dd>
+      <dt>Limit</dt><dd>Does not establish why you slept poorly</dd>
+    </dl>
+  </section>
+  <section class="signal" aria-labelledby="sig-temp">
+    <h3 id="sig-temp">Wrist temperature</h3>
+    <dl>
+      <dt>What is recorded</dt><dd>Overnight changes on supported models</dd>
+      <dt>Possible use</dt><dd>Additional context for changes from baseline</dd>
+      <dt>Limit</dt><dd>Availability depends on model and settings; not a cortisol sensor</dd>
+    </dl>
+  </section>
+</div>
+<p>Apple explains <a href="https://support.apple.com/en-us/120277">heart rate and HRV measurement</a>, <a href="https://support.apple.com/en-us/108906">sleep tracking</a> and <a href="https://support.apple.com/en-us/102674">nightly wrist temperature</a>. Follow the instructions for your particular Watch and software version.</p>
 
-      <h3>Mindfulness &amp; State of Mind</h3>
-      <p>The Mindfulness app offers Breathe and Reflect sessions, and lets you log your <a href="https://support.apple.com/guide/watch/log-your-state-of-mind-apd7de0f5610/watchos" rel="nofollow">State of Mind</a> — a momentary emotion or daily mood. This is genuinely useful, but it is a <em>subjective</em> check-in: you tell the watch how you feel. It is not derived from your biometrics, so it is the opposite of a sensor-based stress score.</p>
+<h2 id="check-readings">How do I check cortisol levels on Apple Watch?</h2>
+<p><strong>You can’t check cortisol levels on Apple Watch. There is no cortisol reading to open.</strong> To explore the wearable signals used by stress apps, review your heart-rate, HRV and sleep records instead. Keep those observations separate from a hormone-test result.</p>
+<ol><li>On your iPhone, open Health and search for Heart Rate Variability. Review the available samples and their timestamps.</li><li>Review Resting Heart Rate and Sleep over comparable dates. Check which device supplied the data.</li><li>If a reading is missing, use the <a href="/blog/apple-watch-hrv-not-updating/">HRV troubleshooting checklist</a> before interpreting an app score.</li><li>For an organized view, explore <a href="/cortisol/track/#cortisol-tracking-app">what a cortisol tracking app does</a> and inspect its underlying inputs.</li></ol>
+<p><a href="https://support.apple.com/en-us/120277">Apple's heart-rate documentation</a> explains the optical sensor and model-dependent features. Those readings are not a hormone assay; <a href="https://medlineplus.gov/lab-tests/cortisol-test/">cortisol testing uses a biological sample</a>.</p>
 
-      <h3>Heart-rate and health notifications</h3>
-      <p>Separately, the watch will alert you to unusually high or low heart rate and surfaces your HRV and sleep trends in Health. These are the sensor signals — but Apple presents them as neutral health data and stops short of labelling any of it "stress".</p>
+<h2 id="cortisol-tracker">Is there a cortisol tracker for Apple Watch?</h2>
+<p>Not one that measures the hormone. Apps sold as a cortisol tracker for Apple Watch, including Cortisol+, read your Watch data from Apple Health and calculate a score. That score is an interpretation of HRV, heart rate and sleep, not a cortisol level.</p>
+<p>A useful cortisol tracker app should show which inputs it used and admit what it cannot know. See the <a href="#trust">three questions to ask</a> before trusting one.</p>
 
-      <h2>Apple Watch vs. Fitbit and Garmin for stress</h2>
-      <p>The practical difference is philosophy, not hardware. All three brands measure HRV and heart rate from the wrist; the divergence is what they choose to show you.</p>
-      <ul>
-        <li><strong>Fitbit</strong> computes a daily Stress Management Score and, on some models, runs an on-wrist electrodermal (EDA) scan for a spot stress reading.</li>
-        <li><strong>Garmin</strong> shows an all-day Stress metric and "Body Battery," both derived largely from HRV.</li>
-        <li><strong>Apple</strong> exposes the raw signals — HRV, heart rate, sleep, wrist temperature — plus a subjective State of Mind log, but deliberately publishes no computed stress number.</li>
-      </ul>
-      <p>Neither approach is inherently more accurate; a computed score is only as good as its hidden formula. Apple's choice simply means the interpretation happens in an app you pick, against your own baseline, rather than in a black box you cannot inspect.</p>
+<h2>Does Apple Watch have a stress score?</h2>
+<p>Apple's Mindfulness features support breathing, reflection and recording your State of Mind. A mood check-in is your own report, while a third-party stress score is an interpretation of sensor data. These describe different things and may not agree.</p>
+<p>Cortisol+ combines available signals into its own wellness score. Other apps use different inputs and formulas, so a 60 in one app should not be assumed to mean the same thing as a 60 in another.</p>
+<h2 id="start">How do I start tracking stress with Apple Watch?</h2>
+<p>Begin with the recorded data. Check HRV and heart-rate history in Apple Health, then confirm that sleep is being recorded.</p>
+<p>Add an app when you want those signals organized into trends or a summary. In Cortisol+, the useful next step is to inspect the score's input breakdown and compare it with how you felt that day.</p>
+<p><a href="https://apps.apple.com/app/id6759510126">Download Cortisol+ for iPhone</a> to explore your permitted Apple Health data. Analysis requires a subscription or eligible trial. If you are comparing options, our <a href="/compare/apple-watch-stress-apps/">five-app guide</a> covers Cortisol+, Welltory, StressWatch, Bevel and Athlytic.</p>
 
-      <h2>So how do stress apps work on Apple Watch?</h2>
-      <p>Third-party apps fill the gap Apple leaves. Through HealthKit they read the same signals the watch already records — primarily HRV and heart rate, often sleep and wrist temperature — and apply their own model to estimate a stress state. The watch is an excellent sensor; the app supplies the interpretation. That division is exactly why a good stress app can add real value on top of Apple hardware without any extra device. For the full picture of which signals matter and why, see the pillar guide on <a href="/stress/">tracking stress with a wearable</a>.</p>
+<aside class="mid-cta not-prose app-sky" aria-labelledby="mid-cta-title">
+  <p id="mid-cta-title" class="mid-cta-title">See your Watch’s stress signals in one place</p>
+  <p class="mid-cta-body">Cortisol+ organizes your Apple Health HRV, resting heart rate and sleep into a daily wellness score, with every input shown. It is not a cortisol test.</p>
+  <GetAppButton />
+  <p class="mid-cta-note">Free to download. Analysis requires a subscription or eligible trial.</p>
+</aside>
+<h2>How to explore your readings with Cortisol+</h2>
+<ol><li>Download Cortisol+ on a compatible iPhone and connect your Apple Watch through Apple Health.</li><li>Choose the Health permissions you want to grant. Missing permissions or limited wear time can reduce available data.</li><li>Open the dashboard and examine the factors behind the score. Look at the HRV, resting heart rate and sleep records, not only the summary number.</li><li>Compare readings over time with notes about sleep, activity and how you feel.</li></ol>
+<figure><img src="/screenshots/wearable-insights.webp" alt="Cortisol+ Insights screen showing the Apple Health readings used by the app" width="645" height="1398" loading="lazy" class="max-w-[280px] mx-auto rounded-2xl"/><figcaption>Product screenshot; the displayed values are an example, not your personal data.</figcaption></figure>
+<p>Read the <a href="/how-it-works/">full methodology, weights and limitations</a> or explore <a href="/features/hrv-stress-monitoring/">Cortisol+ HRV stress monitoring</a>. The app is free to download; analysis features require an active subscription or an eligible trial. Check the offer shown in the app for current terms.</p>
+<h2 id="walkthrough">Watch the app: dashboard, inputs and sleep</h2>
+<p>This 70-second walkthrough records the real app in an iPhone Simulator. <strong>All readings are sample data.</strong></p>
+<p>It was recorded on September 9, 2026 in development version 5.0.2 (12), on iOS 26.5. Screens and wording may differ from the current App Store release. This demonstrates the interface; it is not a test of Watch accuracy or a customer's result.</p>
+<figure>
+  <video controls playsinline preload="none" poster="/videos/cortisol-development-walkthrough-2026-09-09.png" width="576" height="1472" class="w-full max-w-[360px] max-h-[75svh] mx-auto rounded-2xl bg-[#103c35]" aria-label="Cortisol+ development walkthrough with sample data and English captions">
+    <source src="/videos/cortisol-development-walkthrough-2026-09-09.mp4" type="video/mp4" />
+    <track default kind="captions" src="/videos/cortisol-development-walkthrough-2026-09-09.vtt" srclang="en" label="English" />
+    <p><a href="/videos/cortisol-development-walkthrough-2026-09-09.mp4">Download the walkthrough</a> or read the transcript below.</p>
+  </video>
+  <figcaption>Real development app, built-in sample data. No personal health records were used. English captions are on by default; there is no audio.</figcaption>
+</figure>
+<details><summary>Read the walkthrough transcript</summary>
+<p><strong>0:00–0:10:</strong> This is the real Cortisol+ app in an iPhone Simulator. All readings are sample data from a development build.</p>
+<p><strong>0:10–0:22:</strong> The dashboard's 26 is a software wellness score. The “Low” label is not a measured cortisol level.</p>
+<p><strong>0:22–0:34:</strong> The detail view shows example inputs: HRV 58 ms, sleep 7.8 hours and resting heart rate 58 bpm.</p>
+<p><strong>0:34–0:45:</strong> The bars show saved example readings at different times. Changes in this score do not establish a hormone change.</p>
+<p><strong>0:45–0:58:</strong> Back on the dashboard, open the Sleep tab to inspect sleep duration, timing and stages.</p>
+<p><strong>0:58–1:10:</strong> Development fixtures can differ between these screens. Sleep estimates do not establish why sleep changed.</p>
+</details>
+<p>Some labels in this older development build describe a person's recovery too confidently. Interpret them as software-generated labels, not established facts about your body. Our <a href="/how-it-works/">current methodology and limitations</a> explain that distinction.</p>
+<h2>Why readings can be missing or change unexpectedly</h2>
+<p>If your latest sample is missing, follow our <a href="/blog/apple-watch-hrv-not-updating/">Apple Watch HRV troubleshooting guide</a> to compare Apple Health timestamps, check app permissions and review watch settings.</p>
+<p>Sampling frequency depends on the signal, Watch model and settings, and data must sync to Apple Health before the app can use it.</p>
+<p>Movement, fit, charging, permissions and software settings can affect recording. Exercise, illness, alcohol, medication, breathing and time of day can also influence HRV and heart rate. These are reasons to check context, not assume every change represents psychological stress.</p>
+<h2 id="testing">Wearable stress versus cortisol testing</h2>
+<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">Clinical cortisol tests use blood, saliva or urine</a>, with timing and interpretation matched to the question a clinician is investigating. HRV cannot confirm or rule out a hormone disorder. Seek care for persistent or concerning symptoms rather than using a Watch score to decide whether a hormone test is necessary.</p>
+<p>For a practical next step, use our <a href="/resources/stress-sleep-journal/">free observation journal</a>. For the underlying signal, read <a href="/hrv/apple-watch/">HRV on Apple Watch</a> and <a href="/hrv/normal-range/">HRV ranges and measurement methods</a>.</p>
+<h2>Explore the questions on Perplexity</h2>
+<p>We asked Perplexity about <a href="/resources/perplexity/#apple-watch-apps">Apple Watch cortisol-tracking apps</a> and <a href="/resources/perplexity/#hrv-sleep-stress">using HRV and sleep to understand stress patterns</a>. Read the shared conversations, exact prompts and our source notes. These are AI answers requested by the Cortisol+ team, not independent product reviews.</p>
+<h2 id="trust">Three questions before trusting a cortisol tracker app</h2>
+<ol><li><strong>Is this a sensor reading or a calculated score?</strong> Look for named inputs and units. A 0–100 wellness score is not a hormone concentration.</li><li><strong>Can you inspect the underlying data?</strong> Check timestamps and missing inputs before interpreting the summary. Start with our <a href="/blog/hrv-during-sleep/">overnight HRV checklist</a>.</li><li><strong>Does the explanation acknowledge uncertainty?</strong> A useful app should explain its assumptions and avoid turning a change in HRV into a diagnosis. <a href="/blog/alcohol-hrv-sleep/">Alcohol and overnight HRV</a> is one example where context matters.</li></ol>
+<h2>Can an app calculate cortisol from HRV?</h2>
+<p>An app can calculate an estimate or wellness score from HRV, but displaying a number does not establish that it accurately measures your cortisol. Cortisol+ has not established clinical accuracy against cortisol testing. Review the <a href="/how-it-works/">methodology</a> before interpreting its results.</p>
+<h2>Which Apple Watch stress app should I choose?</h2>
+<p>Compare the data explanation, permissions and subscription offer, not just the score's color. Our <a href="/blog/welltory-vs-cortisol-plus/">Welltory versus Cortisol+ comparison</a> explains two approaches and discloses that we publish it. For a wider view, see the <a href="/compare/apple-watch-stress-apps/">Apple Watch stress-app comparison</a>.</p>
+</ArticleLayout>
 
-      <h2>How Cortisol+ turns those signals into a stress read</h2>
-      <p>Cortisol+ takes the HRV, heart-rate, sleep and wrist-temperature data your Apple Watch already collects and models what they imply about your <strong>cortisol trend</strong> — whether your stress-hormone pattern is running high, recovering, or drifting off its healthy daily curve. Two honest caveats: no wrist device measures cortisol directly, so Cortisol+ estimates the <em>trend and direction</em>, not an absolute blood value; and like every wearable stress method, the reliable signal is the multi-day pattern against your own baseline, not any single reading.</p>
-      <p>If that sounds more useful than a subjective mood log, see <a href="/how-it-works/">how Cortisol+ works</a> or read the underlying <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a> approach.</p>
+<style>
+  h2[id] { scroll-margin-top: 5rem; }
+  .quick-answer {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.125rem;
+    border-radius: 1.25rem;
+    background: var(--color-mint-soft);
+    border: 1px solid rgba(11, 122, 95, 0.18);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+  .quick-answer p + p { margin-top: 0.5rem; }
+  .quick-answer a { color: var(--color-teal-dark); text-decoration: underline; text-underline-offset: 3px; }
+  .quick-answer-label, .toc-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-teal-dark);
+    margin-bottom: 0.375rem;
+  }
+  .toc {
+    margin: 0 0 2rem;
+    padding: 0.875rem 1.125rem;
+    border-radius: 1.25rem;
+    background: var(--color-surface);
+  }
+  .toc-label { color: var(--color-ink-muted); }
+  .toc ol { list-style: none; margin: 0; padding: 0; }
+  .toc li + li { border-top: 1px solid rgba(18, 24, 38, 0.07); }
+  .toc a {
+    display: block;
+    padding: 0.625rem 0;
+    min-height: 2.75rem;
+    color: var(--color-teal-dark);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+  .toc a:hover { text-decoration: underline; }
 
-      <h2>Sources</h2>
-      <ul>
-        <li>Kim HG, et al. <a href="https://pubmed.ncbi.nlm.nih.gov/29486547/" rel="nofollow">Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature</a>. Psychiatry Investig. 2018;15(3):235–245.</li>
-        <li>Leproult R, et al. <a href="https://academic.oup.com/sleep/article-abstract/20/10/865/2725962" rel="nofollow">Sleep Loss Results in an Elevation of Cortisol Levels the Next Evening</a>. Sleep. 1997;20(10):865–870.</li>
-        <li>Apple. <a href="https://support.apple.com/guide/watch/log-your-state-of-mind-apd7de0f5610/watchos" rel="nofollow">Log your state of mind on Apple Watch</a>.</li>
-        <li>Apple. <a href="https://support.apple.com/en-us/102674" rel="nofollow">Track your nightly wrist temperature changes with Apple Watch</a>.</li>
-      </ul>
-    </div>
+  .signals {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+  @media (min-width: 640px) {
+    .signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .signal {
+    padding: 1rem 1.125rem;
+    border-radius: 1.25rem;
+    background: var(--color-surface);
+  }
+  .signal h3 { font-size: 1.0625rem; font-weight: 800; margin: 0 0 0.5rem; color: var(--color-ink); }
+  .signal dl { margin: 0; }
+  .signal dt {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-top: 0.5rem;
+  }
+  .signal dd { margin: 0.125rem 0 0; font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink); }
 
-    <FAQ items={faqs} />
-    <RelatedLinks links={related} />
-  </article>
-</BaseLayout>
+  .mid-cta {
+    margin: 2rem 0;
+    padding: 1.5rem 1.25rem;
+    border-radius: 1.5rem;
+    text-align: center;
+  }
+  .mid-cta-title { font-size: 1.375rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2; color: var(--color-ink); }
+  .mid-cta-body { margin: 0.5rem 0 1.25rem; line-height: 1.5; color: rgba(18, 24, 38, 0.75); }
+  .mid-cta-note { margin-top: 0.75rem; font-size: 0.8125rem; color: var(--color-ink-muted); }
+</style>

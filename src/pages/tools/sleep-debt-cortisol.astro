@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuizHero from '../../components/QuizHero.astro';
 import { webApplication } from '../../lib/schema';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
@@ -68,61 +69,55 @@ const questions: QuizQuestion[] = [
   },
 ];
 
-const bands: QuizBand[] = [
-  { threshold: 0.25, band: 'Low sleep debt', tone: 'low', body: 'Your sleep is supporting cortisol regulation. Keep the routine.' },
-  { threshold: 0.5, band: 'Mild sleep debt', tone: 'normal', body: 'Small deficits accumulating. Even 30 min less sleep can raise next-morning cortisol 10–15%.' },
-  { threshold: 0.75, band: 'Significant sleep debt', tone: 'elevated', body: 'Your sleep deficit is meaningfully driving cortisol up. Fixing sleep is the single highest-leverage cortisol intervention.' },
-  { threshold: 1.01, band: 'Severe sleep debt / cortisol cycle', tone: 'high', body: 'You\'re likely in a cortisol-sleep doom loop: high cortisol fragments sleep → poor sleep raises cortisol. Breaking the cycle usually requires changing one input first (alcohol, screens, or schedule).' },
-];
+const bands: QuizBand[] = [];
 
 const faqs: FAQItem[] = [
   {
-    q: 'How much does sleep deprivation raise cortisol?',
-    a: 'Studies show even one night of partial sleep restriction (4–5 hours) can raise next-day cortisol 30–50% in the afternoon. Chronic sleep restriction (5–6 hours/night) shifts the entire cortisol curve — higher evening cortisol, blunted morning peak. Both fragment subsequent sleep.',
+    "q": "Can an online quiz measure cortisol?",
+    "a": "No. These questions summarize your own observations. They have not been validated to diagnose a condition or estimate hormone levels. Clinical cortisol testing uses a biological sample and medical interpretation."
   },
   {
-    q: 'Why does alcohol disrupt sleep cortisol?',
-    a: 'Alcohol initially sedates but metabolizes within 3–4 hours. As blood alcohol drops, the body triggers a stress response — heart rate rises, cortisol spikes, REM rebound fragments sleep. This is why you wake at 3 AM after drinking and feel wrecked even after 8 hours in bed.',
+    "q": "Are my answers stored or sent to analytics?",
+    "a": "If your privacy choice allows website analytics, we count which option you pick for each question and when you start or finish, so we can improve the quiz. That count has no name, email or account attached, and nothing you type is sent. You can turn analytics off under Privacy choices at the bottom of any page."
   },
   {
-    q: 'Can I "catch up" on sleep at weekends?',
-    a: 'Partially. Research shows weekend recovery sleep restores SOME cognitive performance but does NOT fully reverse metabolic and cortisol effects of weekday restriction. Consistent sleep timing is more important than total hours.',
-  },
-  {
-    q: 'How does Cortisol+ use sleep data?',
-    a: 'Cortisol+ pulls sleep stage data from Apple Watch (REM, deep, core, awake time). REM and deep sleep deficits are the strongest predictors of next-morning cortisol elevation. The app surfaces this correlation so you can see exactly which sleep nights spike your cortisol the next day.',
-  },
+    "q": "What should I do with my check-in?",
+    "a": "Use it to choose a routine to observe, or to organize questions for a healthcare professional. Seek advice for persistent or concerning symptoms regardless of how you answered."
+  }
 ];
 
 const related = [
-  { href: '/tools/cortisol-calculator', title: 'Cortisol risk calculator', hint: 'Full 8-Q assessment' },
-  { href: '/tools/morning-cortisol-test', title: 'Morning cortisol test', hint: 'CAR pattern' },
-  { href: '/cortisol/lower/sleep', title: 'Sleep to lower cortisol', hint: 'Evidence-ranked tactics' },
+  { href: '/tools/cortisol-calculator/', title: 'Cortisol risk calculator', hint: 'Full 8-Q assessment' },
+  { href: '/tools/morning-cortisol-test/', title: 'Morning energy check-in', hint: 'Morning reflection' },
+  { href: '/cortisol/lower/sleep/', title: 'Sleep to lower cortisol', hint: 'Evidence-ranked tactics' },
 ];
 
 const schema = webApplication({
-  name: 'Sleep Debt × Cortisol Calculator',
-  description: 'Estimate how much your sleep debt is driving your cortisol up. 6 questions, instant interpretation.',
-  pathname: '/tools/sleep-debt-cortisol',
+  name: "Sleep habits check-in",
+  description: "Reflect on sleep duration, wake-ups and evening routines. This quiz does not calculate sleep debt or estimate how much cortisol you produce.",
+  pathname: "Sleep habits check-in",
 });
 ---
 
 <BaseLayout
-  title="Sleep debt and cortisol calculator"
-  description="How much is your sleep deficit driving your cortisol? 6-question quiz with instant interpretation."
-  image="/screenshots/sleep-analysis.png"
+  title="Sleep & cortisol quiz: a sleep habits check-in"
+  description="Reflect on sleep duration, wake-ups and evening routines. This quiz does not calculate sleep debt or estimate how much cortisol you produce."
+  image="/screenshots/sleep-quality.png"
   schema={schema}
 >
-  <section class="max-w-2xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Calculator</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Sleep debt × cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">
-      Poor sleep raises cortisol. High cortisol fragments sleep. 6 questions to score the loop.
-    </p>
-
-    <Quiz client:idle questions={questions} bands={bands} scoreLabel="Your sleep-cortisol load" />
-
+  <QuizHero
+    title="Is your sleep working for you?"
+    subtitle="A sleep habits check-in on hours, wake-ups and evenings. See what to change first."
+    image="/app-ui/start/goal_sleep.webp"
+    questions={6}
+  />
+  <section class="relative mx-auto max-w-xl px-4 -mt-10 pb-2">
+    <Quiz client:load questions={questions} bands={bands} scoreLabel="Your sleep-cortisol load" />
+    <aside class="mt-6 rounded-2xl bg-white/60 p-4 text-sm leading-relaxed text-[color:var(--color-ink-muted)]" aria-label="About this check-in">
+      <div class="mb-1 font-bold text-[color:var(--color-ink)]">About this check-in</div>
+      <p>6 questions about sleep habits. This tool does not calculate sleep debt or cortisol levels. For medical context, see <a class="font-semibold text-[color:var(--color-teal-dark)] underline underline-offset-2" href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus on cortisol testing</a> and our <a class="font-semibold text-[color:var(--color-teal-dark)] underline underline-offset-2" href="/how-it-works/">wearable score limitations</a>.</p>
+    </aside>
     <FAQ items={faqs} />
-    <RelatedLinks links={related} />
+    <RelatedLinks title="Keep going" links={related} />
   </section>
 </BaseLayout>

@@ -1,0 +1,46 @@
+---
+title: "Apple Watch HRV not updating? What to check"
+description: "Missing Apple Watch HRV readings? Check the latest sample in Apple Health, app permissions, watch fit and Low Power Mode before interpreting a stress score."
+pubDate: 2026-09-09
+tags:
+  - Apple Watch
+  - HRV
+  - heart rate variability
+  - troubleshooting
+  - Health app
+draft: false
+showToolCTA: false
+---
+
+If Apple Watch HRV is not updating, first check whether the latest reading is missing from **Apple Health** or only from the app displaying it. This separates a recording or syncing issue from a possible app-access issue. A missing sample alone does not tell you your stress or cortisol level.
+
+## 1. Find the latest HRV sample in Apple Health
+
+On iPhone, open Health, tap **Search**, and search for **Heart Rate Variability**. Open that category, then look under **Options** for **Show All Data** to inspect individual records. Check the newest record's date and time rather than relying on a daily average. Under **Data Sources & Access**, check which apps or devices contribute data. These labels follow Apple's iOS 26 guide; navigation can differ on other versions. See [Apple's guide to viewing Health data](https://support.apple.com/guide/iphone/view-your-health-data-iphe3d379c32/26/ios/26).
+
+- **Recent data in Health, older data in your wellness app:** check the app's permissions and displayed timestamp next.
+- **No recent data in Health:** check watch fit and power settings, and note whether other Watch measurements are also missing.
+
+## 2. Check the app's permission to read HRV
+
+In Health, open your profile picture, then **Apps** under **Privacy**. Choose Cortisol+ or the app you use and review its access to Heart Rate Variability, if listed. Enable only the data you want to share. Apple documents these controls in [Manage Health data](https://support.apple.com/en-us/108779).
+
+Reading permission lets an app access available records; changing it does not create a new HRV measurement. Reopen the app and compare its timestamp with the record you found in Health. For the inputs and limits of our wellness score, read [how Cortisol+ works](/how-it-works/).
+
+## 3. Check watch fit
+
+The back of the watch needs contact with your skin. Adjust the band so it feels secure and comfortable, and position the watch above the wrist bone, toward the elbow. Avoid tightening it until it is uncomfortable. Apple's [watch fitting guidance](https://support.apple.com/en-us/118234) explains the placement and sensor contact.
+
+## 4. Review Low Power Mode
+
+On the watch, check **Settings > Battery > Low Power Mode**. Apple says this mode disables background heart-rate measurements and reduces background app refresh. If it is enabled, consider whether you need the battery savings while investigating missing data. Apple's [Low Power Mode documentation](https://support.apple.com/en-us/108320) does not specify a guaranteed HRV update interval.
+
+## How often should Apple Watch HRV update?
+
+Apple's heart-rate documentation describes background **heart-rate** intervals that vary with activity and an optical sensor used for HRV. It does not give a fixed HRV timetable. A fresh heart-rate reading is therefore not proof of a fresh HRV record: check the HRV timestamp itself. See [Apple's heart-rate monitoring explanation](https://support.apple.com/en-us/120277).
+
+## If HRV still is not updating
+
+Before contacting support, write down the last HRV timestamp, your watch model, iOS and watchOS versions, and whether the record appears in Health. This makes the missing-data problem easier to describe without guessing its cause.
+
+If readings are missing from Health, start with [Apple Support](https://support.apple.com/contact). If Health has recent readings but your app still shows old ones, contact that app's support with the comparison. A stale wellness score should not be interpreted as a current hormone measurement. Our [Apple Watch stress and cortisol guide](/stress/apple-watch/) explains what the watch can and cannot tell you.

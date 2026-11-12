@@ -1,144 +1,124 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import FAQ, { type FAQItem } from '../../components/FAQ.astro';
-import RelatedLinks from '../../components/RelatedLinks.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
-import { medicalWebPage } from '../../lib/schema';
+const VOSS = 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118308';
+const SHAFFER = 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5624990/';
+const HEALTHKIT_SDNN = 'https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn';
 
-const schema = medicalWebPage({
-  name: 'Normal HRV by age: SDNN and RMSSD ranges',
-  pathname: '/hrv/normal-range/',
-  specialty: 'Cardiovascular',
-});
-
-const faqs: FAQItem[] = [
-  {
-    q: 'What is a normal HRV by age?',
-    a: 'HRV declines gradually with age, so "normal" depends on how old you are. As a very rough guide, healthy adults in their 20s–30s often show short-term SDNN in the 50–100+ ms range, dropping to roughly 30–60 ms by their 60s and beyond. These are approximate population ranges, not diagnostic cut-offs — individual variation is large, so your own baseline matters far more than any table.',
-  },
-  {
-    q: 'What is a good HRV number?',
-    a: 'There is no single "good" number that applies to everyone. HRV is strongly influenced by age, genetics, fitness, and measurement method. A higher HRV relative to your own baseline generally reflects better recovery and autonomic balance. The most useful comparison is you today versus you last month, not you versus a chart.',
-  },
-  {
-    q: 'Why does HRV decrease with age?',
-    a: 'HRV falls with age largely because vagal (parasympathetic) tone declines and the autonomic nervous system becomes less flexible over time. This is a well-documented trend across large population studies. It is normal — the goal is to keep your HRV as healthy as possible for your age, not to match a 25-year-old.',
-  },
-  {
-    q: 'Is SDNN or RMSSD better for tracking?',
-    a: 'They measure related but different things. RMSSD reflects short-term, vagally mediated variability and is popular for daily recovery tracking. SDNN captures overall variability across the whole recording and is what Apple Watch reports. For consistency, track whichever metric your device gives you and watch its trend rather than mixing metrics.',
-  },
-  {
-    q: 'My HRV is below the range — should I worry?',
-    a: 'Not necessarily. A single reading below a population range is common and can reflect a bad night, alcohol, illness, or a hard workout. HRV is a wellness signal, not a diagnosis. If your baseline is persistently low or dropping without explanation, that is worth raising with a clinician — but one low number is not cause for alarm.',
-  },
+// Voss et al. 2015, PLOS ONE, Tables 5 (women) and 7 (men): mean ± SD, ms.
+const hrvByAge = [
+  { age: '25–34', sdnnF: '48.7 ± 19.0', sdnnM: '50.0 ± 20.9', rmssdF: '42.9 ± 22.8', rmssdM: '39.7 ± 19.9', nF: 208, nM: 330 },
+  { age: '35–44', sdnnF: '45.4 ± 20.5', sdnnM: '44.6 ± 16.8', rmssdF: '35.4 ± 18.5', rmssdM: '32.0 ± 16.5', nF: 259, nM: 292 },
+  { age: '45–54', sdnnF: '36.9 ± 13.8', sdnnM: '36.8 ± 14.6', rmssdF: '26.3 ± 13.6', rmssdM: '23.0 ± 10.9', nF: 158, nM: 235 },
+  { age: '55–64', sdnnF: '30.6 ± 12.4', sdnnM: '32.8 ± 14.7', rmssdF: '21.4 ± 11.9', rmssdM: '19.9 ± 11.1', nF: 95, nM: 183 },
+  { age: '65–74', sdnnF: '27.8 ± 11.8', sdnnM: '29.6 ± 13.2', rmssdF: '19.1 ± 11.8', rmssdM: '19.1 ± 10.7', nF: 62, nM: 84 },
 ];
 
-const related = [
-  { href: '/hrv/', title: 'HRV and stress', hint: 'The full explainer' },
-  { href: '/hrv/how-to-improve/', title: 'How to improve HRV', hint: 'Raise your baseline' },
-  { href: '/hrv/apple-watch/', title: 'HRV on Apple Watch', hint: 'Read your SDNN' },
-  { href: '/features/hrv-stress-monitoring/', title: 'HRV stress monitoring', hint: 'Track it daily' },
-  { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check your load' },
-  { href: '/cortisol/', title: 'Cortisol explained', hint: 'The stress hormone' },
-];
+// Answers repeat the first paragraph under each matching H2 below.
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is a normal HRV for my age?', acceptedAnswer: { '@type': 'Answer', text: 'There is no single normal HRV range that applies to every person of the same age. Published averages fall with age, but people of the same age vary widely, and a useful reference must match the metric, recording length and measurement conditions. A brief Apple Watch reading, a 5-minute resting ECG and a 24-hour ECG result should not be treated as interchangeable.' } },
+    { '@type': 'Question', name: 'What is RMSSD?', acceptedAnswer: { '@type': 'Answer', text: 'RMSSD is the root mean square of successive differences between normal heartbeats. It looks at how much each beat-to-beat interval differs from the next one, so it reflects short-term, beat-to-beat variation. It is reported in milliseconds.' } },
+    { '@type': 'Question', name: 'What is SDNN?', acceptedAnswer: { '@type': 'Answer', text: 'SDNN is the standard deviation of normal-to-normal (NN) beat intervals. It describes the overall spread of beat intervals during a recording, and it is reported in milliseconds. It is the HRV metric Apple Health stores for Apple Watch.' } },
+    { '@type': 'Question', name: 'Can I compare my Apple Watch HRV with an HRV-by-age chart?', acceptedAnswer: { '@type': 'Answer', text: 'Only loosely. Apple Watch records SDNN, so the SDNN columns of a chart are the closest match, but the Watch takes automatic samples while you are still rather than a 5-minute ECG lying down after a rest. Use a chart to understand the general age trend and compare your Watch readings mainly with your own history.' } },
+  ],
+};
 ---
-
-<BaseLayout
-  title="Normal HRV by age: SDNN &amp; RMSSD ranges"
-  description="Normal HRV by age, explained. Approximate average HRV (SDNN and RMSSD) ranges by age band, why HRV declines with age, and how to read your own numbers."
-  image="/screenshots/health-breakdown.png"
-  schema={schema}
+<ArticleLayout
+  title="Normal HRV by Age: Chart, RMSSD, SDNN & Apple Watch"
+  description="An HRV-by-age chart from a 1,906-person study, plain definitions of RMSSD and SDNN, and why Apple Watch HRV can't be compared one-to-one with published norms."
+  updated="2026-10-27"
+  schema={faqSchema}
 >
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Heart rate variability</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Normal HRV by age</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      What counts as a "normal" HRV depends heavily on your age. Here are approximate population ranges — and why your own baseline matters more than any of them.
-    </p>
+<h2>What is a normal HRV for my age?</h2>
+<p><strong>There is no single normal HRV range that applies to every person of the same age.</strong> Published averages fall with age, but people of the same age vary widely, and a useful reference must match the metric, recording length and measurement conditions. A brief Apple Watch reading, a 5-minute resting ECG and a 24-hour ECG result should not be treated as interchangeable.</p>
+<p><a href={SHAFFER}>Shaffer and Ginsberg's review of HRV metrics and norms</a> explains why age, recording duration and the study population affect reference values, and cautions that 24-hour, short-term and ultra-short-term norms are not interchangeable. Age-related patterns in a population do not create a diagnostic cutoff for your Watch reading.</p>
 
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal)] prose-a:no-underline hover:prose-a:underline">
+<h2 id="hrv-by-age-chart">HRV by age chart (SDNN and RMSSD)</h2>
+<p>The table below reports the averages from one large published study of healthy adults. Values are the mean ± standard deviation in milliseconds. The large standard deviations show how much healthy people of the same age differ.</p>
+<div class="not-prose -mx-1 my-6 overflow-x-auto rounded-2xl border border-[color:var(--color-border)]" tabindex="0" role="region" aria-label="HRV by age table, scrolls sideways">
+  <table class="w-full min-w-[34rem] text-sm text-left">
+    <caption class="sr-only">Short-term HRV by age and sex, Voss et al. 2015</caption>
+    <thead class="bg-[color:var(--color-mint-soft)] text-[color:var(--color-ink)]">
+      <tr>
+        <th scope="col" rowspan="2" class="px-3 py-2 font-bold align-bottom">Age</th>
+        <th scope="colgroup" colspan="2" class="px-3 pt-2 font-bold">SDNN (ms)</th>
+        <th scope="colgroup" colspan="2" class="px-3 pt-2 font-bold">RMSSD (ms)</th>
+      </tr>
+      <tr class="text-xs text-[color:var(--color-ink-muted)]">
+        <th scope="col" class="px-3 pb-2 font-semibold">Women</th>
+        <th scope="col" class="px-3 pb-2 font-semibold">Men</th>
+        <th scope="col" class="px-3 pb-2 font-semibold">Women</th>
+        <th scope="col" class="px-3 pb-2 font-semibold">Men</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-[color:var(--color-border)] text-[color:var(--color-ink)] tabular-nums">
+      {hrvByAge.map((r) => (
+        <tr>
+          <th scope="row" class="px-3 py-2.5 font-bold whitespace-nowrap">{r.age}</th>
+          <td class="px-3 py-2.5 whitespace-nowrap">{r.sdnnF}</td>
+          <td class="px-3 py-2.5 whitespace-nowrap">{r.sdnnM}</td>
+          <td class="px-3 py-2.5 whitespace-nowrap">{r.rmssdF}</td>
+          <td class="px-3 py-2.5 whitespace-nowrap">{r.rmssdM}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="text-sm text-[color:var(--color-ink-muted)]"><strong>Source:</strong> <a href={VOSS}>Voss et al., “Short-Term Heart Rate Variability — Influence of Gender and Age in Healthy Subjects,” PLOS ONE, 2015</a>, Tables 5 and 7. <strong>Measurement:</strong> SDNN and RMSSD from 5-minute ECG recordings taken lying down (supine) after 5–10 minutes of rest. <strong>Population:</strong> 1,906 healthy adults aged 25–74 (782 women, 1,124 men) from the KORA S4 cohort in the Augsburg region of Germany, after excluding people with arrhythmias, documented diseases, heart-rate-affecting medication or pregnancy. Group sizes range from 62 (women 65–74) to 330 (men 25–34). The study did not include people under 25 or over 74.</p>
+<p>The pattern is clear: in this cohort, both SDNN and RMSSD were lower in each older age group up to the mid-60s, and the study found no significant difference between the two oldest groups (55–64 and 65–74). Average values for women and men were similar for SDNN and RMSSD in every age group. Treat the numbers as a description of one study population, not a pass or fail range.</p>
 
-      <h2>The short answer</h2>
-      <p>Heart rate variability declines steadily with age, so there is no single "normal" HRV. In healthy people, HRV tends to be highest in the late teens and twenties and falls gradually across each subsequent decade as vagal (parasympathetic) tone decreases. This age-related decline is well documented in the reference review by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">Shaffer &amp; Ginsberg (2017)</a>.</p>
-      <p>The two metrics you will see most often are <strong>SDNN</strong> (standard deviation of normal beat-to-beat intervals — the metric Apple Watch reports) and <strong>RMSSD</strong> (root mean square of successive differences, which more directly reflects vagal activity). Both are measured in milliseconds (ms).</p>
+<h2 id="apple-watch-hrv-by-age">Apple Watch HRV by age</h2>
+<p><strong>Only loosely. Apple Watch records SDNN, so the SDNN columns of a chart are the closest match, but the Watch takes automatic samples while you are still rather than a 5-minute ECG lying down after a rest.</strong> Use a chart to understand the general age trend and compare your Watch readings mainly with your own history.</p>
+<p>Apple's <a href={HEALTHKIT_SDNN}>HealthKit documentation</a> says HealthKit uses SDNN, the standard deviation of the intervals between normal heartbeats, and that the system automatically records samples on Apple Watch. Apple's <a href="https://support.apple.com/en-us/120277">heart-rate support page</a> adds that HRV is sampled while you're still, so the number of measurements varies with your activity.</p>
+<p>That is why a Watch reading cannot be lined up one-to-one against the table above:</p>
+<ul>
+  <li><strong>Different sensor.</strong> The study used an ECG; the Watch uses its optical heart sensor for background readings.</li>
+  <li><strong>Different recording.</strong> The study used a fixed 5-minute recording lying down after rest. Watch samples happen automatically at varying times of day and night, in whatever position you're in.</li>
+  <li><strong>Recording length changes SDNN.</strong> The <a href={SHAFFER}>Shaffer and Ginsberg review</a> notes that SDNN is more accurate when calculated over 24 hours than over shorter periods, and that short-term and 24-hour norms are not interchangeable.</li>
+  <li><strong>Different people.</strong> The cohort was screened healthy adults aged 25–74 in one region of Germany.</li>
+</ul>
+<p>A more useful question than “is my number normal for my age?” is “how does this reading compare with my own readings taken in similar conditions?”</p>
 
-      <h2>Approximate HRV by age band</h2>
-      <p>The table below gives rough, population-level ranges for short-term / overnight-style measurements — the kind a wearable like Apple Watch produces. Treat them as orientation only.</p>
+<h2 id="what-is-rmssd">What is RMSSD?</h2>
+<p><strong>RMSSD is the root mean square of successive differences between normal heartbeats.</strong> It looks at how much each beat-to-beat interval differs from the next one, so it reflects short-term, beat-to-beat variation. It is reported in milliseconds.</p>
+<p>The <a href={SHAFFER}>Shaffer and Ginsberg review</a> describes RMSSD as the primary time-domain measure used to estimate vagally mediated changes in HRV, and notes it is more influenced by the parasympathetic nervous system than SDNN. Apple Health stores SDNN, not RMSSD, for Apple Watch.</p>
 
-      <div class="not-prose my-6 overflow-x-auto rounded-xl border border-[color:var(--color-border)]">
-        <table class="w-full text-sm text-left border-collapse">
-          <caption class="sr-only">Approximate typical short-term HRV (SDNN and RMSSD) ranges by age band. Population-level orientation values only, not diagnostic thresholds.</caption>
-          <thead>
-            <tr class="bg-[color:var(--color-surface)] text-[color:var(--color-ink)]">
-              <th scope="col" class="px-4 py-3 font-semibold">Age band</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Typical SDNN (ms)</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Typical RMSSD (ms)</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Direction</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-[color:var(--color-border)]">
-            <tr>
-              <th scope="row" class="px-4 py-3 font-medium">18–24</th>
-              <td class="px-4 py-3">~55–105</td>
-              <td class="px-4 py-3">~50–95</td>
-              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Highest</td>
-            </tr>
-            <tr>
-              <th scope="row" class="px-4 py-3 font-medium">25–34</th>
-              <td class="px-4 py-3">~50–95</td>
-              <td class="px-4 py-3">~40–85</td>
-              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">High</td>
-            </tr>
-            <tr>
-              <th scope="row" class="px-4 py-3 font-medium">35–44</th>
-              <td class="px-4 py-3">~40–85</td>
-              <td class="px-4 py-3">~30–70</td>
-              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Declining</td>
-            </tr>
-            <tr>
-              <th scope="row" class="px-4 py-3 font-medium">45–54</th>
-              <td class="px-4 py-3">~35–75</td>
-              <td class="px-4 py-3">~25–60</td>
-              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Declining</td>
-            </tr>
-            <tr>
-              <th scope="row" class="px-4 py-3 font-medium">55–64</th>
-              <td class="px-4 py-3">~30–65</td>
-              <td class="px-4 py-3">~20–50</td>
-              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Lower</td>
-            </tr>
-            <tr>
-              <th scope="row" class="px-4 py-3 font-medium">65+</th>
-              <td class="px-4 py-3">~25–55</td>
-              <td class="px-4 py-3">~15–45</td>
-              <td class="px-4 py-3 text-[color:var(--color-ink-muted)]">Lowest</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="text-sm text-[color:var(--color-ink-muted)]"><strong>Important:</strong> These are approximate, illustrative population ranges synthesized from the HRV norms literature — not diagnostic thresholds and not medical advice. Individual variation is very large, healthy people fall outside these bands routinely, and measurement method (5-minute vs overnight vs 24-hour, resting vs active) strongly affects the numbers. A reading outside a band is not a problem in itself.</p>
+<h2 id="what-is-sdnn">What is SDNN?</h2>
+<p><strong>SDNN is the standard deviation of normal-to-normal (NN) beat intervals.</strong> It describes the overall spread of beat intervals during a recording, and it is reported in milliseconds. It is the HRV metric Apple Health stores for Apple Watch.</p>
+<p>Because SDNN captures all sources of variation during the recording, its value depends heavily on how long and under what conditions you record. A 24-hour SDNN, a 5-minute resting SDNN and an automatic Watch sample are not the same quantity, even though all three are labeled SDNN and measured in milliseconds.</p>
 
-      <h2>Why HRV declines with age</h2>
-      <p>The main driver is a gradual fall in parasympathetic (vagal) tone and a loss of autonomic flexibility as we age. The heart's beat-to-beat responsiveness becomes more rigid, so the variability shrinks. This is a normal part of aging rather than a disease process. The practical takeaway: the goal is not to match a 25-year-old's HRV, but to keep yours as healthy as possible <em>for your age</em> — and to notice when your own trend changes.</p>
+<h2>Is SDNN the same as RMSSD?</h2>
+<p>No. SDNN describes the spread of normal beat intervals; RMSSD describes successive interval differences. The <a href={SHAFFER}>review's metric definitions</a> explain the distinction, and the table above shows the two give different numbers for the same recordings. Do not convert a number from one metric into the other by treating their units as proof of equivalence.</p>
 
-      <h2>Why your baseline beats any chart</h2>
-      <p>Because absolute HRV varies so widely between individuals, a table can only orient you. Two equally healthy 40-year-olds might sit at 45 ms and 90 ms. What is far more informative is <em>your</em> typical range and how it moves. A steady climb over weeks usually reflects improving recovery; a sustained drop signals accumulating stress load, poor sleep, overtraining, illness, or heavy alcohol use.</p>
-      <p>Factors that shift your numbers night to night include sleep quality and timing, alcohol, late meals, hard training, illness, and psychological stress — the same stressors that also drive <a href="/cortisol/">cortisol</a>. If you want to raise your baseline, see <a href="/hrv/how-to-improve/">how to improve your HRV</a>.</p>
+<h2>Before using any HRV-by-age chart</h2>
+<div class="not-prose -mx-1 my-6 overflow-x-auto rounded-2xl border border-[color:var(--color-border)]" tabindex="0" role="region" aria-label="Checklist table, scrolls sideways">
+  <table class="w-full min-w-[20rem] text-sm text-left">
+    <caption class="sr-only">Check that a reference actually matches your measurement</caption>
+    <thead class="bg-[color:var(--color-mint-soft)] text-[color:var(--color-ink)]"><tr><th scope="col" class="px-3 py-2 font-bold">Check</th><th scope="col" class="px-3 py-2 font-bold">Why it matters</th></tr></thead>
+    <tbody class="divide-y divide-[color:var(--color-border)] text-[color:var(--color-ink)] align-top">
+      <tr><td class="px-3 py-2.5 font-semibold">Metric: SDNN or RMSSD</td><td class="px-3 py-2.5">Both use milliseconds, but summarize beat-to-beat variation differently.</td></tr>
+      <tr><td class="px-3 py-2.5 font-semibold">Recording duration</td><td class="px-3 py-2.5">A short sample cannot be interpreted using a 24-hour reference range.</td></tr>
+      <tr><td class="px-3 py-2.5 font-semibold">Conditions</td><td class="px-3 py-2.5">Resting, exercising, sleeping and paced breathing are different contexts.</td></tr>
+      <tr><td class="px-3 py-2.5 font-semibold">Source population</td><td class="px-3 py-2.5">A study's participants and measurement protocol may differ from yours.</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>We do not provide a universal “normal” number for a 30-, 40-, 50- or 60-year-old. The study table above describes average short-term ECG values in one healthy cohort; it is not a validated reference range for Apple Watch readings.</p>
 
-      <h2>How Cortisol+ uses your age-adjusted HRV</h2>
-      <p>Cortisol+ reads your overnight HRV (SDNN) from Apple Watch and interprets it against your own rolling baseline rather than a generic chart. Combined with resting heart rate and sleep, it estimates the <em>pattern and trend</em> of your cortisol over time — not a direct hormone level. That personal-baseline approach is exactly why it stays useful whether your natural HRV runs high or low for your age. See <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>.</p>
+<h2>How do I check my Apple Watch HRV?</h2>
+<ol><li>Open Health on your iPhone and search for Heart Rate Variability.</li><li>Inspect the dates, times and data sources behind the displayed values.</li><li>Compare the same metric from the same source over comparable periods.</li><li>Record context such as sleep, exercise and how you felt in a <a href="/resources/stress-sleep-journal/">simple observation journal</a>.</li><li>If records are missing, follow the <a href="/blog/apple-watch-hrv-not-updating/">HRV troubleshooting checklist</a>.</li></ol>
+<p>Apple describes the measurements collected by its heart sensor in <a href="https://support.apple.com/en-us/120277">its heart-rate documentation</a>. For the wider distinction between sensor readings and calculated scores, read our <a href="/stress/apple-watch/">Apple Watch stress guide</a>.</p>
 
-      <h2>Sources</h2>
-      <ul>
-        <li>Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. <em>Front Public Health.</em> 2017;5:258. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">PMC5624990</a> — contains reference norm tables and documents the age-related decline in HRV.</li>
-        <li>Kim HG, Cheon EJ, Bai DS, Lee YH, Koo BH. Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature. <em>Psychiatry Investig.</em> 2018;15(3):235–245. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">PMC6111105</a></li>
-      </ul>
-    </div>
+<h2>Is a higher HRV always better?</h2>
+<p>No. The <a href={SHAFFER}>HRV norms review</a> cautions that higher variability is not always a sign of better health. A wearable reading alone cannot establish your health status or explain a change.</p>
 
-    <FAQ items={faqs} />
-    <RelatedLinks links={related} />
-  </article>
-</BaseLayout>
+<h2>What does Cortisol+ do with HRV?</h2>
+<p>Cortisol+ organizes available wearable signals into a wellness score and trend views. It starts from population defaults and shifts toward a baseline built from your own recent readings once enough are stored. The model's baseline rules and missing-data handling are described in <a href="/how-it-works/">our methodology</a>. It does not measure cortisol or establish that a hormone level rose or fell.</p>
+<p>Look at the input breakdown and timestamps as well as the summary score. To compare approaches before downloading, use our <a href="/compare/apple-watch-stress-apps/">Apple Watch stress-app guide</a>.</p>
+
+<h2>What if my number looks low?</h2>
+<p>A chart or app score cannot determine whether you need medical care. If you have symptoms or are concerned about a persistent change, discuss the readings and their context with a qualified clinician. Do not use HRV to diagnose a cortisol disorder or change prescribed treatment.</p>
+</ArticleLayout>

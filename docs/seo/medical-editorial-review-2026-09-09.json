@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "cortisol-blood-pressure",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed hormone-driven hypertension assumptions, supplement advice, white-coat diagnosis and quiz-based cortisol estimation.",
+    "sources": [
+      "https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome",
+      "https://www.nhlbi.nih.gov/health/high-blood-pressure/causes"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-hot-flashes",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed asserted cortisol thermoregulation mechanism, hormone-cause inference from episode timing and promises that relaxation resets a thermostat.",
+    "sources": [
+      "https://www.nia.nih.gov/health/menopause/what-menopause",
+      "https://www.nia.nih.gov/health/hot-flashes-what-can-i-do"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-immune-suppression",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Separated experimental stress research from steroid treatment and endocrine disease; removed immune diagnosis, vaccine-response generalizations and recovery promises.",
+    "sources": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3341031/",
+      "https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-jaw-clenching",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed nighttime cortisol diagnosis, invented GABA mechanism, complete parasympathetic takeover and claims that guards fail to address a proven hormone cause.",
+    "sources": [
+      "https://www.nidcr.nih.gov/health-info/bruxism",
+      "https://www.nidcr.nih.gov/health-info/bruxism#treatment"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-libido-drop",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed pregnenolone-steal explanation, reciprocal hormone claims, aromatase mechanism and 4\u20138 week supplement recovery promises.",
+    "sources": [
+      "https://www.nhs.uk/symptoms/loss-of-libido/"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-night-sweats",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed causal nighttime hormone/blood-sugar loop and 2\u20134 AM diagnosis; added actual night-sweat definition and sourced care guidance.",
+    "sources": [
+      "https://www.nhs.uk/symptoms/night-sweats/"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-puffy-face-morning",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed one-hour diagnostic cutoff, appearance-based hormone inference and conflation of fluid swelling with endocrine fat redistribution.",
+    "sources": [
+      "https://medlineplus.gov/ency/article/003105.htm"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-skin-thinning",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed identical-mechanism claim for ordinary stress and prescribed steroids, unsourced molecular cascade and collagen/reversal treatment promises.",
+    "sources": [
+      "https://medlineplus.gov/skinaging.html",
+      "https://eczema.org/wp-content/uploads/Topical_Steroid_Topical_Withdrawal_Joint_Statement_Feb_2024.pdf"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "cortisol-stretch-marks",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed cortisol concentration thresholds, unsupported prevalence figures, color/location diagnostic rules and guarantees about fading.",
+    "sources": [
+      "https://www.aad.org/public/cosmetic/scars-stretch-marks/stretch-marks-why-appear"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "high-cortisol-symptoms-men",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed cholesterol competition, fatigue-as-specific-imbalance claim, sex-specific mechanisms and promised testosterone restoration.",
+    "sources": [
+      "https://www.nhs.uk/conditions/male-menopause/",
+      "https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome"
+    ],
+    "reviewer": null
+  },
+  {
+    "slug": "high-cortisol-symptoms-women",
+    "status": "editorial_revision_complete; clinical_review_not_performed; remains_draft",
+    "review_date": "2026-09-09",
+    "changes": "Removed \u201c12 symptoms doctors miss,\u201d blanket sex-specific cortisol claims, hormone-imbalance diagnosis from mood/sleep and quiz-gated testing.",
+    "sources": [
+      "https://www.nhs.uk/conditions/cushings-syndrome/",
+      "https://www.nia.nih.gov/health/menopause/what-menopause"
+    ],
+    "reviewer": null
+  }
+]
