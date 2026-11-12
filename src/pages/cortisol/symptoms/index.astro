@@ -1,8 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import RelatedLinks from '../../../components/RelatedLinks.astro';
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../../../consts';
+
+const UPDATED = '2026-11-12';
 
 const symptoms = await getCollection('symptoms');
 
@@ -13,6 +18,7 @@ const schema = [
     name: 'Symptoms of high cortisol',
     about: { '@type': 'MedicalCondition', name: 'Hypercortisolism' },
     audience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
+    lastReviewed: UPDATED,
     mainEntityOfPage: `${SITE.url}/cortisol/symptoms/`,
   },
   {
@@ -31,6 +37,15 @@ const schema = [
     },
   },
 ];
+
+const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
+  prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+  prose-headings:text-balance prose-headings:scroll-mt-24
+  prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+  prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+  prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
+  prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
+  prose-strong:text-[color:var(--color-ink)]`;
 ---
 
 <BaseLayout
@@ -39,68 +54,80 @@ const schema = [
   image="/screenshots/wearable-insights.png"
   schema={schema}
 >
-  <section class="max-w-4xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral-dark)] font-medium mb-3">Symptoms</div>
-    <h1 class="text-5xl font-bold tracking-tight mb-6">Symptoms of high cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-8">
-      Recognize the signs your cortisol may be chronically elevated — and learn which
-      are backed by clinical research versus amplified by social media.
-    </p>
+  <section class="max-w-3xl mx-auto px-4 pt-6 pb-16">
+    <header class="px-1 mb-6">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral-dark)] font-semibold mb-2">Symptoms</div>
+      <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Symptoms of high cortisol</h1>
+      <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
+        The signs people link with high cortisol, which ones doctors actually look for, and which ones social media blows up.
+      </p>
+      <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
+        Updated {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })} · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a>
+      </p>
+    </header>
 
-    <div class="prose-custom max-w-none mb-12 space-y-4 text-[color:var(--color-ink)]">
-      <p>
-        Cortisol is your body's primary stress hormone. In short bursts it's helpful —
-        it mobilizes energy, sharpens focus, and dampens inflammation. Problems start when
-        cortisol stays elevated for weeks or months, a pattern clinicians call chronic
-        HPA-axis activation. Because cortisol receptors sit in nearly every tissue, the
-        symptoms are wide-ranging and easy to mistake for other conditions.
-      </p>
-      <p>
-        The most consistently reported signs of chronically high cortisol are: trouble
-        falling asleep despite exhaustion, waking between 3–5 AM, weight that concentrates
-        around the midsection, sugar and salt cravings, a "wired but tired" feeling, mood
-        swings and irritability, and slower recovery from workouts or illness. Skin changes
-        (acne, a rounder face), hair thinning, and gut symptoms like bloating are also
-        common — though these lag the stress that triggered them by weeks to months.
-      </p>
-      <h2 class="text-2xl font-semibold mt-8 mb-2">High vs. low cortisol: two different patterns</h2>
-      <p>
-        Not all cortisol problems mean <em>too much</em> cortisol. High-cortisol patterns
-        skew "wired": difficulty winding down at night, anxiety and racing thoughts, midsection
-        weight gain, elevated resting heart rate, and blood-sugar swings. Low or blunted
-        patterns — which often follow months or years of chronic stress — skew "flat":
-        profound morning fatigue that caffeine barely touches, needing hours to feel awake,
-        low blood pressure or dizziness on standing, salt cravings, and a crash in exercise
-        tolerance. Many people cycle through both over time, which is why tracking the daily
-        pattern matters more than any single reading.
-      </p>
-      <h2 class="text-2xl font-semibold mt-8 mb-2">Clinical signs vs. TikTok trends</h2>
-      <p>
-        A distinction worth making: true clinical hypercortisolism (Cushing's syndrome) is
-        rare and has specific, doctor-diagnosed markers — purple stretch marks, a fatty
-        hump between the shoulders, easy bruising, and muscle weakness. Most people
-        searching "cortisol face" or "cortisol belly" do not have Cushing's. They have
-        the far more common pattern of stress-driven cortisol dysregulation, which is real,
-        measurable through biometrics, and responsive to lifestyle change. We label each
-        symptom page with what the evidence actually supports so you can tell the two apart.
-      </p>
-      <h2 class="text-2xl font-semibold mt-8 mb-2">When to see a doctor</h2>
-      <p>
-        Symptoms alone can't diagnose a cortisol disorder. See a clinician if signs have
-        persisted for three or more months, are worsening, or include any of the specific
-        Cushing's markers above. A doctor can order salivary, blood, or 24-hour urinary
-        cortisol testing to confirm what's happening. Everything on this site is
-        educational and is not a substitute for medical advice.
-      </p>
-      <p>
-        For day-to-day tracking between doctor visits, Cortisol+ estimates your cortisol
-        pattern from Apple Watch HRV, resting heart rate, and sleep — so you can see how
-        the symptoms below map to your own biometrics.
-        <a href="/tools/cortisol-calculator/" class="text-[color:var(--color-teal-dark)] underline">Take the 60-second cortisol quiz →</a>
-      </p>
+    <InShort image="/app-ui/zen/zen-thinking.webp" points={[
+      'Most "cortisol symptoms" also have <strong>many everyday causes</strong>.',
+      'True high cortisol (Cushing\'s syndrome) is <strong>rare</strong> and diagnosed by a doctor.',
+      '<strong>Symptoms alone can\'t diagnose</strong> a cortisol problem. Neither can a wearable.',
+    ]} />
+
+    <div class={proseCard}>
+      <p><strong>Cortisol is your body's main stress hormone.</strong> In short bursts it helps: it gets energy ready, sharpens focus and calms inflammation.</p>
+      <p>Problems can start when cortisol stays high for weeks or months. Cortisol acts on many tissues, so the possible symptoms are wide-ranging. They're also easy to mix up with other conditions.</p>
+      <p>Signs people often link with high cortisol include:</p>
+      <ul>
+        <li>trouble falling asleep even when exhausted</li>
+        <li>waking in the early hours</li>
+        <li>weight that settles around the middle</li>
+        <li>a "wired but tired" feeling</li>
+        <li>mood swings and irritability</li>
+        <li>slower recovery from workouts or illness</li>
+      </ul>
+      <p>Skin changes (acne, a rounder face), thinning hair and gut problems like bloating come up too. <strong>Every one of these has other common causes.</strong></p>
+
+      <ZenTip image="/app-ui/zen/zen-journal.webp">
+        Jot down <strong>when</strong> a symptom shows up and what else was going on. A simple note helps a lot when you talk to a doctor.
+      </ZenTip>
+
+      <h2>High vs. low cortisol: two different patterns</h2>
+      <p><strong>Not every cortisol problem means <em>too much</em> cortisol.</strong></p>
+      <p>Signs linked with high cortisol tend to feel "wired": trouble winding down at night, anxiety and racing thoughts, weight gain around the middle, a higher resting heart rate and blood-sugar swings.</p>
+      <p>Low cortisol (adrenal insufficiency, such as Addison's disease) is a separate medical condition. Its signs tend to feel "flat": ongoing tiredness, low blood pressure or dizziness when you stand up, salt cravings and less energy for exercise.</p>
+      <p>You may also see "adrenal fatigue" online. It is not a recognised medical diagnosis, according to the Endocrine Society. If you feel this way, a doctor can look for the real cause.</p>
+
+      <h2>Clinical signs vs. TikTok trends</h2>
+      <p><strong>True high cortisol from a medical cause (Cushing's syndrome) is rare.</strong> Doctors look for specific signs:</p>
+      <ul>
+        <li>wide purple stretch marks</li>
+        <li>a fatty hump between the shoulders</li>
+        <li>bruising easily</li>
+        <li>muscle weakness</li>
+      </ul>
+      <p>Most people searching "cortisol face" or "cortisol belly" don't have Cushing's. Their symptoms are real, but they usually come from everyday things like stress, sleep, diet, alcohol or another health condition.</p>
+      <p>We say on each symptom page what the evidence actually supports, so you can tell the two apart.</p>
+
+      <ZenPicture src="/app-ui/zen/zen-doctor.webp" caption="Only a doctor can work out whether cortisol is really behind a symptom." />
+
+      <h2>When to see a doctor</h2>
+      <p><strong>Symptoms alone can't diagnose a cortisol disorder.</strong></p>
+      <p>See a clinician if signs last, get worse, or include any of the Cushing's signs above. A doctor can decide whether <a href="/cortisol/test/">cortisol testing</a> makes sense, and which test to use.</p>
+      <p>Everything on this site is educational. It is not a substitute for medical advice.</p>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
+
+      <p>For day-to-day tracking between doctor visits, Cortisol+ gives a 0–100 wellness score from wearable signals like HRV, resting heart rate and sleep. <strong>It does not measure or estimate cortisol</strong> (<a href="/how-it-works/">see how it works</a>).</p>
+      <p>Want to reflect on your habits first? Try the <a href="/tools/cortisol-calculator/">60-second cortisol quiz</a>. It's a habits check-in, not a hormone test.</p>
     </div>
 
-    <h2 class="text-2xl font-semibold mb-4">Browse symptoms</h2>
+    <h2 class="px-1 mt-12 mb-4 text-[1.5rem] md:text-3xl font-extrabold tracking-tight leading-tight">Browse symptoms</h2>
 
     {symptoms.length === 0 ? (
       <p class="text-[color:var(--color-ink-muted)]">Symptom pages coming soon.</p>
@@ -120,7 +147,11 @@ const schema = [
     <RelatedLinks links={[
       { href: '/cortisol/symptoms/cortisol-face/', title: 'Cortisol face', hint: 'The most-searched symptom' },
       { href: '/cortisol/levels/', title: 'Normal cortisol levels', hint: 'Reference ranges' },
-      { href: '/cortisol/lower/', title: 'How to lower cortisol', hint: 'Evidence-ranked' },
+      { href: '/cortisol/lower/', title: 'How to lower cortisol', hint: 'Evidence and limits' },
     ]} />
+
+    <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+      <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Symptoms and wearable scores cannot diagnose a cortisol disorder. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
+    </aside>
   </section>
 </BaseLayout>
