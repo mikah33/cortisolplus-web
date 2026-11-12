@@ -44,7 +44,7 @@ function mount(preference = null, { gpc = false, timeZone = 'America/New_York', 
   const dispatch = (name, event = {}) => { for (const fn of listeners.get(name) || []) fn(event); };
   return { links, scripts, window, location, dispatch, storage,
     consent: choice => dispatch('click', { target: new Element('choice', choice) }),
-    click: () => dispatch('click', { target: new Element('link', links[0]) }),
+    click: (link = links[0]) => dispatch('click', { target: new Element('link', link) }),
   };
 }
 
@@ -57,7 +57,7 @@ test('opt-in visitors (GPC) keep links untagged without consent and send one att
   assert.equal(page.window.dataLayer, undefined);
 
   page.consent('analytics');
-  assert.equal(page.links[0].href, 'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=website-qa&mt=8');
+  assert.equal(page.links[0].href, 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-qa&deep_link_value=website');
   assert.equal(page.links[1].href, 'https://apps.apple.com/app/id123');
   for (let i = 0; i < 10; i++) page.dispatch('astro:page-load');
   page.click();
@@ -109,4 +109,21 @@ test('European time zones still require opt-in', () => {
   page.click();
   assert.equal(page.scripts.length, 0);
   assert.equal(page.window.dataLayer, undefined);
+});
+
+test('store buttons rendered after load (quiz results, /start/) are tagged when clicked', () => {
+  const page = mount('analytics');
+  const late = { href: 'https://apps.apple.com/app/id6759510126' };
+  page.click(late);
+  assert.equal(late.href, 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-qa&deep_link_value=website');
+  const other = { href: 'https://apps.apple.com/app/id123' };
+  page.click(other);
+  assert.equal(other.href, 'https://apps.apple.com/app/id123');
+});
+
+test('late store buttons stay untagged when analytics is declined', () => {
+  const page = mount('necessary');
+  const late = { href: 'https://apps.apple.com/app/id6759510126' };
+  page.click(late);
+  assert.equal(late.href, 'https://apps.apple.com/app/id6759510126');
 });

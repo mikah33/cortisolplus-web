@@ -8,7 +8,7 @@
 </aside>
 
 <script>
-  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, marketingPage } from '../lib/acquisition.js';
+  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, marketingPage } from '../lib/acquisition.js';
   const measurementId = 'G-MMJRJGZDE3';
   const preferenceKey = 'cortisol-website-privacy-v1';
   const production = location.protocol === 'https:' && location.hostname === 'cortisolplus.com';
@@ -66,7 +66,7 @@
     document.querySelectorAll<HTMLElement>('[data-privacy-text]').forEach(text => { text.hidden = (text.dataset.privacyText === 'default') !== analyticsByDefault; });
     if (!production || !analyticsAllowed(choice)) return;
     loadGoogle();
-    // Consent applies to Apple's broad campaign attribution as well as GA4.
+    // Consent applies to the AppsFlyer download link (RevenueCat attribution) as well as GA4.
     // Decorate actual hrefs so keyboard and new-tab navigation work normally.
     document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(link => {
       const campaignUrl = appStoreCampaignUrl(link.href, context);
@@ -109,7 +109,11 @@
       return;
     }
     const link = target?.closest<HTMLAnchorElement>('a[href]');
-    if (!production || !link || !appStoreCampaignUrl(link.href, context) || !analyticsAllowed(choice)) return;
+    if (!production || !link || !isAppStoreLink(link.href) || !analyticsAllowed(choice)) return;
+    // Quiz results and /start/ render their store buttons after load, past the
+    // decoration above, so tag the link here, before the browser follows it.
+    const campaignUrl = appStoreCampaignUrl(link.href, context);
+    if (campaignUrl && link.href !== campaignUrl) link.href = campaignUrl;
     // One delegated handler for all App Store links; client navigation cannot duplicate it.
     w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: referrerOrigin, transport_type: 'beacon' });
     if (choice === 'all' && marketingPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
