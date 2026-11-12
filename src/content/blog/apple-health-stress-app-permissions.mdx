@@ -7,12 +7,25 @@ tags: [apple health, privacy, stress, apple watch]
 draft: false
 targetTool: /tools/stress-score/
 ---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
+
+<InShort image="/app-ui/start/zen_explain.webp" points={[
+  '<strong>Read</strong> lets an app see your data. <strong>Write</strong> lets it add data.',
+  'You choose for <strong>each data type</strong>, and can change it any time.',
+  'Check it in Health: <strong>profile picture → Apps</strong>.',
+]} />
 
 ## What does it mean to give a stress app Apple Health access?
 
-**You choose, one data type at a time, whether an app may read from Apple Health, write to it, or neither.** A stress app usually asks to *read* heart rate variability (HRV), resting heart rate and sleep. *Write* access is separate and only matters if the app saves something back, such as a breathing session. You can change both later in the Health app.
+**You choose, one data type at a time, whether an app may read from Apple Health, write to it, or neither.**
 
-Apple also requires every app to explain why it wants Health data on the permission screen, and to disclose the specific health data it collects ([App Review Guideline 5.1.3](https://developer.apple.com/app-store/review/guidelines/#health-and-health-research)).
+A stress app usually asks to *read* heart rate variability (HRV), resting heart rate and sleep.
+
+*Write* access is separate. It only matters if the app saves something back, such as a breathing session. You can change both later in the Health app.
+
+Apple also requires every app to explain on the permission screen why it wants Health data. It must also tell you which health data it collects ([App Review Guideline 5.1.3](https://developer.apple.com/app-store/review/guidelines/#health-and-health-research)).
 
 ## Read access vs write access
 
@@ -25,7 +38,7 @@ Apple also requires every app to explain why it wants Health data on the permiss
     <div>
       <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">What it allows</p>
       <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
-        <p class="px-4 pt-1 pb-3">The app can see records of that type, including past ones</p>
+        <p class="px-4 pt-1 pb-3">The app can see records of that type, including old ones</p>
         <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">The app can add new records of that type</p>
       </div>
     </div>
@@ -48,30 +61,50 @@ Apple also requires every app to explain why it wants Health data on the permiss
 
 Two details are easy to miss:
 
-- **An app can't tell whether you declined read access.** HealthKit is built so a denied type simply looks empty. If a stress app says it has "no HRV data," check its permissions before assuming your watch isn't recording.
-- **Write access doesn't let an app change other sources' data.** An app can only remove records it wrote itself.
+- **An app can't tell if you said no to read access.** HealthKit (Apple's health data system) is built so a blocked type just looks empty. If a stress app says it has "no HRV data", check its permissions before you assume your watch isn't recording.
+- **Write access doesn't let an app change data from other sources.** An app can only remove records it wrote itself.
+
+<ZenTip image="/app-ui/zen_new_tour_now.webp">
+  App says <strong>"no HRV data"</strong>? Check its Health switches first. It's often just a permission that's off.
+</ZenTip>
 
 ## How do you check or turn off an app's access?
 
-**In the Health app: tap your profile picture, then under Privacy tap Apps, and choose the app** ([Apple Support](https://support.apple.com/108779)). Each data type has its own switch for reading and writing. Turn off anything you don't want that app to use.
+**In the Health app, tap your profile picture. Under Privacy, tap Apps, then choose the app** ([Apple Support](https://support.apple.com/108779)).
 
-Turning off read access stops the app reading that type from then on. It doesn't reach into the app and erase what the app has already done with the data, such as scores it calculated or anything it copied to its own servers. That's why it's worth reading an app's privacy policy for *where* it keeps health data, not just what it reads.
+Each data type has its own switch for reading and writing. Turn off anything you don't want that app to use.
+
+Turning off read access stops the app reading that type from then on. It doesn't erase what the app already did with the data, such as scores it worked out, or anything it copied to its own servers.
+
+That's why it's worth reading an app's privacy policy for *where* it keeps health data, not just what it reads.
 
 ## What happens when you delete data or the app?
 
 - **To delete what an app wrote to Health:** Health app → profile picture → Apps → the app → **Delete All Data from [app]**. To remove single entries, open the data type under Browse, tap **Show All Data**, then **Edit**.
 - **Deleting the app itself** doesn't remove the records it wrote to Health. Delete those first if you want them gone.
-- **Deleting your own Apple Watch records** removes them from Health and from what apps can read in future. An app that stores data on its own servers may still hold copies; its privacy policy should say how to request deletion.
+- **Deleting your own Apple Watch records** removes them from Health and from what apps can read in future. An app that keeps data on its own servers may still have copies. Its privacy policy should say how to ask for deletion.
 
 ## What are apps allowed to do with Health data?
 
-**Under Apple's rules, apps may not use Health data for advertising, marketing or data mining, may not store personal health information in iCloud, and must not write false data into HealthKit** ([Guideline 5.1.3](https://developer.apple.com/app-store/review/guidelines/#health-and-health-research)). Health data can be used to provide a benefit directly to you, and sharing it for health research needs your permission.
+**Under Apple's rules, apps may not:**
 
-A quick test: if an app asks for data types that have nothing to do with what it shows you, such as nutrition data for a stress score, you can say no to those.
+- use Health data for advertising, marketing or data mining
+- store personal health information in iCloud
+- write false data into HealthKit
+
+([Guideline 5.1.3](https://developer.apple.com/app-store/review/guidelines/#health-and-health-research))
+
+Health data can be used to give a benefit directly to you. Sharing it for health research needs your permission.
+
+A quick test: if an app asks for data that has nothing to do with what it shows you, such as nutrition data for a stress score, you can say no to those.
+
+<ZenPicture src="/app-ui/zen_new_tour_connect.webp" caption="Share only what an app needs to help you." />
 
 ## What does Cortisol+ read and write?
 
-**Cortisol+ reads the heart, sleep and activity data its wellness score uses, and writes only what you ask it to save.** Its [privacy policy](/privacy/) says HealthKit data is processed on your iPhone and isn't uploaded to its servers.
+**Cortisol+ reads the heart, sleep and activity data its wellness score uses. It writes only what you ask it to save.**
+
+Its [privacy policy](/privacy/) says HealthKit data is processed on your iPhone and isn't uploaded to its servers.
 
 <div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
   <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
@@ -84,7 +117,7 @@ A quick test: if an app asks for data types that have nothing to do with what it
   </div>
 </div>
 
-How each signal feeds the score, and its weight, is published on [How Cortisol+ works](/how-it-works/). The score is a wellness estimate from wearable signals; it doesn't measure cortisol.
+How each signal feeds the score, and how much it counts, is published on [How Cortisol+ works](/how-it-works/). The score is a wellness estimate from wearable signals. It doesn't measure cortisol.
 
 <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
   <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
@@ -100,4 +133,4 @@ How each signal feeds the score, and its weight, is published on [How Cortisol+ 
 1. Open Health → profile picture → **Apps**, and look at every app listed.
 2. For each one, turn off any data type it doesn't need for what you use it for.
 3. Remove apps you no longer use. Tap **Delete All Data from [app]** first if you don't want to keep what they wrote.
-4. If a stress app shows missing HRV or sleep, check its read switches before troubleshooting your watch. Our [Apple Watch stress guide](/stress/apple-watch/) covers what the watch records.
+4. If a stress app shows missing HRV or sleep, check its read switches before you troubleshoot your watch. Our [Apple Watch stress guide](/stress/apple-watch/) covers what the watch records.
