@@ -1,23 +1,75 @@
 ---
 import CreatorShort from '../../components/CreatorShort.astro';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 ---
-<ArticleLayout title="Apple Watch Sleep & Stress Tracking with Cortisol+" description="Explore available Apple Watch sleep data alongside HRV and recovery in Cortisol+. Understand permissions, missing nights and the limits of a wellness score." published="2026-05-23" updated="2026-09-16" image="/screenshots/sleep-quality.png">
-<p><strong>Cortisol+ brings available sleep data into the same view as wearable stress and recovery signals.</strong> It helps you review your nights and routines. It does not measure next-morning cortisol, identify the cause of a wake-up or determine which sleep stage changed your hormones.</p>
+<ArticleLayout title="Apple Watch Sleep & Stress Tracking with Cortisol+" description="Explore available Apple Watch sleep data alongside HRV and recovery in Cortisol+. Understand permissions, missing nights and the limits of a wellness score." published="2026-05-23" updated="2026-11-12" image="/screenshots/sleep-quality.png">
+<InShort image="/app-ui/start/zen_watch.webp" points={[
+  'See your Apple Watch sleep <strong>next to stress and recovery</strong> signals.',
+  'Sleep has a <strong>20% base weight</strong> in the wellness score.',
+  'It <strong>can\'t measure</strong> morning cortisol or explain why you woke up.',
+]} />
+
+<p><strong>Cortisol+ shows your available sleep data in the same view as your wearable stress and recovery signals.</strong></p>
+<p>It helps you look back at your nights and routines.</p>
+<p>It does not measure next-morning cortisol, find the cause of a wake-up, or tell which sleep stage changed your hormones.</p>
+
 <h2>What sleep data comes from Apple Watch?</h2>
-<p>Apple Health can display estimated time asleep and periods classified as awake, REM, core and deep sleep. Availability depends on your watch, software, settings and wear time. Apple's <a href="https://support.apple.com/en-us/108906">sleep tracking guide</a> explains setup and how to inspect sleep history. These are wearable estimates, not a clinical sleep study.</p>
-<h2>How sleep contributes to Cortisol+</h2>
-<p>The app reads permitted sleep records and uses a sleep-derived factor in its wellness model. Sleep has a 20% base weight before missing-data adjustments and other model modifiers. That weight is a software design choice; it does not mean sleep accounts for 20% of your cortisol production. Read the complete <a href="/how-it-works/">scoring methodology and limitations</a>.</p>
-<p>A change in the overall score can reflect several inputs, their freshness and the model's assumptions. Comparing two nights cannot isolate the effect of alcohol, a supplement or a particular sleep stage. We do not promise that a personal hormone pattern will become visible after two or four weeks.</p>
-<h2>Getting started with sleep tracking</h2>
-<ol><li>Set up sleep tracking and wear a charged, comfortably fitted watch to bed, following Apple's instructions.</li><li>Check that the night appears in Health before looking for it in Cortisol+.</li><li>Review the app's Health permissions and choose which available records to share.</li><li>Note the date of the sleep record and the timestamps of other readings; they may cover different periods.</li></ol>
-<p>If sleep or HRV is missing, begin with the source data and permissions. Our <a href="/blog/apple-watch-hrv-not-updating/">missing-data troubleshooting guide</a> explains that decision path for HRV. Enabling read access does not create a measurement that the watch did not record.</p>
+<p><strong>Apple Health can show your estimated time asleep</strong>, plus periods marked as awake, REM, core and deep sleep.</p>
+<p>What you see depends on your watch, software, settings and how long you wear it.</p>
+<p>Apple's <a href="https://support.apple.com/en-us/108906">sleep tracking guide</a> explains setup and how to look at your sleep history.</p>
+<p>These are wearable estimates, not a clinical sleep study.</p>
+
+<h2>How does sleep count in Cortisol+?</h2>
+<p><strong>Sleep has a 20% base weight in the wellness score.</strong> That's before adjustments for missing data and other parts of the model.</p>
+<p>The app reads the sleep records you allow and turns them into one factor in the score.</p>
+<p>That 20% is a choice in how the software is designed. It does not mean sleep makes up 20% of your cortisol production. Read the full <a href="/how-it-works/">scoring methodology and limitations</a>.</p>
+<p>A change in the overall score can come from several signals, how recent they are, and the model's assumptions.</p>
+<p>Comparing two nights can't single out the effect of alcohol, a supplement or one sleep stage. We don't promise that a personal hormone pattern will show up after two or four weeks.</p>
+
+<ZenTip image="/app-ui/zen_new_tour_sleep.webp">
+  Charge your watch <strong>before dinner</strong>, not at bedtime, so it has battery left to track the whole night.
+</ZenTip>
+
+<h2>How do I get started with sleep tracking?</h2>
+<ol>
+  <li>Set up sleep tracking by following Apple's instructions. Wear a charged, comfortably fitted watch to bed.</li>
+  <li>Check that the night shows up in Health before you look for it in Cortisol+.</li>
+  <li>Review the app's Health permissions and choose which available records to share.</li>
+  <li>Note the date of the sleep record and the times of other readings. They may cover different periods.</li>
+</ol>
+<p><strong>If sleep or HRV is missing, start with the source data and permissions.</strong></p>
+<p>Our <a href="/blog/apple-watch-hrv-not-updating/">missing-data troubleshooting guide</a> walks through those checks for heart rate variability (HRV).</p>
+<p>Turning on read access doesn't create a reading the watch never recorded.</p>
+
 <CreatorShort videoId="2tlBIlKwf6M" title="A daily sleep and stress tracking routine" creator="Jizil" duration="PT56S" summary="Jizil shows sleep-stage views, wearable-derived insights and Zen’s guided breathing. Compare the app’s available sleep records with your own routine and observations; the video does not establish that a sleep change caused a hormone change." />
-<h2>Make an observation journal</h2>
-<p>Use the <a href="/resources/stress-sleep-journal/">seven-day stress and sleep journal</a> to record bedtime, wake time, routines and how you felt. Compare those observations with the available records. You can print it or download a blank CSV; the page does not send your entries to analytics.</p>
+
+<h2>Keep an observation journal</h2>
+<p><strong>Use the <a href="/resources/stress-sleep-journal/">seven-day stress and sleep journal</a></strong> to write down bedtime, wake time, routines and how you felt.</p>
+<p>Then compare your notes with the records in the app.</p>
+<p>You can print it or download a blank CSV. The page does not send your entries to analytics.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
 <h2>Can the app explain a 3 AM wake-up?</h2>
-<p>No. A wake-up time and a wearable score cannot establish its cause. Cortisol+ does not diagnose insomnia, sleep apnea, perimenopause or a cortisol disorder. If sleep problems persist or affect your daily life, discuss them with a healthcare professional instead of relying on the app to choose treatment.</p>
+<p><strong>No.</strong> A wake-up time and a wearable score can't show what caused it.</p>
+<p>Cortisol+ does not diagnose insomnia, sleep apnea, perimenopause or a cortisol disorder.</p>
+<p>If sleep problems keep going or affect your daily life, talk to a healthcare professional. Don't rely on the app to choose a treatment.</p>
+
+<ZenPicture src="/app-ui/zen_presenting_new.webp" caption="The app shows your nights. A doctor helps with the why." />
+
 <h2>Does a sleep score replace a cortisol test?</h2>
-<p>No. Medical cortisol testing uses blood, urine or saliva and is interpreted in the context of the test's timing and purpose. <a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus explains cortisol tests</a>. Cortisol+'s score is a separate wellness interpretation of wearable data.</p>
+<p><strong>No.</strong> Medical cortisol tests use blood, urine or saliva. The result is read in light of when and why the test was done.</p>
+<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus explains cortisol tests</a>.</p>
+<p>The Cortisol+ score is a separate wellness reading of your wearable data.</p>
 <p>See <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>, our <a href="/stress/apple-watch/">Apple Watch stress guide</a>, and <a href="/download/">download and subscription information</a> before deciding whether the app fits your needs.</p>
 </ArticleLayout>

@@ -1,25 +1,86 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="Supplements for Cortisol: Evidence, Labels & Limits"
   description="Evaluate cortisol supplement claims, study outcomes and safety questions without treating a wearable score as evidence that a product worked."
-  updated="2026-09-09"
+  updated="2026-11-12"
 >
+<InShort points={[
+  'There is <strong>no single best</strong> cortisol supplement for everyone.',
+  'Check what a study <strong>actually measured</strong>, and for which product.',
+  'Bring the label and your medicine list to a <strong>clinician or pharmacist</strong>.',
+]} />
+
 <h2>Is there a best supplement to lower cortisol?</h2>
-<p>There is no universal product choice that follows from feeling stressed or seeing a high app score. Different supplements, formulations and studies address different questions. A laboratory change in a selected study group does not establish a treatment for everyone.</p>
+<p><strong>No. Feeling stressed or seeing a high app score doesn't point to one right product.</strong></p>
+<p>Different supplements, formulas and studies answer different questions.</p>
+<p>A lab change in one study group doesn't make a product a treatment for everyone.</p>
+
 <h2>Read the outcome, not just the product name</h2>
-<p>Check whether research measured perceived stress, sleep, fatigue or cortisol, and whether it studied the exact product being sold. A benefit on one outcome does not prove all the others. A result for a single extract is not automatically evidence for a multi-ingredient blend.</p>
-<table><thead><tr><th scope="col">Product type</th><th scope="col">What to examine</th><th scope="col">Further reading</th></tr></thead><tbody>
-<tr><td>Ashwagandha</td><td>Preparation, study population, outcome and safety limits</td><td><a href="/cortisol/foods/ashwagandha/">Detailed evidence review</a></td></tr>
-<tr><td>Magnesium</td><td>Actual nutritional need, elemental amount and medication interactions</td><td><a href="/blog/ashwagandha-vs-magnesium-cortisol/">Comparison with ashwagandha</a></td></tr>
-<tr><td>Rhodiola</td><td>Research quality and whether the promoted use is established</td><td><a href="/blog/ashwagandha-vs-rhodiola-cortisol/">Evidence comparison</a></td></tr>
-<tr><td>Multi-ingredient formulas</td><td>Current label and evidence for the finished formula</td><td><a href="/blog/cortisol-manager-vs-magnesium/">Cortisol Manager comparison</a></td></tr>
-</tbody></table>
-<h2>Keep safety in the decision</h2>
-<p>Use the official <a href="https://www.nccih.nih.gov/health/ashwagandha">NCCIH ashwagandha</a>, <a href="https://www.nccih.nih.gov/health/rhodiola">NCCIH rhodiola</a> and <a href="https://ods.od.nih.gov/factsheets/Magnesium-Consumer/">NIH magnesium</a> summaries to prepare questions for a clinician or pharmacist. Bring the exact label and your medicine list. Do not assume that combining products is safe because each is sold separately.</p>
-<p>Our earlier supplement ranking, general dosing stack and promised response timelines have been removed. They were not justified as recommendations for individual readers.</p>
+<p><strong>Ask two questions about any study:</strong></p>
+<ul>
+  <li>Did it measure how stressed people felt, their sleep, their tiredness, or their cortisol?</li>
+  <li>Did it test the exact product being sold?</li>
+</ul>
+<p>A benefit on one of these doesn't prove the others. And a result for a single extract isn't automatically evidence for a blend of many ingredients.</p>
+
+<ZenTip image="/app-ui/zen_new_tour_now.webp">
+  Take a photo of the <strong>full label</strong> before you shop or see a pharmacist. Exact names and amounts matter.
+</ZenTip>
+
+<h2>What to check for each type</h2>
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Ashwagandha</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Check the preparation, who was studied, what was measured and the safety limits.</p>
+    <p class="mt-2 text-[0.9375rem] leading-snug"><a class="underline text-[color:var(--color-teal-dark)]" href="/cortisol/foods/ashwagandha/">Detailed evidence review</a></p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Magnesium</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Check whether you actually need it, the elemental amount, and interactions with medicines.</p>
+    <p class="mt-2 text-[0.9375rem] leading-snug"><a class="underline text-[color:var(--color-teal-dark)]" href="/blog/ashwagandha-vs-magnesium-cortisol/">Comparison with ashwagandha</a></p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Rhodiola</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Check the quality of the research and whether the advertised use is proven.</p>
+    <p class="mt-2 text-[0.9375rem] leading-snug"><a class="underline text-[color:var(--color-teal-dark)]" href="/blog/ashwagandha-vs-rhodiola-cortisol/">Evidence comparison</a></p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Multi-ingredient formulas</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Check the current label and the evidence for the finished formula itself.</p>
+    <p class="mt-2 text-[0.9375rem] leading-snug"><a class="underline text-[color:var(--color-teal-dark)]" href="/blog/cortisol-manager-vs-magnesium/">Cortisol Manager comparison</a></p>
+  </div>
+</div>
+
+<h2>How do I keep it safe?</h2>
+<p><strong>Use official summaries to prepare questions for a clinician or pharmacist:</strong></p>
+<ul>
+  <li><a href="https://www.nccih.nih.gov/health/ashwagandha">NCCIH on ashwagandha</a></li>
+  <li><a href="https://www.nccih.nih.gov/health/rhodiola">NCCIH on rhodiola</a></li>
+  <li><a href="https://ods.od.nih.gov/factsheets/Magnesium-Consumer/">NIH on magnesium</a></li>
+</ul>
+<p>Bring the exact label and your list of medicines.</p>
+<p><strong>Don't assume products are safe together</strong> just because each one is sold on its own.</p>
+<p>We have removed our earlier supplement ranking, general dosing "stack" and promised timelines. They weren't justified as advice for individual readers.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
 <h2>Can Cortisol+ test whether a supplement worked?</h2>
-<p>No. The app does not measure cortisol and has no validated supplement-response test. A change in HRV, sleep or the wellness score cannot isolate a product effect. The <a href="/how-it-works/">methodology</a> explains what the score uses. Clinical testing and treatment decisions need their own rationale.</p>
+<p><strong>No.</strong> The app does not measure cortisol and has no proven way to test a supplement's effect.</p>
+<p>A change in heart rate variability (HRV), sleep or the wellness score can't single out what a product did. The <a href="/how-it-works/">methodology</a> explains what the score uses.</p>
+<p>Medical testing and treatment decisions need their own reasons.</p>
+
+<ZenPicture src="/app-ui/start/zen_explain.webp" caption="A score can't tell you what a supplement did." />
 </ArticleLayout>
