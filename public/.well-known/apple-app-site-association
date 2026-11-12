@@ -16,6 +16,10 @@
           {
             "/": "/zen",
             "comment": "Zen tab"
+          },
+          {
+            "/": "/circle/*",
+            "comment": "Circle invite links (/circle/join?code=CRT-XXXXXX). Covers the trailing-slash form Firebase redirects to."
           }
         ]
       }
