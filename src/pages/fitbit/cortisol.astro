@@ -32,7 +32,7 @@ const faqs: FAQItem[] = [
   },
   {
     q: 'Can Cortisol+ use my Fitbit data?',
-    a: 'Cortisol+ is bringing its cortisol-pattern estimation to Fitbit data via Health Connect — that support is on the way, not a shipped Fitbit feature yet. Today Cortisol+ works with Apple Health on iPhone and Apple Watch, and with Health Connect on Android. If you use a Fitbit, watch for Fitbit support via Health Connect as it becomes available.',
+    a: 'Fitbit support for Cortisol+ via Health Connect is on the way, but it is not a shipped feature yet. Cortisol+ gives a 0–100 wellness score from wearable signals; it does not measure or estimate cortisol. Today Cortisol+ works with Apple Health on iPhone and Apple Watch, and with Health Connect on Android. If you use a Fitbit, watch for Fitbit support via Health Connect as it becomes available.',
   },
 ];
 
@@ -41,7 +41,7 @@ const related = [
   { href: '/fitbit/stress-management-score/', title: 'Resilience (Stress Management Score)', hint: 'How it is built' },
   { href: '/fitbit/hrv/', title: 'Fitbit HRV explained', hint: 'The cortisol proxy' },
   { href: '/cortisol/', title: 'Cortisol, explained', hint: 'The hormone itself' },
-  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'Signals to estimate' },
+  { href: '/how-it-works/', title: 'How Cortisol+ works', hint: 'Signals to score' },
   { href: '/features/hrv-stress-monitoring/', title: 'HRV & stress monitoring', hint: 'Inside the app' },
 ];
 
@@ -131,14 +131,14 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       </a>
 
       <h2>Where Cortisol+ fits — honestly</h2>
-      <p>Cortisol+ is an app that estimates your cortisol <em>pattern</em> from wearable data: the same stand-in signals (HRV, heart rate, sleep) described above. It shows them as a day-by-day trend, not a lab value.</p>
-      <p><strong>To be clear: it's an estimate built on stand-in signals, not a cortisol measurement.</strong> No app can replace a blood or saliva test when you need a medical answer.</p>
+      <p>Cortisol+ is an app that gives you a 0–100 wellness score from wearable data: the same stand-in signals (HRV, resting heart rate, sleep and more) described above. It shows them as a day-by-day trend, not a lab value.</p>
+      <p><strong>To be clear: it doesn't measure or estimate your cortisol level or cortisol pattern.</strong> No app can replace a blood or saliva test when you need a medical answer.</p>
       <p>Which devices work?</p>
       <ul>
         <li><strong>Today:</strong> Apple Health on iPhone and Apple Watch, and Health Connect on Android.</li>
-        <li><strong>On the way:</strong> Cortisol+ is <strong>bringing its cortisol-pattern estimation to Fitbit data via Health Connect</strong>. That isn't a shipped Fitbit feature yet.</li>
+        <li><strong>On the way:</strong> <strong>Fitbit support via Health Connect</strong>. That isn't a shipped feature yet.</li>
       </ul>
-      <p>Whatever device you use, the same honest framing holds. You're looking at an informed estimate of a cortisol pattern, built from signals your wearable already trusts for stress. Read <a href="/how-it-works/">our methodology</a> to see what it can and can't tell you.</p>
+      <p>Whatever device you use, the same honest framing holds. You're looking at a wellness score built from signals your wearable already uses for stress, not a cortisol reading. Read <a href="/how-it-works/">our methodology</a> to see what it can and can't tell you.</p>
 
       <h2>Sources</h2>
       <ul>
