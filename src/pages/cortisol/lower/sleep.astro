@@ -2,30 +2,38 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
 import RelatedLinks from '../../../components/RelatedLinks.astro';
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 
 import { medicalWebPage } from '../../../lib/schema';
 
+const UPDATED = '2026-11-12';
+
 const schema = medicalWebPage({
-  name: 'Sleep to lower cortisol — the highest-leverage intervention',
+  name: 'Sleep to lower cortisol — one of the biggest levers',
   pathname: '/cortisol/lower/sleep/',
+  lastReviewed: UPDATED,
 });
 
+// The FAQ component renders every answer visibly and emits the FAQPage
+// JSON-LD from this same array, so visible text and schema always match.
 const faqs: FAQItem[] = [
   {
     q: 'How much does sleep affect cortisol?',
-    a: 'Sleep is the single biggest lever on cortisol. One night of partial sleep restriction (4–5 hours) raises next-day cortisol 30–50%, particularly in the afternoon and evening. Chronic short sleep (5–6 hours nightly) shifts the entire diurnal curve — blunted morning peak, elevated evening cortisol — driving the cortisol-sleep doom loop.',
+    a: 'Sleep and cortisol are closely linked. Research suggests that short or broken sleep can raise cortisol later the next day, especially in the evening. Over weeks, regular short sleep may also flatten your normal daily cortisol rhythm. How big the effect is varies from person to person.',
   },
   {
     q: 'Why do I wake at 3 AM with anxiety?',
-    a: 'Early-morning awakening between 3–5 AM is strongly associated with elevated nocturnal cortisol. Common drivers: alcohol metabolism (cortisol rebound 3–4 hours after drinking), low blood sugar, perimenopause, chronic stress, sleep apnea. Cortisol+ surfaces the HRV pattern showing whether your wake-ups correlate with cortisol elevation or other factors.',
+    a: 'Cortisol is normally lowest around the middle of the night and starts rising toward morning. Early waking can have many causes, including alcohol, stress, perimenopause, sleep apnea and other health issues. If it keeps happening, talk to a doctor. Cortisol+ can show your sleep and HRV, but it cannot tell you whether cortisol is the cause.',
   },
   {
     q: 'How long until better sleep lowers my cortisol?',
-    a: 'One night of properly restorative sleep already shifts next-day cortisol. Two weeks of consistent 7+ hour sleep with stable timing shows measurable changes in the diurnal curve. Eight weeks of fixed sleep pattern can fully restore a disrupted CAR.',
+    a: 'There is no set timeline. Many people feel better within days of more regular sleep, but how quickly cortisol changes differs between people and hasn\'t been pinned down for everyday habits. If poor sleep goes on or worries you, talk to a doctor.',
   },
   {
     q: 'Does the cortisol-sleep loop reverse?',
-    a: 'Yes. High cortisol fragments sleep; poor sleep raises cortisol. Breaking the loop usually requires changing one input first — most commonly alcohol (largest single sleep disruptor), screen exposure, or sleep timing. Once one variable is fixed, the loop reverses surprisingly quickly (2–4 weeks).',
+    a: 'It can. Stress can disturb sleep, and poor sleep can add to stress. Breaking the loop usually starts with changing one thing first, such as alcohol, evening screens or sleep timing. How quickly it improves varies from person to person.',
   },
   {
     q: 'How does Cortisol+ use sleep data?',
@@ -34,91 +42,144 @@ const faqs: FAQItem[] = [
 ];
 
 const related = [
-  { href: '/tools/sleep-debt-cortisol/', title: 'Sleep debt × cortisol quiz', hint: 'Score your debt' },
+  { href: '/tools/sleep-debt-cortisol/', title: 'Sleep debt × cortisol quiz', hint: 'Reflect on your sleep' },
   { href: '/cortisol/lower/', title: 'Full how-to-lower guide', hint: 'All tactics' },
   { href: '/cortisol/lower/breathing-exercises/', title: 'Breathing for cortisol', hint: 'Pre-sleep protocol' },
 ];
+
+const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
+  prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+  prose-headings:text-balance prose-headings:scroll-mt-24
+  prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+  prose-h3:mt-8 prose-h3:mb-2
+  prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+  prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
+  prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
+  prose-strong:text-[color:var(--color-ink)]`;
 ---
 
 <BaseLayout
   title="Sleep to lower cortisol — the biggest lever"
-  description="Sleep is the highest-leverage cortisol intervention. Why sleep loss raises cortisol, how to break the cortisol–insomnia loop, and a 14-day reset plan."
+  description="Sleep is one of the biggest levers on cortisol. Why sleep loss can raise cortisol, how to break the cortisol–insomnia loop, and a 14-day reset plan."
   image="/screenshots/sleep-quality.png"
   schema={schema}
 >
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Lower cortisol</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Sleep to lower cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      The biggest lever you have. Get sleep right and almost everything else gets easier.
-    </p>
+  <article class="max-w-3xl mx-auto px-4 pt-6 pb-16">
+    <header class="px-1 mb-6">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Lower cortisol</div>
+      <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Sleep to lower cortisol</h1>
+      <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
+        Sleep is one of the biggest levers you have. Get it right and a lot of other things get easier.
+      </p>
+      <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
+        Updated {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })} · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a>
+      </p>
+    </header>
 
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline">
+    <InShort image="/app-ui/zen_new_tour_sleep.webp" points={[
+      'Short or broken sleep <strong>can raise cortisol</strong> the next day.',
+      '<strong>Steady sleep times</strong>, less alcohol and morning light are good places to start.',
+      'Cortisol+ shows sleep and HRV. It <strong>doesn\'t measure cortisol</strong>.',
+    ]} />
 
-      <h2>The data on sleep × cortisol</h2>
-      <p>Sleep is the single most powerful cortisol intervention. Specific numbers from peer-reviewed research:</p>
+    <div class={proseCard}>
+      <h2>How does sleep affect cortisol?</h2>
+      <p><strong>Sleep and cortisol are closely linked.</strong></p>
+      <p>Cortisol is a stress hormone. It normally peaks in the morning, shortly after you wake up. It's lowest around the middle of the night.</p>
+      <p>Research suggests poor sleep can upset that pattern:</p>
       <ul>
-        <li>One night of 4-hour sleep raises next-day cortisol 30–50%, particularly evening cortisol</li>
-        <li>Chronic 5–6 hour sleep over weeks shifts the diurnal curve — flatter morning peak, higher evening</li>
-        <li>Each hour of "social jetlag" (weekday-weekend sleep mismatch) is associated with measurable cortisol disruption</li>
-        <li>Inconsistent sleep timing affects cortisol more than total hours</li>
+        <li>A night of short sleep can raise cortisol later the next day, especially in the evening.</li>
+        <li>Weeks of short sleep may flatten the daily curve: a smaller morning peak and higher evening levels.</li>
+        <li>Big gaps between weekday and weekend sleep times ("social jetlag") have been linked with a less steady rhythm.</li>
       </ul>
+      <p>How big these effects are differs from person to person.</p>
 
-      <h2>The cortisol-sleep doom loop</h2>
-      <p>The loop:</p>
+      <h2>What is the cortisol-sleep loop?</h2>
+      <p><strong>Stress and poor sleep can feed each other.</strong> It often goes like this:</p>
       <ol>
-        <li>Elevated cortisol fragments sleep, especially REM and deep sleep</li>
-        <li>Fragmented sleep raises next-day cortisol</li>
-        <li>Elevated cortisol fragments tomorrow's sleep</li>
-        <li>Repeat for weeks until it feels like "I just can't sleep anymore"</li>
+        <li>Stress and high cortisol can make sleep lighter and more broken.</li>
+        <li>Broken sleep can raise cortisol the next day.</li>
+        <li>That makes the next night's sleep harder too.</li>
+        <li>After a few weeks, it can feel like "I just can't sleep anymore".</li>
       </ol>
-      <p>The good news: breaking ONE link reverses the entire loop in 2–4 weeks.</p>
+      <p>The good news: changing <strong>one</strong> part of the loop can help the rest. How fast that happens varies.</p>
 
-      <h2>The five interventions with the biggest impact</h2>
+      <h2>Which sleep habits help most?</h2>
+      <p><strong>These five are good places to start.</strong> Pick one, not all five at once.</p>
 
-      <h3>1. Fix alcohol</h3>
-      <p>Alcohol is the single biggest sleep disruptor in modern life. It initially sedates but as it metabolizes (typically 3–4 hours after drinking), cortisol rebounds, heart rate rises, and REM fragments. Even a single drink within 3 hours of bed measurably disrupts sleep architecture. If you must drink, finish 4+ hours before bed.</p>
+      <h3>1. Cut back on alcohol</h3>
+      <p>Alcohol is one of the most common sleep disruptors.</p>
+      <p>It can make you sleepy at first. But as your body breaks it down later in the night, sleep tends to get lighter and more broken, and your heart rate can rise.</p>
+      <p>If you drink, try to finish well before bed.</p>
 
-      <h3>2. Consistent sleep timing</h3>
-      <p>Going to bed and waking at the same time daily — within 30 minutes — does more for cortisol than adding extra hours on weekends. Cortisol regulation is driven by your circadian rhythm; consistent timing strengthens the rhythm.</p>
+      <h3>2. Keep steady sleep times</h3>
+      <p>Go to bed and get up at about the same time every day, weekends included.</p>
+      <p>Cortisol follows your body clock (circadian rhythm). Steady timing helps keep that clock on track. It may help more than catching up on sleep at weekends.</p>
 
-      <h3>3. Morning sunlight within 1 hour of waking</h3>
-      <p>Bright light exposure in the morning anchors your CAR and shifts melatonin timing for better sleep that night. 10–20 minutes outside, even on cloudy days. Single highest-ROI sleep hack.</p>
+      <h3>3. Get morning daylight</h3>
+      <p>Bright light in the morning helps set your body clock. That can help you feel sleepy at the right time that night.</p>
+      <p>A short time outside soon after waking works, even on cloudy days.</p>
 
-      <h3>4. Cool bedroom (65–68°F / 18–20°C)</h3>
-      <p>Core body temperature must drop ~1°C to fall asleep and stay asleep. A warm bedroom keeps cortisol-elevated people awake. A cool bedroom (especially in the second half of the night when cortisol naturally starts rising) protects deep sleep.</p>
+      <ZenTip image="/app-ui/zen/zen-walk.webp">
+        Pair morning light with something you already do: drink your coffee by a window, or take a <strong>short walk</strong> before work.
+      </ZenTip>
 
-      <h3>5. No screens 30+ minutes before sleep</h3>
-      <p>Blue light suppresses melatonin and engagement with screens raises mental arousal. The combination delays sleep onset by 20–60 minutes in most people. The fix doesn't have to be perfect — even moving "screens off" 30 minutes earlier moves cortisol patterns.</p>
+      <h3>4. Keep your bedroom cool</h3>
+      <p>Your body temperature drops a little as you fall asleep. A warm room can make that harder.</p>
+      <p>A cool, dark, quiet bedroom helps you fall asleep and stay asleep.</p>
 
-      <h2>The harder, higher-impact additions</h2>
+      <h3>5. Put screens away before bed</h3>
+      <p>Bright screens late at night can delay sleep. Scrolling and messages also keep your mind busy.</p>
+      <p>It doesn't have to be perfect. Even putting your phone down a bit earlier is a good start.</p>
+
+      <h2>What else can I try?</h2>
       <ul>
-        <li><strong>Magnesium glycinate</strong>: 300 mg elemental, 60 minutes before bed</li>
-        <li><strong>4-7-8 breathing</strong>: 5 minutes in bed — <a href="/cortisol/lower/breathing-exercises/">protocol</a></li>
-        <li><strong>Last meal 3 hours before bed</strong>: late eating raises evening cortisol</li>
-        <li><strong>Cut caffeine after 12 PM</strong>: caffeine has a 6-hour half-life; afternoon coffee affects sleep</li>
+        <li><strong>Magnesium:</strong> the evidence for sleep and cortisol is limited and mixed, so we don't suggest a dose. Ask a doctor or pharmacist first, especially if you take medicines.</li>
+        <li><strong>4-7-8 breathing</strong> for a few minutes in bed. See the <a href="/cortisol/lower/breathing-exercises/">breathing protocol</a>.</li>
+        <li><strong>Finish your last big meal a while before bed</strong>, so you aren't going to sleep very full.</li>
+        <li><strong>Have caffeine earlier in the day.</strong> It can stay in your system for hours, so afternoon coffee can affect sleep.</li>
       </ul>
 
-      <h2>What you can measure</h2>
-      <p>Cortisol+ shows the actual relationship between your sleep and your next-day cortisol — by stage (REM, deep, core), by total duration, by timing consistency. Most users find one or two specific behavior changes that move their trend dramatically once they can see the correlation.</p>
+      <ZenTip image="/app-ui/zen/zen-coffee.webp">
+        Pick a <strong>daily caffeine cut-off time</strong> and set a phone reminder for it. Switch to water or decaf after that.
+      </ZenTip>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
+
+      <h2>What can Cortisol+ show me?</h2>
+      <p><strong>Cortisol+ shows your sleep, heart rate variability (HRV) and a 0–100 wellness score from your wearable.</strong></p>
+      <p>It does not measure cortisol. It can't tell you how your sleep changed your cortisol.</p>
+      <p>What it can do is help you spot patterns in your own sleep, like timing and how long you slept. See <a href="/how-it-works/">how the score works</a>.</p>
 
       <h2>If sleep is broken: a 14-day reset</h2>
+      <p><strong>Try these habits together for two weeks:</strong></p>
       <ol>
-        <li>Set a consistent wake time (set an alarm, no snooze)</li>
-        <li>Outside in sunlight within 30 min of waking, daily</li>
-        <li>No alcohol for 14 days</li>
-        <li>Cool bedroom (65–68°F)</li>
-        <li>Caffeine cutoff at 12 PM</li>
-        <li>No screens 30 min before bed</li>
-        <li>Magnesium glycinate at 9 PM</li>
-        <li>Track HRV nightly — watch the trend over 2 weeks</li>
+        <li>Set a steady wake time (set an alarm, no snooze).</li>
+        <li>Get outside in daylight soon after waking, every day.</li>
+        <li>Skip alcohol for 14 days.</li>
+        <li>Keep your bedroom cool and dark.</li>
+        <li>Stop caffeine by midday.</li>
+        <li>Put screens away before bed.</li>
+        <li>Thinking about magnesium? Ask a doctor or pharmacist first.</li>
+        <li>Wear your watch to bed and look at your sleep trend over the two weeks.</li>
       </ol>
       <p>There is no established Cortisol+ timeline for sleep improvement or cortisol change. If poor sleep persists or concerns you, seek appropriate assessment rather than waiting for the app score to improve.</p>
+
+      <ZenPicture src="/app-ui/zen/zen-bed.webp" caption="Same bedtime, same wake time. Small habits add up." />
     </div>
 
     <FAQ items={faqs} />
     <RelatedLinks links={related} />
+
+    <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+      <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly — the app offers a wellness score derived from biometric signals, not a hormone test. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
+    </aside>
   </article>
 </BaseLayout>
