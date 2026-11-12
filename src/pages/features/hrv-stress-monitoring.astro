@@ -1,23 +1,72 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="Apple Watch HRV Stress Monitoring | Cortisol+"
   description="Explore HRV, resting heart rate and sleep together in Cortisol+. See trends, review score inputs and understand the limits of wearable stress monitoring."
-  updated="2026-09-09"
+  updated="2026-11-12"
 >
+<InShort image="/app-ui/start/zen_watch.webp" points={[
+  'See HRV, resting heart rate, sleep and activity <strong>in one view</strong>.',
+  'Your score compares readings with <strong>your own baseline</strong>.',
+  'It is a wellness score, <strong>not a cortisol measurement</strong>.',
+]} />
+
 <h2>Your HRV in context</h2>
-<p>Cortisol+ is an Apple Watch stress tracking app that brings available HRV, resting heart rate, sleep and activity into one view. Its wellness score summarizes the app's interpretation of those inputs. It is not a cortisol measurement.</p>
-<h2>What you can do</h2>
-<ul><li>Review the biometric factors contributing to your current score.</li><li>Compare available readings with your history.</li><li>Look at sleep and activity alongside stress and recovery trends.</li><li>Use guided breathing and note how you feel before and after.</li></ul>
-<p>Core analysis requires an active subscription or an eligible trial. Downloading the app is free; the in-app offer shows the current price, renewal interval and trial conditions.</p>
-<h2>What HRV means here</h2>
-<p>Apple Watch provides HRV as SDNN. The app uses that value relative to a baseline, alongside other signals. The <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5900369/">research on HRV and stress</a> describes autonomic responses across studies; it does not establish that a person's hormone level can be inferred from one HRV reading.</p>
-<p>Data source and recording conditions matter. SDNN and RMSSD are different statistics, and a number from one device cannot always be compared directly with another. Background measurements are intermittent rather than a continuous cortisol stream.</p>
-<h2>Personalization and missing data</h2>
-<p>The scoring baseline uses up to 30 days of stored readings and gradually blends personal history with defaults. Available factors and freshness affect the calculation. The <a href="/how-it-works/">methodology page</a> lists the actual weights, baseline rules and limitations.</p>
-<h2>Use trends to support reflection</h2>
-<p>Changes in HRV can coincide with exercise, illness, alcohol, medications, sleep or recording conditions. A chart cannot isolate the cause or prove that a supplement or intervention worked. Pair readings with a <a href="/resources/stress-sleep-journal/">stress and sleep journal</a>, and discuss concerning symptoms with a clinician.</p>
+<p><strong>Cortisol+ is an Apple Watch stress tracking app.</strong> It brings your available heart rate variability (HRV), resting heart rate, sleep and activity into one view.</p>
+<p>HRV is the small change in time between your heartbeats.</p>
+<p>The app's wellness score sums up how it reads those signals. It is not a cortisol measurement.</p>
+
+<h2>What can you do in the app?</h2>
+<ul>
+  <li>See which body signals are adding to your current score.</li>
+  <li>Compare your available readings with your history.</li>
+  <li>Look at sleep and activity next to your stress and recovery trends.</li>
+  <li>Use guided breathing, and note how you feel before and after.</li>
+</ul>
+<p>Core analysis needs an active subscription or an eligible trial.</p>
+<p>Downloading the app is free. The in-app offer shows the current price, how often it renews and the trial terms.</p>
+
+<ZenTip image="/app-ui/zen_presenting_new.webp">
+  Wear your watch <strong>the same way each day</strong>, including to bed. Steady habits make your trends easier to read.
+</ZenTip>
+
+<h2>What does HRV mean here?</h2>
+<p><strong>Apple Watch reports HRV as SDNN.</strong> SDNN is one way of measuring how much the gaps between heartbeats vary.</p>
+<p>The app compares that value with your baseline, alongside other signals.</p>
+<p>The <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5900369/">research on HRV and stress</a> describes how the nervous system responds across many studies. It does not show that a person's hormone level can be worked out from one HRV reading.</p>
+
+<h3>Why numbers from different devices don't always match</h3>
+<ul>
+  <li>Where the data comes from, and how it was recorded, both matter.</li>
+  <li>SDNN and RMSSD are different calculations. A number from one device can't always be compared directly with another.</li>
+  <li>Background readings are taken now and then. They are not a nonstop stream of cortisol data.</li>
+</ul>
+
+<h2>How does it learn your normal?</h2>
+<p><strong>The baseline uses up to 30 days of stored readings.</strong> It slowly blends your own history with default values.</p>
+<p>Which signals are available, and how recent they are, affect the result.</p>
+<p>The <a href="/how-it-works/">methodology page</a> lists the actual weights, baseline rules and limits.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>Use trends to help you reflect</h2>
+<p><strong>A chart can show a change. It can't tell you the cause.</strong></p>
+<p>HRV can change along with exercise, illness, alcohol, medicines, sleep or how a reading was taken. A chart can't single out the cause, or prove that a supplement or other change worked.</p>
+<p>Pair your readings with a <a href="/resources/stress-sleep-journal/">stress and sleep journal</a>. Talk to a clinician about any symptoms that worry you.</p>
+
+<ZenPicture src="/app-ui/zen_new_tour_now.webp" caption="Your numbers plus your own notes tell the fuller story." />
+
 <p>Read <a href="/stress/apple-watch/">what Apple Watch can tell you about cortisol and stress</a>, or <a href="/download/">see download and subscription information</a>.</p>
 </ArticleLayout>

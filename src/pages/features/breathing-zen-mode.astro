@@ -1,22 +1,65 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="Cortisol+ Guided Breathing: What the Exercise Does"
   description="Follow the Cortisol+ breathing timer and understand its limits. A completed session or HRV change does not prove that cortisol fell."
-  updated="2026-09-09"
+  updated="2026-11-12"
 >
+<InShort image="/app-ui/start/zen_presenting.webp" points={[
+  'An on-screen timer guides you: <strong>breathe in, hold, breathe out</strong>.',
+  'Eight cycles of 4-second phases take <strong>about 96 seconds</strong>.',
+  'It <strong>doesn\'t test cortisol</strong> before or after the session.',
+]} />
+
 <h2>A short guided breathing exercise</h2>
-<p>Cortisol+ includes an animated breathing exercise with prompts, a cycle counter and an option to end early. It offers a structured pause you can follow on screen. It does not test cortisol before or after the session.</p>
-<h2>What is included</h2>
-<p>The iPhone exercise reviewed for this guide uses three repeating phases: breathe in, hold and breathe out, each lasting four seconds. Eight cycles take about 96 seconds. The start screen calls this “4-4-4 box breathing”; this implementation does not include a fourth hold after the exhale.</p>
-<ol><li>Open the breathing exercise and select <strong>Begin</strong>.</li><li>Follow the expanding and contracting circle and the phase prompts at a pace that is comfortable for you.</li><li>Use <strong>End Early</strong> if you want to stop. The completion screen lets you close the exercise.</li></ol>
-<p>This describes the implemented exercise reviewed September 9, 2026. We have removed earlier website claims about four selectable protocols and automatic before-and-after hormone measurements because those claims were not supported by the reviewed implementation.</p>
-<h2>What a session result can tell you</h2>
-<p>Completing the timer records that you used the exercise. It does not show that stress, heart rate or cortisol changed by a promised amount. If you review a wearable reading afterward, check its timestamp: the latest available sample may predate the exercise.</p>
-<p>Notice how the exercise feels without treating a score as proof of success. There is no established Cortisol+ result that every user should reach after one session or several weeks.</p>
-<h2>How breathing fits with wearable tracking</h2>
-<p>You can keep a note that you tried the exercise and compare it with your own sleep and routine records. This is an observation, not a controlled experiment. A change on the same day cannot establish that breathing caused it.</p>
-<p>Explore <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>, <a href="/features/sleep-cortisol-tracking/">sleep tracking</a> and the <a href="/how-it-works/">full scoring methodology</a>. App access depends on the feature and the current subscription or trial offer.</p>
+<p><strong>Cortisol+ has an animated breathing exercise that gives you a structured pause.</strong></p>
+<p>It includes on-screen prompts, a cycle counter and a way to end early.</p>
+<p>It does not test cortisol before or after the session.</p>
+
+<h2>What's included?</h2>
+<p><strong>Three phases that repeat:</strong> breathe in, hold, and breathe out. Each lasts four seconds.</p>
+<p>Eight cycles take about 96 seconds. That's the iPhone exercise we reviewed for this guide.</p>
+<p>The start screen calls it "4-4-4 box breathing". This version does <strong>not</strong> include a fourth hold after breathing out.</p>
+
+<h3>How to use it</h3>
+<ol>
+  <li>Open the breathing exercise and tap <strong>Begin</strong>.</li>
+  <li>Follow the circle as it grows and shrinks, and the prompts for each phase. Go at a pace that feels comfortable.</li>
+  <li>Tap <strong>End Early</strong> if you want to stop. The completion screen lets you close the exercise.</li>
+</ol>
+<p>This describes the exercise as we reviewed it on September 9, 2026.</p>
+<p>We have removed earlier claims on this website about four selectable breathing patterns and automatic before-and-after hormone measurements. The version we reviewed didn't support those claims.</p>
+
+<ZenTip image="/app-ui/zen_new_breathe.webp">
+  Sit somewhere you can let your shoulders drop. If a 4-second hold feels too long, <strong>just breathe gently</strong> and follow the circle.
+</ZenTip>
+
+<h2>What does a finished session tell you?</h2>
+<p><strong>Finishing the timer records that you used the exercise.</strong> That's all.</p>
+<p>It doesn't show that your stress, heart rate or cortisol changed by a promised amount.</p>
+<p>If you look at a wearable reading afterward, check the time it was recorded. The latest sample may be from before the exercise.</p>
+<p>Notice how the exercise feels, without treating a score as proof it worked. There's no set Cortisol+ result every user should reach after one session or several weeks.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>How does breathing fit with wearable tracking?</h2>
+<p><strong>Keep a note that you tried the exercise</strong>, and compare it with your own sleep and routine notes.</p>
+<p>That's an observation, not a controlled experiment. A change on the same day can't show that breathing caused it.</p>
+
+<ZenPicture src="/app-ui/zen_new_low.webp" caption="A pause is worth taking, even without a score to prove it." />
+
+<p>Explore <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>, <a href="/features/sleep-cortisol-tracking/">sleep tracking</a> and the <a href="/how-it-works/">full scoring methodology</a>.</p>
+<p>What you can use in the app depends on the feature and the current subscription or trial offer.</p>
 </ArticleLayout>
