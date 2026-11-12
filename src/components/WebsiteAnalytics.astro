@@ -1,5 +1,5 @@
 <aside id="privacy-choices" hidden aria-label="Website privacy choices" class="fixed bottom-3 left-3 right-3 md:left-auto md:max-w-md z-[100] rounded-xl border border-[color:var(--color-border)] bg-white p-5 shadow-xl">
-  <p class="text-sm mb-3">Help us understand website visits and App Store clicks. Optional analytics and advertising cookies stay off until you choose. Quiz answers are never sent. <a class="underline" href="/privacy/#website-analytics">Details</a></p>
+  <p class="text-sm mb-3"><span data-privacy-text="opt-in">Help us understand website visits and App Store clicks. Optional analytics and advertising cookies stay off until you choose.</span><span data-privacy-text="default" hidden>We use Google Analytics to understand website visits and App Store clicks. Advertising cookies stay off unless you allow them.</span> Quiz answers are never sent. <a class="underline" href="/privacy/#website-analytics">Details</a></p>
   <div class="flex flex-wrap gap-2 text-sm">
     <button data-privacy-choice="necessary" class="rounded-lg border p-2">Necessary only</button>
     <button data-privacy-choice="analytics" class="rounded-lg border p-2">Allow analytics</button>
@@ -16,6 +16,14 @@
   const w = window as typeof window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; fbq?: any };
   let choice = 'unset';
   try { choice = localStorage.getItem(preferenceKey) || 'unset'; } catch {}
+  // Analytics (never ads) is on by default except where opt-in is expected: Europe/UK
+  // time zones, or a browser sending Global Privacy Control.
+  let timeZone = '';
+  try { timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch {}
+  const analyticsByDefault = !(navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl && !/^(Europe|Atlantic\/(Reykjavik|Canary|Madeira|Azores|Faroe))\//.test(timeZone);
+  const analyticsAllowed = (value: string) => value === 'analytics' || value === 'all' || (value === 'unset' && analyticsByDefault);
+  // Only the origin of a recognised source, so GA4 attributes sessions without full referrers.
+  const referrerOrigin = context.acquisition_source !== 'direct' && context.acquisition_source !== 'other-referral' ? `https://${context.acquisition_source}/` : '';
   let googleLoaded = false;
   let metaLoaded = false;
   let lastPage = '';
@@ -32,7 +40,7 @@
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
       page_location: `https://cortisolplus.com${location.pathname}`,
-      page_referrer: '',
+      page_referrer: referrerOrigin,
     });
     const script = document.createElement('script');
     script.async = true;
@@ -55,7 +63,8 @@
   function pageView() {
     const banner = document.getElementById('privacy-choices');
     if (banner) banner.hidden = choice !== 'unset';
-    if (!production || (choice !== 'analytics' && choice !== 'all')) return;
+    document.querySelectorAll<HTMLElement>('[data-privacy-text]').forEach(text => { text.hidden = (text.dataset.privacyText === 'default') !== analyticsByDefault; });
+    if (!production || !analyticsAllowed(choice)) return;
     loadGoogle();
     // Consent applies to Apple's broad campaign attribution as well as GA4.
     // Decorate actual hrefs so keyboard and new-tab navigation work normally.
@@ -66,7 +75,7 @@
     const path = location.pathname;
     if (lastPage === path) return;
     lastPage = path;
-    w.gtag?.('event', 'page_view', { ...context, page_location: `https://cortisolplus.com${path}`, page_referrer: '', page_title: document.title });
+    w.gtag?.('event', 'page_view', { ...context, page_location: `https://cortisolplus.com${path}`, page_referrer: referrerOrigin, page_title: document.title });
     if (choice === 'all' && marketingPage(path)) { loadMeta(); w.fbq?.('track', 'PageView'); }
   }
 
@@ -83,7 +92,7 @@
       choice = selected;
       try { localStorage.setItem(preferenceKey, choice); } catch {}
       // Unload already-running optional SDKs when consent is reduced.
-      if (production && ((previous === 'all' && choice !== 'all') || (previous === 'analytics' && choice === 'necessary'))) {
+      if (production && ((previous === 'all' && choice !== 'all') || (analyticsAllowed(previous) && choice === 'necessary'))) {
         w.fbq?.('consent', 'revoke');
         location.reload();
         return;
@@ -100,9 +109,9 @@
       return;
     }
     const link = target?.closest<HTMLAnchorElement>('a[href]');
-    if (!production || !link || !appStoreCampaignUrl(link.href, context) || (choice !== 'analytics' && choice !== 'all')) return;
+    if (!production || !link || !appStoreCampaignUrl(link.href, context) || !analyticsAllowed(choice)) return;
     // One delegated handler for all App Store links; client navigation cannot duplicate it.
-    w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: '', transport_type: 'beacon' });
+    w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: referrerOrigin, transport_type: 'beacon' });
     if (choice === 'all' && marketingPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
   });
   document.addEventListener('astro:page-load', pageView);

@@ -51,6 +51,10 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CORTISOL_PLUS }}
           projectId: cortisol-plus
           channelId: live
+          # Pinned: firebase-tools 15.34.1+ checks serviceusage.services.get, which
+          # the deploy service account lacks (HTTP 403 on every deploy since Oct 26).
+          # Unpin after granting it roles/serviceusage.serviceUsageConsumer.
+          firebaseToolsVersion: 15.34.0
 
       - name: Verify deployed commit, sitemap and substantive content
         run: npm run verify:live
