@@ -1,6 +1,6 @@
 # Perplexity conversations — September 13, 2026
 
-Mikah requested Perplexity conversations about Cortisol+ across several cortisol search terms, public share links, and links on the website. Four separate Search conversations were created using the existing Elevated Agency account. The UI displayed the Best model and a free preview of advanced search. No paid upgrade or Computer task was started.
+The owners requested Perplexity conversations about Cortisol+ across several cortisol search terms, public share links, and links on the website. Four separate Search conversations were created using the existing Elevated Agency account. The UI displayed the Best model and a free preview of advanced search. No paid upgrade or Computer task was started.
 
 | Topic / query family | Public conversation | Website anchor |
 |---|---|---|

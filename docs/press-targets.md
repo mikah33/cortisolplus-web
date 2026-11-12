@@ -55,8 +55,8 @@ Apple Watch — happy to share the data?
 Hi [first name],
 
 Saw your recent piece on [SPECIFIC ARTICLE TITLE] — really liked the
-angle on [SPECIFIC DETAIL YOU ACTUALLY READ]. I'm Mikah, the founder
-of Cortisol+, an iOS app that estimates a daily cortisol score from
+angle on [SPECIFIC DETAIL YOU ACTUALLY READ]. I'm writing from the team
+behind Cortisol+, an iOS app that estimates a daily cortisol score from
 Apple Watch signals (HRV, sleep, RHR, wrist temp). 200 users, 4.9★,
 and I've got 60 days of anonymized data on what actually moves
 cortisol in normal people — the patterns are wild (sleep architecture
@@ -69,7 +69,7 @@ quick interview. Free public calculator if you want to poke at the
 math first: cortisolplus.com/tools/cortisol-calculator.
 
 Cheers,
-Mikah
+The Cortisol+ team
 ```
 
 ---

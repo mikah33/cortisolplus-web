@@ -6,7 +6,7 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")/.." && pwd)/public/screenshots"
 YEAR="$(date +%Y)"
-AUTHOR="Mikah Albertson"
+AUTHOR="Elevated Systems LLC"
 COPYRIGHT="© ${YEAR} Cortisol+. All rights reserved."
 SITE="https://cortisolplus.com"
 
