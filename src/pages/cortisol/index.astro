@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
 interface Pillar {
   href: string;
@@ -16,8 +19,8 @@ const pillars: Pillar[] = [
   {
     href: '/cortisol/symptoms/',
     title: 'Symptoms of high cortisol',
-    body: 'Cortisol face, cortisol belly, sleep issues, weight gain, hair loss — what\'s clinically real and what\'s TikTok.',
-    count: '25+ symptom guides',
+    body: 'Cortisol face, cortisol belly, sleep issues, weight gain, hair loss. What doctors look for, and what\'s just TikTok.',
+    count: 'Symptom guides',
     color: 'coral',
     iconPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z',
     topLinks: [
@@ -28,33 +31,33 @@ const pillars: Pillar[] = [
   {
     href: '/cortisol/lower/',
     title: 'How to lower cortisol',
-    body: 'Sleep, breathing, exercise, foods, supplements — ranked by evidence and effect size. Not generic wellness copy.',
-    count: '6 evidence-ranked tactics',
+    body: 'Sleep, breathing, exercise, foods and supplements. What the research says, and where it falls short.',
+    count: '5 topic guides',
     color: 'teal',
     iconPath: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
     topLinks: [
-      { href: '/cortisol/lower/sleep/', label: 'Sleep — the biggest lever' },
-      { href: '/cortisol/lower/supplements/', label: 'Supplements ranked' },
+      { href: '/cortisol/lower/sleep/', label: 'Sleep and cortisol' },
+      { href: '/cortisol/lower/supplements/', label: 'Supplements: evidence and limits' },
       { href: '/cortisol/lower/foods/', label: 'Foods that lower cortisol' },
     ],
   },
   {
     href: '/cortisol/levels/',
     title: 'Cortisol levels reference',
-    body: 'Normal ranges by time of day, age, and gender. What a healthy diurnal curve looks like — and what disrupts it.',
+    body: 'How cortisol changes through the day, why every result depends on the test and the time, and how to read your lab\'s range.',
     count: 'Full reference guide',
     color: 'mint',
     iconPath: 'M3 12h4l3-9 4 18 3-9h4',
     topLinks: [
-      { href: '/cortisol/levels/', label: 'Diurnal cortisol curve' },
+      { href: '/cortisol/levels/', label: 'Cortisol levels chart' },
       { href: '/tools/morning-cortisol-test/', label: 'Morning cortisol quiz' },
     ],
   },
   {
     href: '/cortisol/test/',
     title: 'Testing your cortisol',
-    body: 'At-home saliva, blood, urine, and wearable estimation — what each test measures and when to use each.',
-    count: '4 testing methods compared',
+    body: 'Blood, saliva and urine tests: what each one measures. Plus why a wearable can\'t measure cortisol.',
+    count: '3 sample types compared',
     color: 'purple',
     iconPath: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
     topLinks: [
@@ -111,26 +114,28 @@ const colorClasses: Record<Pillar['color'], {
   },
 };
 
+// The FAQ component renders every answer visibly and emits the FAQPage
+// JSON-LD from this same array, so visible text and schema always match.
 const faqs: FAQItem[] = [
   {
     q: 'What is cortisol?',
-    a: 'Cortisol is your body\'s primary stress hormone, produced by the adrenal glands. It follows a daily (diurnal) rhythm — peaking 30–45 minutes after you wake, declining through the day, and reaching its low point around midnight. Cortisol regulates blood sugar, blood pressure, immune response, inflammation, and sleep-wake cycles. Chronic elevation or disruption of the rhythm is linked to sleep problems, weight gain, anxiety, and metabolic issues.',
+    a: "Cortisol is your body's main stress hormone. Your adrenal glands make it. It follows a daily rhythm: it peaks in the morning shortly after you wake, falls through the day, and is lowest around the middle of the night. Cortisol helps control blood sugar, blood pressure, the immune system, inflammation and your sleep-wake cycle. Long-term changes to cortisol or its rhythm have been linked with problems such as poor sleep and weight gain.",
   },
   {
     q: 'What are the symptoms of high cortisol?',
-    a: 'Common signs include difficulty falling asleep despite exhaustion, waking between 3–5 AM, weight gain concentrated around the midsection, sugar and salt cravings, "wired but tired" energy, facial puffiness (popularly called "cortisol face"), brain fog, and weakened immunity. See our full guide to symptoms of high cortisol.',
+    a: 'Signs people often link with high cortisol include trouble falling asleep even when exhausted, waking in the early hours, weight gain around the middle, a "wired but tired" feeling, a puffy face (popularly called "cortisol face"), brain fog and getting ill more often. All of these have many other causes, and symptoms alone can\'t diagnose a cortisol problem. See our full guide to symptoms of high cortisol, and talk to a doctor if symptoms last or get worse.',
   },
   {
     q: 'How do you lower cortisol naturally?',
-    a: 'The highest-leverage interventions in order: fix sleep (consistent timing + 7+ hours), reduce alcohol, get morning sunlight, practice daily paced breathing, do zone 2 cardio 3x/week, and supplement magnesium glycinate. Ashwagandha is the supplement with the strongest direct cortisol-lowering evidence.',
+    a: "It depends on why cortisol is high, and feeling stressed doesn't prove it is. For everyday stress, habits that help sleep and stress are a sensible start: protect your sleep and keep a steady schedule, move regularly, cut back on alcohol, get daylight, and try a relaxation practice such as slow breathing. Evidence for supplements is limited and mixed. A diagnosed cortisol disorder needs medical care.",
   },
   {
     q: 'Can wearables measure cortisol?',
-    a: 'No consumer wearable directly measures cortisol — it requires blood, saliva, or urine testing. Wearables like Apple Watch can estimate cortisol patterns using validated biometric correlates: heart rate variability (HRV), sleep stages, resting heart rate trend, and recovery balance. Cortisol+ combines these signals into a continuous cortisol-pattern estimate.',
+    a: 'No. No consumer wearable measures cortisol. That needs a blood, saliva or urine test. Wearables like Apple Watch record signals such as heart rate variability (HRV), sleep and resting heart rate. Cortisol+ turns those signals into a 0–100 wellness score. It does not measure or estimate cortisol levels or a cortisol pattern.',
   },
   {
     q: 'What time of day is cortisol highest?',
-    a: 'Cortisol peaks 30–45 minutes after waking — this is called the Cortisol Awakening Response (CAR). Levels decline through the day, reach their low point around midnight, and start rising again 3–4 hours before wake. Disruption of this diurnal rhythm is associated with shift work, jet lag, chronic stress, depression, and HPA axis dysregulation.',
+    a: 'Cortisol is usually highest in the morning, shortly after you wake. This morning rise is called the cortisol awakening response (CAR). Levels fall through the day, are lowest around the middle of the night, and rise again toward morning. Shift work, jet lag and chronic stress can disturb this daily rhythm.',
   },
 ];
 
@@ -150,40 +155,53 @@ import { medicalWebPage } from '../../lib/schema';
 const medicalSchema = medicalWebPage({
   name: 'The cortisol guide: symptoms, levels, testing, and how to lower it',
   pathname: '/cortisol/',
+  lastReviewed: '2026-11-12',
 });
 ---
 
 <BaseLayout
   title="Cortisol guide: symptoms, levels & how to lower"
-  description="Complete cortisol guide: symptoms of high cortisol, normal levels by age and time of day, testing options, and evidence-ranked ways to lower it."
+  description="Complete cortisol guide: symptoms of high cortisol, normal levels by age and time of day, testing options, and evidence-based ways to lower it."
   image="/screenshots/wearable-insights.png"
   schema={[medicalSchema, itemListSchema]}
 >
-  <article class="max-w-5xl mx-auto px-6 py-16">
-    <div class="max-w-3xl mb-12">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">The guide</div>
-      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+  <article class="max-w-5xl mx-auto px-4 pt-6 pb-16">
+    <header class="max-w-3xl px-1 mb-6">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">The guide</div>
+      <h1 class="text-[2rem] md:text-6xl font-extrabold tracking-tight leading-[1.08] mb-3 text-balance">
         The <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">cortisol</span> guide
       </h1>
-      <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed">
-        Cortisol is your body's primary stress hormone — produced by the adrenal glands and following a daily rhythm that affects sleep, weight, mood, energy, and immunity. This is everything that matters about it, organized by what you actually need to know.
+      <p class="text-[1.0625rem] md:text-xl text-[color:var(--color-ink-muted)] leading-relaxed text-pretty">
+        Cortisol is your body's main stress hormone. It follows a daily rhythm that is tied to sleep, energy, mood, weight and the immune system. This guide sorts what matters by what you want to know.
       </p>
+      <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">Updated November 12, 2026 · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a></p>
+    </header>
+
+    <div class="max-w-3xl">
+      <InShort points={[
+        'Cortisol is a stress hormone with a <strong>daily rhythm</strong>: highest in the morning.',
+        'Only a <strong>blood, saliva or urine test</strong> measures it. No wearable can.',
+        'Many "cortisol symptoms" have <strong>other causes</strong>. A doctor can check.',
+      ]} />
     </div>
 
     <!-- Featured-snippet bait: quick definition box -->
-    <aside class="mb-14 p-6 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
+    <aside class="max-w-3xl mb-12 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Quick definition</div>
       <p class="text-[color:var(--color-ink)] leading-relaxed">
-        <strong>Cortisol</strong> is a glucocorticoid hormone produced by the adrenal cortex. It regulates the body's response to stress, blood sugar, blood pressure, inflammation, and the sleep-wake cycle. Cortisol levels follow a <strong>diurnal rhythm</strong> — peaking 30–45 minutes after waking (the Cortisol Awakening Response) and reaching their lowest point around midnight.
+        <strong>Cortisol</strong> is a hormone made by the outer layer of your adrenal glands (a glucocorticoid). It helps control your response to stress, blood sugar, blood pressure, inflammation and the sleep-wake cycle.
+      </p>
+      <p class="mt-3 text-[color:var(--color-ink)] leading-relaxed">
+        It follows a <strong>daily (diurnal) rhythm</strong>. It peaks in the morning shortly after you wake (the cortisol awakening response) and is lowest around the middle of the night.
       </p>
     </aside>
 
     <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Explore by topic</h2>
-    <div class="grid md:grid-cols-2 gap-5 mb-20">
+    <div class="grid md:grid-cols-2 gap-5 mb-12">
       {pillars.map((p) => {
         const c = colorClasses[p.color];
         return (
-          <a href={p.href} class={`group relative block p-7 rounded-3xl bg-gradient-to-br ${c.card} border hover:-translate-y-1 transition-all duration-300 overflow-hidden`}>
+          <a href={p.href} class={`group relative block p-6 sm:p-7 rounded-3xl bg-gradient-to-br ${c.card} border hover:-translate-y-1 transition-all duration-300 overflow-hidden`}>
             <div class={`absolute -top-16 -right-16 w-48 h-48 rounded-full blur-3xl transition-colors duration-500 ${c.glow}`}></div>
 
             <div class="relative">
@@ -218,42 +236,47 @@ const medicalSchema = medicalWebPage({
       })}
     </div>
 
+    <div class="max-w-3xl">
+      <ZenPicture src="/app-ui/zen/zen-thinking.webp" caption="Not sure where to start? Pick the question closest to yours." />
+    </div>
+
     <!-- Tool quick links — internal linking + intent capture -->
-    <section class="mb-20">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Free cortisol tools</h2>
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-3">Free cortisol tools</h2>
+      <p class="max-w-3xl mb-6 text-[color:var(--color-ink-muted)] leading-relaxed">These quick check-ins help you reflect on your habits. <strong class="text-[color:var(--color-ink)]">They can't measure cortisol, estimate your risk or diagnose anything.</strong></p>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
         <a href="/tools/cortisol-calculator/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
-            <div class="font-medium text-sm">Cortisol risk calculator</div>
-            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">8 questions · 60 sec</div>
+            <div class="font-medium text-sm">Cortisol quiz</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">8 questions · 60 sec habits check-in</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
         <a href="/tools/morning-cortisol-test/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
-            <div class="font-medium text-sm">Morning cortisol test</div>
+            <div class="font-medium text-sm">Morning cortisol quiz</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Morning energy reflection</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
         <a href="/tools/stress-score/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
-            <div class="font-medium text-sm">Stress score quiz</div>
-            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Daily stress load</div>
+            <div class="font-medium text-sm">Stress check-in</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Daily stress reflection</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
         <a href="/tools/burnout-risk/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Burnout check-in</div>
-            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">7-question quiz</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">7-question reflection</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
         <a href="/tools/sleep-debt-cortisol/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
-            <div class="font-medium text-sm">Sleep debt × cortisol</div>
-            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Sleep deficit impact</div>
+            <div class="font-medium text-sm">Sleep &amp; cortisol quiz</div>
+            <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Sleep habits check-in</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
@@ -267,14 +290,34 @@ const medicalSchema = medicalWebPage({
       </div>
     </section>
 
-    <section class="my-10">
-      <h2 class="text-2xl font-semibold">Tracking cortisol and understanding your options</h2>
-      <ul class="list-disc pl-6 mt-4 space-y-2">
-        <li><a href="/cortisol/track/">How can I better track my cortisol?</a> Separate hormone tests from a daily stress and sleep log.</li>
-        <li><a href="/cortisol/test/">How to track cortisol levels at home</a> Learn what sample collection can and cannot tell you.</li>
-        <li><a href="/cortisol/lower/">How to lower cortisol levels naturally</a> Read the evidence and limits of everyday stress-management habits.</li>
+    <section class="my-10 max-w-3xl">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Tracking cortisol and understanding your options</h2>
+      <p class="mt-3 text-[color:var(--color-ink)] leading-[1.75]"><strong>A hormone test and a daily habit log answer different questions.</strong> Keep them separate.</p>
+      <ul class="list-disc pl-6 mt-4 space-y-3 text-[color:var(--color-ink)] leading-[1.7] [&_a]:font-semibold [&_a]:text-[color:var(--color-teal-dark)] hover:[&_a]:underline">
+        <li><a href="/cortisol/track/">How can I better track my cortisol?</a> Keep hormone tests apart from a daily stress and sleep log.</li>
+        <li><a href="/cortisol/test/">How to track cortisol levels at home</a> Learn what collecting a sample can and can't tell you.</li>
+        <li><a href="/cortisol/lower/">How to lower cortisol levels naturally</a> See what the evidence says about everyday stress habits, and its limits.</li>
       </ul>
+
+      <ZenTip image="/app-ui/zen/zen-doctor.webp">
+        Thinking about a cortisol test? <strong>Ask a doctor first.</strong> They can decide whether testing makes sense, and which test and timing to use.
+      </ZenTip>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
     </section>
-    <FAQ items={faqs} title="Cortisol — most asked questions" />
+    <div class="max-w-3xl">
+      <FAQ items={faqs} title="Cortisol — most asked questions" />
+
+      <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+        <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This guide is educational. Cortisol+ gives a wellness score from wearable signals; it does not measure cortisol. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
+      </aside>
+    </div>
   </article>
 </BaseLayout>
