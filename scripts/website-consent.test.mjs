@@ -9,7 +9,7 @@ const component = fs.readFileSync(new URL('../src/components/WebsiteAnalytics.as
 const script = component.match(/<script>([\s\S]*?)<\/script>/)[1];
 const compiled = ts.transpileModule(script, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
 
-function mount(preference = null) {
+function mount(preference = null, { gpc = false, timeZone = 'America/New_York', referrer = 'https://chatgpt.com/c/private-conversation' } = {}) {
   const listeners = new Map();
   const scripts = [];
   const links = [{ href: 'https://apps.apple.com/app/id6759510126' }, { href: 'https://apps.apple.com/app/id123' }];
@@ -26,28 +26,30 @@ function mount(preference = null) {
   }
   const window = {};
   const document = {
-    referrer: 'https://chatgpt.com/c/private-conversation', title: 'Download Cortisol+',
+    referrer, title: 'Download Cortisol+',
     head: { append: element => scripts.push(element) },
     createElement: () => ({}),
     getElementById: () => banner,
     querySelector: () => ({ focus() {} }),
-    querySelectorAll: selector => { assert.equal(selector, 'a[href]'); return links; },
+    querySelectorAll: selector => { if (selector === '[data-privacy-text]') return []; assert.equal(selector, 'a[href]'); return links; },
     addEventListener(name, fn) { listeners.set(name, [...(listeners.get(name) || []), fn]); },
   };
   vm.runInNewContext(compiled, {
     exports: {}, require(name) { assert.equal(name, '../lib/acquisition.js'); return acquisition; },
     URL, Element, window, document, location,
+    navigator: { globalPrivacyControl: gpc },
+    Intl: { DateTimeFormat: () => ({ resolvedOptions: () => ({ timeZone }) }) },
     localStorage: { getItem: key => storage.get(key) || null, setItem: (key, value) => storage.set(key, value) },
   });
   const dispatch = (name, event = {}) => { for (const fn of listeners.get(name) || []) fn(event); };
   return { links, scripts, window, location, dispatch, storage,
     consent: choice => dispatch('click', { target: new Element('choice', choice) }),
-    click: () => dispatch('click', { target: new Element('link', links[0]) }),
+    click: (link = links[0]) => dispatch('click', { target: new Element('link', link) }),
   };
 }
 
-test('actual website script keeps links untagged without consent and sends one attributed click after consent', () => {
-  const page = mount();
+test('opt-in visitors (GPC) keep links untagged without consent and send one attributed click after consent', () => {
+  const page = mount(null, { gpc: true });
   page.dispatch('astro:page-load');
   page.click();
   assert.equal(page.scripts.length, 0);
@@ -69,9 +71,59 @@ test('actual website script keeps links untagged without consent and sends one a
 
   page.consent('necessary');
   assert.equal(page.location.reloaded, true);
-  const reloaded = mount(page.storage.get('cortisol-website-privacy-v1'));
+  const reloaded = mount(page.storage.get('cortisol-website-privacy-v1'), { gpc: true });
   reloaded.dispatch('astro:page-load');
   reloaded.click();
   assert.equal(reloaded.links[0].href, 'https://apps.apple.com/app/id6759510126');
   assert.equal(reloaded.scripts.length, 0);
+});
+
+test('analytics loads by default outside Europe, with origin-only referrer and no Meta', () => {
+  const page = mount();
+  page.dispatch('astro:page-load');
+  page.click();
+  assert.equal(page.scripts.length, 1);
+  assert.equal(page.window.fbq, undefined);
+  const config = page.window.dataLayer.find(args => args[0] === 'config');
+  assert.equal(config[2].page_referrer, 'https://chatgpt.com/');
+  const clicks = page.window.dataLayer.filter(args => args[0] === 'event' && args[1] === 'app_store_click');
+  assert.equal(clicks.length, 1);
+  assert.equal(clicks[0][2].app_store_campaign, 'website-qa');
+  assert.ok(!JSON.stringify(page.window.dataLayer).includes('private-conversation'));
+});
+
+test('unknown referrers are not sent, and Necessary only turns default analytics off', () => {
+  const page = mount(null, { referrer: 'https://forum.example.org/thread/123' });
+  page.dispatch('astro:page-load');
+  assert.equal(page.window.dataLayer.find(args => args[0] === 'config')[2].page_referrer, '');
+  page.consent('necessary');
+  assert.equal(page.location.reloaded, true);
+  const reloaded = mount(page.storage.get('cortisol-website-privacy-v1'));
+  reloaded.dispatch('astro:page-load');
+  assert.equal(reloaded.scripts.length, 0);
+});
+
+test('European time zones still require opt-in', () => {
+  const page = mount(null, { timeZone: 'Europe/Berlin' });
+  page.dispatch('astro:page-load');
+  page.click();
+  assert.equal(page.scripts.length, 0);
+  assert.equal(page.window.dataLayer, undefined);
+});
+
+test('store buttons rendered after load (quiz results, /start/) are tagged when clicked', () => {
+  const page = mount('analytics');
+  const late = { href: 'https://apps.apple.com/app/id6759510126' };
+  page.click(late);
+  assert.equal(late.href, 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-qa&deep_link_value=website');
+  const other = { href: 'https://apps.apple.com/app/id123' };
+  page.click(other);
+  assert.equal(other.href, 'https://apps.apple.com/app/id123');
+});
+
+test('late store buttons stay untagged when analytics is declined', () => {
+  const page = mount('necessary');
+  const late = { href: 'https://apps.apple.com/app/id6759510126' };
+  page.click(late);
+  assert.equal(late.href, 'https://apps.apple.com/app/id6759510126');
 });

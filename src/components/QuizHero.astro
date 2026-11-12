@@ -1,0 +1,43 @@
+---
+// Hero for the quiz pages: the app's sky, a Zen illustration for the topic,
+// the App Store rating, a short benefit-led title and the quick facts that
+// get people to start. The quiz card overlaps the bottom of the sky.
+import RatingBadge from './RatingBadge.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  image: string;
+  imageAlt?: string;
+  questions: number;
+}
+const { title, subtitle, image, imageAlt = '', questions } = Astro.props;
+const chips = ['Free', `${questions} questions`, '60 seconds', 'No sign-up'];
+---
+
+<!-- Pulled up under the nav (3.5rem) and the breadcrumb row (2rem) so the sky fills the top of the screen. -->
+<section class="app-sky relative -mt-[5.5rem] overflow-hidden px-5 pt-[6.5rem] pb-16 text-center">
+  <div class="mx-auto max-w-xl">
+    <div class="flex justify-center"><RatingBadge size="sm" label="App Store" /></div>
+    <img
+      src={image}
+      alt={imageAlt}
+      width="400"
+      height="400"
+      fetchpriority="high"
+      class="quiz-hero-art mx-auto mt-5 h-40 w-auto drop-shadow-[0_18px_24px_rgba(40,96,140,0.25)]"
+    />
+    <h1 class="mt-4 text-[2.25rem] leading-[1.05] font-extrabold tracking-tight text-balance sm:text-5xl">{title}</h1>
+    <p class="mx-auto mt-3 max-w-md text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty">{subtitle}</p>
+    <ul class="mt-5 flex flex-wrap justify-center gap-2" aria-label="About this check-in">
+      {chips.map((c) => (
+        <li class="rounded-full bg-white/80 px-3 py-1.5 text-xs font-extrabold shadow-[0_1px_2px_rgba(15,20,25,0.06)]">{c}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .quiz-hero-art { animation: float-slow 6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .quiz-hero-art { animation: none; } }
+</style>

@@ -14,52 +14,52 @@ interface Pillar {
 
 const pillars: Pillar[] = [
   {
-    href: '/cortisol/symptoms',
+    href: '/cortisol/symptoms/',
     title: 'Symptoms of high cortisol',
     body: 'Cortisol face, cortisol belly, sleep issues, weight gain, hair loss — what\'s clinically real and what\'s TikTok.',
     count: '25+ symptom guides',
     color: 'coral',
     iconPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z',
     topLinks: [
-      { href: '/cortisol/symptoms/cortisol-face', label: 'Cortisol face' },
-      { href: '/cortisol/symptoms', label: 'See all symptoms' },
+      { href: '/cortisol/symptoms/cortisol-face/', label: 'Cortisol face' },
+      { href: '/cortisol/symptoms/', label: 'See all symptoms' },
     ],
   },
   {
-    href: '/cortisol/lower',
+    href: '/cortisol/lower/',
     title: 'How to lower cortisol',
     body: 'Sleep, breathing, exercise, foods, supplements — ranked by evidence and effect size. Not generic wellness copy.',
     count: '6 evidence-ranked tactics',
     color: 'teal',
     iconPath: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
     topLinks: [
-      { href: '/cortisol/lower/sleep', label: 'Sleep — the biggest lever' },
-      { href: '/cortisol/lower/supplements', label: 'Supplements ranked' },
-      { href: '/cortisol/lower/foods', label: 'Foods that lower cortisol' },
+      { href: '/cortisol/lower/sleep/', label: 'Sleep — the biggest lever' },
+      { href: '/cortisol/lower/supplements/', label: 'Supplements ranked' },
+      { href: '/cortisol/lower/foods/', label: 'Foods that lower cortisol' },
     ],
   },
   {
-    href: '/cortisol/levels',
+    href: '/cortisol/levels/',
     title: 'Cortisol levels reference',
     body: 'Normal ranges by time of day, age, and gender. What a healthy diurnal curve looks like — and what disrupts it.',
     count: 'Full reference guide',
     color: 'mint',
     iconPath: 'M3 12h4l3-9 4 18 3-9h4',
     topLinks: [
-      { href: '/cortisol/levels', label: 'Diurnal cortisol curve' },
-      { href: '/tools/morning-cortisol-test', label: 'Morning cortisol quiz' },
+      { href: '/cortisol/levels/', label: 'Diurnal cortisol curve' },
+      { href: '/tools/morning-cortisol-test/', label: 'Morning cortisol quiz' },
     ],
   },
   {
-    href: '/cortisol/test',
+    href: '/cortisol/test/',
     title: 'Testing your cortisol',
     body: 'At-home saliva, blood, urine, and wearable estimation — what each test measures and when to use each.',
     count: '4 testing methods compared',
     color: 'purple',
     iconPath: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
     topLinks: [
-      { href: '/cortisol/test', label: 'Test methods compared' },
-      { href: '/tools/cortisol-calculator', label: 'Free cortisol quiz' },
+      { href: '/cortisol/test/', label: 'Test methods compared' },
+      { href: '/tools/cortisol-calculator/', label: 'Free cortisol quiz' },
     ],
   },
 ];
@@ -222,42 +222,42 @@ const medicalSchema = medicalWebPage({
     <section class="mb-20">
       <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Free cortisol tools</h2>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-        <a href="/tools/cortisol-calculator" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+        <a href="/tools/cortisol-calculator/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Cortisol risk calculator</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">8 questions · 60 sec</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
-        <a href="/tools/morning-cortisol-test" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+        <a href="/tools/morning-cortisol-test/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Morning cortisol test</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Morning energy reflection</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
-        <a href="/tools/stress-score" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+        <a href="/tools/stress-score/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Stress score quiz</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Daily stress load</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
-        <a href="/tools/burnout-risk" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+        <a href="/tools/burnout-risk/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Burnout check-in</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">7-question quiz</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
-        <a href="/tools/sleep-debt-cortisol" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+        <a href="/tools/sleep-debt-cortisol/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Sleep debt × cortisol</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Sleep deficit impact</div>
           </div>
           <span class="text-[color:var(--color-teal-dark)] group-hover:translate-x-1 transition-transform">→</span>
         </a>
-        <a href="/blog" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
+        <a href="/blog/" class="flex items-center justify-between p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition group">
           <div>
             <div class="font-medium text-sm">Cortisol blog</div>
             <div class="text-xs text-[color:var(--color-ink-muted)] mt-0.5">Latest research + trends</div>

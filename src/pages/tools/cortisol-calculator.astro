@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuizHero from '../../components/QuizHero.astro';
 import { webApplication } from '../../lib/schema';
 import CortisolCalculator from '../../components/CortisolCalculator.tsx';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
@@ -12,7 +13,7 @@ const faqs: FAQItem[] = [
   },
   {
     "q": "Are my answers stored or sent to analytics?",
-    "a": "Answers stay in this page while it is open. We do not send answers or results to analytics. Optional website analytics only measures page visits and App Store clicks, according to your privacy choice."
+    "a": "If your privacy choice allows website analytics, we count which option you pick for each question and when you start or finish, so we can improve the quiz. That count has no name, email or account attached, and nothing you type is sent. You can turn analytics off under Privacy choices at the bottom of any page."
   },
   {
     "q": "What should I do with my check-in?",
@@ -21,9 +22,9 @@ const faqs: FAQItem[] = [
 ];
 
 const related = [
-  { href: '/tools/morning-cortisol-test', title: 'Morning energy check-in', hint: 'Morning reflection' },
-  { href: '/tools/stress-score', title: 'Stress score quiz', hint: 'Day-to-day load' },
-  { href: '/tools/burnout-risk', title: 'Burnout check-in', hint: '7 questions' },
+  { href: '/tools/morning-cortisol-test/', title: 'Morning energy check-in', hint: 'Morning reflection' },
+  { href: '/tools/stress-score/', title: 'Stress score quiz', hint: 'Day-to-day load' },
+  { href: '/tools/burnout-risk/', title: 'Burnout check-in', hint: '7 questions' },
 ];
 
 const schema = webApplication({
@@ -39,15 +40,19 @@ const schema = webApplication({
   image="/screenshots/live-stress-levels.png"
   schema={schema}
 >
-  <section class="max-w-2xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Calculator</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Cortisol quiz: stress &amp; habits check-in</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-10">8 questions about your habits. A useful check-in, without a hormone estimate.</p>
-
+  <QuizHero
+    title="The 60-second cortisol quiz"
+    subtitle="8 quick questions on sleep, caffeine, mood and training. See which patterns to watch first."
+    image="/app-ui/start/zen_explain.webp"
+    questions={8}
+  />
+  <section class="relative mx-auto max-w-xl px-4 -mt-10 pb-2">
     <CortisolCalculator client:load />
-
-    <p class="mt-8 text-sm">For medical context, see <a class="underline" href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus on cortisol testing</a> and our <a class="underline" href="/how-it-works/">wearable score limitations</a>.</p>
+    <aside class="mt-6 rounded-2xl bg-white/60 p-4 text-sm leading-relaxed text-[color:var(--color-ink-muted)]" aria-label="About this check-in">
+      <div class="mb-1 font-bold text-[color:var(--color-ink)]">About this check-in</div>
+      <p>8 questions about your habits. A useful check-in, without a hormone estimate. For medical context, see <a class="font-semibold text-[color:var(--color-teal-dark)] underline underline-offset-2" href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus on cortisol testing</a> and our <a class="font-semibold text-[color:var(--color-teal-dark)] underline underline-offset-2" href="/how-it-works/">wearable score limitations</a>.</p>
+    </aside>
     <FAQ items={faqs} />
-    <RelatedLinks links={related} />
+    <RelatedLinks title="Keep going" links={related} />
   </section>
 </BaseLayout>

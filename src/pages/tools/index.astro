@@ -1,52 +1,41 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import RatingBadge from '../../components/RatingBadge.astro';
+import GetAppButton from '../../components/GetAppButton.astro';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import { SITE } from '../../consts';
 
 const tools = [
   {
-    href: '/tools/cortisol-calculator',
+    href: '/tools/cortisol-calculator/',
     title: "Stress & habits check-in",
     body: "Eight questions about daily routines. No hormone estimate or diagnostic score.",
     duration: '8 Q · 60 sec',
-    color: 'teal',
   },
   {
-    href: '/tools/morning-cortisol-test',
+    href: '/tools/morning-cortisol-test/',
     title: "Morning routine check-in",
     body: "Reflect on waking and morning habits. This is not a cortisol awakening response test.",
     duration: '6 Q · 60 sec',
-    color: 'coral',
   },
   {
-    href: '/tools/stress-score',
+    href: '/tools/stress-score/',
     title: "Daily stress check-in",
     body: "Make time to notice your daily stress and recovery.",
     duration: '6 Q · 60 sec',
-    color: 'mint',
   },
   {
-    href: '/tools/burnout-risk',
+    href: '/tools/burnout-risk/',
     title: "Work & burnout check-in",
     body: "Reflect on work, exhaustion and recovery; not a validated burnout assessment.",
     duration: '7 Q · 90 sec',
-    color: 'coral',
   },
   {
-    href: '/tools/sleep-debt-cortisol',
+    href: '/tools/sleep-debt-cortisol/',
     title: "Sleep habits check-in",
     body: "Notice sleep timing and evening habits. No sleep-debt or cortisol calculation.",
     duration: '6 Q · 60 sec',
-    color: 'teal',
   },
 ];
-
-const colorMap: Record<string, string> = {
-  teal: 'from-[color:var(--color-teal)]/12 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-teal)]/20 hover:border-[color:var(--color-teal)]/50 hover:shadow-[color:var(--color-teal)]/25',
-  coral: 'from-[color:var(--color-coral)]/12 via-[color:var(--color-coral)]/5 to-white border-[color:var(--color-coral)]/20 hover:border-[color:var(--color-coral)]/50 hover:shadow-[color:var(--color-coral)]/25',
-  mint: 'from-[color:var(--color-mint)]/40 via-[color:var(--color-mint-soft)] to-white border-[color:var(--color-mint)]/40 hover:border-[color:var(--color-teal)]/50 hover:shadow-[color:var(--color-mint)]/40',
-};
 
 const faqs: FAQItem[] = [
   {
@@ -55,7 +44,7 @@ const faqs: FAQItem[] = [
   },
   {
     "q": "Are my answers stored or sent to analytics?",
-    "a": "Answers stay in this page while it is open. We do not send answers or results to analytics. Optional website analytics only measures page visits and App Store clicks, according to your privacy choice."
+    "a": "If your privacy choice allows website analytics, we count which option you pick for each question and when you start or finish, so we can improve the quiz. That count has no name, email or account attached, and nothing you type is sent. You can turn analytics off under Privacy choices at the bottom of any page."
   },
   {
     "q": "What should I do with my check-in?",
@@ -88,44 +77,43 @@ const schema = [
   image="/screenshots/wearable-insights.png"
   schema={schema}
 >
-  <article class="max-w-5xl mx-auto px-6 py-16">
-    <div class="max-w-3xl mb-12">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Free tools</div>
-      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
-        <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">5 free</span> cortisol &amp; stress tools
+  <article class="max-w-[30rem] md:max-w-3xl mx-auto px-4 pt-4 pb-16">
+    <!-- Searchers arrive here for a "60 second cortisol quiz": put it first. -->
+    <header class="app-sky -mx-4 -mt-4 px-5 pt-6 pb-8 text-center md:rounded-b-[2rem]">
+      <img src="/app-ui/zen_presenting_new.webp" alt="" width="306" height="480" class="mx-auto h-36 w-auto" />
+      <h1 class="mt-3 text-[2rem] md:text-5xl leading-[1.08] font-extrabold tracking-tight text-balance">
+        Free 60-second cortisol quiz &amp; stress tools
       </h1>
-      <p class="text-xl text-[color:var(--color-ink-muted)] leading-relaxed">
+      <p class="mt-3 text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty">
         Try a 60-second cortisol quiz to reflect on stress, sleep and habits. These tools summarize what you report; they cannot determine hormone levels or diagnose a condition.
       </p>
-    </div>
+      <a href={`${tools[0].href}/`} class="app-btn w-full mt-6">Start the 60-second quiz</a>
+      <p class="mt-3 text-xs font-semibold text-[color:var(--color-ink)]/60">No account needed · answers stay on your screen</p>
+    </header>
 
-    <div class="grid md:grid-cols-2 gap-5 mb-20">
+    <h2 class="px-1 mt-8 mb-2 text-xl font-extrabold tracking-tight">All 5 check-ins</h2>
+    <ul class="app-card app-list overflow-hidden mb-10">
       {tools.map((t) => (
-        <a href={t.href} class={`group relative block p-7 rounded-3xl bg-gradient-to-br ${colorMap[t.color]} border hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px] transition-all duration-300 overflow-hidden`}>
-          <div class="relative">
-            <div class="flex items-center justify-between mb-3">
-              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white/60 text-[color:var(--color-ink)] backdrop-blur">{t.duration}</span>
-              <span class="text-[color:var(--color-ink-muted)] group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-            <h2 class="text-2xl font-bold mb-2 group-hover:text-[color:var(--color-teal-dark)] transition-colors">{t.title}</h2>
-            <p class="text-[color:var(--color-ink-muted)] leading-relaxed">{t.body}</p>
-          </div>
-        </a>
+        <li>
+          <a href={`${t.href}/`} class="app-row !items-start !py-4">
+            <span class="min-w-0">
+              <span class="block font-extrabold text-[1.0625rem]">{t.title}</span>
+              <span class="block text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">{t.body}</span>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded-full bg-[color:var(--color-surface-2)] text-xs font-bold">{t.duration}</span>
+            </span>
+            <span class="app-chevron mt-1">›</span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
 
-    <aside class="p-8 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20 mb-16">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Beyond quizzes</div>
-      <h2 class="text-2xl md:text-3xl font-bold mb-3">Explore your wearable stress signals</h2>
-      <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl">
-        Cortisol+ brings Apple Watch HRV, sleep and activity into one view. Its wellness score is a model output, not a hormone measurement.
+    <aside class="app-sky rounded-3xl overflow-hidden px-5 py-6 text-center mb-12">
+      <img src="/app-ui/zen_new_tour_now.webp" alt="" width="200" height="270" loading="lazy" class="mx-auto h-24 w-auto" />
+      <h2 class="mt-2 text-2xl font-extrabold tracking-tight">Explore your wearable stress signals</h2>
+      <p class="mt-2 mb-5 text-[color:var(--color-ink)]/75 leading-relaxed">
+        Cortisol+ brings your watch's HRV, sleep and activity into one view. Its wellness score is a model output, not a hormone measurement. <a href="/" class="underline font-semibold">See how Cortisol+ works</a>.
       </p>
-      <div class="flex flex-wrap items-center gap-4">
-        <a href="/" class="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-teal-dark)] text-white font-semibold text-sm shadow-sm hover:brightness-110 transition">
-          See how Cortisol+ works →
-        </a>
-        <RatingBadge size="sm" />
-      </div>
+      <GetAppButton />
     </aside>
 
     <FAQ items={faqs} title="Tool FAQs" />

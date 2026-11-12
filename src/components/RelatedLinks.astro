@@ -13,14 +13,19 @@ interface Props {
 const { title = 'Related', links } = Astro.props;
 ---
 
-<aside class="mt-12 pt-8 border-t border-[color:var(--color-border)] reveal">
-  <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-4">{title}</div>
-  <div class="grid sm:grid-cols-3 gap-3">
+<aside class="mt-12 reveal">
+  <h2 class="px-1 mb-4 text-[1.5rem] md:text-3xl font-extrabold tracking-tight leading-tight">{title}</h2>
+  <ul class="app-card app-list overflow-hidden">
     {links.map((l) => (
-      <a href={l.href} class="block p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
-        <div class="font-medium text-sm">{l.title}</div>
-        {l.hint && <div class="text-xs text-[color:var(--color-ink-muted)] mt-1">{l.hint}</div>}
-      </a>
+      <li>
+        <a href={l.href} class="app-row">
+          <span>
+            <span class="block font-bold">{l.title}</span>
+            {l.hint && <span class="block text-sm text-[color:var(--color-ink-muted)]">{l.hint}</span>}
+          </span>
+          <span class="app-chevron" aria-hidden="true">›</span>
+        </a>
+      </li>
     ))}
-  </div>
+  </ul>
 </aside>

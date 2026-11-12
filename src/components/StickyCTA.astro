@@ -1,0 +1,121 @@
+---
+// The bottom download bar on every page (phones only). It follows the
+// visitor's platform like GetAppButton, and steps aside while an in-page
+// store button, the privacy banner or the menu is on screen.
+import { SITE, APP_RATING } from '../consts';
+---
+
+<div id="sticky-cta" class="sticky-cta md:hidden" data-hidden="true" transition:persist>
+  <div class="sticky-cta__card">
+    <img src="/apple-touch-icon.png" alt="" width="44" height="44" class="w-11 h-11 rounded-[12px] shrink-0" />
+    <div class="min-w-0 flex-1 leading-tight">
+      <div class="font-extrabold text-[0.9375rem]">Cortisol+</div>
+      <div class="text-[0.8125rem] font-semibold text-[color:var(--color-ink-muted)] truncate">
+        <span class="text-[#f5b301]" aria-hidden="true">★</span> {APP_RATING.value}
+        <span data-only="ios">· Free on the App Store</span>
+        <span data-only="android">· Free on Google Play</span>
+        <span data-only="other">· Free download</span>
+      </div>
+    </div>
+    <a href={SITE.appStoreUrl} data-store="ios" data-event="appstore-click" class="sticky-cta__btn">Get</a>
+    <a href={SITE.googlePlayUrl} data-store="android" class="sticky-cta__btn">Get</a>
+    <a href="/download/" data-store="other" class="sticky-cta__btn">Get</a>
+  </div>
+</div>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
+    transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 200ms ease;
+  }
+  .sticky-cta[data-hidden='true'] { transform: translateY(120%); opacity: 0; pointer-events: none; }
+  .sticky-cta__card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 30rem;
+    margin-inline: auto;
+    padding: 0.625rem 0.625rem 0.625rem 0.75rem;
+    border-radius: 1.375rem;
+    background: rgba(255, 255, 255, 0.86);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 32px -12px rgba(40, 96, 140, 0.45), 0 1px 2px rgba(18, 24, 38, 0.06);
+  }
+  .sticky-cta__btn {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5rem;
+    height: 2.75rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    background: rgba(18, 24, 38, 0.92);
+    color: white;
+    font-weight: 800;
+    font-size: 1rem;
+    transition: transform 160ms ease;
+  }
+  .sticky-cta__btn:active { transform: scale(0.95); }
+  /* One "Get" button per platform; unknown platforms go to /download/. */
+  .sticky-cta__btn { display: none; }
+  :global(html[data-platform='ios']) .sticky-cta__btn[data-store='ios'],
+  :global(html[data-platform='android']) .sticky-cta__btn[data-store='android'],
+  :global(html[data-platform='other']) .sticky-cta__btn[data-store='other'],
+  :global(html:not([data-platform])) .sticky-cta__btn[data-store='other'] { display: inline-flex; }
+  @media (prefers-reduced-motion: reduce) { .sticky-cta { transition: none; } }
+</style>
+
+<script>
+  let teardown: (() => void) | undefined;
+
+  function initStickyCta() {
+    teardown?.();
+    const bar = document.getElementById('sticky-cta');
+    if (!bar) return;
+
+    const visibleButtons = new Set<Element>();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visibleButtons.add(entry.target);
+        else visibleButtons.delete(entry.target);
+      }
+      update();
+    });
+    document.querySelectorAll('.get-app').forEach((el) => observer.observe(el));
+
+    function update() {
+      const scrolledEnough = window.scrollY > 240;
+      const banner = document.getElementById('privacy-choices');
+      const bannerOpen = !!banner && !banner.hidden;
+      const menu = document.getElementById('mobile-menu') as HTMLDetailsElement | null;
+      const hide = !scrolledEnough || visibleButtons.size > 0 || bannerOpen || !!menu?.open;
+      bar!.dataset.hidden = String(hide);
+    }
+
+    const banner = document.getElementById('privacy-choices');
+    const bannerObserver = banner ? new MutationObserver(update) : undefined;
+    if (banner) bannerObserver!.observe(banner, { attributes: true, attributeFilter: ['hidden'] });
+    const menu = document.getElementById('mobile-menu');
+    menu?.addEventListener('toggle', update);
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+
+    teardown = () => {
+      observer.disconnect();
+      bannerObserver?.disconnect();
+      menu?.removeEventListener('toggle', update);
+      window.removeEventListener('scroll', update);
+      visibleButtons.clear();
+    };
+  }
+
+  initStickyCta();
+  document.addEventListener('astro:after-swap', initStickyCta);
+</script>

@@ -1,11 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import GooglePlayBadge from '../components/GooglePlayBadge.astro';
-import AppStoreBadge from '../components/AppStoreBadge.astro';
+import GetAppButton from '../components/GetAppButton.astro';
+import HeroCTA from '../components/HeroCTA.astro';
 import RatingBadge from '../components/RatingBadge.astro';
 import NowCard from '../components/NowCard.astro';
-import AppShowcase from '../components/AppShowcase.astro';
-import Testimonials from '../components/Testimonials.astro';
+import HeroCompanions from '../components/HeroCompanions.astro';
+import SleepCard from '../components/SleepCard.astro';
+import BioAgeCard from '../components/BioAgeCard.astro';
+import QuizTeaser from '../components/QuizTeaser';
+import reviewsData from '../data/reviews.json';
+import { PLANS, PERKS } from '../components/start/content';
 import { SITE, SOCIAL_PROFILES, APP_RATING, PUBLISHER } from '../consts';
 
 const homeSchema = [
@@ -42,6 +46,30 @@ const homeSchema = [
     url: SITE.url,
   },
 ];
+
+const reviews = reviewsData.reviews;
+
+const faqs = [
+  { q: 'Does Cortisol+ measure cortisol?', a: 'No. No watch can. Cortisol+ reads HRV, resting heart rate and sleep from your watch and turns them into a wellness score. It is not a lab test or a diagnosis. <a href="/how-it-works/">See how the score works</a>.' },
+  { q: 'Which watches does it work with?', a: 'Apple Watch with an iPhone on iOS 17 or later, and Wear OS watches through Health Connect on Android. Fitbit support through Health Connect is on the way. <a href="/stress/apple-watch/">What Apple Watch can track</a>.' },
+  { q: 'What are Pebble, Ripple and Bloom?', a: 'Your watch companion. Pick one and it sits on your watch face: calm when your stress score is low, worried when it runs high, so you can read your day at a glance.' },
+  { q: 'How much does it cost?', a: 'The app is free to download. Analysis needs Pro or an eligible trial. On the web, Pro is $14.99 a week or $83.99 a year; in the app, prices and trial terms are shown before you buy. Cancel anytime.' },
+  { q: 'Is anything free?', a: 'Yes. The <a href="/tools/">check-ins</a> on this site and the <a href="/resources/stress-sleep-journal/">printable stress and sleep journal</a> are free, no sign-up needed.' },
+];
+
+const weekly = PLANS.weekly.price;
+const yearly = PLANS.yearly.price;
+const savePct = Math.round((1 - yearly / (weekly * 52)) * 100);
+const money = (n: number) => `$${n.toFixed(2)}`;
+const checkedOn = new Date(`${APP_RATING.lastChecked}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+
+// Matches /how-it-works/: the score starts from population defaults, blends
+// toward your own history after 10 readings and is fully personal at 28.
+const steps = [
+  { title: 'Connect', body: 'Reads the HRV, resting heart rate and sleep already on your watch.', image: '/app-ui/zen_new_tour_connect.webp' },
+  { title: 'Baseline', body: 'Your score starts today and learns your normal over about 28 readings.', image: '/app-ui/zen_new_tour_now.webp' },
+  { title: 'Act', body: 'Zen shows what moved it and walks you through a breathing reset.', image: '/app-ui/zen_new_tour_zen.webp' },
+];
 ---
 
 <BaseLayout
@@ -50,468 +78,253 @@ const homeSchema = [
   image="/screenshots/live-stress-levels.png"
   schema={homeSchema}
 >
-  <!-- HERO — premium mesh-gradient background with ambient HRV-wave decoration -->
-  <section class="hero relative overflow-hidden isolate">
-    <!-- Layer 1: Warm cream base + soft top mint wash -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[color:var(--color-mint-soft)] via-[#fafaf6] to-white pointer-events-none -z-10"></div>
+  <!-- The homepage is designed as a phone screen: one column at app width on every device. -->
+  <div class="home mx-auto w-full max-w-[30rem] -mt-14">
 
-    <!-- Layer 2: Mesh gradient orbs (the depth) -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-      <div class="hero-orb hero-orb--teal absolute top-[-10%] left-[-15%] w-[55rem] h-[55rem] rounded-full bg-[color:var(--color-teal)]/25 blur-3xl"></div>
-      <div class="hero-orb hero-orb--coral absolute top-[5%] right-[-15%] w-[50rem] h-[50rem] rounded-full bg-[color:var(--color-coral)]/20 blur-3xl"></div>
-      <div class="hero-orb hero-orb--mint absolute bottom-[-30%] left-1/2 -translate-x-1/2 w-[80rem] h-[40rem] rounded-full bg-[color:var(--color-mint)]/45 blur-3xl"></div>
-    </div>
+    <!-- HERO — Zen with the watch companions (device lineup on the back burner: HeroWearables.astro) -->
+    <section class="app-sky relative overflow-hidden px-5 pt-20 pb-8 text-center">
+      <div class="flex justify-center mb-5"><RatingBadge size="sm" label="App Store" /></div>
 
-    <!-- Layer 3: HRV wave (decorative, low opacity) -->
-    <svg
-      class="absolute left-0 right-0 top-[42%] w-full h-32 opacity-[0.07] pointer-events-none -z-10"
-      viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="hero-hrv-grad" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="var(--color-teal)" stop-opacity="0"/>
-          <stop offset="20%" stop-color="var(--color-teal)" stop-opacity="1"/>
-          <stop offset="80%" stop-color="var(--color-coral)" stop-opacity="1"/>
-          <stop offset="100%" stop-color="var(--color-coral)" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <path
-        d="M0,60 Q60,40 120,60 T240,60 T360,60 T480,60 Q540,20 600,60 T720,60 Q780,100 840,60 T960,60 T1080,60 T1200,60 T1320,60 T1440,60"
-        fill="none"
-        stroke="url(#hero-hrv-grad)"
-        stroke-width="2"
-        stroke-linecap="round"
-      />
-    </svg>
+      <HeroCompanions />
 
-    <!-- Layer 4: Ambient floating data points -->
-    <div class="absolute inset-0 pointer-events-none -z-10">
-      <span class="hero-dot hero-dot--1 absolute top-[18%] left-[12%]"></span>
-      <span class="hero-dot hero-dot--2 absolute top-[25%] right-[18%]"></span>
-      <span class="hero-dot hero-dot--3 absolute top-[55%] left-[8%]"></span>
-      <span class="hero-dot hero-dot--4 absolute top-[68%] right-[10%]"></span>
-      <span class="hero-dot hero-dot--5 absolute top-[40%] left-[48%]"></span>
-    </div>
+      <h1 class="mt-4 text-[2.5rem] leading-[1.05] font-extrabold tracking-tight text-balance">
+        Meet your stress companion.
+      </h1>
+      <p class="mt-4 text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty">
+        A companion on
+        <span data-only="ios">your Apple Watch</span><span data-only="android">your Wear OS watch</span><span data-only="other">your watch</span>
+        that shows your stress at a glance. Zen helps you calm it.
+      </p>
 
-    <!-- Layer 5: Bottom fade for clean transition to next section -->
-    <div class="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-white to-transparent pointer-events-none -z-10"></div>
-
-    <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-32">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div class="text-center">
-          <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[color:var(--color-teal)]/10 border border-[color:var(--color-teal)]/20 text-xs font-medium text-[color:var(--color-teal-dark)]">
-              <span class="relative flex w-1.5 h-1.5">
-                <span class="absolute inline-flex w-full h-full rounded-full bg-[color:var(--color-teal)] opacity-75 animate-ping"></span>
-                <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-[color:var(--color-teal)]"></span>
-              </span>
-              Stress &amp; HRV tracking for Apple Watch
-            </div>
-            <RatingBadge size="sm" />
-          </div>
-
-          <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.02] mb-6">
-            Understand your stress<br/>
-            <span class="text-[color:var(--color-teal-dark)]">with Cortisol+.</span>
-          </h1>
-
-          <p class="text-xl text-[color:var(--color-ink-muted)] mb-8 max-w-lg mx-auto leading-relaxed">
-            Bring your Apple Watch HRV, sleep and activity into one daily view. Explore recovery habits and try guided breathing. The wellness score is an estimate; it does not measure cortisol in blood, saliva or urine.
-          </p>
-
-          <div class="flex flex-wrap gap-4 items-center justify-center mb-8">
-            <AppStoreBadge size="lg" />
-            <GooglePlayBadge size="lg" />
-            <a href="/how-it-works" class="group inline-flex items-center gap-1 text-sm text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-teal-dark)] transition">
-              How the score works
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </a>
-          </div>
-
-          <!-- Trust pills -->
-          <ul class="flex flex-wrap justify-center gap-2 text-xs">
-            <li class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[color:var(--color-surface)] border border-[color:var(--color-border)]">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5 text-[color:var(--color-teal-dark)]"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Free to download
-            </li>
-            <li class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[color:var(--color-surface)] border border-[color:var(--color-border)]">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-[color:var(--color-teal-dark)]"><path d="M17.5 12.5c0-2.6 2.1-3.8 2.2-3.9-1.2-1.7-3-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.4 1-4.3 2.6-1.8 3.2-.5 7.9 1.3 10.5.9 1.3 1.9 2.7 3.3 2.7 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.9 1.4 0 2.3-1.3 3.2-2.6 1-1.5 1.4-3 1.4-3.1-.1 0-2.7-1-2.7-4.1zM15 4.6c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.5-.7.8-1.2 2-1.1 3.2 1.1.1 2.3-.6 3-1.4z"/></svg>
-              Apple Watch
-            </li>
-            <li class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[color:var(--color-surface)] border border-[color:var(--color-border)]">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5 text-[color:var(--color-teal-dark)]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Core scoring on-device
-            </li>
-          </ul>
-        </div>
-
-        <div class="relative" id="hero-card-wrap">
-          <div class="absolute inset-0 bg-gradient-to-br from-[color:var(--color-teal)]/25 via-[color:var(--color-mint)]/15 to-[color:var(--color-coral)]/25 blur-3xl rounded-full"></div>
-          <div
-            id="hero-card"
-            class="relative p-4 md:p-5 rounded-[2rem] bg-[#eef3f8]/90 backdrop-blur-xl border border-white/60 shadow-[0_30px_80px_-20px_rgba(0,191,166,0.25)] transition-transform duration-300 ease-out"
-            style="transform-style: preserve-3d; will-change: transform;"
-          >
-            <div class="flex items-center justify-between px-1 mb-3 text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">
-              <div class="flex items-center gap-1.5 font-medium">
-                <span class="relative flex w-1.5 h-1.5">
-                  <span class="absolute inline-flex w-full h-full rounded-full bg-[color:var(--color-level-low)] opacity-75 animate-ping"></span>
-                  <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-[color:var(--color-level-low)]"></span>
-                </span>
-                Now · example
-              </div>
-              <span class="tabular-nums">Tue · 2:34 PM</span>
-            </div>
-
-            <NowCard />
-
-            <p class="text-[11px] text-[color:var(--color-ink-muted)] mt-3 px-1">Example values from the app's Now screen. The score is a wellness estimate, not a hormone measurement.</p>
-          </div>
-        </div>
+      <div class="mt-7">
+        <HeroCTA />
       </div>
-    </div>
-  </section>
+      <a href="/how-it-works/" class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[color:var(--color-teal-dark)]">
+        How the score works <span aria-hidden="true">›</span>
+      </a>
 
-  <script>
-    function initHeroTilt() {
-      const card = document.getElementById('hero-card');
-      const wrap = document.getElementById('hero-card-wrap');
-      if (!card || !wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      // Skip on touch devices — tilt feels weird without a cursor
-      if (window.matchMedia('(hover: none)').matches) return;
-      const max = 6; // degrees
-      const onMove = (e: MouseEvent) => {
-        const rect = wrap.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        const rx = (0.5 - y) * max;
-        const ry = (x - 0.5) * max;
-        (card as HTMLElement).style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      };
-      const reset = () => {
-        (card as HTMLElement).style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-      };
-      wrap.addEventListener('mousemove', onMove);
-      wrap.addEventListener('mouseleave', reset);
-    }
-    initHeroTilt();
-    document.addEventListener('astro:after-swap', initHeroTilt);
-  </script>
+    </section>
 
-  <AppShowcase />
+    <!-- REVIEWS -->
+    <section class="mt-2" aria-labelledby="reviews-heading">
+      <div class="px-5 mb-4">
+        <h2 id="reviews-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">Loved by early users</h2>
+        <p class="mt-1 text-[color:var(--color-ink-muted)]">
+          <strong class="text-[color:var(--color-ink)] tabular-nums">{APP_RATING.value}</strong> out of 5 from {APP_RATING.count} ratings on the US App Store, checked {checkedOn}.
+        </p>
+      </div>
+      <ul class="app-snap pb-2">
+        {reviews.map((r) => (
+          <li class="w-[82%]">
+            <figure class="app-card h-full p-5 flex flex-col">
+              <div class="flex gap-0.5 mb-2" aria-label={`${r.rating} out of 5 stars`}>
+                {Array.from({ length: r.rating }).map(() => (
+                  <svg viewBox="0 0 24 24" class="w-4 h-4 text-[#fbbf24]" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+                ))}
+              </div>
+              <h3 class="font-extrabold mb-1">{r.title}</h3>
+              <blockquote class="text-sm text-[color:var(--color-ink-muted)] leading-relaxed line-clamp-6">"{r.body}"</blockquote>
+              <figcaption class="mt-auto pt-3 text-xs text-[color:var(--color-ink-muted)]">— {r.author} · App Store review</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </section>
 
-  <!-- SOCIAL PROOF / RATING -->
-  <section class="max-w-5xl mx-auto px-6 py-16 border-t border-[color:var(--color-border)] reveal">
-    <div class="grid md:grid-cols-3 gap-6 items-center text-center md:text-left">
-      <div>
-        <div class="flex items-center justify-center md:justify-start gap-1 mb-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <svg
-              viewBox="0 0 24 24"
-              class="w-6 h-6 text-[#fbbf24] origin-center"
-              fill="currentColor"
-              style={`animation: float-slow 4s ease-in-out ${i * 0.15}s infinite;`}
-            >
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
-            </svg>
+    <!-- PROBLEM — why one number isn't the whole story -->
+    <section class="mt-12 px-4" aria-labelledby="problem-heading">
+      <div class="app-card p-5">
+        <h2 id="problem-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight text-balance">One number doesn't explain how you feel.</h2>
+        <ul class="mt-4 space-y-2.5 font-bold">
+          <li class="flex gap-2.5"><span class="text-[color:var(--color-level-elevated)]" aria-hidden="true">●</span>Slept 8 hours, still wired?</li>
+          <li class="flex gap-2.5"><span class="text-[color:var(--color-level-elevated)]" aria-hidden="true">●</span>HRV dipped, but no idea why?</li>
+          <li class="flex gap-2.5"><span class="text-[color:var(--color-level-low)]" aria-hidden="true">●</span>Cortisol+ reads HRV, heart rate and sleep together, so you see the pattern.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS — three steps -->
+    <section class="mt-12 px-4" aria-labelledby="steps-heading">
+      <h2 id="steps-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">How it works</h2>
+      <ol class="grid gap-3">
+        {steps.map((step, i) => (
+          <li class="app-card flex items-center gap-4 p-4">
+            <img src={step.image} alt="" width="200" height="270" loading="lazy" class="w-12 h-auto shrink-0" />
+            <div>
+              <div class="font-extrabold text-[1.0625rem]"><span class="text-[color:var(--color-teal-dark)]">{i + 1}.</span> {step.title}</div>
+              <p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- CHECK-IN — the site's top search entry, answerable right here -->
+    <section class="mt-12 px-4" aria-labelledby="checkin-heading">
+      <div class="px-1 mb-4">
+        <h2 id="checkin-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">Try the 60-second check-in</h2>
+        <p class="mt-1 text-[color:var(--color-ink-muted)]">Free, no sign-up. Start here and finish on the next page.</p>
+      </div>
+      <QuizTeaser client:visible />
+    </section>
+
+    <!-- NOW / SLEEP / BIO AGE — swipe between the app's real cards -->
+    <section class="px-4 mt-12" aria-labelledby="glance-heading">
+      <div class="px-1 mb-4">
+        <h2 id="glance-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">What your watch tells you</h2>
+        <p class="mt-1 text-[color:var(--color-ink-muted)]">The stress score your companion reacts to, last night's sleep and your Bio Age, all from the data your watch already collects. Swipe to see each one.</p>
+      </div>
+      <div class="app-card p-4" data-card-carousel>
+        <div class="card-seg mb-3" role="tablist">
+          <span class="card-seg__thumb" data-card-thumb aria-hidden="true"></span>
+          {['Now', 'Sleep', 'Bio Age'].map((name, i) => (
+            <button type="button" role="tab" data-card-tab={i} aria-selected={i === 0 ? 'true' : 'false'} class="card-seg__btn">{name}</button>
           ))}
         </div>
-        <div
-          class="text-5xl font-bold tracking-tight tabular-nums bg-gradient-to-br from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent"
-
-
-        >{APP_RATING.value}</div>
-        <div class="text-sm text-[color:var(--color-ink-muted)] mt-1">
-          <span>{APP_RATING.count}</span> ratings · US App Store
-        </div>
-      </div>
-      <div class="md:col-span-2">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-3">Loved by early users</h2>
-        <p class="text-[color:var(--color-ink-muted)] mb-4">
-          {APP_RATING.value} out of 5 stars across {APP_RATING.count} ratings on the US App Store, checked September 27, 2026. People with Apple Watches who actually want to understand their stress.
-        </p>
-        <AppStoreBadge size="md" />
-      </div>
-    </div>
-  </section>
-
-  <script>
-    function animateCounters() {
-      const elements = document.querySelectorAll<HTMLElement>('[data-count-target]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const target = parseFloat(el.dataset.countTarget || '0');
-          const decimals = parseInt(el.dataset.countDecimals || '0', 10);
-          const duration = 1100;
-          const start = performance.now();
-          const startVal = 0;
-          function tick(now: number) {
-            const t = Math.min(1, (now - start) / duration);
-            const eased = 1 - Math.pow(1 - t, 3);
-            const value = startVal + (target - startVal) * eased;
-            el.textContent = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString();
-            if (t < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-          observer.unobserve(el);
-        });
-      }, { threshold: 0.4 });
-      elements.forEach((el) => observer.observe(el));
-    }
-    animateCounters();
-    document.addEventListener('astro:after-swap', animateCounters);
-  </script>
-
-  <Testimonials />
-
-  <!-- WHAT'S INSIDE — one card per App Store screen, each with a small piece of the real app UI -->
-  <section class="max-w-6xl mx-auto px-6 py-24 border-t border-[color:var(--color-border)] reveal">
-    <div class="max-w-3xl mb-14">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">What's inside</div>
-      <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
-        Your wearable readings,<br/>
-        <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">in one place.</span> Explore stress and recovery patterns.
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <!-- Live score -->
-      <a href="/features/hrv-stress-monitoring" class="feature-card group" style="--accent: #00bfa6; --accent-ink: #007569;">
-        <span class="feature-badge">Now</span>
-        <h3 class="feature-title">Live stress score</h3>
-        <p class="feature-body">HRV, resting heart rate and sleep turned into one score through the day, with the inputs a tap away.</p>
-        <div class="feature-ui grid grid-cols-2 gap-2" aria-hidden="true">
-          <div class="mini-tile">
-            <div class="text-[11px] font-semibold text-[#34c759]">HRV</div>
-            <div class="text-lg font-bold tabular-nums leading-tight">58 <span class="text-xs font-medium text-[#8a939c]">ms</span></div>
-            <svg viewBox="0 0 100 24" class="w-full h-5 mt-1" preserveAspectRatio="none"><path d="M0,18 L12,14 L24,16 L36,9 L48,12 L60,6 L72,10 L84,5 L100,7" fill="none" stroke="#34c759" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="mini-tile">
-            <div class="text-[11px] font-semibold text-[#ef4444]">Resting HR</div>
-            <div class="text-lg font-bold tabular-nums leading-tight">58 <span class="text-xs font-medium text-[#8a939c]">bpm</span></div>
-            <svg viewBox="0 0 100 24" class="w-full h-5 mt-1" preserveAspectRatio="none"><path d="M0,8 L12,10 L24,7 L36,12 L48,11 L60,14 L72,13 L84,16 L100,15" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-        </div>
-        <span class="feature-link">See how it works <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-      </a>
-
-      <!-- Sleep -->
-      <a href="/features/sleep-cortisol-tracking" class="feature-card group" style="--accent: #6e62e5; --accent-ink: #4f46c7;">
-        <span class="feature-badge">Sleep</span>
-        <h3 class="feature-title">Sleep quality</h3>
-        <p class="feature-body">A nightly score with time asleep, efficiency, stages, and an overnight chart of heart rate, HRV, breathing and oxygen.</p>
-        <div class="feature-ui" aria-hidden="true">
-          <div class="flex items-baseline gap-2 mb-2">
-            <span class="text-3xl font-bold tabular-nums leading-none">93</span>
-            <span class="text-sm font-semibold text-[#34c759]">Excellent</span>
-            <span class="ml-auto text-[11px] text-[#8a939c] tabular-nums">7h 47m</span>
-          </div>
-          <div class="space-y-1.5 text-[10px] text-[#8a939c]">
-            <div class="stage-row"><span>Awake</span><i style="--l:2%; --w:4%; --c:#ff5a5f"></i></div>
-            <div class="stage-row"><span>REM</span><i style="--l:18%; --w:30%; --c:#35c2e6"></i></div>
-            <div class="stage-row"><span>Light</span><i style="--l:6%; --w:78%; --c:#3b82f6"></i></div>
-            <div class="stage-row"><span>Deep</span><i style="--l:10%; --w:22%; --c:#6e62e5"></i></div>
-          </div>
-        </div>
-        <span class="feature-link">See your sleep view <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-      </a>
-
-      <!-- Bio Age -->
-      <a href="/download/" class="feature-card group" style="--accent: #34c759; --accent-ink: #1f8a3c;">
-        <span class="feature-badge">Bio Age</span>
-        <h3 class="feature-title">Bio Age &amp; Pace of Aging</h3>
-        <p class="feature-body">An estimate of how fast your body is aging from your recovery data, and what's moving it. An estimate, not a medical test.</p>
-        <div class="feature-ui" aria-hidden="true">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-semibold">Pace of Aging</span>
-            <span class="text-lg font-bold tabular-nums text-[#34c759]">0.88×</span>
-          </div>
-          <div class="relative h-2 rounded-full" style="background: linear-gradient(90deg, #34c759, #34c759 30%, #00bfa6 45%, #ffcc40 70%, #ff9500 85%, #ff3b30);">
-            <span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white shadow ring-1 ring-black/10" style="left: 18%;"></span>
-          </div>
-          <div class="flex justify-between mt-1.5 text-[10px] font-medium">
-            <span class="text-[#34c759]">Slower</span><span class="text-[#8a939c]">On pace</span><span class="text-[#ff3b30]">Faster</span>
-          </div>
-        </div>
-        <span class="feature-link">Get the app <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-      </a>
-
-      <!-- Fitness -->
-      <a href="/download/" class="feature-card group" style="--accent: #ff9500; --accent-ink: #b45f00;">
-        <span class="feature-badge">Fitness</span>
-        <h3 class="feature-title">Readiness &amp; activities</h3>
-        <p class="feature-body">Weekly readiness, cardio load, steps and VO₂ max, plus runs, rides, swims, strength and yoga, and a monthly recap.</p>
-        <div class="feature-ui" aria-hidden="true">
-          <div class="flex items-end justify-between gap-3">
-            <div>
-              <div class="text-[11px] font-semibold text-[#34c759]">Good</div>
-              <div class="text-2xl font-bold tabular-nums leading-none">71</div>
+        <div class="card-track" data-card-track>
+          <div class="card-slide" role="tabpanel" aria-label="Now">
+            <div class="flex items-center justify-between px-1 mb-3 text-xs font-bold text-[color:var(--color-ink-muted)]">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[color:var(--color-level-low)]"></span>
+                Now · example
+              </span>
+              <span class="tabular-nums">Tue · 2:34 PM</span>
             </div>
-            <div class="flex items-end gap-1.5 h-11 flex-1 justify-end">
-              {[45, 60, 82, 38, 30, 28, 34].map((v, i) => (
-                <div class="flex flex-col items-center gap-1">
-                  <div class="w-2.5 h-9 rounded-full bg-[#34c759]/15 relative overflow-hidden">
-                    <div class="absolute bottom-0 inset-x-0 rounded-full" style={`height:${v}%; background:${i === 2 ? '#34c759' : 'rgba(52,199,89,0.45)'}`}></div>
-                  </div>
-                  <span class={`text-[9px] ${i === 2 ? 'font-bold text-[#0f1419]' : 'text-[#8a939c]'}`}>{'SMTWTFS'[i]}</span>
-                </div>
-              ))}
+            <NowCard />
+          </div>
+          <div class="card-slide" role="tabpanel" aria-label="Sleep">
+            <div class="flex items-center justify-between px-1 mb-3 text-xs font-bold text-[color:var(--color-ink-muted)]">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#6d4fd8]"></span>
+                Last night · example
+              </span>
+              <span class="tabular-nums">Tue, Sep 1</span>
             </div>
+            <SleepCard />
           </div>
-          <div class="grid grid-cols-3 gap-1.5 mt-3 text-[10px]">
-            <div class="mini-chip"><span class="text-[#ff9500] font-semibold">Cardio load</span><b>14</b></div>
-            <div class="mini-chip"><span class="text-[#ff9500] font-semibold">Steps</span><b>9,140</b></div>
-            <div class="mini-chip"><span class="text-[#3b82f6] font-semibold">VO₂ max</span><b>44.0</b></div>
+          <div class="card-slide" role="tabpanel" aria-label="Bio Age">
+            <div class="flex items-center justify-between px-1 mb-3 text-xs font-bold text-[color:var(--color-ink-muted)]">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[color:var(--color-teal)]"></span>
+                Bio Age · example
+              </span>
+              <span>Last 30 days</span>
+            </div>
+            <BioAgeCard />
           </div>
         </div>
-        <span class="feature-link">Get the app <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-      </a>
-
-      <!-- Zen -->
-      <a href="/features/breathing-zen-mode" class="feature-card group" style="--accent: #00bfa6; --accent-ink: #007569;">
-        <span class="feature-badge">Zen</span>
-        <h3 class="feature-title">Ask Zen &amp; breathwork</h3>
-        <p class="feature-body">Ask what's driving your score and get an answer from your own numbers, then take a short guided breathing session.</p>
-        <div class="feature-ui space-y-2 text-[11px] leading-snug" aria-hidden="true">
-          <div class="ml-auto w-fit max-w-[85%] px-3 py-1.5 rounded-2xl rounded-br-md bg-[#34c28f] text-white font-medium">What's driving my score today?</div>
-          <div class="w-fit max-w-[92%] px-3 py-1.5 rounded-2xl rounded-bl-md bg-[#f1f3f5] text-[#374151]">You're at 26, in the Low band. Sleep was 7.8 hours and your HRV is strong at 58 ms.</div>
+        <div class="mt-3 flex justify-center gap-1.5" aria-hidden="true">
+          {[0, 1, 2].map((i) => <span data-card-dot={i} class={`card-dot ${i === 0 ? 'is-on' : ''}`}></span>)}
         </div>
-        <span class="feature-link">Try a session <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-      </a>
+        <p class="text-[11px] text-[color:var(--color-ink-muted)] mt-3 px-1">Example values from the app's Now, Sleep and Bio Age screens. Scores are wellness estimates, not hormone measurements or medical tests.</p>
+      </div>
+    </section>
 
-      <!-- Apple Watch -->
-      <a href="/stress/apple-watch/" class="feature-card group" style="--accent: #64748b; --accent-ink: #1f2937;">
-        <span class="feature-badge">Apple Watch</span>
-        <h3 class="feature-title">On your wrist</h3>
-        <p class="feature-body">Pebble, Ripple and Bloom change color and mood with your level, or switch to Score mode. Seven complications and one-tap breathing.</p>
-        <div class="feature-ui flex items-center gap-4" aria-hidden="true">
-          <div class="shrink-0 w-[68px] h-[82px] rounded-[20px] bg-[#0f1419] ring-4 ring-[#2a2f35] flex flex-col items-center justify-center text-white">
-            <span class="text-[7px] tracking-[0.2em] text-white/60 font-semibold">CORTISOL</span>
-            <span class="text-2xl font-bold tabular-nums leading-none text-[#34c759]">26</span>
-            <span class="text-[8px] font-bold text-[#34c759] mt-0.5">LOW</span>
-          </div>
-          <ul class="flex flex-wrap gap-1 text-[10px] font-medium">
-            {['Score', 'Companion', 'HRV', 'Resting HR', 'Sleep', 'Sleep & recovery', 'Take a breath'].map((c) => (
-              <li class="px-2 py-0.5 rounded-full bg-[#f1f3f5] text-[#374151]">{c}</li>
+    <script>
+      // astro:page-load fires on the first load and after every client-side
+      // navigation, so the carousel is set up however the visitor arrives.
+      const initCarousels = () => document.querySelectorAll<HTMLElement>('[data-card-carousel]:not([data-ready])').forEach((root) => {
+        root.dataset.ready = '';
+        const track = root.querySelector<HTMLElement>('[data-card-track]')!;
+        const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-card-tab]')];
+        const dots = [...root.querySelectorAll<HTMLElement>('[data-card-dot]')];
+        const thumb = root.querySelector<HTMLElement>('[data-card-thumb]')!;
+        const slides = [...track.querySelectorAll<HTMLElement>('.card-slide')];
+        // The track takes the active slide's height, so a short slide leaves no gap.
+        const fit = (i: number) => { track.style.height = `${slides[i].offsetHeight}px`; };
+        let current = 0;
+        const show = (i: number) => {
+          if (i !== current) { current = i; fit(i); }
+          tabs.forEach((t, j) => t.setAttribute('aria-selected', String(i === j)));
+          dots.forEach((d, j) => d.classList.toggle('is-on', i === j));
+        };
+        tabs.forEach((t, i) => t.addEventListener('click', () => {
+          track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+        }));
+        fit(0);
+        const ro = new ResizeObserver(() => fit(current));
+        slides.forEach((slide) => ro.observe(slide));
+        let frame = 0;
+        track.addEventListener('scroll', () => {
+          cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(() => {
+            const pos = track.scrollLeft / track.clientWidth;
+            thumb.style.transform = `translateX(${pos * 100}%)`;
+            show(Math.round(pos));
+          });
+        }, { passive: true });
+      });
+      document.addEventListener('astro:page-load', initCarousels);
+    </script>
+
+    <!-- FAQ — answers the common doubts before pricing. The live Zen chat
+         (components/zen/ZenSalesChat.tsx) is on the back burner until its
+         function is deployed; it can go back above this section. -->
+    <section class="mt-12 px-4" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">Questions, answered</h2>
+      <div class="app-card app-list overflow-hidden">
+        {faqs.map((f) => (
+          <details class="group">
+            <summary class="app-row cursor-pointer list-none font-bold">
+              <span>{f.q}</span>
+              <span class="app-chevron transition-transform group-open:rotate-90">›</span>
+            </summary>
+            <p class="faq-answer px-4 pb-4 -mt-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]" set:html={f.a} />
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- PRO — the same plans and wording as the onboarding paywall -->
+    <section id="plans" class="mt-12 px-4" aria-labelledby="plans-heading">
+      <div class="app-card overflow-hidden">
+        <img src="/app-ui/start/paywall_header.webp" alt="" width="480" height="300" loading="lazy" class="w-full [mask-image:linear-gradient(to_bottom,black_60%,transparent)]" />
+        <div class="-mt-6 px-5 pb-5">
+          <div class="flex justify-center"><RatingBadge size="sm" label="App Store" /></div>
+          <h2 id="plans-heading" class="mt-3 text-center text-[1.75rem] font-extrabold tracking-tight leading-tight text-balance">Everything in Cortisol+ Pro</h2>
+          <ul class="mt-4 space-y-2">
+            {PERKS.map((perk) => (
+              <li class="flex items-center gap-3 font-bold">
+                <img src={perk.image} alt="" width="36" height="36" loading="lazy" class="h-9 w-9 object-contain" />
+                {perk.label}
+              </li>
             ))}
+            <li class="flex items-center gap-3 font-bold">
+              <img src="/app-ui/zen_new_tour_bioage.webp" alt="" width="36" height="36" loading="lazy" class="h-9 w-9 object-contain" />
+              Bio Age &amp; pace of aging
+            </li>
           </ul>
+          <div class="mt-6 grid grid-cols-2 gap-3">
+            <div class="relative rounded-[1.25rem] border-[2.5px] border-transparent bg-[color:var(--color-surface-2)] px-3 pb-3 pt-6">
+              <span class="absolute -top-3.5 left-3 rounded-full bg-white px-3 py-1 text-[13px] font-extrabold shadow-sm">Popular</span>
+              <div class="text-sm font-extrabold">Weekly</div>
+              <div class="mt-1 text-2xl font-extrabold tabular-nums">{money(weekly)}<span class="text-sm">/wk</span></div>
+              <div class="text-xs font-semibold text-[color:var(--color-ink-muted)]">billed weekly</div>
+            </div>
+            <div class="relative rounded-[1.25rem] border-[2.5px] border-[rgba(18,24,38,0.9)] bg-white px-3 pb-3 pt-6">
+              <span class="absolute -top-3.5 left-3 rounded-full bg-[rgba(18,24,38,0.9)] px-3 py-1 text-[13px] font-extrabold text-white shadow-sm">Save {savePct}%</span>
+              <div class="text-sm font-extrabold">Yearly</div>
+              <div class="mt-1 text-2xl font-extrabold tabular-nums">{money(yearly / 12)}<span class="text-sm">/mo</span></div>
+              <div class="text-xs font-semibold text-[color:var(--color-ink-muted)]">{money(yearly)} billed yearly</div>
+            </div>
+          </div>
+          <p class="mt-5 text-center text-sm font-bold text-[color:var(--color-ink)]/70">Cancel anytime. No commitment.</p>
+          <a href="/start/" class="app-btn mt-3 w-full">Build my plan ›</a>
+          <div class="mt-5 flex items-center gap-3 text-xs font-bold text-[color:var(--color-ink-muted)]" aria-hidden="true">
+            <span class="h-px flex-1 bg-[color:var(--color-surface-2)]"></span>or download free<span class="h-px flex-1 bg-[color:var(--color-surface-2)]"></span>
+          </div>
+          <div class="mt-3"><GetAppButton variant="light" /></div>
+          <p class="mt-3 text-center text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
+            Web prices. Plans renew every week or year until you cancel. The app is free to download; analysis needs Pro. Cortisol+ doesn't measure cortisol or diagnose any condition.
+          </p>
         </div>
-        <span class="feature-link">Apple Watch guide <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-      </a>
-    </div>
-  </section>
+      </div>
+    </section>
+
+  </div>
 
   <style>
-    .feature-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 1.75rem;
-      border-radius: 1.5rem;
-      background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 9%, white), white 60%);
-      border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    }
-    a.feature-card:hover {
-      transform: translateY(-4px);
-      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-      box-shadow: 0 20px 60px -15px color-mix(in srgb, var(--accent) 30%, transparent);
-    }
-    .feature-badge {
-      align-self: flex-start;
-      padding: 0.25rem 0.625rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent-ink);
-      background: color-mix(in srgb, var(--accent) 14%, transparent);
-      margin-bottom: 1rem;
-    }
-    .feature-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .feature-body { font-size: 0.875rem; line-height: 1.6; color: var(--color-ink-muted); margin-bottom: 1.25rem; }
-    .feature-ui {
-      margin-top: auto;
-      padding: 0.875rem 1rem;
-      border-radius: 1.1rem;
-      background: white;
-      box-shadow: 0 1px 2px rgba(15, 20, 25, 0.04), 0 8px 24px -14px rgba(15, 20, 25, 0.18);
-    }
-    .feature-link {
-      display: inline-flex;
-      gap: 0.25rem;
-      margin-top: 1.25rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--accent-ink);
-    }
-    .mini-tile { padding: 0.5rem 0.625rem; border-radius: 0.75rem; background: #f7f8fa; }
-    .mini-chip { display: flex; flex-direction: column; padding: 0.375rem 0.5rem; border-radius: 0.6rem; background: #f7f8fa; }
-    .mini-chip b { font-size: 0.8rem; color: #0f1419; }
-    .stage-row { display: grid; grid-template-columns: 2.6rem 1fr; align-items: center; }
-    .stage-row i {
-      position: relative;
-      height: 0.4rem;
-      border-radius: 999px;
-      background: #eef0f3;
-    }
-    .stage-row i::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: var(--l);
-      width: var(--w);
-      border-radius: 999px;
-      background: var(--c);
-    }
+    .faq-answer :global(a) { color: var(--color-teal-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
   </style>
 
-  <section class="max-w-4xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold mb-4">Looking for a cortisol tracker app?</h2>
-    <p class="text-lg text-[color:var(--color-ink-muted)] mb-4">Cortisol+ helps you understand wearable stress signals. Apple Watch does not measure the cortisol hormone, and the app does not replace a laboratory test. Start with our <a class="underline" href="/stress/apple-watch/">Apple Watch cortisol guide</a> and <a class="underline" href="/how-it-works/">score methodology</a>.</p>
-    <h2 class="text-2xl font-bold mt-8 mb-4">Free download, subscription analysis</h2>
-    <p class="text-[color:var(--color-ink-muted)]">Download Cortisol+ for iOS 17 or later. Core analysis requires an active subscription or an eligible trial. Prices, trial eligibility and renewal terms are shown in the app before purchase. Our website's <a class="underline" href="/tools/">reflection tools</a> and <a class="underline" href="/resources/stress-sleep-journal/">printable journal</a> are free.</p>
-  </section>
-
-  <!-- LEARN -->
-  <section class="max-w-6xl mx-auto px-6 py-20 border-t border-[color:var(--color-border)] reveal">
-    <div class="grid md:grid-cols-2 gap-12">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-          The cortisol library
-        </h2>
-        <p class="text-[color:var(--color-ink-muted)] mb-6">
-          Symptom by symptom, food by food. The complete guide to understanding and lowering cortisol — written by the team building the tracker.
-        </p>
-        <a href="/cortisol" class="inline-flex items-center gap-1 text-[color:var(--color-teal-dark)] hover:text-[color:var(--color-teal-dark)] font-medium">
-          Start with the cortisol guide →
-        </a>
-      </div>
-      <ul class="space-y-3">
-        <li><a href="/cortisol/symptoms/cortisol-face" class="flex items-start justify-between gap-4 p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 transition">
-          <div>
-            <div class="font-medium">Cortisol face: what it actually is</div>
-            <div class="text-sm text-[color:var(--color-ink-muted)] mt-0.5">Symptom guide</div>
-          </div>
-          <span class="text-[color:var(--color-ink-muted)]">→</span>
-        </a></li>
-        <li><a href="/cortisol/lower/foods" class="flex items-start justify-between gap-4 p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 transition">
-          <div>
-            <div class="font-medium">Foods that lower cortisol</div>
-            <div class="text-sm text-[color:var(--color-ink-muted)] mt-0.5">Evidence-based list</div>
-          </div>
-          <span class="text-[color:var(--color-ink-muted)]">→</span>
-        </a></li>
-        <li><a href="/tools/cortisol-calculator" class="flex items-start justify-between gap-4 p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 transition">
-          <div>
-            <div class="font-medium">Stress &amp; habits check-in</div>
-            <div class="text-sm text-[color:var(--color-ink-muted)] mt-0.5">8 questions · 60 seconds</div>
-          </div>
-          <span class="text-[color:var(--color-ink-muted)]">→</span>
-        </a></li>
-      </ul>
-    </div>
-  </section>
 </BaseLayout>

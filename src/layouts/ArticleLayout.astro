@@ -1,7 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import RelatedGuides from '../components/RelatedGuides.astro';
-import AppStoreBadge from '../components/AppStoreBadge.astro';
+import GetAppButton from '../components/GetAppButton.astro';
 import RatingBadge from '../components/RatingBadge.astro';
 import NewsletterCTA from '../components/NewsletterCTA.astro';
 import { SITE, PUBLISHER } from '../consts';
@@ -49,10 +49,10 @@ const combinedSchema = schema
 <BaseLayout {title} {description} {image} {noindex} schema={combinedSchema}>
   <div class="reading-progress" id="reading-progress"></div>
 
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <header class="mb-12 reveal">
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">{title}</h1>
-      <p class="text-xl text-[color:var(--color-ink-muted)]">{description}</p>
+  <article class="max-w-3xl mx-auto px-4 pt-6 pb-16">
+    <header class="px-1 mb-6">
+      <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">{title}</h1>
+      <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">{description}</p>
       {(updated || published) && (
         <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
           {updated ? 'Updated' : 'Published'} {new Date(updated ?? published!).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
@@ -61,7 +61,8 @@ const combinedSchema = schema
       )}
     </header>
 
-    <div class="prose prose-lg max-w-none
+    <div class="app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
+      prose-headings:font-extrabold
       prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
       prose-p:text-[color:var(--color-ink)]
       prose-li:text-[color:var(--color-ink)]
@@ -73,21 +74,19 @@ const combinedSchema = schema
     <RelatedGuides />
 
     {!hideDisclaimer && (
-      <aside class="mt-12 p-5 rounded-xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+      <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
         <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly — the app offers a wellness score derived from biometric signals, not a hormone test. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
       </aside>
     )}
 
-    <aside class="mt-8 p-8 rounded-2xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-[color:var(--color-surface)] border border-[color:var(--color-border)] reveal">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-2">Cortisol+</div>
-      <h2 class="text-2xl font-bold mb-2">Understand your stress patterns</h2>
-      <p class="text-[color:var(--color-ink-muted)] mb-6">
-        Explore Apple Watch HRV, sleep and activity trends with Cortisol+. Read <a href="/how-it-works/" class="underline">our methodology</a> to understand what its wellness score can and cannot tell you.
+    <aside class="mt-6 app-sky rounded-3xl overflow-hidden px-5 pt-6 pb-6 text-center">
+      <img src="/app-ui/zen_presenting_new.webp" alt="" width="306" height="480" loading="lazy" class="mx-auto h-32 w-auto" />
+      <h2 class="mt-2 text-2xl font-extrabold tracking-tight">Understand your stress patterns</h2>
+      <p class="mt-2 mb-5 text-[color:var(--color-ink)]/75 leading-relaxed">
+        Explore your watch's HRV, sleep and activity trends with Cortisol+. Read <a href="/how-it-works/" class="underline font-semibold">our methodology</a> to understand what its wellness score can and cannot tell you.
       </p>
-      <div class="flex flex-wrap items-center gap-4">
-        <AppStoreBadge size="lg" />
-        <RatingBadge size="sm" />
-      </div>
+      <GetAppButton />
+      <div class="mt-4 flex justify-center"><RatingBadge size="sm" /></div>
     </aside>
 
     <NewsletterCTA variant="card" />

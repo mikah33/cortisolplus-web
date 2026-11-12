@@ -106,7 +106,7 @@ const faqs: FAQItem[] = [
         the same way, "moderate" means the human data is real but thinner or mixed, and "limited"
         means the claim leans on small studies, animal work, or mechanism alone. For the ranked
         action plan built from the strongest-evidence foods, see
-        <a href="/cortisol/lower/foods" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">foods that lower cortisol</a>.
+        <a href="/cortisol/lower/foods/" class="text-[color:var(--color-teal-dark)] underline underline-offset-2">foods that lower cortisol</a>.
       </p>
     </div>
 
@@ -115,7 +115,7 @@ const faqs: FAQItem[] = [
     ) : (
       <div class="grid md:grid-cols-2 gap-4 mb-16">
         {foods.map((f) => (
-          <a href={`/cortisol/foods/${f.id}`} class="group block p-6 rounded-2xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:-translate-y-0.5 transition">
+          <a href={`/cortisol/foods/${f.id}/`} class="group block p-6 rounded-2xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:-translate-y-0.5 transition">
             <div class="flex items-center gap-2 mb-3">
               <span class={`px-2 py-0.5 rounded-full text-xs font-semibold ${effectColor[f.data.effect]}`}>{f.data.effect}</span>
               <span class={`px-2 py-0.5 rounded-full text-xs font-semibold ${evidenceColor[f.data.evidenceLevel]}`}>{f.data.evidenceLevel} evidence</span>
@@ -129,9 +129,9 @@ const faqs: FAQItem[] = [
 
     <FAQ items={faqs} />
     <RelatedLinks links={[
-      { href: '/cortisol/lower/foods', title: 'Foods that lower cortisol', hint: 'Ranked guide' },
-      { href: '/cortisol/lower/supplements', title: 'Supplements that lower cortisol', hint: 'Ranked guide' },
-      { href: '/cortisol/lower', title: 'Full how-to-lower guide', hint: 'All interventions' },
+      { href: '/cortisol/lower/foods/', title: 'Foods that lower cortisol', hint: 'Ranked guide' },
+      { href: '/cortisol/lower/supplements/', title: 'Supplements that lower cortisol', hint: 'Ranked guide' },
+      { href: '/cortisol/lower/', title: 'Full how-to-lower guide', hint: 'All interventions' },
     ]} />
   </article>
 </BaseLayout>

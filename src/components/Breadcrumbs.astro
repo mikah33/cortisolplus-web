@@ -66,7 +66,7 @@ const crumbs = [
   { name: 'Home', href: '/' },
   ...segments.map((seg, idx) => ({
     name: humanize(seg),
-    href: '/' + segments.slice(0, idx + 1).join('/'),
+    href: '/' + segments.slice(0, idx + 1).join('/') + '/',
   })),
 ];
 
@@ -88,7 +88,7 @@ const schema = !isHome
 
 {!isHome && (
   <>
-    <nav aria-label="Breadcrumb" class="max-w-6xl mx-auto px-6 pt-4 text-xs text-[color:var(--color-ink-muted)]">
+    <nav aria-label="Breadcrumb" class="relative z-10 max-w-6xl mx-auto px-6 pt-4 text-xs text-[color:var(--color-ink-muted)]">
       <ol class="flex flex-wrap items-center gap-1.5">
         {crumbs.map((c, i) => (
           <li class="flex items-center gap-1.5">
