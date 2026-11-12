@@ -1,0 +1,14 @@
+---
+/** A Zen illustration between sections, with a one-line caption. */
+interface Props {
+  src: string;
+  caption?: string;
+  alt?: string;
+}
+const { src, caption, alt = '' } = Astro.props;
+---
+
+<figure class="not-prose my-8 overflow-hidden rounded-3xl app-sky px-5 pt-6 text-center">
+  <img src={src} alt={alt} width="320" height="480" loading="lazy" class="mx-auto h-44 w-auto sm:h-52" />
+  {caption && <figcaption class="pb-5 pt-3 text-[0.9375rem] font-semibold leading-snug text-[color:var(--color-ink)]/80">{caption}</figcaption>}
+</figure>

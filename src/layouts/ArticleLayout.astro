@@ -1,7 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import RelatedGuides from '../components/RelatedGuides.astro';
-import GetAppButton from '../components/GetAppButton.astro';
 import RatingBadge from '../components/RatingBadge.astro';
 import NewsletterCTA from '../components/NewsletterCTA.astro';
 import { SITE, PUBLISHER } from '../consts';
@@ -63,9 +62,11 @@ const combinedSchema = schema
 
     <div class="app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
       prose-headings:font-extrabold
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-p:text-[color:var(--color-ink)]
-      prose-li:text-[color:var(--color-ink)]
+      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)] prose-headings:text-balance
+      prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+      prose-h3:mt-8 prose-h3:mb-2
+      prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+      prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
       prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
       prose-strong:text-[color:var(--color-ink)]">
       <slot />
@@ -81,11 +82,12 @@ const combinedSchema = schema
 
     <aside class="mt-6 app-sky rounded-3xl overflow-hidden px-5 pt-6 pb-6 text-center">
       <img src="/app-ui/zen_presenting_new.webp" alt="" width="306" height="480" loading="lazy" class="mx-auto h-32 w-auto" />
-      <h2 class="mt-2 text-2xl font-extrabold tracking-tight">Understand your stress patterns</h2>
+      <h2 class="mt-2 text-2xl font-extrabold tracking-tight">Get your personal stress plan</h2>
       <p class="mt-2 mb-5 text-[color:var(--color-ink)]/75 leading-relaxed">
-        Explore your watch's HRV, sleep and activity trends with Cortisol+. Read <a href="/how-it-works/" class="underline font-semibold">our methodology</a> to understand what its wellness score can and cannot tell you.
+        A one-minute check-in with Zen, then a plan built around your watch's HRV, sleep and activity. Read <a href="/how-it-works/" class="underline font-semibold">our methodology</a> to see what the score can and can't tell you.
       </p>
-      <GetAppButton />
+      <a href="/start/" data-start-cta data-event="article-start-click" class="mx-auto flex h-14 w-full max-w-sm items-center justify-center rounded-full bg-[color:var(--color-ink)] text-[1.0625rem] font-extrabold text-white shadow-sm transition hover:brightness-110">Start my plan ›</a>
+      <p class="mt-3 text-sm text-[color:var(--color-ink)]/70">Just want the app? <a href="/download/" class="underline font-semibold">Download Cortisol+</a></p>
       <div class="mt-4 flex justify-center"><RatingBadge size="sm" /></div>
     </aside>
 
