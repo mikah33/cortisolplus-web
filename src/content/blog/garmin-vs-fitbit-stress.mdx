@@ -13,7 +13,7 @@ import ZenPicture from '../../components/article/ZenPicture.astro';
 
 <InShort points={[
   'Garmin <strong>Body Battery</strong> is your energy right now, updated all day.',
-  'Fitbit <strong>Stress Management Score</strong> is one daily score about balance.',
+  'Fitbit\'s Stress Management Score is now <strong>Resilience</strong>: one daily rating.',
   '<strong>Neither</strong> measures cortisol. Both read heart rate patterns.',
 ]} />
 
@@ -22,7 +22,7 @@ import ZenPicture from '../../components/article/ZenPicture.astro';
 **Comparing Garmin vs Fitbit stress tracking means comparing two very different ideas.**
 
 - **Garmin's Body Battery** estimates your energy reserves.
-- **Fitbit's Stress Management Score** looks at how your body responds to stress.
+- **Fitbit's Stress Management Score**, now called **Resilience**, looks at how your body responds to stress.
 
 Neither one measures cortisol or other stress hormones. Both use heart rate patterns to estimate something linked to stress.
 
@@ -49,19 +49,21 @@ The science behind it is solid in principle. HRV does reflect the balance of you
 
 ## How does the Fitbit Stress Management Score work?
 
-**Fitbit's Stress Management Score (SMS) is one daily score from 1 to 100. Higher is better.**
+**Fitbit's Stress Management Score (SMS) used to be one daily score from 1 to 100. Since May 19, 2026, it's called Resilience, rated Optimal, Balanced or Low.**
+
+The Fitbit app is now the Google Health app. Optimal is the best of the three ratings. Resilience is not a Premium-only feature.
 
 It doesn't track your energy moment to moment. Instead, it looks at how well your body handled stress over the past day.
 
-The [Fitbit](/fitbit/) score looks at:
+Google says more than ten factors feed the [Fitbit](/fitbit/) rating, in three groups:
 
-- **Responsiveness:** how your heart rate responds to physical activity
-- **Exertion balance:** how many hard days you have compared with easy days
-- **Sleep patterns:** how long and how well you sleep
+- **Responsiveness:** heart rate, HRV and electrodermal activity (EDA, tiny changes in skin sweat) data, showing how hard your body worked to handle demands
+- **Exertion balance:** your recent exercise compared with your movement over the past week
+- **Sleep patterns:** how long and how well you slept last night and over the last week
 
-A high score suggests your body is handling stress well. A low score suggests you might be pushing too hard without enough recovery. You get one score a day, not live updates like Body Battery.
+An Optimal rating suggests your body is handling strain well. A Low rating suggests you might be pushing too hard without enough recovery. You get one rating a day, not live updates like Body Battery.
 
-Fitbit's approach is more about recovery patterns than stress right now. The responsiveness part is especially interesting. It checks whether your heart rate comes back to normal quickly after activity, which is a proven marker of heart fitness and stress resilience.
+Fitbit's approach is more about recovery patterns than stress right now. See [what replaced the Stress Management Score](/fitbit/stress-management-score/).
 
 ## What are the key differences?
 
@@ -78,7 +80,7 @@ Both say they track stress, but they measure different things:
     </ul>
   </div>
   <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
-    <p class="font-extrabold text-[color:var(--color-ink)]">Fitbit Stress Management Score</p>
+    <p class="font-extrabold text-[color:var(--color-ink)]">Fitbit Resilience (formerly Stress Management Score)</p>
     <ul class="mt-2 space-y-1.5 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">
       <li>• <strong>Updates</strong> once a day</li>
       <li>• <strong>Measures</strong> how you handled stress over 24 hours</li>
@@ -91,7 +93,7 @@ Both say they track stress, but they measure different things:
 Neither one measures [stress](/stress/) hormones like cortisol. Both use indirect signs, mainly HRV and heart rate patterns. These are linked to stress, but they aren't the same as stress.
 
 - **Body Battery is better for right now.** "Should I push hard in this workout?" or "Do I have the energy for this afternoon's meeting?"
-- **Stress Management Score is better for the big picture.** Is your overall lifestyle balance working? It looks back over time.
+- **Resilience (the old Stress Management Score) is better for the big picture.** Is your overall lifestyle balance working? It looks back over time.
 
 ## Which one is more accurate?
 
@@ -99,7 +101,7 @@ Neither one measures [stress](/stress/) hormones like cortisol. Both use indirec
 
 For deciding what to do today, Garmin's Body Battery gives more useful feedback. If it's low, you know you need to recover. Live updates show how each activity drains or restores you.
 
-For checking whether your training, sleep and recovery habits work together, Fitbit's score gives a clearer big picture. The daily score helps you spot patterns over weeks.
+For checking whether your training, sleep and recovery habits work together, Fitbit's rating gives a clearer big picture. The daily rating helps you spot patterns over weeks.
 
 Both have limits:
 
@@ -119,10 +121,10 @@ The research on HRV as a stress marker is strong. But remember, these watches es
 If you're choosing between Garmin and Fitbit just for stress tracking, think about how you want to use the data.
 
 - **Choose Garmin Body Battery** if you want moment-to-moment feedback on when to push and when to rest. It's especially useful for athletes timing hard efforts, or anyone planning their day around energy levels.
-- **Choose Fitbit Stress Management Score** if you want to track long-term patterns and see whether lifestyle changes are lowering your stress load. It's better for spotting ongoing problems than for making decisions in the moment.
+- **Choose Fitbit Resilience** (the old Stress Management Score) if you want to track long-term patterns and see whether lifestyle changes are lowering your stress load. It's better for spotting ongoing problems than for making decisions in the moment.
 - **Or choose neither.** These numbers are interesting but not essential. Paying attention to your heart rate, your sleep and how you feel can get you most of the way there, without complicated formulas.
 
-Want to see where you stand right now? Try our [stress assessment tool](/tools/stress-score/). It gives you a starting point for your current stress patterns and what might be adding to them.
+Want to see where you stand right now? Try our [stress assessment tool](/tools/stress-score/). It helps you reflect on your stress symptoms and what might be adding to them.
 
 <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
   <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
@@ -132,6 +134,7 @@ Want to see where you stand right now? Try our [stress assessment tool](/tools/s
   </span>
   <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
 </a>
+
 ## What Cortisol+ can and can't do
 
 Cortisol+ brings your available Apple Watch HRV, sleep and activity into one view.

@@ -1,6 +1,6 @@
 ---
 title: Fitbit Daily Readiness Score, explained
-description: The Fitbit Daily Readiness Score combines HRV, sleep, and activity data to tell you if you should push hard or rest. Here's how it actually works.
+description: The Fitbit Daily Readiness Score combines HRV, resting heart rate, and sleep data to tell you if you should push hard or rest. Here's how it actually works.
 pubDate: 2026-07-31
 tags: [wearables, hrv, sleep, stress, comparisons]
 draft: false
@@ -13,47 +13,45 @@ import ZenPicture from '../../components/article/ZenPicture.astro';
 
 <InShort image="/app-ui/start/zen_presenting.webp" points={[
   'A morning score from <strong>1 to 100</strong>: push hard or rest?',
-  'Built from <strong>HRV, sleep</strong> and your <strong>recent activity</strong>.',
+  'Built from <strong>HRV</strong>, <strong>resting heart rate</strong> and recent <strong>sleep</strong>.',
   'Watch the <strong>pattern over weeks</strong>, not one morning.',
 ]} />
 
 ## What is the Fitbit Daily Readiness Score?
 
-**The Fitbit Daily Readiness Score is a number from 1 to 100 that shows up each morning on your [Fitbit](/fitbit/) device.** It aims to tell you if your body is ready for a hard workout or needs time to recover.
+**The Fitbit Daily Readiness Score is a number from 1 to 100 that you see in the Google Health app (formerly the Fitbit app), using data from your [Fitbit](/fitbit/) device.** It aims to tell you if your body is ready for a hard workout or needs time to recover.
 
 It's more than a step count. It pulls together three kinds of data:
 
 - heart rate variability (HRV)
-- sleep quality
-- recent activity
+- resting heart rate
+- recent sleep
 
 So if you've ever wondered whether to skip leg day or push through, this score tries to answer with data instead of guesswork.
 
 ## What goes into the score?
 
-Every morning, Fitbit looks at three main things:
+Fitbit combines three main things:
 
 - **Heart rate variability (HRV):** the change in time between heartbeats, measured while you sleep.
-- **Sleep:** total sleep time, sleep stages and overall sleep quality.
-- **Recent activity:** how much you've exercised in the past few days, compared with your normal.
+- **Resting heart rate:** your heart rate when you're fully at rest.
+- **Sleep:** how much and how well you've slept recently.
 
-Each one is weighted, and Fitbit turns them into one score.
+Fitbit turns them into one score.
 
-- **A high score (above 65 or so)** suggests you've recovered and can handle a hard session.
-- **A low score (below 30)** means your body is still dealing with tiredness, stress or poor sleep.
+- **A high score (65 or above)** suggests you've recovered and can handle a hard session.
+- **A low score (29 or below)** means your body may still be dealing with tiredness, stress or poor sleep.
 
-The score adjusts over time as the app learns your patterns. "High HRV" for you may be different from someone else's. So Fitbit compares your readings with **your own 30-day baseline** (your usual level).
+"High HRV" for you may be different from someone else's. So it makes sense to compare your score with **your own usual level**, not with other people's.
 
 ## How does HRV change the score?
 
-**[Heart rate variability](/fitbit/hrv/) is the biggest single part of the score.**
+**[Heart rate variability](/fitbit/hrv/) is one of the score's three inputs.**
 
 - When your nervous system is calm and recovered, HRV tends to be higher.
 - When you're stressed, sick or overtrained, HRV drops.
 
-Fitbit tracks HRV on its own while you sleep, using the light-based heart rate sensor on your wrist. It uses a measure called RMSSD, which looks at short-term changes between beats. Then it compares last night's HRV with your recent average.
-
-A sharp drop in HRV usually lowers your score. A higher-than-usual HRV raises it.
+Fitbit tracks HRV on its own while you sleep, using the light-based heart rate sensor on your wrist. It uses a measure called RMSSD, which looks at short-term changes between beats. A sharp drop in HRV compared with your usual level can pull your score down.
 
 That's why your score can be low after a night of drinking, a stressful day, or while you're fighting off a cold. It can happen even if you slept a full eight hours.
 
@@ -67,26 +65,20 @@ Sleep counts in two ways: **how much** you slept and **how well** you slept.
 
 Fitbit tracks your time in light, deep and REM sleep.
 
-- More deep and REM sleep than usual raises your score.
-- Tossing and turning all night, or only five hours of sleep, lowers it.
+- Short or broken sleep tends to pull readiness down.
+- Several short or broken nights in a row can push it lower over time.
 
-The app also looks at how regular your sleep is. Going to bed and waking up at about the same time each day helps keep your score steady.
-
-An irregular sleep schedule confuses your body clock (circadian rhythm). It can pull readiness down even if your total sleep looks okay.
-
-One bad night won't wreck your score if your HRV and activity are fine. But several short or broken nights in a row will push it lower over time.
+A regular bedtime is still a good habit. It helps you get enough sleep night after night.
 
 <ZenPicture src="/app-ui/zen/zen-bed.webp" caption="Regular bedtimes help keep your score steady." />
 
 ## How does recent exercise count?
 
-Your workouts over the past few days are the third part of the score. Fitbit compares how active you've been lately with your normal.
+**Exercise isn't listed as a separate input.** The score comes from HRV, resting heart rate and sleep.
 
-**More hard exercise than usual lowers the score.** If you ran a half-marathon yesterday, or did three hard lifting sessions this week, your activity load is high. That tells Fitbit your body may need more recovery time.
+**Hard training can still show up.** After a half-marathon or several hard sessions, your HRV may dip and your resting heart rate may rise. That can lower your score and hint that you need more recovery time.
 
 **A lazy few days doesn't mean "go all out".** If you've barely moved for several days, the score might stay high. That doesn't mean you should jump straight into a max-effort workout. The score shows how recovered you are, not how fit you are.
-
-The activity part also counts **Active Zone Minutes**: minutes spent with your heart rate raised. More Active Zone Minutes means more strain on your body, which affects whether you're ready for another hard session.
 
 ## What should I do with my score?
 
@@ -98,7 +90,7 @@ Fitbit suggests three rough ranges:
     <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">You've likely recovered. You can handle a hard workout or a busy day.</p>
   </div>
   <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
-    <p class="font-extrabold text-[color:var(--color-ink)]">Medium: 30–64</p>
+    <p class="font-extrabold text-[color:var(--color-ink)]">Moderate: 30–64</p>
     <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Partly recovered. Think about a lighter workout or easy movement.</p>
   </div>
   <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
@@ -119,11 +111,12 @@ These are guides, not rules. Some athletes ignore low scores and train anyway be
   </span>
   <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
 </a>
+
 ## Check your stress with a quick quiz
 
 Want a snapshot of how stress is affecting you right now? Try the [Stress Score Assessment](/tools/stress-score/).
 
-It pulls together your symptoms and patterns to give a clearer picture of your stress today. It's a bit like how the Daily Readiness Score tracks recovery over time.
+It helps you reflect on your symptoms and habits. It doesn't measure your body the way the Daily Readiness Score does.
 
 ## What Cortisol+ can and can't do
 
