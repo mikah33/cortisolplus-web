@@ -1,0 +1,234 @@
+/*
+ * Web copy of the Cortisol+ 5.9 iOS onboarding (NewOnboardingView and
+ * friends). Every size below is the app's value in points, used as CSS px on
+ * a stage that StartFlow scales to the viewport, so a phone shows the same
+ * layout the app draws.
+ */
+
+.ob-root {
+  --ob-font: ui-rounded, "SF Pro Rounded", "Nunito Variable", -apple-system, system-ui, sans-serif;
+  --ob-sys: -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  --ob-teal: #4ac29e;
+  --ob-coral: #ff7061;
+  --ob-mint: #c7e2dc;
+  --ob-ink: #000;
+  --ob-btn: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #7ec4f1 url('/app-ui/ob/onboarding_sky.webp') center / cover no-repeat;
+  color: #000;
+  font-family: var(--ob-font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+:where(.ob-root) input { user-select: text; -webkit-user-select: text; }
+:where(.ob-root) * { box-sizing: border-box; }
+:where(.ob-root) button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
+:where(.ob-root) :where(p, h1, h2) { margin: 0; }
+/* the site styles headings with -0.022em tracking; the app's text has none of that */
+.ob-root :is(h1, h2, h3, h4) { letter-spacing: normal; font-family: inherit; }
+:where(.ob-root) img { display: block; max-width: none; }
+
+.ob-stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; }
+.ob-layer { position: absolute; inset: 0; }
+.ob-col { position: absolute; }
+.ob-sky { background: #7ec4f1 url('/app-ui/ob/onboarding_sky.webp') center / cover no-repeat; }
+.ob-abs { position: absolute; }
+.ob-center { position: absolute; transform: translate(-50%, -50%); }
+.ob-fill { position: absolute; inset: 0; }
+.ob-flex { display: flex; flex-direction: column; }
+.ob-spacer { flex: 1 1 0; min-height: 0; }
+
+/* ---------------------------------------------------------------- type */
+
+.ob-typed { font-weight: 700; line-height: 1.2; white-space: pre-line; transition: color 300ms ease-out; }
+.ob-ghost { visibility: hidden; }
+.ob-t { line-height: 1.2; }
+.ob-sys { font-family: var(--ob-sys); }
+
+/* ---------------------------------------------------------------- glass (OnboardingGlass / glassPanel) */
+
+.ob-glass {
+  position: relative;
+  isolation: isolate;
+  /* sheen (0.88 → 0.46 → 0.66 white) over ultraThinMaterial (~58% white over the blurred sky) */
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.46) 50%, rgba(255, 255, 255, 0.66) 100%),
+    linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58));
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  backdrop-filter: blur(24px) saturate(1.1);
+  box-shadow: 0 12px 44px rgba(0, 0, 0, 0.14), 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+.ob-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.55));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.ob-glass.is-on { background: rgba(0, 0, 0, 0.85); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+.ob-glass.is-on::before { display: none; }
+
+/* ---------------------------------------------------------------- buttons */
+
+.ob-block {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; height: 56px; border-radius: 16px;
+  background: var(--ob-btn); color: #fff;
+  font-size: 18px; font-weight: 600;
+  transition: background-color 250ms ease-in-out, transform 120ms ease-out;
+}
+.ob-block:active:not(:disabled) { transform: scale(0.98); }
+.ob-block:disabled { cursor: default; }
+.ob-capsule {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 18px 56px; border-radius: 999px;
+  background: var(--ob-btn); color: #fff;
+  font-size: 19px; font-weight: 600; line-height: 1.2; white-space: nowrap;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.15);
+  transition: background-color 250ms ease-in-out, transform 120ms ease-out;
+}
+.ob-capsule:active:not(:disabled) { transform: scale(0.97); }
+
+.ob-back {
+  position: absolute; top: 50px; left: 20px; z-index: 30;
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.1); backdrop-filter: blur(20px) saturate(1.1);
+}
+.ob-back svg { width: 17px; height: 17px; }
+.ob-x {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(120, 120, 128, 0.16);
+}
+
+/* ---------------------------------------------------------------- motion */
+
+.ob-fade { transition: opacity 300ms ease-out; }
+/* fadeSlide: opacity + 24pt rise, spring(0.5, 0.8) */
+.ob-fs { opacity: 0; transform: translateY(24px); transition: opacity 500ms cubic-bezier(0.25, 0.9, 0.3, 1), transform 550ms cubic-bezier(0.25, 1.15, 0.4, 1); }
+.ob-fs.on { opacity: 1; transform: none; }
+/* scalePop: opacity + 0.7 scale */
+.ob-pop { opacity: 0; transform: scale(0.7); transition: opacity 450ms cubic-bezier(0.25, 0.9, 0.3, 1), transform 550ms cubic-bezier(0.25, 1.25, 0.4, 1); }
+.ob-pop.on { opacity: 1; transform: none; }
+
+/* Step transitions (.move(edge: .trailing), spring 0.5 / 0.85) */
+@keyframes ob-in-right { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes ob-out-right { from { transform: none; } to { transform: translateX(100%); } }
+@keyframes ob-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ob-fade-out { from { opacity: 1; } to { opacity: 0; } }
+.ob-enter-slide { animation: ob-in-right 520ms cubic-bezier(0.22, 0.9, 0.25, 1) both; z-index: 2; }
+.ob-leave-slide { animation: ob-out-right 520ms cubic-bezier(0.22, 0.9, 0.25, 1) both; z-index: 3; }
+.ob-enter-fade { animation: ob-fade-in 350ms ease-out both; z-index: 2; }
+.ob-leave-fade { animation: ob-fade-out 350ms ease-out both; z-index: 1; }
+.ob-hold { z-index: 1; }
+
+/* Education slides: insertion from trailing + fade, removal to leading + fade (spring 0.45 / 0.85) */
+@keyframes ob-slide-in { from { transform: translateX(100%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes ob-slide-out { from { transform: none; opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+.ob-edu-in { animation: ob-slide-in 460ms cubic-bezier(0.22, 0.9, 0.25, 1) both; }
+.ob-edu-out { animation: ob-slide-out 460ms cubic-bezier(0.22, 0.9, 0.25, 1) both; pointer-events: none; }
+
+/* Sky panels for the sweeps / wipes */
+.ob-panel { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 60; pointer-events: none; will-change: transform, opacity; }
+.ob-panel.shadow { box-shadow: -10px 0 32px rgba(0, 0, 0, 0.10); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-enter-slide, .ob-leave-slide, .ob-edu-in, .ob-edu-out { animation-duration: 1ms; }
+}
+
+/* ---------------------------------------------------------------- launch cover */
+
+.ob-launch { position: absolute; inset: 0; z-index: 100; background: #faf6ec; transition: opacity 350ms ease-out; }
+.ob-launch video { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------------------------------------------------------------- alert (iOS style) */
+
+.ob-alert-scrim { position: absolute; inset: 0; z-index: 120; background: rgba(0, 0, 0, 0.2); display: grid; place-items: center; animation: ob-fade-in 200ms ease-out; }
+.ob-alert {
+  width: 270px; border-radius: 14px; overflow: hidden; text-align: center;
+  background: rgba(242, 242, 247, 0.92);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8); backdrop-filter: blur(30px) saturate(1.8);
+  font-family: var(--ob-sys);
+}
+.ob-alert h2 { font-size: 17px; font-weight: 600; padding: 19px 16px 2px; }
+.ob-alert p { font-size: 13px; line-height: 1.3; padding: 0 16px 19px; }
+.ob-alert button { display: block; width: 100%; height: 44px; border-top: 0.5px solid rgba(60, 60, 67, 0.29); color: #007aff; font-size: 17px; font-family: var(--ob-sys); }
+.ob-alert button.bold { font-weight: 600; }
+
+/* ---------------------------------------------------------------- welcome */
+
+.ob-name-input {
+  flex: 1; min-width: 0; height: 41px; padding: 0; border: 0; outline: none; background: transparent;
+  font-family: var(--ob-font); font-size: 34px; font-weight: 700; color: #000; caret-color: var(--ob-teal);
+}
+.ob-name-input::placeholder { color: rgba(60, 60, 67, 0.3); }
+.ob-go {
+  width: 46px; height: 46px; border-radius: 50%; flex: none;
+  display: grid; place-items: center; background: var(--ob-teal); color: #fff;
+  animation: ob-pop-in 280ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+@keyframes ob-pop-in { from { transform: scale(0.4); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.ob-option {
+  display: flex; align-items: center; width: 100%; text-align: left; border-radius: 16px;
+  transition: background-color 300ms cubic-bezier(0.3, 0.9, 0.3, 1), transform 120ms ease-out;
+}
+.ob-option:active { transform: scale(0.985); }
+
+/* ---------------------------------------------------------------- questionnaire wheel */
+
+.ob-wheel { position: relative; height: 170px; flex: 1; }
+.ob-wheel-scroll {
+  position: absolute; inset: 0; overflow-y: scroll; scroll-snap-type: y mandatory;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; z-index: 2;
+  -webkit-mask: none;
+}
+.ob-wheel-scroll::-webkit-scrollbar { display: none; }
+.ob-wheel-scroll > div { scroll-snap-align: center; height: 30px; }
+.ob-wheel-band { position: absolute; left: 9px; right: 9px; top: 50%; height: 32px; margin-top: -16px; border-radius: 999px; background: rgba(118, 118, 128, 0.12); z-index: 0; }
+.ob-wheel-drum { position: absolute; inset: 0; perspective: 900px; pointer-events: none; z-index: 1; overflow: hidden; }
+.ob-wheel-row {
+  position: absolute; left: 0; right: 0; top: 50%; height: 30px; margin-top: -15px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; backface-visibility: hidden; white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- watch showcase */
+
+.ob-watch { position: relative; }
+.ob-watch-display { position: absolute; overflow: hidden; background: #000; }
+.ob-watch-display img { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 320ms ease-in-out; }
+
+/* ---------------------------------------------------------------- confetti */
+
+.ob-confetti { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+.ob-confetti i { position: absolute; border-radius: 2px; transition: transform 1.8s cubic-bezier(0.1, 0.6, 0.3, 1), opacity 1.8s cubic-bezier(0.4, 0, 1, 1); }
+
+/* ---------------------------------------------------------------- plan reveal */
+
+.ob-hscroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 22px 14px; scrollbar-width: none; scroll-snap-type: x proximity; }
+.ob-hscroll::-webkit-scrollbar { display: none; }
+.ob-hscroll > * { flex: none; scroll-snap-align: start; scroll-margin-left: 22px; }
+.ob-vscroll { overflow-y: auto; scrollbar-width: none; overscroll-behavior: contain; }
+.ob-vscroll::-webkit-scrollbar { display: none; }
+@keyframes ob-draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+
+/* ---------------------------------------------------------------- paywall */
+
+.ob-plan-tile { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+.ob-plan-box { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 6px; border-radius: 16px; transition: opacity 300ms; }
+.ob-plan-box::after { content: ''; position: absolute; inset: 0; border-radius: 16px; border: 2px solid transparent; transition: border-color 300ms; pointer-events: none; }
+.ob-plan-box.is-sel::after { border-color: var(--ob-teal); }

@@ -1,6 +1,6 @@
 # Independent coverage: three prepared pitches
 
-Prepared September 9, 2026. Not sent. No payment, reciprocal link, favorable review or publication has been promised. These are distinct editorial requests, not mass submissions. Send from Mikah's chosen business email only after explicit authorization to contact these recipients.
+Prepared September 9, 2026. Not sent. No payment, reciprocal link, favorable review or publication has been promised. These are distinct editorial requests, not mass submissions. Send from the chosen Elevated Systems business email only after explicit authorization to contact these recipients.
 
 ## 1. 9to5Mac — Michael Burkhardt
 
@@ -18,11 +18,11 @@ The app is free to download; analysis requires a subscription or an eligible tri
 
 If the app fits the series, I'm happy to answer implementation questions. Any coverage should reflect your own experience and judgment.
 
-Mikah
+The Cortisol+ team, Elevated Systems
 
 ## 2. Wareable — editorial contact form
 
-**Verified destination:** [Wareable contact form](https://www.wareable.com/contact-us), using Mikah's chosen name and business email. Avoid the affiliate and advertising routes. Their [review policy and testing description](https://www.wareable.com/about-us) make the interpretation of biometric data a relevant topic. An email address was obscured in the web extraction; do not guess it or use the unrelated wareables.co accessory business.
+**Verified destination:** [Wareable contact form](https://www.wareable.com/contact-us), using the chosen Elevated Systems business contact. Avoid the affiliate and advertising routes. Their [review policy and testing description](https://www.wareable.com/about-us) make the interpretation of biometric data a relevant topic. An email address was obscured in the web extraction; do not guess it or use the unrelated wareables.co accessory business.
 
 **Subject:** Review consideration: Cortisol+ and the limits of wearable stress scores
 
@@ -34,7 +34,7 @@ We have published our score's inputs and limitations at https://cortisolplus.com
 
 If you consider apps for independent review, the product facts and screenshots are at https://cortisolplus.com/press/. Analysis requires a subscription or an eligible trial. I can answer product questions; I am not requesting a particular verdict or ranking.
 
-Mikah, Elevated Systems
+The Cortisol+ team, Elevated Systems
 
 ## 3. MacStories — John Voorhees
 
@@ -50,7 +50,7 @@ We've put the scoring method and its limits in public: https://cortisolplus.com/
 
 The app is free to download, with analysis behind a subscription or eligible trial. Product facts and screenshots are at https://cortisolplus.com/press/. I understand that you test apps personally and use your own screenshots; I'm happy to answer questions and leave the assessment entirely to you.
 
-Mikah, Elevated Systems
+The Cortisol+ team, Elevated Systems
 
 ## Follow-through record
 
