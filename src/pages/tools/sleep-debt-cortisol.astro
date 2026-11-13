@@ -105,13 +105,19 @@ const schema = webApplication({
   image="/screenshots/sleep-quality.png"
   schema={schema}
 >
-  <QuizHero
-    title="Is your sleep working for you?"
-    subtitle="A sleep habits check-in on hours, wake-ups and evenings. See what to change first."
-    image="/app-ui/start/goal_sleep.webp"
-    questions={6}
-  />
-  <section class="relative mx-auto max-w-xl px-4 -mt-10 pb-2">
+  <!-- Desktop (lg+): the intro sits beside the quiz on one sky; below lg the markup renders exactly as before. -->
+  <div class="lg:relative lg:isolate">
+    <div aria-hidden="true" class="app-sky hidden lg:block lg:absolute lg:inset-x-0 lg:-top-[5.5rem] lg:-z-10 lg:h-[54rem]"></div>
+    <div class="lg:mx-auto lg:grid lg:max-w-6xl lg:grid-cols-[minmax(0,1fr)_34rem] xl:grid-cols-[minmax(0,1fr)_40rem] lg:items-start lg:gap-x-10 xl:gap-x-16 lg:px-8 lg:pt-6">
+    <div class="quiz-intro lg:sticky lg:top-24 lg:pt-4 lg:[&>section]:mt-0 lg:[&>section]:overflow-visible lg:[&>section]:bg-none! lg:[&>section]:p-0 lg:[&>section]:text-left lg:[&>section>div]:max-w-none lg:[&_.justify-center]:justify-start lg:[&_.quiz-hero-art]:mx-0 lg:[&_.quiz-hero-art]:mt-8 lg:[&_.quiz-hero-art]:h-56 lg:[&_h1]:mt-6 lg:[&_p]:mx-0 lg:[&_p]:mt-4 lg:[&_p]:text-lg lg:[&_ul]:mt-6">
+    <QuizHero
+      title="Is your sleep working for you?"
+      subtitle="A sleep habits check-in on hours, wake-ups and evenings. See what to change first."
+      image="/app-ui/start/goal_sleep.webp"
+      questions={6}
+    />
+    </div>
+  <section class="relative mx-auto max-w-xl px-4 -mt-10 pb-2 lg:mx-0 lg:mt-0 lg:max-w-none lg:px-0">
     <Quiz client:load questions={questions} bands={bands} scoreLabel="Your sleep-cortisol load" />
     <aside class="mt-6 rounded-2xl bg-white/60 p-4 text-sm leading-relaxed text-[color:var(--color-ink-muted)]" aria-label="About this check-in">
       <div class="mb-1 font-bold text-[color:var(--color-ink)]">About this check-in</div>
@@ -120,4 +126,6 @@ const schema = webApplication({
     <FAQ items={faqs} />
     <RelatedLinks title="Keep going" links={related} />
   </section>
+    </div>
+  </div>
 </BaseLayout>

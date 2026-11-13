@@ -82,8 +82,8 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
   image="/screenshots/wearable-insights.png"
   schema={schema}
 >
-  <article class="max-w-4xl mx-auto px-4 pt-6 pb-16">
-    <header class="px-1 mb-6 max-w-3xl">
+  <article class="max-w-4xl mx-auto px-4 pt-6 pb-16 lg:max-w-6xl lg:px-8 lg:pt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-x-12">
+    <header class="px-1 mb-6 max-w-3xl lg:col-span-2 lg:row-start-1 lg:mb-4">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Database</div>
       <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Foods × cortisol</h1>
       <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
@@ -94,7 +94,7 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       </p>
     </header>
 
-    <div class="max-w-3xl">
+    <div class="max-w-3xl lg:col-start-1 lg:row-start-2 lg:max-w-none">
       <InShort image="/app-ui/zen/zen-meal.webp" points={[
         '<strong>No single food</strong> resets your cortisol.',
         'Your <strong>overall eating pattern</strong> matters more than any one food.',
@@ -140,11 +140,11 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       </div>
     </div>
 
-    <h2 class="px-1 mt-12 mb-4 text-[1.5rem] md:text-3xl font-extrabold tracking-tight leading-tight">Food reviews</h2>
+    <h2 class="px-1 mt-12 mb-4 text-[1.5rem] md:text-3xl font-extrabold tracking-tight leading-tight lg:col-span-2 lg:row-start-3 lg:mt-16">Food reviews</h2>
     {foods.length === 0 ? (
-      <p class="text-[color:var(--color-ink-muted)]">Food pages coming soon.</p>
+      <p class="text-[color:var(--color-ink-muted)] lg:col-span-2 lg:row-start-4">Food pages coming soon.</p>
     ) : (
-      <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="grid md:grid-cols-2 gap-4 mb-8 lg:col-span-2 lg:row-start-4 lg:grid-cols-3 lg:gap-5">
         {foods.map((f) => (
           <a href={`/cortisol/foods/${f.id}/`} class="group block p-6 rounded-2xl bg-[color:var(--color-surface)] border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:-translate-y-0.5 transition">
             <div class="flex items-center gap-2 mb-3">
@@ -158,7 +158,8 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       </div>
     )}
 
-    <div class="max-w-3xl">
+    <!-- Desktop (lg+): the CTA, FAQ and related links sit beside the guide. -->
+    <div class="max-w-3xl lg:col-start-2 lg:row-start-2 lg:max-w-none lg:[&>a:first-child]:mt-6">
       <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
         <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
         <span class="min-w-0 flex-1 leading-snug">
