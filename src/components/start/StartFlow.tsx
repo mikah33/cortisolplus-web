@@ -98,9 +98,13 @@ function readInsets(probe: HTMLElement | null) {
   return { top: parseFloat(cs.paddingTop) || 0, bottom: parseFloat(cs.paddingBottom) || 0 };
 }
 
-function computeStage(probe: HTMLElement | null): Stage {
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
+/** On desktop (≥1024px) the flow sits in a phone-sized frame (ob.css), so the stage scales to that frame. */
+const DESKTOP_FRAME = '(min-width: 1024px)';
+
+function computeStage(probe: HTMLElement | null, root: HTMLElement | null): Stage {
+  const framed = !!root && window.matchMedia(DESKTOP_FRAME).matches;
+  const vw = framed ? root.clientWidth : window.innerWidth;
+  const vh = framed ? root.clientHeight : window.innerHeight;
   const insets = readInsets(probe);
   const scale = Math.min(vw / 390, (vh - insets.top - insets.bottom) / DESIGN_MIN_H, 1.15);
   const width = vw / scale;
@@ -121,6 +125,7 @@ const wait = (ms: number) => new Promise<void>((r) => window.setTimeout(r, ms));
 
 export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl, qrSvg }: Props) {
   const probe = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage | null>(null);
   const [platform, setPlatform] = useState<Platform>('other');
   const [webview, setWebview] = useState(false);
@@ -154,7 +159,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       // The on-screen keyboard (Android) shouldn't shrink the stage.
       const el = document.activeElement;
       if (el && el.tagName === 'INPUT') return;
-      setStage(computeStage(probe.current));
+      setStage(computeStage(probe.current, root.current));
     };
     update();
     window.addEventListener('resize', update);
@@ -510,7 +515,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   const showBack = !!step && !!backTarget[step] && layers.length === 1;
 
   return (
-    <div className="ob-root">
+    <div className="ob-root" ref={root}>
       <div ref={probe} aria-hidden="true" style={{ position: 'absolute', visibility: 'hidden', pointerEvents: 'none', paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }} />
       {stage && (
         <div className="ob-stage" style={{ width: stage.width, height: stage.height, transform: `scale(${stage.scale})` }}>
