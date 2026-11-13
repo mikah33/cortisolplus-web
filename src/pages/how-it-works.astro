@@ -60,23 +60,23 @@ const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Bre
 
 <BaseLayout {title} {description} schema={schema}>
   <!-- HERO -->
-  <section class="app-sky relative -mt-[5.5rem] overflow-hidden px-5 pt-[6.5rem] pb-14 text-center">
-    <div class="mx-auto max-w-xl">
-      <img src="/app-ui/start/zen_explain.webp" alt="" width="400" height="400" fetchpriority="high" class="hiw-art mx-auto h-40 w-auto drop-shadow-[0_18px_24px_rgba(40,96,140,0.25)]" />
-      <div class="mt-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[color:var(--color-teal-dark)]">Methodology</div>
-      <h1 class="mt-1 text-[2.25rem] leading-[1.05] font-extrabold tracking-tight text-balance sm:text-5xl">How Cortisol+ works</h1>
-      <p class="mx-auto mt-3 max-w-md text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty">The signals behind your score, how each one is weighted, and what the score can and can't tell you.</p>
-      <p class="mt-4 text-xs font-semibold text-[color:var(--color-ink-muted)]">Updated {updatedLabel} · By the {SITE.name} team</p>
+  <section class="app-sky relative -mt-[5.5rem] overflow-hidden px-5 pt-[6.5rem] pb-14 text-center lg:pb-20 lg:pt-[7.5rem] lg:text-left">
+    <div class="mx-auto max-w-xl lg:grid lg:max-w-6xl lg:grid-cols-[minmax(0,1fr)_auto] lg:grid-rows-[1fr_auto_auto_auto_auto_1fr] lg:items-center lg:gap-x-16 lg:px-8">
+      <img src="/app-ui/start/zen_explain.webp" alt="" width="400" height="400" fetchpriority="high" class="hiw-art mx-auto h-40 w-auto lg:col-start-2 lg:row-start-1 lg:row-span-6 lg:mx-0 lg:mr-10 lg:h-64 drop-shadow-[0_18px_24px_rgba(40,96,140,0.25)]" />
+      <div class="mt-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[color:var(--color-teal-dark)] lg:col-start-1 lg:row-start-2 lg:mt-0">Methodology</div>
+      <h1 class="mt-1 text-[2.25rem] leading-[1.05] font-extrabold tracking-tight text-balance sm:text-5xl lg:col-start-1 lg:row-start-3 lg:mt-2 lg:text-6xl">How Cortisol+ works</h1>
+      <p class="mx-auto mt-3 max-w-md text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty lg:col-start-1 lg:row-start-4 lg:mx-0 lg:mt-4 lg:max-w-xl lg:text-xl">The signals behind your score, how each one is weighted, and what the score can and can't tell you.</p>
+      <p class="mt-4 text-xs font-semibold text-[color:var(--color-ink-muted)] lg:col-start-1 lg:row-start-5 lg:mt-5">Updated {updatedLabel} · By the {SITE.name} team</p>
     </div>
   </section>
 
-  <div class="relative mx-auto -mt-8 max-w-xl px-4 pb-4">
+  <div class="relative mx-auto -mt-8 max-w-xl px-4 pb-4 lg:-mt-12 lg:max-w-6xl lg:px-8">
     <!-- SHORT VERSION -->
     <section aria-labelledby="short-heading">
       <h2 id="short-heading" class="sr-only">The short version</h2>
-      <ul class="grid gap-3">
+      <ul class="grid gap-3 lg:grid-cols-3 lg:gap-4">
         {short.map((s) => (
-          <li class="app-card flex items-center gap-4 p-4">
+          <li class="app-card flex items-center gap-4 p-4 lg:p-5">
             <img src={s.image} alt="" width="200" height="270" loading="lazy" class="h-14 w-auto shrink-0" />
             <div>
               <div class="font-extrabold text-[1.0625rem]">{s.title}</div>
@@ -85,17 +85,17 @@ const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Bre
           </li>
         ))}
       </ul>
-      <p class="mt-4 px-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">
+      <p class="mt-4 px-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)] lg:mt-8 lg:max-w-3xl lg:text-[1.0625rem]">
         <strong class="text-[color:var(--color-ink)]">Cortisol+ brings wearable stress and recovery signals into one view. It does not measure cortisol.</strong>
         It reads permitted data through Apple Health on iPhone or Health Connect on Android and calculates a 0–100 wellness score. The app calls this its cortisol score, but a lower score reflects less strain according to the app's model. It does not establish that your cortisol is low, normal or healthy, and a high score cannot diagnose an endocrine condition.
       </p>
     </section>
 
     <!-- INPUTS -->
-    <section class="mt-12" aria-labelledby="inputs-heading">
-      <h2 id="inputs-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight">What goes into your score</h2>
-      <p class="mt-1 px-1 text-[color:var(--color-ink-muted)]">Base weights before missing-data adjustments and model modifiers. They are software design choices, not clinically established contributions to cortisol production.</p>
-      <ul class="app-card mt-4 divide-y divide-[color:var(--color-surface-2)] p-1">
+    <section class="mt-12 lg:mt-20 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:grid-rows-[auto_auto_1fr] lg:gap-x-14" aria-labelledby="inputs-heading">
+      <h2 id="inputs-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:col-start-1 lg:row-start-1 lg:text-4xl">What goes into your score</h2>
+      <p class="mt-1 px-1 text-[color:var(--color-ink-muted)] lg:col-start-1 lg:row-start-2 lg:mt-4 lg:text-lg lg:leading-relaxed">Base weights before missing-data adjustments and model modifiers. They are software design choices, not clinically established contributions to cortisol production.</p>
+      <ul class="app-card mt-4 divide-y divide-[color:var(--color-surface-2)] p-1 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:p-2">
         {inputs.map((i) => (
           <li class="px-4 py-3">
             <div class="flex items-baseline justify-between gap-3">
@@ -109,15 +109,15 @@ const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Bre
           </li>
         ))}
       </ul>
-      <p class="mt-3 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">Available data varies by device, region, permissions and wear time. Some measurements appear elsewhere in the app without being weighted score factors; for example, the app can read wrist temperature, but it is not one of these ten inputs.</p>
+      <p class="mt-3 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)] lg:col-start-1 lg:row-start-3 lg:mt-4 lg:self-start lg:text-[0.9375rem]">Available data varies by device, region, permissions and wear time. Some measurements appear elsewhere in the app without being weighted score factors; for example, the app can read wrist temperature, but it is not one of these ten inputs.</p>
     </section>
 
     <!-- CALCULATION -->
-    <section class="mt-12" aria-labelledby="calc-heading">
-      <h2 id="calc-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">How the score is calculated</h2>
-      <ol class="grid gap-3">
+    <section class="mt-12 lg:mt-20" aria-labelledby="calc-heading">
+      <h2 id="calc-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:mb-6 lg:text-4xl">How the score is calculated</h2>
+      <ol class="grid gap-3 lg:grid-cols-2 lg:gap-4">
         {steps.map((s, i) => (
-          <li class="app-card flex gap-4 p-4">
+          <li class="app-card flex gap-4 p-4 lg:p-6">
             <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[color:var(--color-ink)] text-sm font-extrabold text-white">{i + 1}</span>
             <div>
               <div class="font-extrabold text-[1.0625rem]">{s.title}</div>
@@ -126,14 +126,14 @@ const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Bre
           </li>
         ))}
       </ol>
-      <p class="mt-3 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">Apple Watch HRV uses SDNN. Other supported data sources can use RMSSD, a different statistic. The scoring code keeps HRV history separate per source; comparing a number from one method directly with another can be misleading.</p>
+      <p class="mt-3 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)] lg:mt-4 lg:max-w-3xl lg:text-[0.9375rem]">Apple Watch HRV uses SDNN. Other supported data sources can use RMSSD, a different statistic. The scoring code keeps HRV history separate per source; comparing a number from one method directly with another can be misleading.</p>
     </section>
 
     <!-- COMPANION -->
-    <section class="mt-12" aria-labelledby="companion-heading">
-      <h2 id="companion-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight">Your companion shows the score</h2>
-      <p class="mt-1 px-1 text-[color:var(--color-ink-muted)]">On your watch, Pebble, Ripple or Bloom reflects your latest score and its level: calm when it's Low, worried when it's High.</p>
-      <div class="mt-4 grid grid-cols-2 gap-3">
+    <section class="mt-12 lg:mt-20 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-[1fr_auto_auto_1fr_auto] lg:gap-x-14" aria-labelledby="companion-heading">
+      <h2 id="companion-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:col-start-1 lg:row-start-2 lg:text-4xl">Your companion shows the score</h2>
+      <p class="mt-1 px-1 text-[color:var(--color-ink-muted)] lg:col-start-1 lg:row-start-3 lg:mt-4 lg:max-w-lg lg:text-lg lg:leading-relaxed">On your watch, Pebble, Ripple or Bloom reflects your latest score and its level: calm when it's Low, worried when it's High.</p>
+      <div class="mt-4 grid grid-cols-2 gap-3 lg:col-start-2 lg:row-start-1 lg:row-span-4 lg:mt-0 lg:gap-4">
         <figure class="app-card overflow-hidden p-2">
           <img src="/app-ui/watch/pebble-low.webp" alt="Pebble on the Cortisol+ watch screen, calm at a Low score of 22" width="416" height="496" loading="lazy" class="w-full rounded-[1.25rem] bg-black" />
           <figcaption class="px-1 pt-2 pb-1 text-xs font-bold">Low · calm</figcaption>
@@ -143,22 +143,22 @@ const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Bre
           <figcaption class="px-1 pt-2 pb-1 text-xs font-bold">High · worried</figcaption>
         </figure>
       </div>
-      <p class="mt-2 px-1 text-xs text-[color:var(--color-ink-muted)]">Watch screens use sample data.</p>
+      <p class="mt-2 px-1 text-xs text-[color:var(--color-ink-muted)] lg:col-start-2 lg:row-start-5">Watch screens use sample data.</p>
     </section>
 
     <!-- UPDATES -->
-    <section class="mt-12" aria-labelledby="updates-heading">
-      <div class="app-card p-5">
-        <h2 id="updates-heading" class="text-[1.375rem] font-extrabold tracking-tight leading-tight">How often does it update?</h2>
-        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">Cortisol+ updates from the data available when analysis runs and when supported background updates arrive. Watch background sampling and health-data sync are intermittent. Opening the app or refreshing does not create a fresh hormone measurement, and an updated screen can still contain older sensor readings. Check timestamps and data availability before interpreting a change.</p>
-        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">Apple describes <a class="hiw-link" href="https://support.apple.com/en-us/120277">how its heart-rate measurements work</a> and <a class="hiw-link" href="https://support.apple.com/en-us/108790">how cardio fitness is estimated</a>. Device settings, battery use, movement and sync can affect availability.</p>
+    <section class="mt-12 lg:mt-20" aria-labelledby="updates-heading">
+      <div class="app-card p-5 lg:grid lg:grid-cols-[14rem_minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-10 lg:p-8">
+        <h2 id="updates-heading" class="text-[1.375rem] font-extrabold tracking-tight leading-tight lg:text-[1.75rem]">How often does it update?</h2>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)] lg:mt-0">Cortisol+ updates from the data available when analysis runs and when supported background updates arrive. Watch background sampling and health-data sync are intermittent. Opening the app or refreshing does not create a fresh hormone measurement, and an updated screen can still contain older sensor readings. Check timestamps and data availability before interpreting a change.</p>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)] lg:mt-0">Apple describes <a class="hiw-link" href="https://support.apple.com/en-us/120277">how its heart-rate measurements work</a> and <a class="hiw-link" href="https://support.apple.com/en-us/108790">how cardio fitness is estimated</a>. Device settings, battery use, movement and sync can affect availability.</p>
       </div>
     </section>
 
     <!-- EVIDENCE -->
-    <section class="mt-12" aria-labelledby="evidence-heading">
-      <h2 id="evidence-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">What research supports, and what it doesn't</h2>
-      <div class="grid gap-3">
+    <section class="mt-12 lg:mt-20" aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:mb-6 lg:text-4xl">What research supports, and what it doesn't</h2>
+      <div class="grid gap-3 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-4">
         <div class="app-card p-5">
           <div class="text-sm font-extrabold text-[#1f9d6b]">Supported</div>
           <p class="mt-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]"><a class="hiw-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5900369/">Kim and colleagues' review of stress and HRV</a> supports studying HRV as an indicator of autonomic responses to stress.</p>
@@ -171,25 +171,25 @@ const affects = ['Exercise', 'Illness', 'Alcohol', 'Medication', 'Posture', 'Bre
     </section>
 
     <!-- AFFECTS -->
-    <section class="mt-12" aria-labelledby="affects-heading">
-      <h2 id="affects-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight">What can affect your reading</h2>
+    <section class="mt-12 lg:mt-20" aria-labelledby="affects-heading">
+      <h2 id="affects-heading" class="px-1 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:text-4xl">What can affect your reading</h2>
       <ul class="mt-4 flex flex-wrap gap-2">
         {affects.map((a) => <li class="rounded-full bg-white px-3.5 py-2 text-sm font-bold shadow-[0_1px_2px_rgba(15,20,25,0.06)]">{a}</li>)}
       </ul>
-      <p class="mt-3 px-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">A change may have several explanations. Look at trends together with how you feel, rather than treating a single score as a diagnosis or a reason to change medication.</p>
+      <p class="mt-3 px-1 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)] lg:mt-5 lg:max-w-3xl lg:text-[1.0625rem]">A change may have several explanations. Look at trends together with how you feel, rather than treating a single score as a diagnosis or a reason to change medication.</p>
     </section>
 
     <!-- START -->
-    <section class="mt-12" aria-labelledby="start-heading">
-      <div class="app-card p-5">
-        <h2 id="start-heading" class="text-[1.375rem] font-extrabold tracking-tight leading-tight">A useful way to start</h2>
-        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)]">Connect your device, enable only the health permissions you want to share, and check the input timestamps. Use the <a class="hiw-link" href="/resources/stress-sleep-journal/">seven-day stress and sleep journal</a> to note your routine alongside your readings. It helps you ask better questions; an uncontrolled week of tracking cannot prove cause and effect.</p>
-        <div class="mt-5"><HeroCTA /></div>
+    <section class="mt-12 lg:mt-20" aria-labelledby="start-heading">
+      <div class="app-card p-5 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:grid-rows-[auto_1fr] lg:items-center lg:gap-x-14 lg:p-10">
+        <h2 id="start-heading" class="text-[1.375rem] font-extrabold tracking-tight leading-tight lg:col-start-1 lg:row-start-1 lg:text-[1.75rem]">A useful way to start</h2>
+        <p class="mt-2 text-[0.9375rem] leading-relaxed text-[color:var(--color-ink-muted)] lg:col-start-1 lg:row-start-2 lg:self-start lg:text-[1.0625rem]">Connect your device, enable only the health permissions you want to share, and check the input timestamps. Use the <a class="hiw-link" href="/resources/stress-sleep-journal/">seven-day stress and sleep journal</a> to note your routine alongside your readings. It helps you ask better questions; an uncontrolled week of tracking cannot prove cause and effect.</p>
+        <div class="mt-5 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:mt-0"><HeroCTA /></div>
       </div>
-      <p class="mt-4 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)]">Read our <a class="hiw-link" href="/stress/apple-watch/">Apple Watch cortisol and stress guide</a>, <a class="hiw-link" href="/cortisol/test/">cortisol testing guide</a> and <a class="hiw-link" href="/privacy/">privacy policy</a>. Core scoring runs on-device; optional account, connected-service and coaching features have their own data flows described in the policy.</p>
+      <p class="mt-4 px-1 text-sm leading-relaxed text-[color:var(--color-ink-muted)] lg:mt-5 lg:max-w-3xl">Read our <a class="hiw-link" href="/stress/apple-watch/">Apple Watch cortisol and stress guide</a>, <a class="hiw-link" href="/cortisol/test/">cortisol testing guide</a> and <a class="hiw-link" href="/privacy/">privacy policy</a>. Core scoring runs on-device; optional account, connected-service and coaching features have their own data flows described in the policy.</p>
     </section>
 
-    <aside class="mt-10 rounded-2xl bg-white/60 p-4 text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
+    <aside class="mt-10 rounded-2xl bg-white/60 p-4 lg:mt-16 lg:px-6 text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
       <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly; the app offers a wellness score derived from biometric signals, not a hormone test. For diagnosis, testing or treatment of any medical condition, consult a qualified healthcare provider. First published {new Date(`${published}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}.
     </aside>
   </div>

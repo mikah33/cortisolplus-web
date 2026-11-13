@@ -54,8 +54,8 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
   image="/screenshots/wearable-insights.png"
   schema={schema}
 >
-  <section class="max-w-3xl mx-auto px-4 pt-6 pb-16">
-    <header class="px-1 mb-6">
+  <section class="max-w-3xl mx-auto px-4 pt-6 pb-16 lg:max-w-6xl lg:px-8 lg:pt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:grid-rows-[auto_auto_auto_1fr_auto_auto] lg:gap-x-12">
+    <header class="px-1 mb-6 lg:col-span-2 lg:row-start-1 lg:mb-4 lg:max-w-3xl">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-coral-dark)] font-semibold mb-2">Symptoms</div>
       <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Symptoms of high cortisol</h1>
       <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
@@ -66,13 +66,13 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       </p>
     </header>
 
-    <InShort image="/app-ui/zen/zen-thinking.webp" points={[
+    <div class="lg:col-start-2 lg:row-start-2 lg:self-start"><InShort image="/app-ui/zen/zen-thinking.webp" points={[
       'Most "cortisol symptoms" also have <strong>many everyday causes</strong>.',
       'True high cortisol (Cushing\'s syndrome) is <strong>rare</strong> and diagnosed by a doctor.',
       '<strong>Symptoms alone can\'t diagnose</strong> a cortisol problem. Neither can a wearable.',
-    ]} />
+    ]} /></div>
 
-    <div class={proseCard}>
+    <div class={`${proseCard} lg:col-start-1 lg:row-start-2 lg:row-span-3 lg:mt-6 lg:self-start`}>
       <p><strong>Cortisol is your body's main stress hormone.</strong> In short bursts it helps: it gets energy ready, sharpens focus and calms inflammation.</p>
       <p>Problems can start when cortisol stays high for weeks or months. Cortisol acts on many tissues, so the possible symptoms are wide-ranging. They're also easy to mix up with other conditions.</p>
       <p>Signs people often link with high cortisol include:</p>
@@ -127,12 +127,12 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       <p>Want to reflect on your habits first? Try the <a href="/tools/cortisol-calculator/">60-second cortisol quiz</a>. It's a habits check-in, not a hormone test.</p>
     </div>
 
-    <h2 class="px-1 mt-12 mb-4 text-[1.5rem] md:text-3xl font-extrabold tracking-tight leading-tight">Browse symptoms</h2>
+    <h2 class="px-1 mt-12 mb-4 text-[1.5rem] md:text-3xl font-extrabold tracking-tight leading-tight lg:col-span-2 lg:row-start-5 lg:mt-16">Browse symptoms</h2>
 
     {symptoms.length === 0 ? (
-      <p class="text-[color:var(--color-ink-muted)]">Symptom pages coming soon.</p>
+      <p class="text-[color:var(--color-ink-muted)] lg:col-span-2 lg:row-start-6">Symptom pages coming soon.</p>
     ) : (
-      <ul class="grid md:grid-cols-2 gap-3">
+      <ul class="grid md:grid-cols-2 gap-3 lg:col-span-2 lg:row-start-6 lg:grid-cols-3 lg:gap-4">
         {symptoms.map((s) => (
           <li>
             <a href={`/cortisol/symptoms/${s.id}/`} class="block p-4 rounded-xl border border-[color:var(--color-border)] hover:border-[color:var(--color-teal)]/40 hover:bg-[color:var(--color-surface)] transition">
@@ -144,13 +144,13 @@ const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-
       </ul>
     )}
 
-    <RelatedLinks links={[
+    <div class="lg:col-start-2 lg:row-start-3 lg:self-start lg:[&>aside]:mt-6"><RelatedLinks links={[
       { href: '/cortisol/symptoms/cortisol-face/', title: 'Cortisol face', hint: 'The most-searched symptom' },
       { href: '/cortisol/levels/', title: 'Normal cortisol levels', hint: 'Reference ranges' },
       { href: '/cortisol/lower/', title: 'How to lower cortisol', hint: 'Evidence and limits' },
-    ]} />
+    ]} /></div>
 
-    <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+    <aside class="mt-6 app-card p-5 lg:col-start-2 lg:row-start-4 lg:self-start text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
       <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Symptoms and wearable scores cannot diagnose a cortisol disorder. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
     </aside>
   </section>
