@@ -43,4 +43,8 @@ const { title, description } = Astro.props;
       linear-gradient(180deg, var(--color-sky-top) 0%, var(--color-sky-mid) 45%, var(--color-sky-bottom) 100%) fixed;
     min-height: 100dvh;
   }
+  /* Desktop: the sky fills the whole window around the phone-sized frame. */
+  @media (min-width: 1024px) {
+    .funnel-page { background-size: cover, auto; background-position: center, 0 0; }
+  }
 </style>

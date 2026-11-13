@@ -79,41 +79,48 @@ const steps = [
   schema={homeSchema}
 >
   <!-- The homepage is designed as a phone screen: one column at app width on every device. -->
-  <div class="home mx-auto w-full max-w-[30rem] -mt-14">
+  <!-- Desktop (lg+): a four-track grid; the hero bleeds edge to edge and the
+       sections sit in the two middle tracks (max-w-6xl content width). -->
+  <div class="home mx-auto w-full max-w-[30rem] -mt-14 lg:max-w-none lg:grid lg:grid-cols-[1fr_minmax(0,33.5rem)_minmax(0,33.5rem)_1fr] lg:gap-x-8">
 
     <!-- HERO — Zen with the watch companions (device lineup on the back burner: HeroWearables.astro) -->
-    <section class="app-sky relative overflow-hidden px-5 pt-20 pb-8 text-center">
-      <div class="flex justify-center mb-5"><RatingBadge size="sm" label="App Store" /></div>
+    <section class="home-hero app-sky relative overflow-hidden px-5 pt-20 pb-8 text-center lg:col-span-full lg:grid lg:grid-cols-2 lg:items-center lg:gap-x-12 lg:text-left lg:pt-32 lg:pb-14">
+      <div class="flex justify-center mb-5 lg:hidden"><RatingBadge size="sm" label="App Store" /></div>
 
       <HeroCompanions />
 
-      <h1 class="mt-4 text-[2.5rem] leading-[1.05] font-extrabold tracking-tight text-balance">
+      <!-- No box on phones/tablets; the desktop text column. -->
+      <div class="contents lg:block lg:col-start-1 lg:row-start-1">
+      <div class="hidden lg:flex mb-6"><RatingBadge size="md" label="App Store" /></div>
+
+      <h1 class="mt-4 text-[2.5rem] leading-[1.05] font-extrabold tracking-tight text-balance lg:mt-0 lg:text-[4rem] xl:text-[4.5rem] lg:leading-[1.02]">
         Meet your stress companions.
       </h1>
-      <p class="mt-4 text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty">
+      <p class="mt-4 text-[1.0625rem] leading-relaxed text-[color:var(--color-ink)]/75 text-pretty lg:mt-6 lg:max-w-[32rem] lg:text-xl">
         Pebble, Ripple and Bloom show your stress at a glance on
         <span data-only="ios">your Apple Watch</span><span data-only="android">your Wear OS watch</span><span data-only="other">your watch</span>.
         Pick your favorite. Zen helps you calm it.
       </p>
 
-      <div class="mt-7">
+      <div class="mt-7 lg:mt-9 lg:max-w-sm">
         <HeroCTA />
       </div>
       <a href="/how-it-works/" class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[color:var(--color-teal-dark)]">
         How the score works <span aria-hidden="true">›</span>
       </a>
+      </div>
 
     </section>
 
     <!-- REVIEWS -->
-    <section class="mt-2" aria-labelledby="reviews-heading">
-      <div class="px-5 mb-4">
-        <h2 id="reviews-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">Loved by early users</h2>
+    <section class="mt-2 lg:col-start-2 lg:col-span-2 lg:mt-10 lg:grid lg:grid-cols-3 lg:items-center lg:gap-8" aria-labelledby="reviews-heading">
+      <div class="px-5 mb-4 lg:px-0 lg:mb-0">
+        <h2 id="reviews-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight lg:text-[2.25rem]">Loved by early users</h2>
         <p class="mt-1 text-[color:var(--color-ink-muted)]">
           <strong class="text-[color:var(--color-ink)] tabular-nums">{APP_RATING.value}</strong> out of 5 from {APP_RATING.count} ratings on the US App Store, checked {checkedOn}.
         </p>
       </div>
-      <ul class="app-snap pb-2">
+      <ul class="home-reviews app-snap pb-2">
         {reviews.map((r) => (
           <li class="w-[82%]">
             <figure class="app-card h-full p-5 flex flex-col">
@@ -132,10 +139,10 @@ const steps = [
     </section>
 
     <!-- PROBLEM — why one number isn't the whole story -->
-    <section class="mt-12 px-4" aria-labelledby="problem-heading">
-      <div class="app-card p-5">
-        <h2 id="problem-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight text-balance">One number doesn't explain how you feel.</h2>
-        <ul class="mt-4 space-y-2.5 font-bold">
+    <section class="mt-12 px-4 lg:col-start-2 lg:mt-24 lg:px-0" aria-labelledby="problem-heading">
+      <div class="app-card p-5 lg:flex lg:h-full lg:flex-col lg:justify-center lg:p-10">
+        <h2 id="problem-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight text-balance lg:text-[2.25rem]">One number doesn't explain how you feel.</h2>
+        <ul class="mt-4 space-y-2.5 font-bold lg:mt-6 lg:space-y-4 lg:text-lg">
           <li class="flex gap-2.5"><span class="text-[color:var(--color-level-elevated)]" aria-hidden="true">●</span>Slept 8 hours, still wired?</li>
           <li class="flex gap-2.5"><span class="text-[color:var(--color-level-elevated)]" aria-hidden="true">●</span>HRV dipped, but no idea why?</li>
           <li class="flex gap-2.5"><span class="text-[color:var(--color-level-low)]" aria-hidden="true">●</span>Cortisol+ reads HRV, heart rate and sleep together, so you see the pattern.</li>
@@ -144,12 +151,12 @@ const steps = [
     </section>
 
     <!-- HOW IT WORKS — three steps -->
-    <section class="mt-12 px-4" aria-labelledby="steps-heading">
-      <h2 id="steps-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">How it works</h2>
+    <section class="mt-12 px-4 lg:col-start-3 lg:mt-24 lg:px-0" aria-labelledby="steps-heading">
+      <h2 id="steps-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:text-[2.25rem]">How it works</h2>
       <ol class="grid gap-3">
         {steps.map((step, i) => (
-          <li class="app-card flex items-center gap-4 p-4">
-            <img src={step.image} alt="" width="200" height="270" loading="lazy" class="w-12 h-auto shrink-0" />
+          <li class="app-card flex items-center gap-4 p-4 lg:gap-5 lg:p-5">
+            <img src={step.image} alt="" width="200" height="270" loading="lazy" class="w-12 h-auto shrink-0 lg:w-14" />
             <div>
               <div class="font-extrabold text-[1.0625rem]"><span class="text-[color:var(--color-teal-dark)]">{i + 1}.</span> {step.title}</div>
               <p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">{step.body}</p>
@@ -160,18 +167,18 @@ const steps = [
     </section>
 
     <!-- CHECK-IN — the site's top search entry, answerable right here -->
-    <section class="mt-12 px-4" aria-labelledby="checkin-heading">
+    <section class="mt-12 px-4 lg:col-start-2 lg:mt-24 lg:px-0" aria-labelledby="checkin-heading">
       <div class="px-1 mb-4">
-        <h2 id="checkin-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">Try the 60-second check-in</h2>
+        <h2 id="checkin-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight lg:text-[2.25rem]">Try the 60-second check-in</h2>
         <p class="mt-1 text-[color:var(--color-ink-muted)]">Free, no sign-up. Start here and finish on the next page.</p>
       </div>
       <QuizTeaser client:visible />
     </section>
 
     <!-- NOW / SLEEP / BIO AGE — swipe between the app's real cards -->
-    <section class="px-4 mt-12" aria-labelledby="glance-heading">
+    <section class="px-4 mt-12 lg:col-start-3 lg:mt-24 lg:px-0" aria-labelledby="glance-heading">
       <div class="px-1 mb-4">
-        <h2 id="glance-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight">What your watch tells you</h2>
+        <h2 id="glance-heading" class="text-[1.75rem] font-extrabold tracking-tight leading-tight lg:text-[2.25rem]">What your watch tells you</h2>
         <p class="mt-1 text-[color:var(--color-ink-muted)]">The stress score your companion reacts to, last night's sleep and your Bio Age, all from the data your watch already collects. Swipe to see each one.</p>
       </div>
       <div class="app-card p-4" data-card-carousel>
@@ -260,9 +267,9 @@ const steps = [
     <!-- FAQ — answers the common doubts before pricing. The live Zen chat
          (components/zen/ZenSalesChat.tsx) is on the back burner until its
          function is deployed; it can go back above this section. -->
-    <section class="mt-12 px-4" aria-labelledby="faq-heading">
-      <h2 id="faq-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight">Questions, answered</h2>
-      <div class="app-card app-list overflow-hidden">
+    <section class="mt-12 px-4 lg:col-start-2 lg:col-span-2 lg:mt-24 lg:px-0 lg:grid lg:grid-cols-3 lg:items-start lg:gap-8" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" class="px-1 mb-4 text-[1.75rem] font-extrabold tracking-tight leading-tight lg:px-0 lg:mb-0 lg:pt-2 lg:text-[2.25rem]">Questions, answered</h2>
+      <div class="app-card app-list overflow-hidden lg:col-span-2">
         {faqs.map((f) => (
           <details class="group">
             <summary class="app-row cursor-pointer list-none font-bold">
@@ -276,10 +283,12 @@ const steps = [
     </section>
 
     <!-- PRO — the same plans and wording as the onboarding paywall -->
-    <section id="plans" class="mt-12 px-4" aria-labelledby="plans-heading">
-      <div class="app-card overflow-hidden">
-        <img src="/app-ui/start/paywall_header.webp" alt="" width="480" height="300" loading="lazy" class="w-full [mask-image:linear-gradient(to_bottom,black_60%,transparent)]" />
-        <div class="-mt-6 px-5 pb-5">
+    <section id="plans" class="mt-12 px-4 lg:col-start-2 lg:col-span-2 lg:mt-24 lg:px-0" aria-labelledby="plans-heading">
+      <div class="app-card overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-4">
+        <img src="/app-ui/start/paywall_header.webp" alt="" width="480" height="300" loading="lazy" class="w-full [mask-image:linear-gradient(to_bottom,black_60%,transparent)] lg:col-start-1 lg:row-start-1" />
+        <div class="-mt-6 px-5 pb-5 lg:contents">
+          <!-- Desktop: perks under the art on the left, plans and CTA on the right. -->
+          <div class="contents lg:block lg:col-start-1 lg:row-start-2 lg:-mt-6 lg:px-10 lg:pb-10">
           <div class="flex justify-center"><RatingBadge size="sm" label="App Store" /></div>
           <h2 id="plans-heading" class="mt-3 text-center text-[1.75rem] font-extrabold tracking-tight leading-tight text-balance">Everything in Cortisol+ Pro</h2>
           <ul class="mt-4 space-y-2">
@@ -294,7 +303,9 @@ const steps = [
               Bio Age &amp; pace of aging
             </li>
           </ul>
-          <div class="mt-6 grid grid-cols-2 gap-3">
+          </div>
+          <div class="contents lg:block lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center lg:py-10 lg:pr-10 lg:pl-6">
+          <div class="mt-6 grid grid-cols-2 gap-3 lg:mt-0">
             <div class="relative rounded-[1.25rem] border-[2.5px] border-transparent bg-[color:var(--color-surface-2)] px-3 pb-3 pt-6">
               <span class="absolute -top-3.5 left-3 rounded-full bg-white px-3 py-1 text-[13px] font-extrabold shadow-sm">Popular</span>
               <div class="text-sm font-extrabold">Weekly</div>
@@ -317,6 +328,7 @@ const steps = [
           <p class="mt-3 text-center text-xs leading-relaxed text-[color:var(--color-ink-muted)]">
             Web prices. Plans renew every week or year until you cancel. The app is free to download; analysis needs Pro. Cortisol+ doesn't measure cortisol or diagnose any condition.
           </p>
+          </div>
         </div>
       </div>
     </section>
@@ -325,6 +337,24 @@ const steps = [
 
   <style>
     .faq-answer :global(a) { color: var(--color-teal-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+
+    /* Desktop only (lg+). Phones and tablets keep the one-column app layout. */
+    @media (min-width: 1024px) {
+      /* Hero content lines up with the two middle tracks of the grid. */
+      .home-hero { padding-inline: max(2rem, calc(50% - 34.5rem)); }
+      .home-hero :global(.hero-companions) { max-width: 36rem; grid-column: 2; grid-row: 1; }
+      .home-hero :global(.hero-cta p) { text-align: left; }
+      /* Reviews: a static two-up grid next to the heading instead of a swipe strip. */
+      .home-reviews {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+        overflow: visible;
+        padding: 0;
+      }
+      .home-reviews > li { width: auto; }
+    }
   </style>
 
 </BaseLayout>

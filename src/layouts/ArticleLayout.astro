@@ -48,7 +48,8 @@ const combinedSchema = schema
 <BaseLayout {title} {description} {image} {noindex} schema={combinedSchema}>
   <div class="reading-progress" id="reading-progress"></div>
 
-  <article class="max-w-3xl mx-auto px-4 pt-6 pb-16">
+  <article class="max-w-3xl mx-auto px-4 pt-6 pb-16 lg:max-w-6xl lg:grid lg:grid-cols-[minmax(0,48rem)_16rem] lg:justify-center lg:gap-x-12 xl:gap-x-16">
+    <div class="lg:col-start-1 lg:row-start-1 lg:min-w-0">
     <header class="px-1 mb-6">
       <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">{title}</h1>
       <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">{description}</p>
@@ -60,7 +61,7 @@ const combinedSchema = schema
       )}
     </header>
 
-    <div class="app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
+    <div data-article-body class="app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
       prose-headings:font-extrabold
       prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)] prose-headings:text-balance
       prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
@@ -71,7 +72,26 @@ const combinedSchema = schema
       prose-strong:text-[color:var(--color-ink)]">
       <slot />
     </div>
+    </div>
 
+    <!-- Desktop only: sticky "On this page" list and a compact Start card. -->
+    <aside class="hidden lg:block lg:col-start-2 lg:row-start-1" aria-label="Article tools">
+      <div class="sticky top-20 flex max-h-[calc(100vh-6rem)] flex-col gap-4">
+        <nav data-article-toc hidden aria-label="On this page" style="view-transition-name: none" class="app-card min-h-0 overflow-y-auto px-5 py-4">
+          <p class="text-xs font-extrabold uppercase tracking-widest text-[color:var(--color-ink-muted)]">On this page</p>
+          <ol data-article-toc-list class="mt-2 space-y-0.5 text-[0.875rem] leading-snug"></ol>
+        </nav>
+        <a href="/start/" data-start-cta data-event="article-sidebar-start-click" class="group flex shrink-0 items-center gap-3 rounded-3xl app-sky border border-white/80 p-4 shadow-[0_12px_28px_-16px_rgba(40,96,140,0.45)] transition hover:brightness-[1.03]">
+          <img src="/app-ui/zen_presenting_new.webp" alt="" width="306" height="480" loading="lazy" class="h-16 w-auto shrink-0" />
+          <span class="min-w-0 flex-1">
+            <span class="block font-extrabold leading-tight text-[color:var(--color-ink)]">Get your personal stress plan</span>
+            <span class="mt-2 inline-flex h-9 items-center rounded-full bg-[color:var(--color-ink)] px-4 text-sm font-extrabold text-white group-hover:brightness-110">Start ›</span>
+          </span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="lg:col-start-1 lg:row-start-2 lg:min-w-0">
     <RelatedGuides />
 
     {!hideDisclaimer && (
@@ -92,6 +112,7 @@ const combinedSchema = schema
     </aside>
 
     <NewsletterCTA variant="card" />
+    </div>
   </article>
 
   <script>
@@ -113,5 +134,84 @@ const combinedSchema = schema
     }
     initReadingProgress();
     document.addEventListener('astro:after-swap', initReadingProgress);
+
+    // Desktop sidebar "On this page": reuse the page's own jump list when it
+    // has one (that list is then hidden on desktop only), otherwise build it
+    // from the article's h2s. Fewer than three entries: no list.
+    let tocCleanup: (() => void) | undefined;
+    function initArticleToc() {
+      tocCleanup?.();
+      const nav = document.querySelector<HTMLElement>('[data-article-toc]');
+      const list = nav?.querySelector('[data-article-toc-list]');
+      const body = document.querySelector('[data-article-body]');
+      if (!nav || !list || !body) return;
+      const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      let items: { id: string; text: string }[] = [];
+      const own = body.querySelector<HTMLElement>('nav[aria-label="On this page"]');
+      if (own) {
+        items = [...own.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')]
+          .map((a) => ({ id: decodeURIComponent(a.hash.slice(1)), text: (a.textContent || '').trim() }))
+          .filter((i) => i.id && document.getElementById(i.id));
+      }
+      if (items.length >= 3) {
+        own!.dataset.tocInSidebar = '';
+      } else {
+        const used = new Set<string>();
+        items = [...body.querySelectorAll<HTMLElement>('h2')]
+          .filter((h) => !h.closest('aside, .not-prose, [data-toc-skip]'))
+          .map((h) => {
+            if (!h.id) {
+              let id = slug(h.textContent || '') || 'section';
+              while (document.getElementById(id) || used.has(id)) id += '-x';
+              h.id = id;
+            }
+            used.add(h.id);
+            return { id: h.id, text: (h.textContent || '').trim() };
+          });
+      }
+      list.replaceChildren();
+      if (items.length < 3) { nav.hidden = true; return; }
+      const links = items.map(({ id, text }) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${encodeURIComponent(id)}`;
+        a.textContent = text;
+        a.className = 'article-toc-link';
+        li.append(a);
+        list.append(li);
+        return a;
+      });
+      nav.hidden = false;
+      const targets = items.map((i) => document.getElementById(i.id));
+      const onScroll = () => {
+        let active = 0;
+        targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top < 140) active = i; });
+        links.forEach((a, i) => a.toggleAttribute('aria-current', i === active));
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      tocCleanup = () => window.removeEventListener('scroll', onScroll);
+    }
+    initArticleToc();
+    document.addEventListener('astro:after-swap', initArticleToc);
   </script>
+
+  <style is:global>
+    @media (min-width: 1024px) {
+      [data-article-body] nav[data-toc-in-sidebar] { display: none; }
+      [data-article-body] h2[id] { scroll-margin-top: 5rem; }
+      .article-toc-link {
+        display: block;
+        margin-inline: -0.5rem;
+        padding: 0.4rem 0.5rem;
+        border-radius: 0.625rem;
+        color: var(--color-ink-muted);
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 150ms ease, color 150ms ease;
+      }
+      .article-toc-link:hover { color: var(--color-ink); background: var(--color-surface); }
+      .article-toc-link[aria-current] { color: var(--color-teal-dark); background: var(--color-mint-soft); }
+    }
+  </style>
 </BaseLayout>

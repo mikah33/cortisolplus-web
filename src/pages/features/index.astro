@@ -65,8 +65,9 @@ const schema = [
   image="/screenshots/live-stress-levels.png"
   schema={schema}
 >
-  <article class="max-w-5xl mx-auto px-6 py-16">
-    <div class="max-w-3xl mb-12">
+  <article class="max-w-5xl mx-auto px-6 py-16 lg:max-w-6xl lg:px-8 lg:pt-12 lg:pb-20">
+    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-center lg:gap-x-14">
+    <div class="max-w-3xl mb-12 lg:mb-14">
       <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Features</div>
       <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
         Everything <span class="bg-gradient-to-r from-[color:var(--color-teal)] to-[color:var(--color-coral)] bg-clip-text text-transparent">Cortisol+</span> does
@@ -78,8 +79,10 @@ const schema = [
         Cortisol+ brings available Apple Watch readings into a wellness view. Start with the underlying HRV and sleep records, understand the assumptions behind the score, and use the breathing exercise as a short guided pause. The app does not measure cortisol or prove that a lifestyle change affected hormone levels.
       </p>
     </div>
+    <img src="/app-ui/zen_companions.webp" alt="" width="1100" height="882" class="hidden lg:block lg:mb-14 lg:w-full lg:h-auto drop-shadow-[0_18px_24px_rgba(40,96,140,0.2)]" />
+    </div>
 
-    <div class="grid md:grid-cols-3 gap-5 mb-16">
+    <div class="grid md:grid-cols-3 gap-5 mb-16 lg:gap-6 lg:mb-20">
       {features.map((f) => (
         <a href={f.href} class={`group relative block p-7 rounded-3xl bg-gradient-to-br ${colorMap[f.color]} border hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px] transition-all duration-300 overflow-hidden`}>
           <div class="relative">
@@ -95,27 +98,27 @@ const schema = [
       ))}
     </div>
 
-    <div class="max-w-3xl mb-16">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">The three features, in depth</h2>
+    <div class="max-w-3xl mb-16 lg:mb-20 lg:grid lg:max-w-none lg:grid-cols-3 lg:gap-x-12">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 lg:col-span-3 lg:row-start-1 lg:mb-8">The three features, in depth</h2>
 
-      <h3 class="text-xl font-bold mb-2">1. HRV stress monitoring</h3>
-      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">Review available HRV, heart rate and other factors behind the wellness score. Check timestamps and missing inputs before interpreting a change. Personal baselines provide context; they do not establish clinical accuracy.</p>
-      <p class="mb-6"><a href="/features/hrv-stress-monitoring/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore HRV stress monitoring →</a></p>
-      <h3 class="text-xl font-bold mb-2">2. Sleep and stress patterns</h3>
-      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">View the sleep information available through Apple Health alongside your wearable history. Record completeness and your own observations matter. The app cannot explain a nighttime awakening or infer a morning cortisol level.</p>
-      <p class="mb-6"><a href="/features/sleep-cortisol-tracking/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore sleep tracking →</a></p>
-      <h3 class="text-xl font-bold mb-2">3. Guided breathing</h3>
-      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">Use a short animated exercise with breathe-in, hold and breathe-out prompts. You can finish the cycles or end early. A completed timer does not guarantee a particular physiological result.</p>
-      <p class="mb-2"><a href="/features/breathing-zen-mode/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore guided breathing →</a></p>
+      <h3 class="text-xl font-bold mb-2 lg:col-start-1 lg:row-start-2">1. HRV stress monitoring</h3>
+      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3 lg:col-start-1 lg:row-start-3">Review available HRV, heart rate and other factors behind the wellness score. Check timestamps and missing inputs before interpreting a change. Personal baselines provide context; they do not establish clinical accuracy.</p>
+      <p class="mb-6 lg:col-start-1 lg:row-start-4 lg:mb-0"><a href="/features/hrv-stress-monitoring/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore HRV stress monitoring →</a></p>
+      <h3 class="text-xl font-bold mb-2 lg:col-start-2 lg:row-start-2">2. Sleep and stress patterns</h3>
+      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3 lg:col-start-2 lg:row-start-3">View the sleep information available through Apple Health alongside your wearable history. Record completeness and your own observations matter. The app cannot explain a nighttime awakening or infer a morning cortisol level.</p>
+      <p class="mb-6 lg:col-start-2 lg:row-start-4 lg:mb-0"><a href="/features/sleep-cortisol-tracking/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore sleep tracking →</a></p>
+      <h3 class="text-xl font-bold mb-2 lg:col-start-3 lg:row-start-2">3. Guided breathing</h3>
+      <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3 lg:col-start-3 lg:row-start-3">Use a short animated exercise with breathe-in, hold and breathe-out prompts. You can finish the cycles or end early. A completed timer does not guarantee a particular physiological result.</p>
+      <p class="mb-2 lg:col-start-3 lg:row-start-4 lg:mb-0"><a href="/features/breathing-zen-mode/" class="text-sm font-medium text-[color:var(--color-teal-dark)]">Explore guided breathing →</a></p>
     </div>
 
-    <aside class="p-8 rounded-3xl bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
-      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Get started</div>
-      <h2 class="text-2xl md:text-3xl font-bold mb-3">Free on the App Store</h2>
-      <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl">
+    <aside class="p-8 rounded-3xl lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-x-12 lg:p-10 bg-gradient-to-br from-[color:var(--color-mint-soft)] to-white border border-[color:var(--color-teal)]/20">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2 lg:col-start-1">Get started</div>
+      <h2 class="text-2xl md:text-3xl font-bold mb-3 lg:col-start-1">Free on the App Store</h2>
+      <p class="text-[color:var(--color-ink-muted)] mb-6 max-w-2xl lg:col-start-1 lg:mb-0">
         Requires a compatible iPhone and available Apple Health data. Analysis requires an active subscription or an eligible trial; check the current in-app offer.
       </p>
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:flex-col lg:items-center lg:gap-3">
         <AppStoreBadge size="lg" />
         <RatingBadge size="sm" />
       </div>

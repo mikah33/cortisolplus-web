@@ -32,10 +32,10 @@ const schema = [
   image="/screenshots/live-stress-levels.png"
   schema={schema}
 >
-  <div class="mx-auto w-full max-w-[30rem] -mt-14">
+  <div class="dl-wrap mx-auto w-full max-w-[30rem] -mt-14">
     <!-- Store card, like an App Store listing on the app's sky -->
-    <section class="app-sky px-4 pt-20 pb-6">
-      <div class="app-card p-5">
+    <section class="dl-hero app-sky px-4 pt-20 pb-6">
+      <div class="dl-card app-card p-5">
         <div class="flex items-center gap-4">
           <img src="/icon-192.png" alt="Cortisol+ app icon" width="192" height="192" class="w-20 h-20 rounded-[1.375rem] shadow-[0_8px_20px_-8px_rgba(40,96,140,0.55)]" />
           <div class="min-w-0">
@@ -61,7 +61,7 @@ const schema = [
         </p>
       </div>
 
-      <ul class="app-snap -mx-4 mt-5 pb-1">
+      <ul class="dl-shots app-snap -mx-4 mt-5 pb-1">
         {['live-stress-levels', 'sleep-quality', 'activities', 'zen-ai-assistant'].map((name) => (
           <li class="w-[42%]">
             <img src={`/screenshots/${name}.webp`} alt="" width="645" height="1398" loading="lazy" decoding="async" class="rounded-2xl aspect-[645/1398] w-full object-cover shadow-[0_12px_28px_-18px_rgba(40,96,140,0.6)]" />
@@ -71,7 +71,7 @@ const schema = [
     </section>
 
     <!-- What you need — follows the visitor's phone -->
-    <section class="px-4 mt-6">
+    <section class="dl-need px-4 mt-6">
       <h2 class="px-1 mb-2 text-xl font-extrabold tracking-tight">What you need</h2>
       <ul class="app-card app-list overflow-hidden" data-only-block="ios other">
         <li class="p-4"><div class="font-extrabold">iPhone with iOS 17 or later</div><p class="text-sm text-[color:var(--color-ink-muted)] leading-snug mt-0.5">The App Store download is the iPhone version.</p></li>
@@ -89,7 +89,7 @@ const schema = [
     </section>
 
     <!-- The explanations, kept in full -->
-    <section class="px-4 mt-8 space-y-4">
+    <section class="dl-more px-4 mt-8 space-y-4">
       <div class="app-card p-5">
         <h2 class="text-xl font-extrabold tracking-tight mb-2">What Cortisol+ does</h2>
         <p class="text-[color:var(--color-ink-muted)] leading-relaxed mb-3">
@@ -123,3 +123,47 @@ const schema = [
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* Desktop only (mobile and tablet keep the single column above): store card
+     and "What you need" on the left, the screenshots in full (2 × 2) on the sky on
+     the right, the explanations in two columns below. */
+  @media (min-width: 1024px) {
+    .dl-wrap {
+      max-width: 72rem;
+      margin-top: 0;
+      padding: 1.5rem 1.5rem 0;
+      display: grid;
+      grid-template-columns: minmax(0, 25rem) minmax(0, 1fr);
+      grid-template-rows: auto 1fr auto;
+      column-gap: 2.5rem;
+    }
+    .dl-hero { display: contents; }
+    .dl-card { grid-column: 1; grid-row: 1; }
+    .dl-need { grid-column: 1; grid-row: 2; padding: 0; margin-top: 2rem; }
+    .dl-shots {
+      grid-column: 2; grid-row: 1 / 3;
+      margin: 0;
+      padding: 2rem 2rem 3.5rem;
+      border-radius: 2rem;
+      overflow: visible;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 11.5rem));
+      gap: 1.25rem 1.5rem;
+      justify-content: center;
+      align-content: center;
+      background:
+        url('/app-ui/sky.webp') top center / cover no-repeat,
+        linear-gradient(180deg, var(--color-sky-top) 0%, var(--color-sky-mid) 50%, var(--color-sky-bottom) 100%);
+    }
+    .dl-shots > li { width: auto; }
+    .dl-shots > li:nth-child(even) { transform: translateY(1.5rem); }
+    .dl-more {
+      grid-column: 1 / -1; grid-row: 3;
+      padding: 0; margin-top: 2.5rem;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem;
+      align-items: start;
+    }
+    .dl-more > * { margin: 0 !important; }
+  }
+</style>
