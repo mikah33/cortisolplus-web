@@ -1,25 +1,22 @@
 ---
-// The bottom download bar on every page (phones only). It follows the
-// visitor's platform like GetAppButton, and steps aside while an in-page
-// store button, the privacy banner or the menu is on screen.
-import { SITE, APP_RATING } from '../consts';
+// The bottom bar on every page (phones and desktop; /start/ uses FunnelLayout,
+// which leaves it out). It sends visitors into the /start/ onboarding, which
+// ends at the plan and checkout, rather than straight to a store listing.
+// It steps aside while an in-page store or onboarding button, the privacy
+// banner or the menu is on screen.
+import { APP_RATING } from '../consts';
 ---
 
-<div id="sticky-cta" class="sticky-cta md:hidden" data-hidden="true" transition:persist>
+<div id="sticky-cta" class="sticky-cta" data-hidden="true" transition:persist>
   <div class="sticky-cta__card">
     <img src="/apple-touch-icon.png" alt="" width="44" height="44" class="w-11 h-11 rounded-[12px] shrink-0" />
     <div class="min-w-0 flex-1 leading-tight">
-      <div class="font-extrabold text-[0.9375rem]">Cortisol+</div>
+      <div class="font-extrabold text-[0.9375rem]">Get your stress plan</div>
       <div class="text-[0.8125rem] font-semibold text-[color:var(--color-ink-muted)] truncate">
-        <span class="text-[#f5b301]" aria-hidden="true">★</span> {APP_RATING.value}
-        <span data-only="ios">· Free on the App Store</span>
-        <span data-only="android">· Free on Google Play</span>
-        <span data-only="other">· Free download</span>
+        <span class="text-[#f5b301]" aria-hidden="true">★</span> {APP_RATING.value} · Takes about a minute
       </div>
     </div>
-    <a href={SITE.appStoreUrl} data-store="ios" data-event="appstore-click" class="sticky-cta__btn">Get</a>
-    <a href={SITE.googlePlayUrl} data-store="android" class="sticky-cta__btn">Get</a>
-    <a href="/download/" data-store="other" class="sticky-cta__btn">Get</a>
+    <a href="/start/" data-event="sticky-start-click" class="sticky-cta__btn">Start</a>
   </div>
 </div>
 
@@ -63,12 +60,6 @@ import { SITE, APP_RATING } from '../consts';
     transition: transform 160ms ease;
   }
   .sticky-cta__btn:active { transform: scale(0.95); }
-  /* One "Get" button per platform; unknown platforms go to /download/. */
-  .sticky-cta__btn { display: none; }
-  :global(html[data-platform='ios']) .sticky-cta__btn[data-store='ios'],
-  :global(html[data-platform='android']) .sticky-cta__btn[data-store='android'],
-  :global(html[data-platform='other']) .sticky-cta__btn[data-store='other'],
-  :global(html:not([data-platform])) .sticky-cta__btn[data-store='other'] { display: inline-flex; }
   @media (prefers-reduced-motion: reduce) { .sticky-cta { transition: none; } }
 </style>
 
@@ -88,7 +79,7 @@ import { SITE, APP_RATING } from '../consts';
       }
       update();
     });
-    document.querySelectorAll('.get-app').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.get-app, [data-start-cta]').forEach((el) => observer.observe(el));
 
     function update() {
       const scrolledEnough = window.scrollY > 240;

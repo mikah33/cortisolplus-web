@@ -2,98 +2,169 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FAQ, { type FAQItem } from '../../../components/FAQ.astro';
 import RelatedLinks from '../../../components/RelatedLinks.astro';
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 
 import { medicalWebPage } from '../../../lib/schema';
 
+const UPDATED = '2026-11-12';
+
 const schema = medicalWebPage({
-  name: 'Foods that lower cortisol — evidence-ranked list',
+  name: 'Foods that lower cortisol — what the evidence shows',
   pathname: '/cortisol/lower/foods/',
+  lastReviewed: UPDATED,
 });
 
+// The FAQ component renders every answer visibly and emits the FAQPage
+// JSON-LD from this same array, so visible text and schema always match.
 const faqs: FAQItem[] = [
   {
     q: 'What food lowers cortisol the fastest?',
-    a: 'Dark chocolate (70%+ cacao, ~40g) has the most direct acute cortisol-lowering evidence — studies show measurable reduction within 2 hours. Salmon and other omega-3 rich foods reduce baseline cortisol with daily intake over 3+ weeks. Magnesium-rich foods (leafy greens, pumpkin seeds, almonds) support overnight cortisol regulation when eaten regularly.',
+    a: 'No food has been shown to reliably lower cortisol fast. Dark chocolate, oily fish and magnesium-rich foods (leafy greens, pumpkin seeds, almonds) are often mentioned, but the evidence on cortisol specifically is limited and mixed. A regular, balanced eating pattern may support your overall wellbeing.',
   },
   {
     q: 'What foods raise cortisol?',
-    a: 'High caffeine (especially on an empty stomach in the morning), alcohol (acutely lowers then chronically raises), high-glycemic carbs that spike-then-crash blood sugar, ultra-processed foods, and chronic under-eating. Skipping meals or extended fasting beyond your adapted window also raises cortisol.',
+    a: 'Caffeine can raise cortisol for a while, especially in people who don\'t usually drink it. Alcohol can disturb sleep. Big blood-sugar swings, a diet heavy in ultra-processed foods and skipping meals when you\'re very stressed may also add to stress on your body.',
   },
   {
     q: 'Does eating more frequently lower cortisol?',
-    a: 'For people who are chronically stressed and have blood sugar variability, yes — protein + fat at regular intervals stabilizes blood sugar and reduces cortisol-driven hunger. For metabolically healthy people, meal frequency matters less than overall food quality. Don\'t use "small meals every 2 hours" as a stress fix unless you have clear hypoglycemic symptoms.',
+    a: 'Not for most people. Regular meals with protein, fibre and some fat can help keep your energy steady, which may help if you get shaky or irritable when hungry. For most healthy people, overall food quality matters more than how often you eat. If you think you have low blood sugar episodes, talk to a doctor.',
   },
   {
     q: 'Is the "adrenal cocktail" effective for cortisol?',
-    a: 'The viral "adrenal cocktail" (orange juice + coconut water + sea salt + cream of tartar) provides vitamin C, potassium, sodium, and a sugar hit. There\'s no strong evidence it specifically lowers cortisol. Most of its effect is probably from morning hydration + electrolytes + glucose, which together stabilize blood sugar and morning energy. It\'s not harmful but it\'s not magic.',
+    a: 'The viral "adrenal cocktail" (orange juice + coconut water + sea salt + cream of tartar) provides vitamin C, potassium, sodium and some sugar. There\'s no strong evidence it specifically lowers cortisol. Most of its effect is probably hydration, electrolytes and a little sugar in the morning. It\'s not harmful for most people, but it\'s not magic.',
   },
   {
     q: 'How long until diet changes lower my cortisol?',
-    a: 'Acute foods (dark chocolate, omega-3-rich meals) can move cortisol within hours. Sustained diet changes (eliminating excess caffeine, stabilizing blood sugar, getting consistent omega-3) show measurable cortisol pattern changes in 2–4 weeks. Major shifts (eliminating alcohol, fixing severe nutrient deficiencies) compound over 8–12 weeks.',
+    a: 'There is no set timeline, and research hasn\'t shown how much everyday diet changes move cortisol. Steady habits, like cutting back on caffeine late in the day and on alcohol, may help you feel and sleep better. If you are worried about your cortisol, a doctor can decide whether testing makes sense.',
   },
 ];
 
 const related = [
   { href: '/cortisol/foods/ashwagandha/', title: 'Ashwagandha + cortisol', hint: 'Evidence review' },
-  { href: '/cortisol/lower/supplements/', title: 'Supplements that lower cortisol', hint: 'Ranked list' },
+  { href: '/cortisol/lower/supplements/', title: 'Supplements and cortisol', hint: 'Evidence and limits' },
   { href: '/cortisol/lower/', title: 'Full how-to-lower guide', hint: 'All tactics' },
 ];
+
+const foodCards = [
+  {
+    name: 'Dark chocolate (70%+ cacao)',
+    text: 'Contains plant compounds called flavanols. Some small studies have looked at stress and cortisol, with mixed results. It also has caffeine and sugar, so it\'s best not eaten late at night.',
+  },
+  {
+    name: 'Oily fish (salmon, sardines, mackerel)',
+    text: 'A good source of omega-3 fats, which are good for heart health. Studies on omega-3 and cortisol are limited and mixed.',
+  },
+  {
+    name: 'Magnesium-rich foods (leafy greens, pumpkin seeds, almonds)',
+    text: 'Magnesium is an essential mineral. Evidence that more magnesium lowers cortisol is limited and mixed. If you are thinking about a supplement, ask a doctor or pharmacist.',
+  },
+  {
+    name: 'Fermented foods (yogurt, kefir, kimchi, sauerkraut)',
+    text: 'Researchers are studying the gut-brain link. Some small trials suggest a possible effect on how stressed people feel. Evidence on cortisol is early.',
+  },
+  {
+    name: 'Polyphenol-rich foods (berries, green tea, olive oil, herbs)',
+    text: 'Part of a healthy diet. Any link to cortisol is indirect and not well proven.',
+  },
+  {
+    name: 'Protein at breakfast',
+    text: 'A breakfast with protein can help keep you full and your energy steady through the morning. A direct effect on cortisol hasn\'t been shown.',
+  },
+];
+
+const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
+  prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+  prose-headings:text-balance prose-headings:scroll-mt-24
+  prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+  prose-h3:mt-8 prose-h3:mb-2
+  prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+  prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
+  prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
+  prose-strong:text-[color:var(--color-ink)]`;
 ---
 
 <BaseLayout
   title="Foods that lower cortisol (and what to avoid)"
-  description="The foods with the strongest evidence for lowering cortisol — dark chocolate, omega-3 fish, magnesium-rich greens — plus the cortisol-raisers to cut."
+  description="Foods that lower cortisol? What the evidence really shows for dark chocolate, omega-3 fish and magnesium-rich greens, plus the foods and drinks to cut back on."
   image="/screenshots/live-stress-levels.png"
   schema={schema}
 >
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Lower cortisol</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Foods that lower cortisol</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      Ranked by strength of evidence. The honest picture — most "cortisol foods" lists are repackaged generic healthy-eating advice; here's what actually has data behind it.
-    </p>
+  <article class="max-w-3xl mx-auto px-4 pt-6 pb-16">
+    <header class="px-1 mb-6">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Lower cortisol</div>
+      <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">Foods that lower cortisol</h1>
+      <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
+        The honest picture. Most "cortisol foods" lists are general healthy-eating advice with a new label. Here's what the evidence does and doesn't show.
+      </p>
+      <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
+        Updated {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })} · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a>
+      </p>
+    </header>
 
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline">
+    <InShort image="/app-ui/zen/zen-meal.webp" points={[
+      '<strong>No single food</strong> has been shown to reliably lower cortisol.',
+      'Regular, balanced meals <strong>may support your wellbeing</strong>.',
+      'Go easy on <strong>late caffeine and alcohol</strong>, mostly for better sleep.',
+    ]} />
 
-      <h2>Strong evidence</h2>
-      <h3>1. Dark chocolate (70%+ cacao)</h3>
-      <p>Multiple RCTs show ~40g of high-cacao dark chocolate measurably lowers cortisol within 2 hours of intake. The mechanism involves flavanols and probably the mood/reward response. Dose: 30–50g most days. Caveat: chocolate has caffeine and sugar — don't eat it within 6 hours of bed.</p>
+    <div class={proseCard}>
+      <h2>Is there a food that lowers cortisol?</h2>
+      <p><strong>Not one that reliably does.</strong> Evidence on food and cortisol specifically is limited and mixed.</p>
+      <p>What's better established is that a regular, balanced eating pattern supports your general health. That may help you feel steadier day to day.</p>
 
-      <h3>2. Omega-3 rich fish (salmon, sardines, mackerel)</h3>
-      <p>Daily intake of EPA/DHA (1–3g/day from food or supplements) lowers baseline cortisol over 3+ weeks. Particularly strong evidence in chronically stressed populations. Two servings of fatty fish per week is the practical floor.</p>
+      <h2>Foods often linked to lower cortisol</h2>
+      <p><strong>These foods are worth eating for other reasons.</strong> Here's what we know about cortisol:</p>
+      <div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+        {foodCards.map((card) => (
+          <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+            <p class="font-extrabold text-[color:var(--color-ink)]">{card.name}</p>
+            <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">{card.text}</p>
+          </div>
+        ))}
+      </div>
 
-      <h3>3. Magnesium-rich foods (leafy greens, pumpkin seeds, almonds, dark chocolate)</h3>
-      <p>Magnesium is a cofactor for HPA axis regulation. Deficiency is associated with elevated cortisol, particularly nocturnal. Most Western diets are magnesium-deficient. The food-based fix: a cup of cooked spinach, an ounce of pumpkin seeds, and a square of dark chocolate daily covers the gap.</p>
-
-      <h2>Moderate evidence</h2>
-      <h3>4. Fermented foods (yogurt, kefir, kimchi, sauerkraut)</h3>
-      <p>Emerging evidence suggests gut microbiome diversity influences cortisol regulation via the gut-brain axis. Daily fermented food intake correlates with lower perceived stress and modestly improved cortisol patterns in small trials.</p>
-
-      <h3>5. Polyphenol-rich foods (berries, green tea, olive oil, herbs)</h3>
-      <p>Polyphenols reduce inflammation, and chronic inflammation drives chronic cortisol elevation. Effect is indirect but real over months of consistent intake.</p>
-
-      <h3>6. Protein at breakfast</h3>
-      <p>Protein-rich breakfast (~30g) stabilizes morning blood sugar and reduces mid-morning cortisol spikes from blood-sugar crashes. Particularly effective for people with high stress and irregular eating.</p>
-
-      <h2>Foods to reduce</h2>
+      <h2>Foods and drinks to cut back on</h2>
       <ul>
-        <li><strong>Excess caffeine</strong> — especially on an empty stomach in the morning. 1 cup before food is the practical limit for most.</li>
-        <li><strong>Alcohol</strong> — acutely sedating but raises nocturnal cortisol, fragments sleep, and over time raises baseline cortisol.</li>
-        <li><strong>High-glycemic refined carbs</strong> on an empty stomach — the post-spike crash triggers cortisol.</li>
-        <li><strong>Ultra-processed foods</strong> — chronic inflammation driver.</li>
-        <li><strong>Skipping meals when chronically stressed</strong> — fasting on top of stress accumulates.</li>
+        <li><strong>Lots of caffeine</strong>, especially on an empty stomach. It can raise cortisol for a while, and late caffeine can hurt sleep.</li>
+        <li><strong>Alcohol.</strong> It can make you sleepy at first but tends to break up your sleep later in the night.</li>
+        <li><strong>Refined carbs on an empty stomach.</strong> A big blood-sugar spike and drop can leave you shaky and tired.</li>
+        <li><strong>A diet heavy in ultra-processed foods.</strong> It's linked with poorer health overall.</li>
+        <li><strong>Skipping meals when you're very stressed.</strong> Going hungry can add to how stressed you feel.</li>
       </ul>
 
-      <h2>The cortisol mocktail / adrenal cocktail</h2>
-      <p>Viral on TikTok: orange juice + coconut water + sea salt (+ optional cream of tartar). It provides hydration, electrolytes, and glucose — which helps morning energy and blood sugar — but there's no direct evidence it specifically lowers cortisol. Not harmful, not magic. See <a href="/blog/cortisol-mocktail-recipe/">the full cortisol mocktail breakdown</a> for the deeper take.</p>
+      <ZenTip image="/app-ui/zen/zen-coffee.webp">
+        Have your coffee <strong>with breakfast</strong>, not instead of it, and keep it to the earlier part of the day.
+      </ZenTip>
 
-      <h2>How to know if it's working</h2>
-      <p>Track. Most people add cortisol-lowering foods and never know if they actually moved their cortisol. With <a href="/">Cortisol+</a>, you can change one input (e.g. add 2 servings of fatty fish weekly), hold others constant, and watch your HRV-derived cortisol trend over 4–6 weeks. If the line bends, it's working. If it doesn't, save the effort.</p>
+      <h2>The cortisol mocktail / adrenal cocktail</h2>
+      <p><strong>It's mostly hydration, not a cortisol treatment.</strong></p>
+      <p>It went viral on TikTok: orange juice, coconut water and sea salt, sometimes with cream of tartar. It gives you fluid, electrolytes and a little sugar.</p>
+      <p>There's no direct evidence it lowers cortisol. Not harmful for most people, not magic. See <a href="/blog/cortisol-mocktail-recipe/">the full cortisol mocktail breakdown</a> for more.</p>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
+
+      <h2>Can I tell if a food change is working?</h2>
+      <p><strong>Not for cortisol, at least not with an app.</strong></p>
+      <p><a href="/">Cortisol+</a> shows your sleep, heart rate variability (HRV) and a 0–100 wellness score from your wearable. It does not measure cortisol, and it can't prove what a food did.</p>
+      <p>You can still notice how you feel and sleep after a change. See <a href="/how-it-works/">how the score works</a>. If you're worried about your cortisol, a doctor can decide whether <a href="/cortisol/test/">testing</a> makes sense.</p>
+
+      <ZenPicture src="/app-ui/zen/zen-thinking.webp" caption="No single food is a cortisol fix. Steady habits matter more." />
     </div>
 
     <FAQ items={faqs} />
     <RelatedLinks links={related} />
+
+    <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+      <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. Cortisol+ does not measure cortisol directly — the app offers a wellness score derived from biometric signals, not a hormone test. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
+    </aside>
   </article>
 </BaseLayout>

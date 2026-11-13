@@ -1,0 +1,16 @@
+---
+/** A small Zen with one practical tip, to break up longer sections. */
+interface Props {
+  image?: string;
+  title?: string;
+}
+const { image = '/app-ui/zen_greet.webp', title = "Zen's tip" } = Astro.props;
+---
+
+<aside class="not-prose my-6 flex items-end gap-3">
+  <img src={image} alt="" width="96" height="96" loading="lazy" class="h-16 w-16 shrink-0 rounded-full bg-[color:var(--color-mint-soft)] object-cover object-top sm:h-20 sm:w-20" />
+  <div class="relative flex-1 rounded-2xl rounded-bl-md bg-[color:var(--color-mint-soft)] px-4 py-3 text-[1rem] leading-relaxed text-[color:var(--color-ink)]">
+    <p class="text-xs font-extrabold uppercase tracking-widest text-[color:var(--color-teal-dark)]">{title}</p>
+    <div class="mt-1"><slot /></div>
+  </div>
+</aside>

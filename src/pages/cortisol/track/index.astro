@@ -1,48 +1,140 @@
 ---
 import CreatorShort from '../../../components/CreatorShort.astro';
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
+
+const card = 'rounded-2xl border border-[color:var(--color-border)] p-4';
+const cardTitle = 'font-extrabold text-[color:var(--color-ink)]';
+const cardText = 'mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]';
+const cardMuted = 'mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]';
 ---
-<ArticleLayout title="Cortisol Tracking Apps: iPhone, Apple Watch & Testing" description="Choosing a cortisol tracking app? Compare wearable stress tracking with hormone tests, see what Cortisol+ does on iPhone, and understand free versus paid options." published="2026-09-16" updated="2026-09-17">
-<p><strong>To track actual cortisol, you need an appropriate hormone test and a plan for interpreting it.</strong> To track everyday stress and recovery, record sleep, perceived stress and available wearable readings. These are different activities: a journal or an Apple Watch app cannot tell you your cortisol concentration.</p>
-<p>This guide is published by the Cortisol+ team. We make a wearable wellness app, not a cortisol test. It is educational information, not a personalized testing recommendation.</p>
+<ArticleLayout title="Cortisol Tracking Apps: iPhone, Apple Watch & Testing" description="Choosing a cortisol tracking app? Compare wearable stress tracking with hormone tests, see what Cortisol+ does on iPhone, and understand free versus paid options." published="2026-09-16" updated="2026-11-12">
+<InShort points={[
+  'To track <strong>actual cortisol</strong>, you need a hormone test.',
+  'To track <strong>everyday stress</strong>, log sleep, mood and wearable readings.',
+  'Keep <strong>lab results and app scores</strong> in separate records.',
+]} />
+
+<p><strong>To track actual cortisol, you need the right hormone test and a plan for reading the result.</strong></p>
+<p>To track everyday stress and recovery, write down your sleep, how stressed you feel and any wearable readings. These are two different things. A journal or an Apple Watch app can't tell you how much cortisol you have.</p>
+<p>The Cortisol+ team publishes this guide. We make a wearable wellness app, not a cortisol test. This is general information, not personal testing advice.</p>
+
 <h2>How can I better track my cortisol?</h2>
-<p>Start by deciding what you want to learn. If you have a medical concern or an abnormal test result, ask your clinician which test, collection time and follow-up make sense. If you want to understand your daily routine, use a consistent observation log. Keep laboratory results separate from app scores, and avoid interpreting a change in sleep or HRV as proof that a hormone changed.</p>
-<table><thead><tr><th scope="col">Your question</th><th scope="col">Useful approach</th><th scope="col">What it cannot establish</th></tr></thead><tbody>
-<tr><td>What is my cortisol level?</td><td>Appropriately selected blood, saliva or urine testing</td><td>A result does not explain its cause without clinical context</td></tr>
-<tr><td>What changes around stressful days?</td><td>A dated sleep, routine and perceived-stress journal</td><td>The journal does not measure cortisol</td></tr>
-<tr><td>How do my wearable readings vary?</td><td>Compare the same device and metric over comparable periods</td><td>HRV and wellness scores are not hormone concentrations</td></tr>
-</tbody></table>
-<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus explains the types of cortisol tests</a> and why collection timing matters. Our <a href="/cortisol/test/#collection-record">at-home cortisol collection checklist</a> explains the questions to ask before ordering or collecting a sample.</p>
+<p><strong>Start by deciding what you want to learn.</strong></p>
+<ul>
+  <li><strong>Got a medical worry or an abnormal test result?</strong> Ask your doctor which test, collection time and follow-up make sense.</li>
+  <li><strong>Want to understand your daily routine?</strong> Use the same observation log every day.</li>
+</ul>
+<p>Keep lab results separate from app scores. Don't read a change in sleep or heart rate variability (HRV) as proof that a hormone changed.</p>
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-3">
+  <div class={card}>
+    <p class={cardTitle}>"What is my cortisol level?"</p>
+    <p class={cardText}>The right blood, saliva or urine test.</p>
+    <p class={cardMuted}><strong>Can't tell you:</strong> the cause of a result without medical context.</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>"What changes on stressful days?"</p>
+    <p class={cardText}>A dated journal of sleep, routine and how stressed you feel.</p>
+    <p class={cardMuted}><strong>Can't tell you:</strong> your cortisol. A journal doesn't measure it.</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>"How do my wearable readings vary?"</p>
+    <p class={cardText}>Compare the same device and measure over similar periods.</p>
+    <p class={cardMuted}><strong>Can't tell you:</strong> hormone levels. HRV and wellness scores aren't hormone levels.</p>
+  </div>
+</div>
+<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus explains the types of cortisol tests</a> and why collection timing matters. Our <a href="/cortisol/test/#collection-record">at-home cortisol collection checklist</a> lists the questions to ask before you order or collect a sample.</p>
+
+<ZenTip image="/app-ui/zen/zen-journal.webp">
+  Keep <strong>two separate notes</strong>: one for lab results, one for app scores. It stops you mixing them up.
+</ZenTip>
+
 <h2 id="cortisol-tracking-app">What does a cortisol tracking app actually track?</h2>
-<p><strong>A cortisol tracking app may organize hormone-test results or interpret wearable stress signals. Check which one it does.</strong> Cortisol+ is an iPhone wellness app that uses permitted Apple Health data to help you review HRV, sleep and recovery-related patterns. Its score is not a blood, saliva or urine cortisol measurement.</p>
-<table><caption>Choose a tracking approach by the question you want answered</caption><thead><tr><th scope="col">Approach</th><th scope="col">What to look for</th><th scope="col">Where to start</th></tr></thead><tbody>
-<tr><td>Wearable stress app</td><td>Named inputs, readable history, missing-data explanations and subscription terms</td><td><a href="/compare/apple-watch-stress-apps/#source-check">Compare documented Apple Watch stress-app features</a></td></tr>
-<tr><td>Laboratory result record</td><td>Sample type, collection time, units and the testing lab's reference interval</td><td><a href="/cortisol/test/">Understand cortisol testing</a></td></tr>
-<tr><td>Daily observation log</td><td>A consistent place to record sleep, routine and how you feel</td><td><a href="/resources/stress-sleep-journal/">Use the free stress and sleep journal</a></td></tr>
-</tbody></table>
+<p><strong>A cortisol tracking app may store hormone-test results, or it may read wearable stress signals. Check which one it does.</strong></p>
+<p>Cortisol+ is an iPhone wellness app. It uses the Apple Health data you allow to help you look at HRV, sleep and recovery patterns. Its score is not a blood, saliva or urine cortisol measurement.</p>
+<p class="text-sm font-semibold text-[color:var(--color-ink-muted)]">Choose a tracking approach by the question you want answered</p>
+<div class="not-prose my-4 grid gap-3 sm:grid-cols-3">
+  <div class={card}>
+    <p class={cardTitle}>Wearable stress app</p>
+    <p class={cardText}>Look for named inputs, history you can read, explanations for missing data and clear subscription terms.</p>
+    <p class="mt-2 text-[0.9375rem] font-semibold"><a href="/compare/apple-watch-stress-apps/#source-check" class="text-[color:var(--color-teal-dark)] hover:underline">Compare documented Apple Watch stress-app features ›</a></p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Lab result record</p>
+    <p class={cardText}>Look for sample type, collection time, units and the lab's reference range.</p>
+    <p class="mt-2 text-[0.9375rem] font-semibold"><a href="/cortisol/test/" class="text-[color:var(--color-teal-dark)] hover:underline">Understand cortisol testing ›</a></p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Daily observation log</p>
+    <p class={cardText}>A steady place to write down sleep, routine and how you feel.</p>
+    <p class="mt-2 text-[0.9375rem] font-semibold"><a href="/resources/stress-sleep-journal/" class="text-[color:var(--color-teal-dark)] hover:underline">Use the free stress and sleep journal ›</a></p>
+  </div>
+</div>
+
 <h2 id="iphone-app">Which cortisol tracking app should I choose for iPhone?</h2>
-<p>Choose according to your goal. If you want to explore Apple Health readings with an explanation of a wellness score, consider Cortisol+. If you need an actual cortisol result, an HRV app cannot answer that question. Review the <a href="/how-it-works/">Cortisol+ methodology</a> and <a href="/stress/apple-watch/#walkthrough">app walkthrough</a> before deciding whether the presentation fits your routine.</p>
-<p><a href="https://apps.apple.com/app/id6759510126">View Cortisol+ on the App Store</a>. The download is free; analysis requires a subscription or an eligible trial. Check the compatibility information and current offer before subscribing.</p>
+<p><strong>Choose by your goal.</strong> If you want to explore Apple Health readings with an explained wellness score, consider Cortisol+. If you need an actual cortisol result, an HRV app can't give you that.</p>
+<p>Look at the <a href="/how-it-works/">Cortisol+ methodology</a> and <a href="/stress/apple-watch/#walkthrough">app walkthrough</a> before you decide if it fits your routine.</p>
+<p>Cortisol+ is free to download on the App Store. Analysis needs a subscription or an eligible trial. Check compatibility and the current offer before you subscribe.</p>
+
 <h2 id="free-options">Is there a free cortisol tracking app?</h2>
-<p>For a free starting point, review available wearable readings in Apple Health and keep an observation journal. Neither measures cortisol. Free to download also does not mean every analysis feature is free: Cortisol+ requires a subscription or eligible trial for analysis. Compare the ongoing price, trial eligibility and included features shown in each app.</p>
-<h2>A practical daily tracking workflow</h2>
-<ol><li><strong>Record the date and sleep window.</strong> Note bedtime, wake time and interruptions in your own words.</li><li><strong>Add how you felt.</strong> Use a consistent personal description or scale for perceived stress and energy. This is a self-report, not a diagnosis.</li><li><strong>Record relevant context.</strong> Note changes in exercise, caffeine timing, alcohol, illness or routine. Do not change medication to improve a graph.</li><li><strong>Check available wearable samples.</strong> Confirm the source, units and timestamps. Missing data is not a low reading.</li><li><strong>Review patterns without assigning a cause.</strong> “These changed together” is a useful observation to investigate; it is not proof of a cortisol change.</li></ol>
-<p>Use the <a href="/resources/stress-sleep-journal/">free seven-day stress and sleep journal</a> as a starting format. Seven days is an organizational choice, not a validated cortisol-testing schedule.</p>
+<p><strong>For a free start, look at your wearable readings in Apple Health and keep an observation journal.</strong> Neither one measures cortisol.</p>
+<p>"Free to download" doesn't mean every analysis feature is free. Cortisol+ needs a subscription or eligible trial for analysis. Compare the ongoing price, trial eligibility and features shown in each app.</p>
+
+<h2>A practical daily tracking routine</h2>
+<ol>
+  <li><strong>Write down the date and when you slept.</strong> Note bedtime, wake time and any wake-ups in your own words.</li>
+  <li><strong>Add how you felt.</strong> Use the same words or scale each day for stress and energy. This is your own report, not a diagnosis.</li>
+  <li><strong>Note what was different.</strong> Changes in exercise, caffeine timing, alcohol, illness or routine. Don't change medicines to improve a graph.</li>
+  <li><strong>Check your wearable readings.</strong> Confirm the source, units and times. Missing data is not a low reading.</li>
+  <li><strong>Look for patterns without naming a cause.</strong> "These changed together" is worth looking into. It is not proof that cortisol changed.</li>
+</ol>
+<p>Use the <a href="/resources/stress-sleep-journal/">free seven-day stress and sleep journal</a> to get started. Seven days is just a handy length, not a tested cortisol-testing schedule.</p>
+
 <h2>What should I record alongside a cortisol test?</h2>
-<p>Keep the laboratory report, units, reference range, sample type and collection date/time together. Tell the ordering clinician about medicines and relevant changes in your routine. Follow the collection instructions you were given, rather than a generic online schedule. Do not compare a saliva result directly with a blood result or assume results from different laboratories use identical ranges.</p>
+<p><strong>Keep the lab report, units, reference range, sample type and collection date and time together.</strong></p>
+<p>Tell the doctor who ordered the test about your medicines and any changes in your routine. Follow the collection instructions you were given, not a general schedule from online.</p>
+<p>Don't compare a saliva result directly with a blood result. And don't assume different labs use the same ranges.</p>
+
 <h2 id="separate-records">How do I compare my app score with a cortisol test?</h2>
-<p><strong>Keep them in separate records; do not convert one into the other.</strong> A cortisol result belongs with its sample type, collection time, units and laboratory reference interval. A wearable score belongs with its app, underlying readings and time window. Our practical recommendation is to review the context together without assuming the numbers should match.</p>
-<ul><li><strong>Laboratory record:</strong> retain the original report and discuss interpretation with the clinician. <a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus describes the different sample methods and preparation requirements</a>.</li><li><strong>Wearable record:</strong> note which readings contributed and whether any were missing. The <a href="/how-it-works/">Cortisol+ methodology</a> explains our model rather than a hormone assay.</li><li><strong>Personal observation:</strong> record how you felt separately. <a href="https://www.nccih.nih.gov/health/stress">NCCIH distinguishes research on self-reported stress from physiological measures</a>; a calmer feeling does not provide a cortisol concentration.</li></ul>
-<p>For example, a better app score after a restful night is an observation about that model's inputs. It does not establish that a saliva result would be lower. This is an explanation of how to organize information, not a result from a clinical comparison of Cortisol+ and testing.</p>
+<p><strong>Keep them in separate records. Don't convert one into the other.</strong></p>
+<p>A cortisol result belongs with its sample type, collection time, units and lab reference range. A wearable score belongs with its app, the readings behind it and the time window. Our advice is to look at the context together, without expecting the numbers to match.</p>
+<ul>
+  <li><strong>Lab record:</strong> keep the original report and ask the doctor to explain it. <a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus describes the different sample types and how to prepare</a>.</li>
+  <li><strong>Wearable record:</strong> note which readings were used and whether any were missing. The <a href="/how-it-works/">Cortisol+ methodology</a> explains our model, which is not a hormone test.</li>
+  <li><strong>Your own notes:</strong> write down how you felt separately. <a href="https://www.nccih.nih.gov/health/stress">NCCIH separates research on self-reported stress from body measurements</a>. Feeling calmer doesn't give you a cortisol level.</li>
+</ul>
+<p>For example, a better app score after a restful night tells you about that model's inputs. It doesn't show that a saliva result would be lower. This is advice on organizing information, not a result from a clinical comparison of Cortisol+ and testing.</p>
+
 <h2>Can I track cortisol without a test?</h2>
-<p>You can track stress-related observations without a test, but you cannot confirm your cortisol level from them. <a href="/stress/apple-watch/">Apple Watch records signals such as heart rate, HRV and sleep</a>; it does not directly measure cortisol. An app can interpret those inputs, but that interpretation needs its own evidence and limitations.</p>
-<h2>Where Cortisol+ fits</h2>
-<p>Cortisol+ helps you review available wearable signals and the factors behind its wellness score. Read the <a href="/how-it-works/">methodology</a>, inspect the contributing records, and compare similar periods. Clinical accuracy against laboratory cortisol testing has not been established. The app cannot decide whether testing is needed or confirm that a habit lowered cortisol.</p>
+<p><strong>You can track stress-related notes without a test, but you can't confirm your cortisol level from them.</strong></p>
+<p><a href="/stress/apple-watch/">Apple Watch records signals such as heart rate, HRV and sleep</a>. It does not measure cortisol directly. An app can interpret those inputs, but that interpretation needs its own evidence and limits.</p>
+
+<h2>Where does Cortisol+ fit?</h2>
+<p><strong>Cortisol+ helps you look at your wearable signals and the factors behind its wellness score.</strong> Read the <a href="/how-it-works/">methodology</a>, check the records behind the score, and compare similar periods.</p>
+<p>Its clinical accuracy against lab cortisol testing has not been shown. The app can't decide whether you need testing, or confirm that a habit lowered your cortisol.</p>
 <figure><img src="/screenshots/wearable-insights.webp" alt="Cortisol+ Insights view showing the sleep and recovery readings behind its wellness score" width="645" height="1398" loading="lazy" class="max-w-[280px] mx-auto rounded-2xl"/><figcaption>Product example showing wellness-score inputs, not a measured cortisol result.</figcaption></figure>
-<p>The app is free to download; analysis requires a subscription or an eligible trial. Review current terms in the app.</p>
+<p>The app is free to download. Analysis needs a subscription or an eligible trial. Check the current terms in the app.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
 <CreatorShort videoId="nJgnJ338RUw" title="Tracking stress, sleep and recovery at home" creator="Kindra" duration="PT38S" summary="Kindra introduces the app’s wearable-data views and guided breathing. Use the video as a product introduction alongside the daily observation workflow above, rather than as a guide to diagnosing cortisol levels." note="Fatigue, hair loss and changes in body shape can have many causes; the opening symptoms cannot diagnose high cortisol. Cortisol+ does not measure hormone levels or replace testing. Its stress and biological-age scores are estimates. This is paid promotion, not clinical evidence." />
+
 <h2>How often should I test cortisol?</h2>
-<p>There is no universal consumer testing frequency. The schedule depends on why a clinician is testing and which method is used. Repeated tests without a defined question can be difficult to interpret. Persistent or concerning symptoms deserve clinical assessment rather than repeated app checks.</p>
+<p><strong>There is no set testing schedule for everyone.</strong> It depends on why a doctor is testing and which method they use.</p>
+<p>Repeated tests without a clear question can be hard to make sense of. Ongoing or worrying symptoms need a doctor's check, not repeated app checks.</p>
+
+<ZenPicture src="/app-ui/zen_new_breathe.webp" caption="Everyday stress habits and medical treatment are two different things." />
+
 <h2>What if my goal is to lower cortisol?</h2>
-<p>First distinguish everyday stress management from treating a diagnosed hormone disorder. Our <a href="/cortisol/lower/">guide to lowering cortisol levels and managing stress naturally</a> explains practical habits, evidence limits and when medical care matters.</p>
+<p><strong>First, separate everyday stress management from treating a diagnosed hormone disorder.</strong></p>
+<p>Our <a href="/cortisol/lower/">guide to lowering cortisol levels and managing stress naturally</a> explains practical habits, what the evidence can't show, and when medical care matters.</p>
 </ArticleLayout>

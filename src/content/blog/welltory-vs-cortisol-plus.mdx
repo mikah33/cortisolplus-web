@@ -2,17 +2,30 @@
 title: "Welltory vs Cortisol+: Side-by-Side Comparison (Best Welltory Alternative)"
 description: "Switching from Welltory? See how Cortisol+ compares on Apple Watch HRV scoring, data transparency, features and pricing — with a full comparison table to find the best Welltory alternative."
 pubDate: 2026-05-23
-updatedDate: 2026-10-27
+updatedDate: 2026-11-12
 tags: [wearables, hrv, stress, comparisons]
 draft: false
 showToolCTA: false
 ---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
+
+<InShort image="/app-ui/start/zen_presenting.webp" points={[
+  'Both apps <strong>work with Apple Watch</strong> through Apple Health.',
+  '<strong>Welltory has a free version.</strong> Cortisol+ analysis needs a subscription or trial.',
+  '<strong>Neither app measures cortisol.</strong> We have not tested accuracy.',
+]} />
 
 ## Is Cortisol+ a Welltory alternative for Apple Watch?
 
-**Yes. Cortisol+ is an option if you want to review Apple Health HRV and sleep data alongside an explained wellness score.** Welltory also supports Apple Watch and uses recorded beat intervals for HRV analysis. Compare how each app explains your data, the views you need and your current subscription offer. Neither Watch workflow measures cortisol directly.
+**Yes. Cortisol+ is an option if you want to look at your Apple Health HRV and sleep data next to an explained wellness score.**
 
-[Explore Cortisol+ on the App Store](https://apps.apple.com/app/id6759510126) or [watch the interface walkthrough](/stress/apple-watch/#walkthrough). Cortisol+ analysis requires a subscription or eligible trial.
+Welltory also supports Apple Watch. It uses recorded beat intervals (the time between heartbeats) for its heart rate variability (HRV) analysis.
+
+Compare how each app explains your data, which views you need, and the subscription offer you're shown. Neither Watch workflow measures cortisol directly.
+
+You can [watch the Cortisol+ interface walkthrough](/stress/apple-watch/#walkthrough). Cortisol+ analysis requires a subscription or eligible trial.
 
 ## Welltory vs Cortisol+ at a glance
 
@@ -26,13 +39,13 @@ showToolCTA: false
       <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Apple Watch</p>
       <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
         <p class="px-4 pt-1 pb-3">Supported via Apple Health</p>
-        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Reads permitted Apple Health data</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Reads the Apple Health data you allow</p>
       </div>
     </div>
     <div>
       <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Main output</p>
       <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
-        <p class="px-4 pt-1 pb-3">HRV-based stress and energy analysis</p>
+        <p class="px-4 pt-1 pb-3">Stress and energy analysis based on HRV</p>
         <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">0–100 wellness score with HRV, sleep and recovery views</p>
       </div>
     </div>
@@ -57,89 +70,178 @@ showToolCTA: false
 
 ## Which one is free?
 
-**Welltory has a free version; Cortisol+ is a free download, but its analysis requires a subscription or eligible trial.** According to [Welltory's subscription help](https://help.welltory.com/en/articles/11659476-welltory-subscription-which-one-to-choose-how-to-cancel-or-get-a-refund-and-how-to-delete-your-data), you get a 3-day (72-hour) free trial of premium features after your first measurement. After that, the free version allows one HRV measurement per day with 5 basic metrics instead of 21, and measurement history is limited to the past 30 days unless you export it first.
+**Welltory has a free version. Cortisol+ is a free download, but its analysis requires a subscription or eligible trial.**
+
+According to [Welltory's subscription help](https://help.welltory.com/en/articles/11659476-welltory-subscription-which-one-to-choose-how-to-cancel-or-get-a-refund-and-how-to-delete-your-data):
+
+- After your first measurement, you get a 3-day (72-hour) free trial of premium features.
+- After that, the free version allows one HRV measurement a day, with 5 basic metrics instead of 21.
+- Measurement history is limited to the past 30 days, unless you export it first.
 
 Cortisol+ does not offer a free analysis tier. Check the trial eligibility, renewal period and price shown in each app before you accept an offer.
 
+<ZenTip image="/app-ui/zen/zen-journal.webp">
+  Before any trial starts, note the <strong>renewal date</strong> somewhere you'll see it. Then you decide, not the calendar.
+</ZenTip>
+
 ## Is it accurate?
 
-**Neither app measures cortisol, and we have not run a hands-on or clinical accuracy test of either one.** Accuracy here means two different things: how well the heartbeat data is recorded, and how well an app interprets it.
+**Neither app measures cortisol, and we have not run a hands-on or clinical accuracy test of either one.**
 
-- **Welltory** says [measurement quality needs to be at least 95%](https://help.welltory.com/en/articles/4253039-how-do-i-make-sense-of-my-measurement-results) for results to be reliable, and recommends retaking a measurement below that. Its help center describes how [its algorithms were trained and tested](https://help.welltory.com/en/articles/3352617-why-trust-welltory-s-algorithms); those are Welltory's own statements.
-- **Cortisol+** publishes its [inputs, weights and baseline rules](/how-it-works/). Its clinical accuracy against cortisol testing has not been established, and its wellness score is a model output, not a measured hormone level.
+"Accuracy" here means two different things: how well the heartbeat data is recorded, and how well an app explains it.
 
-With an Apple Watch, both apps start from data your Watch records in Apple Health, so check the original timestamps there when a result looks wrong.
+- **Welltory** says [measurement quality needs to be at least 95%](https://help.welltory.com/en/articles/4253039-how-do-i-make-sense-of-my-measurement-results) for results to be reliable, and suggests retaking a measurement below that. Its help center describes how [its algorithms were trained and tested](https://help.welltory.com/en/articles/3352617-why-trust-welltory-s-algorithms). Those are Welltory's own statements.
+- **Cortisol+** publishes its [inputs, weights and baseline rules](/how-it-works/). Its clinical accuracy against cortisol testing has not been established. Its wellness score is a model's estimate, not a measured hormone level.
+
+With an Apple Watch, both apps start from data your Watch records in Apple Health. When a result looks wrong, check the original times there.
 
 ## What changed in this comparison
 
-**Welltory supports Apple Watch; it is not just a phone-camera app.** Our earlier comparison described it too narrowly and made unsupported claims about comparative accuracy, pricing and cortisol tracking. This revision corrects those claims.
+**Welltory supports Apple Watch. It is not just a phone-camera app.**
 
-**Disclosure:** Cortisol+ publishes this guide. It is a comparison of official documentation and our own product implementation, with Welltory’s Apple Watch documentation rechecked September 16, 2026 and its subscription and measurement-quality help articles checked October 27, 2026. We have not conducted a hands-on or clinical accuracy comparison of the two apps.
+Our earlier comparison described it too narrowly. It also made unsupported claims about comparative accuracy, pricing and cortisol tracking. This revision corrects those claims.
+
+**Disclosure:** Cortisol+ publishes this guide. It compares official documentation with our own product. We rechecked Welltory's Apple Watch documentation on September 16, 2026, and its subscription and measurement-quality help articles on October 27, 2026. We have not done a hands-on or clinical accuracy comparison of the two apps.
 
 ## The main difference to evaluate
 
-[Welltory's Apple Watch documentation](https://help.welltory.com/en/articles/4241383-taking-measurements-with-your-apple-watch) explains its Apple Health connection and use of recorded beat intervals for HRV analysis. It supports a Watch-based workflow as well as other measurement methods.
+**Welltory analyses HRV. Cortisol+ combines several signals into one score.**
 
-Cortisol+ combines available wearable inputs into a 0–100 wellness score, with views for HRV, sleep and recovery. Its score uses model assumptions and is not a measured hormone level. The [methodology](/how-it-works/) lists inputs, weights, baseline rules and limitations.
+[Welltory's Apple Watch documentation](https://help.welltory.com/en/articles/4241383-taking-measurements-with-your-apple-watch) explains how it connects to Apple Health and uses recorded beat intervals for HRV analysis. It supports a Watch-based workflow as well as other ways to measure.
 
-<div class="overflow-x-auto">
+Cortisol+ combines the wearable inputs you have into a 0–100 wellness score, with views for HRV, sleep and recovery. Its score is built on model assumptions and is not a measured hormone level. The [methodology](/how-it-works/) lists inputs, weights, baseline rules and limits.
 
-| Question | Welltory | Cortisol+ |
-|---|---|---|
-| Apple Watch support | Documented Apple Watch and Apple Health connection | Reads permitted Apple Health data from a compatible Watch |
-| Main interpretation | HRV-based stress and energy analysis, with other health features | A weighted wellness score plus biometric and recovery views |
-| Underlying formula | See Welltory's method documentation | See our published input weights and baseline description |
-| Current price | Free version after a 3-day trial; Premium is paid. Check the offer available to your account | Free download; analysis requires a subscription or eligible trial |
-| Is it a cortisol test? | Its Watch HRV workflow is not a hormone test | No; clinical accuracy against cortisol testing has not been established |
-
+<div class="not-prose my-6 overflow-hidden rounded-2xl border border-[color:var(--color-border)] text-[0.9375rem] leading-snug">
+  <div class="grid grid-cols-2 bg-[color:var(--color-mint-soft)] font-extrabold text-[color:var(--color-ink)]">
+    <div class="px-4 py-3">Welltory</div>
+    <div class="px-4 py-3 border-l border-[color:var(--color-border)]">Cortisol+</div>
+  </div>
+  <div class="divide-y divide-[color:var(--color-border)]">
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Apple Watch support</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Documented Apple Watch and Apple Health connection</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Reads the Apple Health data you allow from a compatible Watch</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">How it explains your data</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Stress and energy analysis based on HRV, with other health features</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">A weighted wellness score, plus body-signal and recovery views</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">The formula</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">See Welltory's method documentation</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">See our published input weights and baseline description</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Current price</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Free version after a 3-day trial; Premium is paid. Check the offer for your account</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Free download; analysis requires a subscription or eligible trial</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Is it a cortisol test?</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Its Watch HRV workflow is not a hormone test</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">No. Clinical accuracy against cortisol testing has not been established</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 ## How to choose without overreading the score
 
-Use the same practical questions for both apps. Can you see when data was recorded? What happens when a night of sleep is missing? How much history is needed before the baseline is useful? Does the presentation help you understand a routine, or suggest medical certainty it cannot supply?
+**Ask both apps the same practical questions:**
 
-An accuracy claim about measuring heartbeats is different from an accuracy claim about interpreting stress. Neither proves that a model can infer an individual's cortisol concentration. We do not rank either app as more accurate for cortisol.
+- Can you see when the data was recorded?
+- What happens when a night of sleep is missing?
+- How much history does it need before your baseline is useful?
+- Does it help you understand your routine, or does it suggest medical certainty it can't give?
+
+Being accurate at measuring heartbeats is different from being accurate at reading stress. Neither proves that a model can work out one person's cortisol level. We do not rank either app as more accurate for cortisol.
+
+<ZenPicture src="/app-ui/start/zen_explain.webp" caption="A score is a summary of signals, not a hormone reading." />
 
 ## Subscriptions and privacy
 
-Check current plan details inside each app, including trial eligibility, renewal period and cancellation terms. Our previous price ranges and claims that basic Cortisol+ analysis is free were not a reliable account of current offers.
+**Check the current plan details inside each app**, including trial eligibility, renewal period and how to cancel. Our earlier price ranges, and claims that basic Cortisol+ analysis is free, were not a reliable account of current offers.
 
-Cortisol+'s core scoring runs on-device, but optional connected services, account and coaching features have separate data flows. Read our [privacy policy](/privacy/). For Welltory, review its current [privacy guidance](https://help.welltory.com/en/articles/3352400-personal-data-privacy) and the permissions requested during setup rather than assuming every feature shares the same processing model.
+Cortisol+ processes your health data on your device and doesn't upload it to its servers. If you create an optional account, account details such as your email are stored in the cloud, and biometric data is never sent there. Read our [privacy policy](/privacy/).
+
+For Welltory, read its current [privacy guidance](https://help.welltory.com/en/articles/3352400-personal-data-privacy) and the permissions it asks for during setup. Don't assume every feature handles data the same way.
 
 ## A practical starting point
 
-If you already use an Apple Watch, examine each app's actual explanation and subscription offer before choosing. You can also start with the readings available in Apple Health and our free [stress and sleep journal](/resources/stress-sleep-journal/).
+**If you already use an Apple Watch, look at each app's actual explanations and subscription offer before choosing.** You can also start with the readings in Apple Health and our free [stress and sleep journal](/resources/stress-sleep-journal/).
 
-See the broader [Apple Watch stress-app comparison](/compare/apple-watch-stress-apps/) and [what Apple Watch can tell you about cortisol](/stress/apple-watch/). Neither an app score nor this comparison should determine medical testing or treatment.
-
+See the broader [Apple Watch stress-app comparison](/compare/apple-watch-stress-apps/) and [what Apple Watch can tell you about cortisol](/stress/apple-watch/). Neither an app score nor this comparison should decide medical testing or treatment.
 
 ## Looking for a Welltory alternative for Apple Watch?
 
-Start with the reason you want to change apps. If you only need to inspect recorded HRV values, check the data already available in Apple Health before buying another subscription. If you want those readings presented alongside sleep and activity, compare the actual dashboards and explanations in each app.
+**Start with the reason you want to change apps.**
 
-Cortisol+ is one option for that second use case. Its published methodology lets you inspect the assumptions behind its wellness score. This is a reason to evaluate the product, not evidence that it is more accurate than Welltory. Welltory already documents an Apple Watch workflow, so switching does not create a new hormone sensor or improve the Watch hardware.
+If you only need to look at recorded HRV values, check what's already in Apple Health before buying another subscription. If you want those readings shown next to sleep and activity, compare the actual dashboards and explanations in each app.
 
-<div class="overflow-x-auto">
+Cortisol+ is one option for that second need. Its published methodology lets you check the assumptions behind its wellness score. That's a reason to try it, not proof that it's more accurate than Welltory.
 
-| Your priority | What to evaluate |
-|---|---|
-| See the original readings | Check Apple Health timestamps and sources first |
-| Understand the summary | Read each app's explanation of inputs, baseline and missing data |
-| Review overnight patterns | Check whether the display covers sleeping samples or a whole-day summary |
-| Avoid an unwanted renewal | Read the exact trial and subscription terms before accepting |
-| Explore more than two products | Use our [wider Watch-app comparison](/compare/apple-watch-stress-apps/) |
-| See every option in one list | Read our [Welltory alternatives guide](/blog/welltory-alternatives/) |
+Welltory already documents an Apple Watch workflow. Switching apps doesn't add a new hormone sensor or improve the Watch hardware.
 
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">See the original readings</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Check Apple Health times and sources first.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Understand the summary</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Read each app's explanation of inputs, baseline and missing data.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Review overnight patterns</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Check whether the display covers sleep readings or a whole-day summary.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Avoid an unwanted renewal</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Read the exact trial and subscription terms before you accept.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Explore more than two apps</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Use our <a href="/compare/apple-watch-stress-apps/" class="underline decoration-[color:var(--color-teal)] underline-offset-2">wider Watch-app comparison</a>.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">See every option in one list</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">Read our <a href="/blog/welltory-alternatives/" class="underline decoration-[color:var(--color-teal)] underline-offset-2">Welltory alternatives guide</a>.</p>
+  </div>
 </div>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
 
 ## A practical comparison checklist
 
-Before comparing scores, open the same period in each app. Record which device supplied the data, which HRV metric is shown, how many readings are available and whether sleep data has synced. A different interpretation of the same readings does not prove one product is wrong.
+**Before you compare scores, open the same days in each app.** Write down:
 
-Use our [overnight HRV checklist](/blog/hrv-during-sleep/) if you are investigating a low night. To learn whether either app can answer a hormone question, read [can Apple Watch measure cortisol?](/stress/apple-watch/).
+- which device supplied the data
+- which HRV measure is shown
+- how many readings there are
+- whether sleep data has synced
 
-[View Cortisol+ on the App Store](https://apps.apple.com/us/app/cortisol-stress-hrv-monitor/id6759510126). Analysis requires a subscription or eligible trial. Check the current offer in the app; this guide does not promise a price or a free analysis tier.
+If two apps explain the same readings differently, that doesn't prove one of them is wrong.
 
+Use our [overnight HRV checklist](/blog/hrv-during-sleep/) if you're looking into a low night. To learn whether either app can answer a hormone question, read [can Apple Watch measure cortisol?](/stress/apple-watch/)
+
+Cortisol+ analysis requires a subscription or eligible trial. Check the current offer in the app; this guide does not promise a price or a free analysis tier.
 
 ## What does the Cortisol+ dashboard show?
 
@@ -147,12 +249,18 @@ Use our [overnight HRV checklist](/blog/hrv-during-sleep/) if you are investigat
 
 *Product screenshot with example readings. Your available inputs depend on Health permissions and recorded data.*
 
-The breakdown helps you look beyond one number to the signals used by the app. Start with [our published scoring methodology](/how-it-works/), then compare the same period in Apple Health. This makes the assumptions reviewable; it does not establish clinical validity.
+**The breakdown lets you look past one number to the signals the app uses.** Start with [our published scoring methodology](/how-it-works/), then compare the same days in Apple Health.
+
+This makes the assumptions open to checking. It does not prove clinical validity.
+
+<ZenTip image="/app-ui/start/zen_watch.webp">
+  Compare <strong>overnight with overnight</strong>. One app's night summary and another's daytime reading aren't the same thing.
+</ZenTip>
 
 ## How to compare the apps over a week
 
-1. Pick a question, such as whether you can easily review sleep alongside HRV.
-2. Use the same Watch and keep your usual wear routine. Do not compare one app's overnight summary with another app's single daytime sample.
-3. Check the original Apple Health dates and sources when either app shows missing or unexpected data.
-4. Write down which explanation helps you and which features require payment. The [free observation journal](/resources/stress-sleep-journal/) can hold your notes.
-5. Decide based on usability, permissions and the subscription offer. A week of comparing screens cannot establish hormone accuracy or prove a health improvement.
+1. Pick a question, such as whether you can easily see sleep next to HRV.
+2. Use the same Watch and wear it as usual. Don't compare one app's overnight summary with another app's single daytime reading.
+3. When either app shows missing or unexpected data, check the original Apple Health dates and sources.
+4. Write down which explanation helps you, and which features cost money. The [free observation journal](/resources/stress-sleep-journal/) can hold your notes.
+5. Decide based on how easy it is to use, the permissions it asks for, and the subscription offer. A week of comparing screens can't prove hormone accuracy or a health improvement.

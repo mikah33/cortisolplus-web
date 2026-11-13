@@ -1,39 +1,131 @@
 ---
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
+
+const card = 'rounded-2xl border border-[color:var(--color-border)] p-4';
+const cardTitle = 'font-extrabold text-[color:var(--color-ink)]';
+const cardText = 'mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]';
+const cardMuted = 'mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]';
 ---
-<ArticleLayout title="How to Track Cortisol Levels at Home: Testing Guide" description="Compare home saliva and urine collection with blood testing. Learn why timing, instructions and clinical interpretation matter—and what apps cannot measure." updated="2026-09-17">
-<p><strong>Some cortisol tests allow saliva or urine collection at home, following a clinician's or laboratory's instructions.</strong> The sample is used to measure the hormone. A phone questionnaire, HRV reading or Apple Watch wellness score cannot measure your cortisol level.</p>
-<p>Cortisol+ publishes this educational guide. We do not sell a cortisol test, and our app is not a substitute for laboratory testing.</p>
+<ArticleLayout title="How to Track Cortisol Levels at Home: Testing Guide" description="Compare home saliva and urine collection with blood testing. Learn why timing, instructions and clinical interpretation matter—and what apps cannot measure." updated="2026-11-12">
+<InShort points={[
+  'Some cortisol tests let you collect <strong>saliva or urine at home</strong>.',
+  'Follow the <strong>exact instructions</strong> and timing you were given.',
+  'An app or watch score <strong>can\'t measure cortisol</strong>.',
+]} />
+
+<p><strong>Some cortisol tests let you collect saliva or urine at home, following a doctor's or lab's instructions.</strong> The sample is then used to measure the hormone.</p>
+<p>A phone questionnaire, a heart rate variability (HRV) reading or an Apple Watch wellness score can't measure your cortisol level.</p>
+<p>Cortisol+ publishes this guide to help you learn. We don't sell a cortisol test, and our app does not replace lab testing.</p>
+
 <h2>How to track cortisol levels at home</h2>
-<ol><li><strong>Define the question with a clinician.</strong> The appropriate test depends on the condition being investigated; feeling stressed does not by itself identify a hormone disorder.</li><li><strong>Confirm the collection method and timing.</strong> Ask whether a home-collected saliva or urine sample is appropriate and how it will be analyzed.</li><li><strong>Follow the exact instructions.</strong> Use the supplied collection, storage and return directions. Tell the clinician about medication and your sleep schedule.</li><li><strong>Keep a collection record.</strong> Note the date, time, sample type and any deviation from the instructions.</li><li><strong>Review the result in context.</strong> Use the laboratory's units and reference range, and ask whether follow-up testing is needed.</li></ol>
-<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus's cortisol-test guide</a> explains blood, urine and saliva testing. Do not substitute a generic four-sample schedule for the protocol you were given.</p>
-<h2>Home collection versus laboratory testing</h2>
-<table><thead><tr><th scope="col">Method</th><th scope="col">What happens</th><th scope="col">Important distinction</th></tr></thead><tbody>
-<tr><td>Saliva</td><td>A sample may be collected at home at specified times</td><td>The timing and purpose matter; no single kit is best for every question</td></tr>
-<tr><td>24-hour urine</td><td>Urine is collected over the instructed period for laboratory analysis</td><td>Following the full protocol matters; ask what to do if a collection is missed</td></tr>
-<tr><td>Blood</td><td>A healthcare professional collects a blood sample, sometimes as part of a wider testing protocol</td><td>A random result is not interchangeable with a timed clinical test</td></tr>
-<tr><td>Wearable or journal</td><td>Records biometric signals or personal observations</td><td>Does not measure cortisol and is not a fourth hormone-test method</td></tr>
-</tbody></table>
-<p><a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK describes how clinicians investigate suspected Cushing's syndrome</a>, including urine, saliva and suppression testing. The diagnostic question determines the approach; this is not a recommendation that everyone routinely screen themselves.</p>
+<ol>
+  <li><strong>Agree on the question with a doctor.</strong> The right test depends on what's being looked into. Feeling stressed doesn't on its own point to a hormone disorder.</li>
+  <li><strong>Confirm how and when to collect.</strong> Ask whether a saliva or urine sample collected at home is right for you, and how it will be tested.</li>
+  <li><strong>Follow the exact instructions.</strong> Use the collection, storage and return steps you're given. Tell the doctor about your medicines and your sleep schedule.</li>
+  <li><strong>Keep a collection record.</strong> Write down the date, time, sample type and anything you did differently from the instructions.</li>
+  <li><strong>Look at the result in context.</strong> Use the lab's units and reference range, and ask whether you need a follow-up test.</li>
+</ol>
+<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus's cortisol-test guide</a> explains blood, urine and saliva testing. Don't swap the plan you were given for a general four-sample schedule.</p>
+
+<ZenTip image="/app-ui/zen/zen-phone.webp">
+  Set a <strong>phone alarm</strong> for each collection time. Then write down the time you actually collected.
+</ZenTip>
+
+<h2>How is home collection different from lab testing?</h2>
+<p><strong>Each method works differently, and the timing and purpose matter.</strong></p>
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class={card}>
+    <p class={cardTitle}>Saliva</p>
+    <p class={cardText}>You may collect a sample at home at set times.</p>
+    <p class={cardMuted}>Timing and purpose matter. No single kit is best for every question.</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>24-hour urine</p>
+    <p class={cardText}>You collect urine over the set period, and a lab tests it.</p>
+    <p class={cardMuted}>Following the full plan matters. Ask what to do if you miss a collection.</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Blood</p>
+    <p class={cardText}>A healthcare professional takes a blood sample, sometimes as part of a wider set of tests.</p>
+    <p class={cardMuted}>A random result is not the same as a timed medical test.</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Wearable or journal</p>
+    <p class={cardText}>Records body signals or your own notes.</p>
+    <p class={cardMuted}>Doesn't measure cortisol. It is not a fourth kind of hormone test.</p>
+  </div>
+</div>
+<p><a href="https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome">NIDDK describes how doctors look into suspected Cushing's syndrome</a>, including urine, saliva and suppression tests.</p>
+<p>The medical question decides the approach. This is not advice that everyone should test themselves routinely.</p>
+
 <h2 id="collection-record">A collection record that makes follow-up easier</h2>
-<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus explains that preparation depends on the test</a> and that saliva collection may happen at home. A useful record preserves the instructions and what actually happened, rather than turning a number into an app score.</p>
-<table><caption>Fields to keep with the original laboratory report</caption><thead><tr><th scope="col">Field</th><th scope="col">What to record</th><th scope="col">Question for follow-up</th></tr></thead><tbody>
-<tr><td>Collection</td><td>Sample type, requested time and actual time</td><td>Was this collected under the intended protocol?</td></tr>
-<tr><td>Preparation</td><td>Any missed instruction and medicines already disclosed to the clinician</td><td>Could this affect interpretation or require another sample?</td></tr>
-<tr><td>Report</td><td>Laboratory name, result, units and reference interval exactly as printed</td><td>Which interval applies to this sample and collection time?</td></tr>
-<tr><td>Next step</td><td>Who will interpret the result and when</td><td>Is follow-up needed, and for what clinical question?</td></tr>
-</tbody></table>
-<p>This is an organizational template, not a validated diagnostic tool. Follow your kit's instructions and do not change medicines without the prescriber's advice. Keep identifiable reports private; you do not need to post them online to use this checklist.</p>
+<p><a href="https://medlineplus.gov/lab-tests/cortisol-test/">MedlinePlus explains that how you prepare depends on the test</a>, and that saliva may be collected at home.</p>
+<p><strong>A good record keeps the instructions and what actually happened.</strong> It doesn't turn the number into an app score. Keep these with the original lab report:</p>
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class={card}>
+    <p class={cardTitle}>Collection</p>
+    <p class={cardText}>Sample type, the time you were asked to collect and the time you actually did.</p>
+    <p class={cardMuted}><strong>Ask:</strong> was this collected the way the plan intended?</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Preparation</p>
+    <p class={cardText}>Any step you missed, and the medicines you've already told the doctor about.</p>
+    <p class={cardMuted}><strong>Ask:</strong> could this change the result, or mean I need another sample?</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Report</p>
+    <p class={cardText}>Lab name, result, units and reference range, exactly as printed.</p>
+    <p class={cardMuted}><strong>Ask:</strong> which range applies to this sample and collection time?</p>
+  </div>
+  <div class={card}>
+    <p class={cardTitle}>Next step</p>
+    <p class={cardText}>Who will explain the result, and when.</p>
+    <p class={cardMuted}><strong>Ask:</strong> do I need a follow-up, and for what medical question?</p>
+  </div>
+</div>
+<p>This is a template to keep things organized. It is not a tested diagnostic tool.</p>
+<p>Follow your kit's instructions, and don't change medicines without advice from the person who prescribed them. Keep reports that identify you private. You don't need to post them online to use this checklist.</p>
+
 <h2>Questions to ask before buying a home cortisol kit</h2>
-<ul><li>What clinical question is this test intended to answer?</li><li>Does it require an order, and who reviews abnormal results?</li><li>Which laboratory analyzes it, using which method?</li><li>Are collection timing, storage and shipping instructions clear?</li><li>Does the price include interpretation and follow-up, or just a report?</li><li>How are sample information and results stored and shared?</li></ul>
-<p>Availability, price and ordering requirements vary by provider and location. We do not rank a brand as “most accurate” without comparative evidence, or recommend a routine testing package for ordinary stress.</p>
+<ul>
+  <li>What medical question is this test meant to answer?</li>
+  <li>Does it need a doctor's order, and who reviews abnormal results?</li>
+  <li>Which lab tests it, and with which method?</li>
+  <li>Are the timing, storage and shipping instructions clear?</li>
+  <li>Does the price include someone explaining the result and follow-up, or just a report?</li>
+  <li>How are my sample details and results stored and shared?</li>
+</ul>
+<p>What's available, the price and whether you need an order all vary by provider and location.</p>
+<p>We don't call any brand "most accurate" without evidence comparing them. We also don't recommend a routine testing package for everyday stress.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
 <h2>How should I interpret a home cortisol result?</h2>
-<p>Keep the test type, collection time, units and laboratory range together. Cortisol changes during the day, and medicines and health conditions can affect interpretation. A result outside a reference range is a reason to discuss the report with the appropriate clinician, not to diagnose yourself or start a supplement regimen.</p>
-<p>Do not stop prescribed steroid medication to change a test result. Discuss preparation with the prescriber or ordering clinician. NIDDK explains why changes to glucocorticoid treatment require medical supervision.</p>
+<p><strong>Keep the test type, collection time, units and lab range together.</strong></p>
+<p>Cortisol changes during the day, and medicines and health conditions can affect the result. A result outside the reference range is a reason to talk it through with the right doctor. It is not a reason to diagnose yourself or start taking supplements.</p>
+<p><strong>Don't stop prescribed steroid medicine to change a test result.</strong> Talk to the prescriber or the doctor who ordered the test about how to prepare. NIDDK explains why changes to glucocorticoid (steroid) treatment need medical supervision.</p>
+
+<ZenPicture src="/app-ui/start/zen_explain.webp" caption="A lab result and an app score are two different things." />
+
 <h2>Can I track cortisol at home without a kit?</h2>
-<p>You can keep a <a href="/cortisol/track/">stress, sleep and wearable observation log</a>, but it does not reveal your hormone concentration. Cortisol+ organizes available wearable data into a wellness score; it cannot verify a home test, replace follow-up care or establish whether cortisol is high or low. Read <a href="/how-it-works/">how the score works</a>.</p>
+<p><strong>You can keep a log, but it won't show your hormone level.</strong> Try a <a href="/cortisol/track/">stress, sleep and wearable observation log</a>.</p>
+<p>Cortisol+ turns the wearable data it can get into a wellness score. It can't check a home test, replace follow-up care, or tell you whether your cortisol is high or low. Read <a href="/how-it-works/">how the score works</a>.</p>
+
 <h2>Do I need to keep retesting?</h2>
-<p>Ask the clinician interpreting your results. There is no single repeat-testing schedule suitable for everyone. If your aim is to understand daily routines, the <a href="/resources/stress-sleep-journal/">free observation journal</a> may help you organize questions without repeatedly buying tests.</p>
+<p><strong>Ask the doctor who is reading your results.</strong> There is no single retesting schedule that suits everyone.</p>
+<p>If you want to understand your daily routine, the <a href="/resources/stress-sleep-journal/">free observation journal</a> can help you organize your questions without buying test after test.</p>
+
 <h2>What comes after testing?</h2>
-<p>The next step depends on the findings and your clinical context. For general stress-management habits, read <a href="/cortisol/lower/">how to lower cortisol levels naturally: evidence and limits</a>. Lifestyle information does not replace treatment for a diagnosed endocrine disorder.</p>
+<p><strong>The next step depends on the results and your medical situation.</strong></p>
+<p>For general stress-management habits, read <a href="/cortisol/lower/">how to lower cortisol levels naturally: evidence and limits</a>. Lifestyle tips don't replace treatment for a diagnosed hormone (endocrine) disorder.</p>
 </ArticleLayout>

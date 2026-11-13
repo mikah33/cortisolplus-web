@@ -1,20 +1,63 @@
 ---
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 ---
-<ArticleLayout title="Apple Watch HRV: SDNN, Readings & Stress Tracking" description="Find Apple Watch HRV in Health, understand SDNN versus RMSSD, and learn how Cortisol+ uses available readings for stress awareness." published="2026-05-23" updated="2026-09-09" image="/screenshots/wearable-insights.png">
-<p><strong>Apple Watch HRV describes variation in the time between heartbeats. It does not measure cortisol.</strong> Cortisol+ uses available HRV with other wearable inputs to calculate a wellness score. Start with the measurement, its source and its timestamp before interpreting that score.</p>
-<h2>Where to find Apple Watch HRV</h2>
-<p>In the iPhone Health app, tap <strong>Search</strong> and look for <strong>Heart Rate Variability</strong>. Under <strong>Options</strong>, use <strong>Show All Data</strong> to inspect records and <strong>Data Sources &amp; Access</strong> to check contributing devices. This navigation follows Apple's iOS 26 documentation; labels can differ on other versions. See <a href="https://support.apple.com/guide/iphone/view-your-health-data-iphe3d379c32/26/ios/26">Apple's Health data guide</a>.</p>
+<ArticleLayout title="Apple Watch HRV: SDNN, Readings & Stress Tracking" description="Find Apple Watch HRV in Health, understand SDNN versus RMSSD, and learn how Cortisol+ uses available readings for stress awareness." published="2026-05-23" updated="2026-11-12" image="/screenshots/wearable-insights.png">
+<InShort image="/app-ui/start/zen_watch.webp" points={[
+  'Apple Watch HRV shows how the <strong>time between heartbeats</strong> changes.',
+  'Apple stores it as <strong>SDNN</strong>, which is not the same as RMSSD.',
+  'HRV <strong>does not measure cortisol</strong>. Check its source and time first.',
+]} />
+
+<p><strong>Apple Watch heart rate variability (HRV) describes how much the time between your heartbeats changes. It does not measure cortisol.</strong></p>
+<p>Cortisol+ uses the HRV it can get, along with other wearable data, to work out a wellness score. Before you read that score, look at the measurement itself: where it came from and when it was taken.</p>
+
+<h2>Where do I find Apple Watch HRV?</h2>
+<p><strong>It's in the Health app on your iPhone.</strong></p>
+<ol>
+  <li>Tap <strong>Search</strong> and look for <strong>Heart Rate Variability</strong>.</li>
+  <li>Under <strong>Options</strong>, tap <strong>Show All Data</strong> to see each record.</li>
+  <li>Use <strong>Data Sources &amp; Access</strong> to check which devices added data.</li>
+</ol>
+<p>These steps follow Apple's iOS 26 guide. Labels can be different on other versions. See <a href="https://support.apple.com/guide/iphone/view-your-health-data-iphe3d379c32/26/ios/26">Apple's Health data guide</a>.</p>
+
 <h2>What does SDNN mean?</h2>
-<p>Apple's HealthKit HRV quantity is SDNN, a statistic describing variation between normal heartbeat intervals. Its unit is time, commonly displayed in milliseconds. <a href="https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn">Apple documents the SDNN data type</a> used by apps that read Health data.</p>
-<p>SDNN and RMSSD are different calculations. A score from another app may also use a different recording window or its own interpretation. Avoid treating two numbers as interchangeable simply because both are labeled HRV. Check the method, units and recording conditions first; our <a href="/hrv/normal-range/">guide to HRV ranges and measurement methods</a> explains the comparison problem.</p>
+<p><strong>SDNN is the HRV measure Apple uses.</strong> It describes how much the gaps between normal heartbeats vary. It's a time, usually shown in milliseconds.</p>
+<p><a href="https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn">Apple documents the SDNN data type</a> that apps read from Health.</p>
+<p>SDNN and RMSSD are worked out in different ways. Another app's score may also use a different recording window, or its own way of reading the data.</p>
+<p>So don't treat two numbers as the same just because both say "HRV". Check the method, units and recording conditions first. Our <a href="/hrv/normal-range/">guide to HRV ranges and measurement methods</a> explains why comparing is hard.</p>
+
+<ZenTip image="/app-ui/zen_presenting_new.webp">
+  Comparing HRV from two apps or watches? First check that both use the <strong>same measure</strong>, like SDNN.
+</ZenTip>
+
 <h2>How often does it update?</h2>
-<p>Apple describes background heart-rate readings whose timing varies with activity and an optical sensor used for HRV. That is not a fixed HRV sampling schedule. A new heart-rate value does not establish that a new HRV sample exists. Check the HRV record itself. Read <a href="https://support.apple.com/en-us/120277">Apple's monitoring explanation</a>.</p>
-<p>If your app shows an old value, compare it with Health before assuming the watch has stopped recording. Our <a href="/blog/apple-watch-hrv-not-updating/">HRV troubleshooting guide</a> covers timestamps, permissions, fit and power settings.</p>
-<h2>How Cortisol+ uses HRV</h2>
-<p>HRV is one input to Cortisol+'s 0–100 wellness score, alongside available sleep, heart-rate and activity data. The model starts with defaults and can blend in personal history as readings accumulate. Missing inputs and older records affect interpretation. The <a href="/how-it-works/">published methodology</a> describes the weights, baseline rules and limits.</p>
-<p>The app's score is not a measured cortisol level or an observed hormone curve. We have not established its clinical accuracy against laboratory cortisol testing. It cannot tell you that a supplement worked, diagnose a hormone disorder or explain a symptom from HRV alone.</p>
-<h2>A practical way to compare readings</h2>
-<p>Record the source and timestamp, then note relevant context rather than assigning a cause to each change. Our <a href="/resources/stress-sleep-journal/">free stress and sleep journal</a> gives you a place to record routines and observations. A pattern in that journal is a question to investigate, not proof of cause and effect.</p>
-<p>For app features, explore <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>. To compare product approaches, see our <a href="/compare/apple-watch-stress-apps/">Apple Watch stress app comparison</a>, which identifies the evidence behind its descriptions.</p>
+<p><strong>There's no fixed HRV schedule.</strong> Apple says background heart-rate readings happen at times that depend on your activity. HRV comes from the light-based (optical) sensor.</p>
+<p>A new heart-rate value doesn't mean there's a new HRV sample. Check the HRV record itself. Read <a href="https://support.apple.com/en-us/120277">Apple's monitoring explanation</a>.</p>
+<p>If your app shows an old value, compare it with Health before you assume the Watch stopped recording. Our <a href="/blog/apple-watch-hrv-not-updating/">HRV troubleshooting guide</a> covers times, permissions, fit and power settings.</p>
+
+<h2>How does Cortisol+ use HRV?</h2>
+<p><strong>HRV is one input to Cortisol+'s 0–100 wellness score.</strong> The others are sleep, heart-rate and activity data, when available.</p>
+<p>The score starts with default settings and can mix in your own history as readings build up. Missing inputs and older records affect how you should read it. The <a href="/how-it-works/">published methodology</a> describes the weights, baseline rules and limits.</p>
+<p>The score is not a measured cortisol level or an observed hormone curve. We have not shown its clinical accuracy against lab cortisol testing.</p>
+<p>It can't tell you a supplement worked, diagnose a hormone disorder, or explain a symptom from HRV alone.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>How can I compare readings in a practical way?</h2>
+<p><strong>Write down the source and time, then note what was going on.</strong> Try not to name a cause for every change.</p>
+<p>Our <a href="/resources/stress-sleep-journal/">free stress and sleep journal</a> gives you a place to record routines and observations. A pattern in the journal is a question to look into, not proof of cause and effect.</p>
+
+<ZenPicture src="/app-ui/zen_new_tour_now.webp" caption="Source, time, context: three notes that make HRV easier to read." />
+
+<p>For app features, explore <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>. To compare apps, see our <a href="/compare/apple-watch-stress-apps/">Apple Watch stress app comparison</a>, which shows the evidence behind each description.</p>
 </ArticleLayout>

@@ -1,0 +1,27 @@
+---
+/**
+ * "In short" box at the top of an article: Zen beside three plain takeaways,
+ * so a reader who stops here still leaves with the point.
+ */
+interface Props {
+  points: string[];
+  image?: string;
+  title?: string;
+}
+const { points, image = '/app-ui/start/zen_explain.webp', title = 'In short' } = Astro.props;
+---
+
+<aside class="not-prose my-6 flex items-center gap-4 rounded-3xl app-sky p-5 sm:gap-6 sm:p-6">
+  <img src={image} alt="" width="160" height="240" loading="eager" class="h-32 w-auto shrink-0 sm:h-40" />
+  <div class="min-w-0">
+    <p class="text-xs font-extrabold uppercase tracking-widest text-[color:var(--color-teal-dark)]">{title}</p>
+    <ul class="mt-2 space-y-2">
+      {points.map((point) => (
+        <li class="flex gap-2 text-[1rem] font-semibold leading-snug text-[color:var(--color-ink)] sm:text-[1.0625rem]">
+          <span aria-hidden="true" class="mt-[0.45rem] h-2 w-2 shrink-0 rounded-full bg-[color:var(--color-teal)]"></span>
+          <span set:html={point} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</aside>

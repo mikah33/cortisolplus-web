@@ -1,33 +1,84 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="Exercise to Lower Cortisol: Intensity, Recovery & Evidence"
   description="How exercise relates to cortisol, why hard workouts can raise it temporarily, and how to build a sustainable routine without relying on hormone promises."
-  updated="2026-09-09"
+  updated="2026-11-12"
 >
+<InShort image="/app-ui/start/zen_presenting.webp" points={[
+  'Hard workouts can raise cortisol <strong>for a while</strong>. That can be normal.',
+  'Pick movement you can <strong>repeat and recover from</strong>.',
+  'An app score <strong>can\'t diagnose</strong> overtraining or prove a hormone drop.',
+]} />
+
 <h2>Does exercise raise or lower cortisol?</h2>
-<p><strong>Exercise can change cortisol, but “lower” is not always the goal.</strong> A temporary rise during a demanding workout can be part of the body's response to exertion. It does not show that exercise is harming you or that your cortisol remains high all day.</p>
-<p><a href="https://pubmed.ncbi.nlm.nih.gov/18787373/">Hill and colleagues studied exercise intensity and circulating cortisol</a>. Their study helps illustrate why intensity and sampling conditions matter; it does not establish a universal cortisol-lowering workout prescription.</p>
+<p><strong>Exercise can change cortisol, but "lower" is not always the goal.</strong></p>
+<p>A short rise during a hard workout can be part of your body's normal response to effort. It doesn't mean exercise is harming you, or that your cortisol stays high all day.</p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/18787373/">Hill and colleagues studied exercise intensity and cortisol in the blood</a>. Their study shows why how hard you work, and when samples are taken, matter. It doesn't give one cortisol-lowering workout for everyone.</p>
+
 <h2>Walking, cardio, yoga and strength training</h2>
-<p>Choose movement you can repeat and recover from. Walking, cycling, swimming, strength work and gentler movement can fit different abilities and preferences. You do not need to interpret every workout through a hormone score.</p>
-<p>The <a href="https://odphp.health.gov/our-work/nutrition-physical-activity/physical-activity-guidelines/current-guidelines">US Physical Activity Guidelines</a> recommend 150–300 minutes of moderate aerobic activity per week, or the vigorous equivalent, plus muscle-strengthening activity on at least two days for adults. Start with smaller amounts if needed. These recommendations concern overall health, not a guaranteed cortisol reduction.</p>
+<p><strong>Choose movement you can repeat and recover from.</strong></p>
+<p>Walking, cycling, swimming, strength work and gentler movement can suit different abilities and tastes. You don't need to judge every workout by a hormone score.</p>
+<p>For adults, the <a href="https://odphp.health.gov/our-work/nutrition-physical-activity/physical-activity-guidelines/current-guidelines">US Physical Activity Guidelines</a> recommend:</p>
+<ul>
+  <li>150–300 minutes of moderate aerobic activity a week, or the same amount of vigorous activity, <strong>plus</strong></li>
+  <li>muscle-strengthening activity on at least two days.</li>
+</ul>
+<p>Start with less if you need to. These guidelines are about overall health, not a guaranteed cortisol drop.</p>
+
 <h3>Walking and easy cardio</h3>
-<p>A short walk can be a practical starting point when you are busy or returning to activity. Pick a pace and duration that fit your current capacity. Track how you feel and whether the routine is sustainable, rather than promising yourself a particular percentage drop in cortisol.</p>
+<p>A short walk is a practical start when you're busy or getting back into activity. Pick a pace and length that fit you right now.</p>
+<p>Track how you feel and whether you can keep it up. Don't promise yourself a certain percentage drop in cortisol.</p>
+
+<ZenTip image="/app-ui/zen/zen-walk.webp">
+  Busy day? Put a <strong>short walk</strong> in your calendar like any other plan, so it actually happens.
+</ZenTip>
+
 <h3>Yoga and gentler movement</h3>
-<p>If you enjoy yoga, stretching or a gentle class, build it around comfort and consistency. “Restorative,” “power” and “hot” classes differ in demands. A label alone does not tell you what will happen to your hormone level.</p>
-<h3>Resistance training</h3>
-<p>Plan manageable sessions and allow recovery. If a program repeatedly leaves you unable to function normally, reconsider the load with a qualified trainer or clinician. More exercise is not automatically a better response to feeling stressed.</p>
+<p>If you enjoy yoga, stretching or a gentle class, build it around comfort and doing it often.</p>
+<p>"Restorative", "power" and "hot" classes ask very different things of your body. The name alone doesn't tell you what will happen to your hormones.</p>
+
+<h3>Resistance (strength) training</h3>
+<p>Plan sessions you can manage and leave time to recover.</p>
+<p>If a program keeps leaving you unable to get through a normal day, rethink the load with a qualified trainer or clinician. More exercise isn't automatically a better answer to feeling stressed.</p>
+
 <h2>Is HIIT bad for cortisol?</h2>
-<p>High-intensity exercise is not automatically bad. The useful question is whether its demand fits your training history, other activity and recovery. A wearable score does not determine the right number of hard sessions for everyone.</p>
-<h2>When to reconsider training load</h2>
-<p>Persistent fatigue, declining performance, poor sleep or changes in mood deserve attention, but none identifies an endocrine problem on its own. The <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/">ECSS/ACSM overtraining consensus</a> describes a complex diagnosis that requires consideration of other causes. There is no single generally accepted biomarker test that makes this diagnosis.</p>
-<p>Do not use a fixed HRV percentage, a few days of resting heart-rate change or an app score as proof of overtraining. Get professional help for persistent unexplained symptoms.</p>
-<h2>A week of observation</h2>
-<ol><li>Choose a realistic activity schedule rather than adding every possible session.</li><li>Note the type of activity and how demanding it felt.</li><li>Record sleep and how you feel the following day.</li><li>Adjust gradually, taking symptoms and recovery seriously.</li></ol>
-<p>Our <a href="/resources/stress-sleep-journal/">seven-day journal</a> provides space for these observations. It is an observation tool, not a treatment protocol.</p>
-<h2>How wearable tracking can help</h2>
-<p>Cortisol+ can place available HRV, sleep and activity data together for reflection. It cannot verify hormone reduction, diagnose overtraining or predict symptoms weeks before they happen. See <a href="/how-it-works/">how the score is calculated</a> and <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>.</p>
+<p><strong>High-intensity interval training (HIIT) is not automatically bad.</strong></p>
+<p>The useful question is whether it fits your training history, your other activity and your recovery. A wearable score can't set the right number of hard sessions for everyone.</p>
+
+<h2>When should I rethink my training load?</h2>
+<p><strong>Ongoing tiredness, worse performance, poor sleep or mood changes deserve attention.</strong> But none of them points to a hormone problem on its own.</p>
+<p>The <a href="https://pubmed.ncbi.nlm.nih.gov/23247672/">ECSS/ACSM overtraining consensus</a> describes overtraining as a complex diagnosis. Other causes have to be ruled out. There is no single generally accepted biomarker (lab marker) test that makes this diagnosis.</p>
+<p>Don't treat a fixed HRV percentage, a few days of resting heart rate change, or an app score as proof of overtraining. Get professional help if symptoms keep going and you don't know why.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>Try a week of noticing</h2>
+<ol>
+  <li>Pick a realistic activity plan. Don't add every possible session.</li>
+  <li>Write down the type of activity and how hard it felt.</li>
+  <li>Note your sleep and how you feel the next day.</li>
+  <li>Change things slowly, and take symptoms and recovery seriously.</li>
+</ol>
+<p>Our <a href="/resources/stress-sleep-journal/">seven-day journal</a> has space for these notes. It's a tool for noticing, not a treatment plan.</p>
+
+<ZenPicture src="/app-ui/zen/zen-stretch.webp" caption="Move, rest, notice. Then adjust a little." />
+
+<h2>How can wearable tracking help?</h2>
+<p><strong>Cortisol+ can put your available heart rate variability (HRV), sleep and activity data side by side</strong> so you can reflect on them.</p>
+<p>It can't confirm a hormone drop, diagnose overtraining, or predict symptoms weeks before they happen.</p>
+<p>See <a href="/how-it-works/">how the score is calculated</a> and <a href="/features/hrv-stress-monitoring/">HRV stress monitoring</a>.</p>
 <p><small>Correction, September 9, 2026: removed guaranteed exercise outcomes, universal recovery thresholds and unsupported predictions about the app.</small></p>
 </ArticleLayout>

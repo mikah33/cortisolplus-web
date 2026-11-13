@@ -1,22 +1,75 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
+
+const card = 'block rounded-2xl border border-[color:var(--color-border)] p-4 no-underline transition hover:border-[color:var(--color-teal)]';
 ---
 
 <ArticleLayout
   title="Compare Apple Watch Stress & HRV Apps"
   description="Explore documented features, measurement methods and limitations when comparing Cortisol+ with other stress and HRV apps."
-  updated="2026-09-16"
+  updated="2026-11-12"
   published="2026-09-09"
 >
-<h2>Compare the job you need an app to do</h2><p>A stress score is an interpretation of data. Compare its inputs, explanations, access requirements and cost before treating the number as useful to you.</p><ul><li><a href="/compare/apple-watch-stress-apps/">Apple Watch stress apps: Cortisol+, Welltory, StressWatch, Bevel and Athlytic</a></li><li><a href="/blog/welltory-vs-cortisol-plus/">Welltory vs Cortisol+</a></li></ul><p>These guides disclose our role as the publisher of Cortisol+. They are documentation comparisons, not independent clinical accuracy tests.</p>
-<h2>Choose a comparison by what you want to learn</h2>
-<table><thead><tr><th scope="col">Your goal</th><th scope="col">Start here</th><th scope="col">What to check</th></tr></thead><tbody>
-<tr><td>Understand Apple Watch stress scores</td><td><a href="/compare/apple-watch-stress-apps/">Five-app comparison</a></td><td>Inputs, explanations, subscription access and missing-data behavior</td></tr>
-<tr><td>Consider an alternative to Welltory</td><td><a href="/blog/welltory-vs-cortisol-plus/">Welltory versus Cortisol+</a></td><td>Data sources, features and how the score is explained</td></tr>
-<tr><td>Track actual hormone levels</td><td><a href="/cortisol/test/">Cortisol testing guide</a></td><td>A wearable wellness score cannot replace a hormone test</td></tr>
-<tr><td>Keep a record without a subscription</td><td><a href="/resources/stress-sleep-journal/">Free observation journal</a></td><td>Record your own observations without calculating a hormone level</td></tr>
-</tbody></table>
-<h2>How we compare products</h2>
-<p>We link official product documentation and store listings, disclose that we make Cortisol+, and distinguish documented features from hands-on testing. Scores from different apps are not interchangeable. Prices, trial eligibility and supported devices can change; verify the current offer before subscribing.</p>
-<p>For another way to explore the tradeoffs, see our <a href="/resources/perplexity/#apple-watch-apps">shared Perplexity app-comparison conversations</a>. We requested these AI answers and show the prompts; they are not independent reviews.</p>
+<InShort points={[
+  'A stress score is <strong>an interpretation</strong> of your data.',
+  'Compare <strong>inputs, explanations and cost</strong>, not just the number.',
+  'Scores from different apps <strong>are not interchangeable</strong>.',
+]} />
+
+<h2>What job do you need an app to do?</h2>
+<p><strong>A stress score is an interpretation of data.</strong> Before you trust the number, compare what goes into it, how it's explained, what access you need and what it costs.</p>
+<ul>
+  <li><a href="/compare/apple-watch-stress-apps/">Apple Watch stress apps: Cortisol+, Welltory, StressWatch, Bevel and Athlytic</a></li>
+  <li><a href="/blog/welltory-vs-cortisol-plus/">Welltory vs Cortisol+</a></li>
+</ul>
+<p>These guides say clearly that we publish Cortisol+. They compare documentation. They are not independent clinical accuracy tests.</p>
+
+<ZenTip image="/app-ui/zen_presenting_new.webp">
+  Before you compare scores, check <strong>which way is good</strong> in each app. Higher isn't always better.
+</ZenTip>
+
+<h2>Which comparison should I read?</h2>
+<p><strong>Pick by what you want to learn.</strong></p>
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <a href="/compare/apple-watch-stress-apps/" class={card}>
+    <p class="font-extrabold text-[color:var(--color-ink)]">Understand Apple Watch stress scores</p>
+    <p class="mt-1 text-[0.9375rem] font-semibold text-[color:var(--color-teal-dark)]">Five-app comparison ›</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]">Check inputs, explanations, subscription access and what happens when data is missing.</p>
+  </a>
+  <a href="/blog/welltory-vs-cortisol-plus/" class={card}>
+    <p class="font-extrabold text-[color:var(--color-ink)]">Consider an alternative to Welltory</p>
+    <p class="mt-1 text-[0.9375rem] font-semibold text-[color:var(--color-teal-dark)]">Welltory versus Cortisol+ ›</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]">Check data sources, features and how the score is explained.</p>
+  </a>
+  <a href="/cortisol/test/" class={card}>
+    <p class="font-extrabold text-[color:var(--color-ink)]">Track actual hormone levels</p>
+    <p class="mt-1 text-[0.9375rem] font-semibold text-[color:var(--color-teal-dark)]">Cortisol testing guide ›</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]">A wearable wellness score can't replace a hormone test.</p>
+  </a>
+  <a href="/resources/stress-sleep-journal/" class={card}>
+    <p class="font-extrabold text-[color:var(--color-ink)]">Keep a record without a subscription</p>
+    <p class="mt-1 text-[0.9375rem] font-semibold text-[color:var(--color-teal-dark)]">Free observation journal ›</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink-muted)]">Write down what you notice. It doesn't calculate a hormone level.</p>
+  </a>
+</div>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>How do we compare products?</h2>
+<p><strong>We link to official product pages and store listings, and we say that we make Cortisol+.</strong> We also keep documented features separate from hands-on testing.</p>
+<p>Scores from different apps are not interchangeable. Prices, trial eligibility and supported devices can change, so check the current offer before you subscribe.</p>
+
+<ZenPicture src="/app-ui/zen_companions.webp" caption="Every app has its own scale. That's normal." />
+
+<p>For another way to look at the tradeoffs, see our <a href="/resources/perplexity/#apple-watch-apps">shared Perplexity app-comparison conversations</a>. We asked for these AI answers and show the prompts. They are not independent reviews.</p>
 </ArticleLayout>

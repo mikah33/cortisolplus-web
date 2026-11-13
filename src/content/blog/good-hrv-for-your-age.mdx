@@ -1,85 +1,133 @@
 ---
 title: "What's a Good HRV for Your Age? RMSSD Ranges by Decade"
-description: "Good HRV by age: 55–105 ms in your 20s, 45–90 ms in your 30s, down to 15–45 ms by 65+. RMSSD ranges by decade and why your personal baseline matters more than any average."
+description: "Good HRV by age: average RMSSD by decade from a large study of healthy adults, and why your personal baseline matters more than any average."
 pubDate: 2026-07-15
 tags: [hrv, stress, wearables, athletes, cortisol]
 draft: false
 targetTool: /tools/stress-score
-updatedDate: 2026-09-09
+updatedDate: 2026-11-12
 ---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
-If you're tracking heart rate variability (HRV) on your Apple Watch or other device, you've probably wondered: what's a good HRV by age? The answer isn't as simple as a single number. While age-based averages exist, your individual baseline and personal trends tell you much more about your stress and recovery than comparing yourself to strangers.
+<InShort points={[
+  'HRV usually <strong>goes down as you get older</strong>.',
+  'Age ranges are <strong>rough averages</strong>, and people vary a lot.',
+  'Compare your HRV with <strong>your own normal</strong>, not with a chart.',
+]} />
 
-Let's look at what the research shows about HRV across different ages, and why your own pattern matters more than any chart.
+## What's a good HRV for my age?
 
-## Average HRV by Age Group
+**There's no single "good" number.** Age averages exist, but your own normal and your own trends tell you much more.
 
-HRV naturally declines as you get older. This happens because your autonomic nervous system becomes less flexible over time. Here are rough averages for resting HRV measured in milliseconds (RMSSD, the most common metric):
+Heart rate variability (HRV) is the small change in time between your heartbeats. You might track it on an Apple Watch or another device.
 
-- **Ages 20-25:** 55-105 ms
-- **Ages 26-35:** 45-90 ms
-- **Ages 36-45:** 35-75 ms
-- **Ages 46-55:** 25-65 ms
-- **Ages 56-65:** 20-55 ms
-- **Ages 65+:** 15-45 ms
+Comparing yourself with strangers tells you less about your stress and recovery than comparing yourself with you.
 
-These ranges come from studies of healthy adults. But there's massive variation within each age group. A 30-year-old athlete might have an HRV of 120 ms, while a sedentary 30-year-old could sit at 35 ms. Both could be "normal" for their individual circumstances.
+Here's what research shows about HRV at different ages, and why your own pattern matters more.
 
-Women tend to have slightly lower HRV than men on average, though this gap shrinks after menopause. Your fitness level, sleep quality, stress, and genetics all influence where you fall in the [normal range](/hrv/normal-range/).
+## Average HRV by age group
 
-## Why Your Personal Baseline Matters More
+**HRV naturally goes down as you get older.** That's because your autonomic nervous system (the part that runs things like your heartbeat on its own) becomes less flexible over time.
 
-Looking up "good HRV by age" might seem helpful, but comparing yourself to population averages misses the point. What really matters is *your* HRV compared to *your own* baseline.
+Here are average RMSSD values (a common way to measure HRV) from one large study of 1,906 healthy adults. Each is the average ± standard deviation, in milliseconds (ms), for women and men:
 
-Here's why: if your normal HRV is 40 ms and it drops to 25 ms, that's a red flag. Your body is showing signs of stress, poor recovery, or overtraining. But if someone else's HRV is always 25 ms and stays there, they're fine.
+- **Ages 25-34:** women 42.9 ± 22.8 ms, men 39.7 ± 19.9 ms
+- **Ages 35-44:** women 35.4 ± 18.5 ms, men 32.0 ± 16.5 ms
+- **Ages 45-54:** women 26.3 ± 13.6 ms, men 23.0 ± 10.9 ms
+- **Ages 55-64:** women 21.4 ± 11.9 ms, men 19.9 ± 11.1 ms
+- **Ages 65-74:** women 19.1 ± 11.8 ms, men 19.1 ± 10.7 ms
 
-Think of [HRV](/hrv/) like blood pressure. One person might run at 110/70 normally, another at 125/80. Both are healthy. But if the first person suddenly jumps to 140/90, something changed. The trend matters more than the absolute number.
+Source: [Voss et al., "Short-Term Heart Rate Variability — Influence of Gender and Age in Healthy Subjects," PLOS ONE, 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118308), Tables 5 and 7. These came from 5-minute ECG recordings taken lying down after a rest. The study didn't include people under 25 or over 74.
 
-Track your HRV for at least two weeks to establish your personal baseline. Look for patterns:
+The big standard deviations show how much healthy people of the same age differ. Our [HRV by age chart](/hrv/normal-range/) has the full table and its limits.
+
+### People in the same age group vary a lot
+
+A 30-year-old endurance athlete might have a much higher HRV than a 30-year-old who doesn't exercise. Both could be "normal" for them.
+
+In the study above, women and men had similar averages in every age group.
+
+Your fitness, sleep, stress and genes all affect where you fall in the [normal range](/hrv/normal-range/).
+
+<ZenTip image="/app-ui/zen/zen-phone.webp">
+  Check which kind of HRV your device shows. The averages above use <strong>RMSSD</strong>. Apple Health has long saved a different measure, called SDNN.
+</ZenTip>
+
+## Why does my own normal matter more?
+
+**What really matters is your HRV compared with your own baseline (your usual level).**
+
+Comparing yourself with averages for your age misses the point. Here's why:
+
+- If your normal HRV is 40 ms and it drops to 25 ms, that's worth noticing. It can be a sign of stress, poor recovery or overtraining.
+- If someone else's HRV is always 25 ms and stays there, they're fine.
+
+### Think of it like blood pressure
+
+[HRV](/hrv/) is a bit like blood pressure. One person might normally run at 110/70, another at 125/80. Both are healthy.
+
+But if the first person suddenly jumps to 140/90, something changed. The trend matters more than the number itself.
+
+### How to find your baseline
+
+Track your HRV for at least two weeks. Then look for patterns:
 
 - Does your HRV drop after alcohol or poor sleep?
 - Does it rise on rest days?
 - Do you feel worse when your HRV is low?
 
-These personal correlations are far more useful than worrying whether you match an age-based chart.
+These links in your own data are far more useful than worrying about whether you match a chart.
 
-## Factors That Affect HRV Besides Age
+<ZenPicture src="/app-ui/start/zen_explain.webp" caption="Your own trend tells you more than any chart for your age." />
 
-Age isn't the only thing that determines your HRV. Understanding these other factors helps explain why your number might differ from expected ranges:
+## What else affects HRV besides age?
 
-**Fitness level:** Regular aerobic exercise increases HRV over time. Endurance athletes often have much higher HRV than sedentary people their age.
+Age isn't the only thing. These help explain why your number might not match the averages above:
 
-**Sleep quality:** Poor sleep crushes HRV. Even one bad night can drop your reading the next morning.
+- **Fitness:** regular aerobic exercise (like brisk walking, running or cycling) raises HRV over time. Endurance athletes often have much higher HRV than people their age who don't exercise.
+- **Sleep:** poor sleep can lower HRV, sometimes as soon as the next morning.
+- **Stress:** long-term stress can keep your "fight or flight" system (the sympathetic nervous system) switched on. That can lower HRV. This is why HRV is often used as a sign of stress. It can't tell you your cortisol level.
+- **Training load:** hard workouts lower HRV for a while. That's normal. But if it stays low for days, you might be overtraining.
+- **Illness:** being sick can lower your HRV.
+- **Time of day:** HRV changes through the day. That's why many people measure it at the same time each day, often first thing in the morning.
+- **How it's measured:** wrist sensors are handy but less accurate than chest straps. Your device matters.
 
-**Stress and cortisol:** Chronic stress keeps your sympathetic nervous system activated, which lowers HRV. This is why HRV works as a stress indicator.
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
 
-**Training load:** Intense workouts temporarily lower HRV. This is normal. But if it stays low for days, you might be overtraining.
+## When should I worry about low HRV?
 
-**Illness:** Getting sick tanks your HRV before you even feel symptoms. Many people use this as an early warning system.
+**One low reading isn't a crisis.** HRV goes up and down every day. Patterns that keep showing up deserve attention.
 
-**Time of day:** HRV is typically highest when you first wake up, which is why most people measure it first thing in the morning.
+You might want to look into it if:
 
-**Measurement method:** Wrist-based sensors are convenient but less accurate than chest straps. Your device matters.
+- Your HRV stays well below your baseline for several days
+- You feel exhausted or irritable, or can't recover from workouts
+- Your HRV keeps going down week after week
+- Low HRV comes with other symptoms, like chest pain or dizziness
 
-## When to Worry About Low HRV
+Low HRV often means your body needs rest. For athletes, that might mean a recovery day. For everyone else, it might mean working on sleep, stress or daily habits.
 
-A single low reading isn't a crisis. HRV fluctuates daily. But consistent patterns deserve attention.
+### Is high HRV always better?
 
-You might want to investigate further if:
+Not always. A higher number isn't automatically a sign of better health. If a reading looks unusual for you, look at it alongside how you feel and your recent days.
 
-- Your HRV drops 20% or more below your baseline for several days
-- You feel exhausted, irritable, or can't recover from workouts
-- Your HRV keeps declining week after week
-- Low HRV comes with other symptoms like chest pain or dizziness
+<ZenTip image="/app-ui/zen_new_low.webp">
+  Seeing a low number? Look at the <strong>last few days</strong> together before you change your plans.
+</ZenTip>
 
-Low HRV often signals that your body needs rest. For athletes, it might mean taking a recovery day. For everyone else, it might mean addressing sleep, stress, or lifestyle factors.
+## How can I track my stress and recovery?
 
-High HRV isn't automatically better either. Unusually high readings (for you) can sometimes indicate overtraining or illness, though this is less common.
+Want to see how different things affect your nervous system? Our [stress score calculator](/tools/stress-score/) helps you reflect on habits that may affect your stress and recovery. It doesn't measure your HRV.
 
-## Track Your Stress and Recovery Patterns
+Cortisol+ shows the wearable records you have, plus a wellness score. It can't measure cortisol. It also can't show that a supplement or routine changed your hormone levels. Read [how it works and its limits](/how-it-works/) before you read too much into a trend.
 
-Want to see how different factors affect your nervous system? Our [stress score calculator](/tools/stress-score/) helps you identify what might be impacting your HRV and overall recovery based on your habits and symptoms.
-
-Cortisol+ shows available wearable records and a wellness score. It cannot measure cortisol or establish that a supplement or routine changed hormone levels. Check the [methodology and limitations](/how-it-works/) before interpreting a trend.
-
-Not medical advice. Consult a healthcare provider for diagnosis or treatment.
+Not medical advice. Talk to a healthcare provider for diagnosis or treatment.

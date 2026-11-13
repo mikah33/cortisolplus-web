@@ -2,60 +2,152 @@
 title: "Bevel vs Cortisol+: which Apple Watch health app fits you?"
 description: "Bevel is an all-in-one recovery, strain, sleep and stress platform. Cortisol+ focuses on one documented stress and recovery score. Compare inputs, scope and cost questions."
 pubDate: 2026-10-20
+updatedDate: 2026-11-12
 tags: [wearables, hrv, stress, comparisons]
 draft: false
 showToolCTA: false
 ---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
+
+<InShort image="/app-ui/start/zen_presenting.webp" points={[
+  '<strong>Bevel</strong> is one app for recovery, strain, sleep, stress, food and strength.',
+  '<strong>Cortisol+</strong> is one stress and recovery score, with every weight published.',
+  'Both read Apple Health. <strong>Neither measures cortisol.</strong>',
+]} />
 
 ## Should you use Bevel or Cortisol+?
 
-**Choose Bevel if you want one app for recovery, strain, sleep, stress, nutrition and strength. Choose Cortisol+ if you mainly want to understand stress and recovery through one score whose weights are published.** Both read Apple Watch data through Apple Health. Neither measures cortisol.
+**Pick Bevel if you want one app for recovery, strain, sleep, stress, nutrition and strength. Pick Cortisol+ if you mainly want to understand stress and recovery through one score whose weights are published.**
+
+Both read Apple Watch data through Apple Health. Neither measures cortisol.
 
 **Disclosure:** Cortisol+ publishes this guide. We compared Bevel's App Store listing and help-centre articles, checked October 20, 2026, with our own published methodology. This is not a hands-on or clinical accuracy test.
 
-## Two different scopes
+## How big is each app?
 
-Bevel is a broad health platform. Its listing and help centre describe Recovery, Sleep, Strain, Stress and Nutrition scores, plus an Energy Bank, biological age, strength training, lab-record import, glucose monitor support, cycle tracking and paid AI features. [Bevel's Recovery score](https://help.bevel.health/en/articles/11258177) is calculated each morning from sleep, HRV, resting heart rate, wrist temperature, respiratory rate and blood oxygen. Its [Stress score](https://help.bevel.health/en/articles/11258369) uses heart rate and HRV together with movement and time of day.
+**Bevel does a lot. Cortisol+ does one thing.**
 
-Cortisol+ is narrower. It turns up to ten Apple Health inputs into a single 0–100 wellness score, with HRV, sleep and recovery views behind it. The [methodology page](/how-it-works/) publishes each input's weight: HRV 20%, sleep 20%, resting heart rate 18%, then breathing rate, activity and smaller factors.
+Bevel is a broad health platform. Its listing and help centre describe:
 
-| Question | Bevel | Cortisol+ |
-|---|---|---|
-| Scope | Recovery, strain, sleep, stress, nutrition, strength, labs and more | Stress and recovery wellness score with HRV and sleep views |
-| Stress inputs | Heart rate, HRV, movement and time of day | HRV, sleep, resting heart rate, breathing rate, activity and other factors |
-| Published weights | Inputs listed per score; weights not published | All input weights published |
-| Other wearables | Integrates Garmin, Oura and Fitbit | Apple Health; the Android app reads Health Connect |
-| Platforms | iPhone (iOS 18+) and Apple Watch | iPhone (iOS 17+), Apple Watch and Android |
-| Measures cortisol? | No; Bevel says its stress score reflects physiological load | No |
+- Recovery, Sleep, Strain, Stress and Nutrition scores
+- an Energy Bank and a biological age
+- strength training, lab-record import and glucose monitor support
+- cycle tracking and paid AI features
 
-## Where Bevel is strong
+[Bevel's Recovery score](https://help.bevel.health/en/articles/11258177) is worked out each morning from sleep, heart rate variability (HRV), resting heart rate, wrist temperature, breathing rate and blood oxygen. Its [Stress score](https://help.bevel.health/en/articles/11258369) uses heart rate and HRV together with movement and time of day.
 
-Bevel covers a lot of ground. If you also want to track training strain, nutrition and lab results, one app can replace several. Its help centre is detailed and recently updated, and it lets you change calculation settings, such as which HRV measure to use. It is highly rated on the US App Store (4.8 from more than 17,000 ratings on October 20, 2026), supports Family Sharing, and connects to Garmin, Oura and Fitbit as well as Apple Watch.
+Cortisol+ is narrower. It turns up to ten Apple Health inputs into one 0–100 wellness score, with HRV, sleep and recovery views behind it. The [methodology page](/how-it-works/) publishes each input's weight: HRV 20%, sleep 20%, resting heart rate 18%, then breathing rate, activity and smaller factors.
 
-## Where Cortisol+ differs
+<div class="not-prose my-6 overflow-hidden rounded-2xl border border-[color:var(--color-border)] text-[0.9375rem] leading-snug">
+  <div class="grid grid-cols-2 bg-[color:var(--color-mint-soft)] font-extrabold text-[color:var(--color-ink)]">
+    <div class="px-4 py-3">Bevel</div>
+    <div class="px-4 py-3 border-l border-[color:var(--color-border)]">Cortisol+</div>
+  </div>
+  <div class="divide-y divide-[color:var(--color-border)]">
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">What it covers</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Recovery, strain, sleep, stress, nutrition, strength, labs and more</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">A stress and recovery score, with HRV and sleep views</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Stress inputs</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Heart rate, HRV, movement and time of day</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">HRV, sleep, resting heart rate, breathing rate, activity and other factors</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Published weights</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Inputs listed for each score; weights not published</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">All input weights published</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Other wearables</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">Works with Garmin, Oura and Fitbit</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">Apple Health; the Android app reads Health Connect</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Platforms</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">iPhone (iOS 18+) and Apple Watch</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">iPhone (iOS 17+), Apple Watch and Android</p>
+      </div>
+    </div>
+    <div>
+      <p class="px-4 pt-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-ink-muted)]">Measures cortisol?</p>
+      <div class="grid grid-cols-2 text-[color:var(--color-ink)]">
+        <p class="px-4 pt-1 pb-3">No. Bevel says its stress score reflects physiological load (strain on the body)</p>
+        <p class="px-4 pt-1 pb-3 border-l border-[color:var(--color-border)]">No</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-Cortisol+ trades breadth for focus. If you don't need nutrition logs or strength programmes, a smaller app makes it easier to see what's driving one number. Because every weight is published, you can check whether a bad night of sleep or a drop in HRV pulled the score down.
+## Where is Bevel strong?
 
-Published weights let you inspect the score's design. They don't prove it's more accurate than Bevel's.
+**Bevel covers a lot of ground.** If you also want to track training strain, nutrition and lab results, one app can replace several.
 
-## Cost questions to check
+- Its help centre is detailed and recently updated.
+- It lets you change how things are worked out, such as which HRV measure to use.
+- It is highly rated on the US App Store: 4.8 from more than 17,000 ratings on October 20, 2026.
+- It supports Family Sharing.
+- It connects to Garmin, Oura and Fitbit as well as Apple Watch.
 
-Both apps are free to download. Bevel's deeper features need Bevel Pro, and its AI features use credit packs bought separately. Cortisol+ analysis requires a subscription or an eligible trial. Prices and trial terms vary by account, so compare the offers shown in each app before subscribing.
+<ZenTip image="/app-ui/zen/zen-journal.webp">
+  Make a short list of the features you'd <strong>really use</strong>. Then check which app covers that list.
+</ZenTip>
 
-## How to compare them yourself
+## Where is Cortisol+ different?
+
+**Cortisol+ gives up breadth to stay focused.**
+
+If you don't need food logs or strength plans, a smaller app makes it easier to see what's moving one number. Because every weight is published, you can check whether a bad night's sleep or a drop in HRV pulled the score down.
+
+Published weights let you look at how the score is built. They don't prove it's more accurate than Bevel's.
+
+## What will it cost?
+
+**Both apps are free to download.**
+
+- Bevel's deeper features need Bevel Pro. Its AI features use credit packs bought separately.
+- Cortisol+ analysis requires a subscription or an eligible trial.
+
+Prices and trial terms vary by account, so compare the offers shown in each app before you subscribe.
+
+## How can I compare them myself?
 
 1. List the decisions you actually want help with. Is it workouts, sleep timing, or noticing stressful weeks?
-2. Run both apps for a week with the same Watch. Bevel needs about two full nights of sleep before its scores appear, and Cortisol+ builds its personal baseline over 28 readings.
+2. Run both apps for a week with the same Watch. Bevel needs about two full nights of sleep before its scores appear. Cortisol+ builds your personal baseline over 28 readings.
 3. Check surprising values against the original Apple Health samples.
 4. Decide whether you'll use the extra features you'd be paying for.
 5. Keep notes in the free [stress and sleep journal](/resources/stress-sleep-journal/).
 
-## Related comparisons
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
 
-Compare five apps in the [Apple Watch stress app comparison](/compare/apple-watch-stress-apps/), or read [StressWatch vs Cortisol+](/blog/stresswatch-vs-cortisol-plus/), [Athlytic vs Cortisol+](/blog/athlytic-vs-cortisol-plus/) and our list of [Welltory alternatives](/blog/welltory-alternatives/).
-
-![Cortisol+ Health Breakdown showing the inputs behind its wellness score](/screenshots/health-breakdown.webp)
+![Cortisol+ Health Breakdown showing the inputs behind its wellness score](/screenshots/wearable-insights.webp)
 
 *Product screenshot with example readings. Your available inputs depend on Health permissions and recorded data.*
 
-[View Cortisol+ on the App Store](https://apps.apple.com/app/id6759510126). Free to download; analysis requires a subscription or eligible trial.
+<ZenPicture src="/app-ui/start/zen_watch.webp" caption="Give each app a week on the same Watch before you decide." />
+
+## Related comparisons
+
+- Five apps side by side: [Apple Watch stress app comparison](/compare/apple-watch-stress-apps/)
+- [StressWatch vs Cortisol+](/blog/stresswatch-vs-cortisol-plus/)
+- [Athlytic vs Cortisol+](/blog/athlytic-vs-cortisol-plus/)
+- [Welltory alternatives](/blog/welltory-alternatives/)

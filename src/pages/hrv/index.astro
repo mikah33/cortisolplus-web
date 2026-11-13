@@ -2,35 +2,43 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ, { type FAQItem } from '../../components/FAQ.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
 
 import { medicalWebPage } from '../../lib/schema';
+
+const UPDATED = '2026-11-12';
 
 const schema = medicalWebPage({
   name: 'HRV and stress: what your heart rate variability reveals',
   pathname: '/hrv/',
   specialty: 'Cardiovascular',
+  lastReviewed: UPDATED,
 });
 
+// The FAQ component renders every answer visibly and emits the FAQPage
+// JSON-LD from this same array, so visible text and schema always match.
 const faqs: FAQItem[] = [
   {
     q: 'What is HRV?',
-    a: 'Heart rate variability (HRV) is the variation in time between consecutive heartbeats, measured in milliseconds. Even at a steady 60 bpm your heart does not beat exactly once per second — the tiny fluctuations reflect how your autonomic nervous system is balancing its stress ("fight-or-flight") and recovery ("rest-and-digest") branches. Higher variability generally signals better autonomic flexibility.',
+    a: 'Heart rate variability (HRV) is how much the time between your heartbeats changes, measured in milliseconds. Even at a steady 60 beats per minute, your heart does not beat exactly once a second. These tiny changes show how your nervous system is balancing its "fight or flight" side and its "rest and digest" side. Higher variability generally means your system is more flexible.',
   },
   {
     q: 'How does HRV relate to stress?',
-    a: 'When you are stressed, the sympathetic nervous system dominates and vagal (parasympathetic) activity falls, which lowers HRV. A 2018 meta-analysis in Psychiatry Investigation found that stress is reliably associated with reduced HRV. Because cortisol is a core stress hormone, periods of elevated cortisol tend to coincide with suppressed HRV.',
+    a: 'When you are stressed, the "fight or flight" side takes over and the "rest and digest" (vagal) side quiets down. That lowers HRV. A 2018 meta-analysis in Psychiatry Investigation found that stress is reliably linked with lower HRV. Stress can also raise cortisol, but HRV cannot tell you your cortisol level.',
   },
   {
     q: 'Is higher HRV always better?',
-    a: 'Generally a higher HRV reflects better recovery and autonomic balance, but HRV is deeply individual. Absolute numbers vary enormously between people based on age, genetics, and fitness. What matters most is your own baseline and its trend over time, not how you compare to someone else.',
+    a: 'Generally, a higher HRV goes with better recovery and balance. But HRV is very personal. Numbers vary a lot between people because of age, genes and fitness. What matters most is your own baseline and how it changes over time, not how you compare with someone else.',
   },
   {
     q: 'Does HRV measure cortisol directly?',
-    a: 'No. HRV is a downstream signal of autonomic nervous system activity, not a hormone measurement. Cortisol+ uses your HRV pattern — alongside resting heart rate and sleep — to estimate the trend and pattern of your cortisol, not an exact hormone level. Only a blood, saliva, or urine test measures cortisol directly.',
+    a: 'No. HRV is a signal from your nervous system, not a hormone measurement. Cortisol+ uses HRV, sleep, resting heart rate and other wearable signals to give a 0–100 wellness score. It does not measure or estimate cortisol. Only a blood, saliva or urine test measures cortisol.',
   },
   {
     q: 'How does Cortisol+ use HRV?',
-    a: 'Cortisol+ reads your overnight HRV (SDNN) from Apple Watch and combines it with resting heart rate and sleep data to model your daily stress-recovery pattern. Over weeks you can see whether your autonomic balance is trending toward more recovery or more strain.',
+    a: 'Cortisol+ reads your HRV from Apple Health on iPhone (Apple Watch records SDNN) or Health Connect on Android. It compares it with your own baseline and combines it with sleep, resting heart rate and other signals into a 0–100 wellness score. Over weeks, you can see whether your readings are trending toward more recovery or more strain. The score is not a cortisol level.',
   },
 ];
 
@@ -42,6 +50,16 @@ const related = [
   { href: '/cortisol/', title: 'Cortisol explained', hint: 'The stress hormone' },
   { href: '/tools/stress-score/', title: 'Stress score tool', hint: 'Check your load' },
 ];
+
+const proseCard = `app-card px-5 py-6 sm:px-8 sm:py-8 prose prose-base sm:prose-lg max-w-none
+  prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
+  prose-headings:text-balance prose-headings:scroll-mt-24
+  prose-h2:mt-12 prose-h2:mb-3 prose-h2:text-[1.5rem] sm:prose-h2:text-[1.75rem] prose-h2:leading-tight
+  prose-h3:mt-8 prose-h3:mb-2
+  prose-p:text-[color:var(--color-ink)] prose-p:leading-[1.75] prose-p:my-4
+  prose-li:text-[color:var(--color-ink)] prose-li:leading-[1.7] prose-li:my-1.5
+  prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline
+  prose-strong:text-[color:var(--color-ink)]`;
 ---
 
 <BaseLayout
@@ -50,44 +68,91 @@ const related = [
   image="/screenshots/wearable-insights.png"
   schema={schema}
 >
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-medium mb-3">Heart rate variability</div>
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">HRV and stress</h1>
-    <p class="text-xl text-[color:var(--color-ink-muted)] mb-12">
-      Your heart rate variability is one of the clearest windows into how your nervous system handles stress — and how well it recovers.
-    </p>
+  <article class="max-w-3xl mx-auto px-4 pt-6 pb-16">
+    <header class="px-1 mb-6">
+      <div class="text-xs uppercase tracking-widest text-[color:var(--color-teal-dark)] font-semibold mb-2">Heart rate variability</div>
+      <h1 class="text-[2rem] md:text-5xl leading-[1.1] font-extrabold tracking-tight mb-3 text-balance">HRV and stress</h1>
+      <p class="text-[1.0625rem] md:text-xl leading-relaxed text-[color:var(--color-ink-muted)] text-pretty">
+        Heart rate variability is a useful window into how your nervous system handles stress, and how well it recovers.
+      </p>
+      <p class="text-sm text-[color:var(--color-ink-muted)] mt-4">
+        Updated {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })} · By <a href="/about/" class="underline underline-offset-2">Cortisol+ Editorial</a>
+      </p>
+    </header>
 
-    <div class="prose prose-lg max-w-none
-      prose-headings:tracking-tight prose-headings:text-[color:var(--color-ink)]
-      prose-a:text-[color:var(--color-teal-dark)] prose-a:no-underline hover:prose-a:underline">
+    <InShort points={[
+      'HRV is how much the <strong>time between heartbeats</strong> changes.',
+      'Stress is linked with <strong>lower HRV</strong>. Compare with your own baseline.',
+      'HRV is <strong>not a cortisol test</strong>. No wearable measures cortisol.',
+    ]} />
 
+    <div class={proseCard}>
       <h2>What is HRV?</h2>
-      <p>Heart rate variability (HRV) is the variation in the time interval between consecutive heartbeats, measured in milliseconds. Your heart is not a metronome: even when your pulse reads a steady 60 beats per minute, the gap between one beat and the next constantly shifts by a few milliseconds. Those fluctuations are controlled by your autonomic nervous system, and measuring them tells you something a plain heart rate cannot — <em>how</em> your body is regulating itself.</p>
-      <p>HRV is a well-established physiological signal. The most common time-domain metrics are <strong>SDNN</strong> (the standard deviation of normal beat-to-beat intervals) and <strong>RMSSD</strong> (the root mean square of successive differences), both described in detail in the reference review by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">Shaffer &amp; Ginsberg (2017)</a>.</p>
+      <p><strong>Heart rate variability (HRV) is how much the time between your heartbeats changes.</strong> It's measured in milliseconds (ms).</p>
+      <p>Your heart isn't a metronome. Even when your pulse is a steady 60 beats per minute, the gap between one beat and the next keeps shifting by a few milliseconds.</p>
+      <p>Your autonomic nervous system controls those shifts. So HRV tells you something a plain heart rate can't: <em>how</em> your body is regulating itself.</p>
+      <p>HRV is a well-established body signal. The two most common measures are:</p>
+      <ul>
+        <li><strong>SDNN:</strong> the standard deviation of the gaps between normal heartbeats.</li>
+        <li><strong>RMSSD:</strong> the root mean square of successive differences, a measure of beat-to-beat change.</li>
+      </ul>
+      <p>Both are explained in the review by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5624990/" rel="nofollow">Shaffer &amp; Ginsberg (2017)</a>.</p>
 
       <h2>The autonomic nervous system, in one paragraph</h2>
-      <p>Your autonomic nervous system has two branches. The <strong>sympathetic</strong> branch drives "fight-or-flight" — it speeds the heart, raises blood pressure, and mobilizes energy. The <strong>parasympathetic</strong> branch, carried largely by the vagus nerve, drives "rest-and-digest" — it slows the heart and supports recovery. HRV reflects the tug-of-war between them. Strong vagal (parasympathetic) activity produces more beat-to-beat variation and therefore higher HRV; a stressed, sympathetically dominant state produces a steadier, less variable rhythm and lower HRV.</p>
+      <p><strong>Your autonomic nervous system has two sides, and HRV reflects the tug-of-war between them.</strong></p>
+      <ul>
+        <li>The <strong>sympathetic</strong> side drives "fight or flight". It speeds up the heart, raises blood pressure and gets energy ready.</li>
+        <li>The <strong>parasympathetic</strong> side, carried mostly by the vagus nerve, drives "rest and digest". It slows the heart and supports recovery.</li>
+      </ul>
+      <p>Strong "rest and digest" activity gives more beat-to-beat variation, so HRV is higher. A stressed, "fight or flight" state gives a steadier rhythm, so HRV is lower.</p>
+
+      <ZenPicture src="/app-ui/zen_new_low.webp" caption="Calm, rested states usually come with more beat-to-beat variation." />
 
       <h2>Why HRV drops under stress</h2>
-      <p>When you are under acute or chronic stress, sympathetic activity rises and vagal tone falls, which suppresses HRV. This is not a fringe idea — a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">2018 meta-analysis in <em>Psychiatry Investigation</em> (Kim et al.)</a> reviewed the literature and found that stress is consistently associated with reduced HRV, particularly in the vagally mediated metrics. In other words, lower HRV is one of the body's more honest signals that the stress-recovery balance has tipped toward strain.</p>
+      <p><strong>Under stress, the "fight or flight" side gets busier and the "rest and digest" side quiets down. That lowers HRV.</strong></p>
+      <p>This is well supported. A <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111105/" rel="nofollow">2018 meta-analysis in <em>Psychiatry Investigation</em> (Kim et al.)</a> looked at many studies. It found stress is consistently linked with lower HRV, especially in the measures driven by the vagus nerve.</p>
+      <p>So a lower HRV can be one sign that your balance has tipped toward strain. It has other causes too, like poor sleep, alcohol or illness.</p>
 
       <h3>Where cortisol fits in</h3>
-      <p>Cortisol is the body's primary glucocorticoid stress hormone. Periods of high stress that elevate cortisol also tend to shift autonomic balance toward the sympathetic side — so elevated cortisol and suppressed HRV often travel together. HRV cannot tell you your cortisol level in nanograms, but a sustained downward drift in your HRV baseline is a reasonable, measurable proxy for a system spending more time in a stress state. To go deeper on the hormone itself, see <a href="/cortisol/">our full cortisol explainer</a>.</p>
+      <p>Cortisol is the body's main stress hormone. Stress can raise cortisol and also shift your nervous system toward "fight or flight".</p>
+      <p><strong>But HRV can't tell you your cortisol level.</strong> A falling HRV baseline may mean your body is spending more time under strain. It doesn't show what your hormones are doing.</p>
+      <p>To learn more about the hormone itself, see <a href="/cortisol/">our full cortisol explainer</a>.</p>
 
       <h2>What HRV can and can't tell you</h2>
-      <p>HRV is powerful precisely because it is passive, continuous, and non-invasive. But it has real limits:</p>
+      <p>HRV is useful because it's passive, ongoing and needs no needles. But it has real limits:</p>
       <ul>
-        <li><strong>It is individual.</strong> A "good" HRV for one person can be double another's. Compare yourself to your own baseline, not to a stranger.</li>
-        <li><strong>It is noisy day to day.</strong> Alcohol, illness, poor sleep, a late meal, or a hard workout can all move a single night's reading. Trends over weeks matter more than any one number.</li>
-        <li><strong>It is not a diagnosis.</strong> HRV is a wellness signal, not a medical test. Persistent unexplained changes are worth discussing with a clinician.</li>
+        <li><strong>It's personal.</strong> A "good" HRV for one person can be very different from another's. Compare yourself with your own baseline, not with a stranger.</li>
+        <li><strong>It's noisy day to day.</strong> Alcohol, illness, poor sleep, a late meal or a hard workout can all move one night's reading. Trends over weeks matter more than any one number.</li>
+        <li><strong>It's not a diagnosis.</strong> HRV is a wellness signal, not a medical test. Talk to a clinician about lasting changes you can't explain.</li>
       </ul>
 
+      <ZenTip image="/app-ui/zen/zen-bed.webp">
+        Compare readings taken in <strong>similar conditions</strong>, like while you sleep. A reading after a workout or a late night isn't a fair match.
+      </ZenTip>
+
       <h2>How to actually use HRV</h2>
-      <p>The practical value of HRV comes from tracking it consistently and watching the direction of travel. A rising baseline over weeks usually means your recovery is winning; a falling baseline means stress load is accumulating faster than you are recovering from it. Overnight measurements are the most comparable because your body is at rest and free of the moment-to-moment noise of daily activity.</p>
-      <p>If you want to raise it, the levers are the familiar ones — sleep, aerobic fitness, breathing, alcohol, and stress management. We cover them in depth on <a href="/hrv/how-to-improve/">how to improve your HRV</a>.</p>
+      <p><strong>Track it the same way, often, and watch which way it's heading.</strong></p>
+      <ul>
+        <li>A baseline that rises over weeks may mean recovery is keeping up.</li>
+        <li>A baseline that falls over weeks may mean stress is building faster than you recover.</li>
+      </ul>
+      <p>Overnight readings are easier to compare, because your body is at rest and away from daytime noise.</p>
+      <p>Want to raise it? The levers are the familiar ones: sleep, aerobic fitness, breathing, alcohol and stress. We cover them in <a href="/hrv/how-to-improve/">how to improve your HRV</a>.</p>
+
+      <a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+        <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+        <span class="min-w-0 flex-1 leading-snug">
+          <span class="block font-extrabold">Get your personal stress plan</span>
+          <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+        </span>
+        <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+      </a>
 
       <h2>How Cortisol+ reads your HRV</h2>
-      <p>Cortisol+ pulls your overnight HRV (SDNN) from Apple Watch and combines it with resting heart rate and sleep data to estimate your daily stress-and-recovery pattern. It is honest about the boundary: it models the <em>trend and pattern</em> of your cortisol, not a direct hormone measurement. What you get is a clear, longitudinal picture of whether your autonomic balance is drifting toward strain or recovery — and which of your habits move it. See <a href="/how-it-works/">how it works</a>.</p>
+      <p><strong>Cortisol+ uses HRV as one input to a 0–100 wellness score. It does not measure or estimate cortisol.</strong></p>
+      <p>It reads your HRV from Apple Health on iPhone or Health Connect on Android. Apple Watch records SDNN; some other sources use RMSSD.</p>
+      <p>It compares HRV with your own baseline and combines it with sleep, resting heart rate and other signals. Over weeks, you can see whether your readings are drifting toward strain or recovery, and which habits seem to move them.</p>
+      <p>See <a href="/how-it-works/">how it works</a> for the inputs, weights and limits.</p>
 
       <h2>Sources</h2>
       <ul>
@@ -98,5 +163,9 @@ const related = [
 
     <FAQ items={faqs} />
     <RelatedLinks links={related} />
+
+    <aside class="mt-6 app-card p-5 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+      <strong class="text-[color:var(--color-ink)]">Not medical advice.</strong> This page is educational. HRV and Cortisol+ wellness scores are not hormone tests. For diagnosis, testing, or treatment of any medical condition, consult a qualified healthcare provider.
+    </aside>
   </article>
 </BaseLayout>

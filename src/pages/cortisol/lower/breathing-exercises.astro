@@ -1,22 +1,68 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+import InShort from '../../../components/article/InShort.astro';
+import ZenTip from '../../../components/article/ZenTip.astro';
+import ZenPicture from '../../../components/article/ZenPicture.astro';
 ---
 
 <ArticleLayout
   title="Breathing Exercises for Stress: Practice & Cortisol Limits"
   description="A simple breathing practice can provide a pause. Learn how to approach it comfortably and why a wearable cannot verify a cortisol reduction."
-  updated="2026-09-09"
+  updated="2026-11-12"
 >
+<InShort image="/app-ui/start/zen_presenting.webp" points={[
+  'Gentle breathing can give you a <strong>calm pause</strong>.',
+  'It is <strong>not a promise</strong> that cortisol falls by a set amount.',
+  'Keep it comfortable. <strong>Stop if you feel unwell.</strong>',
+]} />
+
 <h2>Can breathing exercises help with stress?</h2>
-<p>A gentle breathing exercise can be a practical way to pause and focus. That is different from promising that cortisol will fall by a certain amount or within a fixed number of minutes.</p>
+<p><strong>A gentle breathing exercise can be a simple way to pause and focus.</strong></p>
+<p>That's different from promising that cortisol will fall by a certain amount, or within a set number of minutes.</p>
+
 <h2>A simple practice</h2>
-<p>The <a href="https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/">NHS breathing guide</a> recommends finding a comfortable supported position, breathing gently without forcing depth, and using a steady count if helpful. It describes breathing in through the nose and out through the mouth, repeating the practice for about five minutes.</p>
-<p>The goal is a comfortable practice, not a competition to reach a count, hold your breath longer or force a result. Stop if you feel unwell. If you have a condition that affects breathing, ask your clinician which exercises are appropriate.</p>
-<h2>Why the protocol name is not proof</h2>
-<p>Box breathing, longer-exhale exercises and other named methods use different timing patterns. A study of one method or outcome does not automatically establish that another lowers cortisol. We have removed the earlier universal rankings and promises of a specific heart-rate drop, HRV increase or hormone response.</p>
+<p>The <a href="https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/">NHS breathing guide</a> suggests:</p>
+<ol>
+  <li>Get into a comfortable position with your body supported.</li>
+  <li>Breathe gently. Don't force the breath deeper.</li>
+  <li>Breathe in through your nose and out through your mouth. Count steadily if it helps.</li>
+  <li>Keep going for about five minutes.</li>
+</ol>
+<p>The goal is to feel comfortable. It's not a race to reach a count, hold your breath longer or force a result.</p>
+<p><strong>Stop if you feel unwell.</strong> If you have a condition that affects your breathing, ask your clinician which exercises are right for you.</p>
+
+<ZenTip image="/app-ui/zen_new_breathe.webp">
+  Rest one hand on your chest. If your shoulders creep up, <strong>slow down</strong> and breathe a little softer.
+</ZenTip>
+
+<h2>Is one named method better than another?</h2>
+<p><strong>A method's name is not proof that it works.</strong></p>
+<p>Box breathing, longer-exhale breathing and other named methods use different timings. A study of one method or result doesn't show that a different method lowers cortisol.</p>
+<p>We have removed our earlier rankings of methods. We also removed promises of a specific drop in heart rate, rise in heart rate variability (HRV) or hormone response.</p>
+
 <h2>What the Cortisol+ exercise includes</h2>
-<p>Cortisol+ provides an animated timer with breathe-in, hold and breathe-out prompts, a cycle counter and an end-early control. See the <a href="/features/breathing-zen-mode/">guided breathing feature</a> for the implemented sequence.</p>
-<p>The completion screen shows that a session was completed or ended. It is not a before-and-after cortisol test. Check a wearable reading's timestamp before assuming it was taken after your practice.</p>
-<h2>Record an observation</h2>
-<p>You can note that you tried a session and how it felt. Keep that note separate from a causal claim about a score change. The <a href="/resources/stress-sleep-journal/">free observation journal</a> and <a href="/how-it-works/">scoring explanation</a> help keep those distinctions clear.</p>
+<p>Cortisol+ has an animated timer with:</p>
+<ul>
+  <li>breathe-in, hold and breathe-out prompts</li>
+  <li>a cycle counter</li>
+  <li>a button to end early</li>
+</ul>
+<p>See the <a href="/features/breathing-zen-mode/">guided breathing feature</a> for exactly how the sequence works.</p>
+<p>The screen at the end shows that you finished or ended a session. It is not a before-and-after cortisol test.</p>
+<p>Before you assume a wearable reading was taken after your practice, check the time it was recorded.</p>
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+<h2>Write down what you noticed</h2>
+<p><strong>Note that you tried a session and how it felt.</strong> Keep that note separate from any claim that the session changed a score.</p>
+<p>The <a href="/resources/stress-sleep-journal/">free observation journal</a> and our <a href="/how-it-works/">scoring explanation</a> help you keep these apart.</p>
+
+<ZenPicture src="/app-ui/zen_new_low.webp" caption="Notice how you feel. That note is worth keeping on its own." />
 </ArticleLayout>

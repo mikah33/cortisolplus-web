@@ -1,0 +1,113 @@
+---
+title: "Why Stress Scores Differ Between Apps (and How to Compare Them)"
+description: "Garmin, Apple Watch Readiness, Google Health and Cortisol+ each turn your watch data into a different number. Here's what each one means, in plain English."
+pubDate: 2026-09-16
+updatedDate: 2026-11-12
+tags: [stress, hrv, apple watch, comparisons]
+draft: false
+targetTool: /tools/stress-score/
+---
+import InShort from '../../components/article/InShort.astro';
+import ZenTip from '../../components/article/ZenTip.astro';
+import ZenPicture from '../../components/article/ZenPicture.astro';
+
+<InShort points={[
+  'Every app uses its <strong>own scale</strong>. There is no standard stress unit.',
+  'Some numbers go <strong>up with stress</strong>, others go <strong>up with readiness</strong>.',
+  'Compare each app <strong>with itself over time</strong>, not with another app.',
+]} />
+
+## Why don't my apps agree?
+
+Each app looks at different things.
+
+One app only checks your heart rate variability (HRV) while you sit still. Another mixes in sleep, resting heart rate and how active you were.
+
+They also measure at different times, and they turn the result into a number in their own way. So two apps can disagree about the same night, and **neither one is broken**.
+
+None of them measure stress hormones. They're all estimates from heart, sleep and activity data.
+
+## Four scores you might see
+
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Garmin Stress level</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">0 to 100, from HRV while you're still. <strong>Higher means more stress.</strong> 76 or more counts as high.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Apple Watch Readiness</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">0 to 10, from activity, sleep and overnight vitals. <strong>Higher means more ready.</strong> Series 12 and Ultra 4 only.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Google Health (Fitbit)</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">The old Stress Management Score is now called <strong>Resilience</strong>, next to Body Responses.</p>
+  </div>
+  <div class="rounded-2xl border border-[color:var(--color-border)] p-4">
+    <p class="font-extrabold text-[color:var(--color-ink)]">Cortisol+</p>
+    <p class="mt-1 text-[0.9375rem] leading-snug text-[color:var(--color-ink)]">0 to 100, from ten signals compared with your own normal. <strong>Lower means less strain.</strong></p>
+  </div>
+</div>
+
+*Sources: Garmin's [stress level guide](https://www8.garmin.com/manuals/webhelp/GUID-D93137A9-B374-4A24-8A4D-A66C9AC91265/EN-US/GUID-9282196F-D969-404D-B678-F48A13D8D0CB.html), [iClarified on Apple's Readiness score](https://www.iclarified.com/102426/apple-watch-readiness-score-how-it-works-and-which-models-support-it), our [Fitbit stress guide](/fitbit/) and [How Cortisol+ works](/how-it-works/).*
+
+<ZenTip image="/app-ui/start/zen_explain.webp">
+  Check which way the number goes first. A 7 on Apple's Readiness is <strong>good news</strong>. A 70 on Garmin is <strong>not</strong>.
+</ZenTip>
+
+## What makes the numbers different?
+
+### They read different signals
+
+Garmin's number comes from HRV. Apple mixes training, sleep and overnight vitals. Cortisol+ counts HRV and sleep the most, then resting heart rate, then smaller things like breathing rate ([see the full list](/how-it-works/)).
+
+So a hard workout or a short night can move one score a lot and barely move another.
+
+### They measure at different times
+
+Garmin measures when you're still. A busy, active afternoon might not show up at all.
+
+Apple's Readiness keeps updating through the day. One app's overnight number and another app's all-day number can be different for good reason.
+
+<ZenPicture src="/app-ui/start/zen_watch.webp" caption="Same watch, same night, different apps: different numbers." />
+
+### "HRV" isn't always the same thing
+
+Apple Health has long saved HRV as a measure called **SDNN**. Many other wearables use one called **RMSSD**. They're worked out differently, so you can't compare the values directly. More on this in [HRV on Apple Watch](/hrv/apple-watch/).
+
+### Each app learns "your normal" its own way
+
+Most scores compare you with your own past. Cortisol+ starts with general defaults, then mixes in your own data after 10 readings. It's fully based on you after 28.
+
+That's why a new app, or a new watch, can look a bit off for the first few weeks.
+
+## How do I compare apps fairly?
+
+**Watch the trend inside each app.** Going from 40 to 60 over two weeks in one app means something. A 40 in one app next to a 60 in another means almost nothing.
+
+1. Wear the same watch the way you normally do, including to bed.
+2. Write down each app's scale, and which way is "good".
+3. Compare overnight with overnight, not one app's morning with another's evening.
+4. When they disagree, open Apple Health and look at the HRV, resting heart rate and sleep for those days.
+5. Jot down what was going on: late meals, alcohol, illness, travel. Our free [stress and sleep journal](/resources/stress-sleep-journal/) helps.
+6. After a week or two, keep the app that explains things best, not the one with the "nicest" number.
+
+<ZenTip image="/app-ui/zen_new_low.webp">
+  Give any new app <strong>two weeks</strong> before you judge it. It needs time to learn what's normal for you.
+</ZenTip>
+
+Choosing an app? Our [comparison of Apple Watch stress apps](/compare/apple-watch-stress-apps/) shows what each one reads and shows.
+
+<a href="/start/" data-start-cta class="not-prose my-8 flex items-center gap-4 rounded-2xl bg-[color:var(--color-ink)] p-5 text-white no-underline shadow-sm transition hover:brightness-110">
+  <img src="/apple-touch-icon.png" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-[13px]" />
+  <span class="min-w-0 flex-1 leading-snug">
+    <span class="block font-extrabold">Get your personal stress plan</span>
+    <span class="block text-sm text-white/75">A one-minute check-in with Zen, then your plan in Cortisol+</span>
+  </span>
+  <span class="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-[color:var(--color-ink)]">Start ›</span>
+</a>
+
+## What a score can't tell you
+
+A score shows how your body's signals compare with your normal. It can't tell you **why** they changed. It can't diagnose anything, and it can't measure cortisol, which needs a lab test ([cortisol testing options](/cortisol/test/)).
+
+Use it as a nudge to look at your sleep, training and routine. If something worries you, talk to a doctor.
