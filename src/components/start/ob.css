@@ -232,3 +232,22 @@
 .ob-plan-box { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 6px; border-radius: 16px; transition: opacity 300ms; }
 .ob-plan-box::after { content: ''; position: absolute; inset: 0; border-radius: 16px; border: 2px solid transparent; transition: border-color 300ms; pointer-events: none; }
 .ob-plan-box.is-sel::after { border-color: var(--ob-teal); }
+
+/* ---------------------------------------------------------------- desktop frame
+ * From 1024px the flow is shown in a phone-sized frame on the sky (StartFlow
+ * scales the stage to this frame), centred a little right of the middle to
+ * leave room for the side panel in start/index.astro. */
+@media (min-width: 1024px) {
+  .ob-root {
+    --ob-frame-h: min(calc(100dvh - 64px), 880px);
+    inset: 0 0 0 340px;
+    margin: auto;
+    height: var(--ob-frame-h);
+    width: min(410px, calc(var(--ob-frame-h) * 0.49));
+    border-radius: 44px;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.55),
+      0 40px 90px -30px rgba(24, 64, 104, 0.45),
+      0 12px 32px -12px rgba(24, 64, 104, 0.25);
+  }
+}
