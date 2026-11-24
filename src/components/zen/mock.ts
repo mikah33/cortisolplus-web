@@ -1,7 +1,7 @@
 // Canned replies for ZenSalesChat when PUBLIC_ZEN_WEB_URL isn't set (local
 // review). The card labels them "Demo replies"; nothing here calls a model.
 // Mirrors the live function's rules: plan cards only on buying interest, and
-// the $59.99 exit offer at most once per conversation.
+// the $44.99 exit offer at most once per conversation.
 import type { PlanId } from '../start/content';
 
 interface Turn {
@@ -14,17 +14,17 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export async function mockReply(turns: Turn[]): Promise<{ reply: string; offer?: PlanId }> {
   await wait(700);
   const last = turns[turns.length - 1]?.content.toLowerCase() ?? '';
-  const exitUsed = turns.some((t) => t.role === 'assistant' && t.content.includes('59.99'));
+  const exitUsed = turns.some((t) => t.role === 'assistant' && t.content.includes('44.99'));
 
   if (/(expensive|pricey|afford|cheaper|too much|discount|cost too)/.test(last)) {
     if (!exitUsed) {
       return {
         reply:
-          "Fair question. There's a one-time option I can offer here: Yearly at $59.99 instead of $83.99. It renews at $59.99 each year until you cancel, and you can cancel anytime.",
+          "Fair question. There's a one-time option I can offer here: Yearly at $44.99 instead of $59.99, about $3.74 a month. It renews at $44.99 each year until you cancel, and you can cancel anytime.",
         offer: 'yearlyExit',
       };
     }
-    return { reply: "Totally fair to weigh it. Yearly is $83.99, about $1.62 a week, and renews each year until you cancel. No pressure either way." };
+    return { reply: "Totally fair to weigh it. Yearly is $59.99, about $4.99 a month, and renews each year until you cancel. No pressure either way." };
   }
   if (/(no thanks|not now|maybe later|^no\b)/.test(last)) {
     return { reply: 'No problem at all. The app is a free download whenever you want to look around.' };
@@ -32,7 +32,7 @@ export async function mockReply(turns: Turn[]): Promise<{ reply: string; offer?:
   if (/(plan|pick|buy|subscribe|yearly|weekly|sign up|get it)/.test(last)) {
     return {
       reply:
-        'If you want to give it a real go, Yearly is the better value: $83.99 a year, about $1.62 a week, versus $14.99 every week. Both renew until you cancel.',
+        'If you want to give it a real go, Yearly is the better value: $59.99 a year, about $4.99 a month, versus $12.99 every week. Both renew until you cancel.',
       offer: 'yearly',
     };
   }

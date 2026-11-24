@@ -6,12 +6,8 @@ import { A, BackButton, BlockButton, Col, CompanionFace, Glass, Icon, Laurel, Tx
 import { PLANS, type Platform } from './content';
 
 const money = (n: number) => `$${n.toFixed(2)}`;
-/** "Only $X/Month": a year ÷ 12, or a week × 52 ÷ 12 rounded up to .99; whole amounts drop the cents. */
-function perMonth(plan: 'weekly' | 'yearly') {
-  const price = PLANS[plan].price;
-  const m = plan === 'weekly' ? Math.floor((price * 52) / 12) + 0.99 : price / 12;
-  return Math.abs(m - Math.round(m)) < 0.005 ? `$${Math.round(m)}` : money(m);
-}
+/** Web only (the App Store doesn't allow it): yearly plans show a year ÷ 12, to the cent below, billed annually. */
+export const monthly = (yearPrice: number) => Math.floor((yearPrice / 12) * 100 + 1e-6) / 100;
 
 export type PaywallPlan = 'weekly' | 'yearly';
 
@@ -55,7 +51,7 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
     { icon: <img src={A('perk_sleep.webp')} alt="" style={{ width: 28, height: 28, objectFit: 'contain' }} />, text: 'Sleep, HRV & recovery insights' },
   ];
 
-  const tile = (id: PaywallPlan, title: string, price: number, period: string, badge: string) => {
+  const tile = (id: PaywallPlan, title: string, price: number, period: string, note: string, badge: string) => {
     const on = plan === id;
     return (
       <button type="button" className="ob-plan-tile" role="radio" aria-checked={on} onClick={() => setPlan(id)}>
@@ -69,7 +65,7 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
             <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(0,0,0,0.45)' }}>{period}</span>
           </span>
           <span style={{ fontSize: 12, fontWeight: 700, color: on ? 'var(--ob-teal)' : 'rgba(0,0,0,0.6)', padding: '5px 10px', borderRadius: 999, background: on ? 'rgba(74,194,158,0.14)' : 'rgba(0,0,0,0.06)', whiteSpace: 'nowrap', transition: 'all 300ms' }}>
-            Only {perMonth(id)}/Month
+            {note}
           </span>
         </Glass>
       </button>
@@ -125,8 +121,8 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
         <div className="ob-spacer" style={{ minHeight: 22 }} />
 
         <div className={`ob-fs ${plans ? 'on' : ''}`} role="radiogroup" aria-label="Choose a plan" style={{ display: 'flex', alignItems: 'flex-end', gap: 12, alignSelf: 'stretch', padding: '0 24px' }}>
-          {tile('weekly', 'Weekly', weekly, '/wk', 'Popular')}
-          {tile('yearly', 'Yearly', yearly, '/year', save > 0 ? `Save ${save}%` : 'Best value')}
+          {tile('weekly', 'Weekly', weekly, '/wk', 'Billed weekly', 'Popular')}
+          {tile('yearly', 'Yearly', monthly(yearly), '/mo', 'Billed annually', save > 0 ? `Save ${save}%` : 'Best value')}
         </div>
         {error && <p className="ob-sys" role="alert" style={{ fontSize: 12, color: '#ff3b30', textAlign: 'center', padding: '4px 16px 0' }}>{error}</p>}
         {inAppBrowser && platform === 'ios' && (
@@ -195,10 +191,12 @@ export function ExitOffer({ busy, error, onClaim, onClose }: { busy: boolean; er
             </div>
             <div className="ob-flex" style={{ width: '100%', maxWidth: 230, alignItems: 'center', gap: 4, padding: '16px 0', borderRadius: 18, background: 'rgba(74,194,158,0.12)', boxShadow: 'inset 0 0 0 2px var(--ob-teal)' }}>
               <span className="ob-t" style={{ fontSize: 14, fontWeight: 700 }}>Yearly</span>
-              <span className="ob-t" style={{ fontSize: 15, fontWeight: 600, color: 'rgba(0,0,0,0.35)', textDecoration: 'line-through' }}>{money(regular)}</span>
-              <span className="ob-t" style={{ fontSize: 26, fontWeight: 800, color: 'var(--ob-teal)' }}>{money(offer)}</span>
-              <span className="ob-t" style={{ fontSize: 11, fontWeight: 500, color: 'rgba(0,0,0,0.5)' }}>per year</span>
-              <span className="ob-t" style={{ fontSize: 13, fontWeight: 700, color: 'var(--ob-teal)' }}>{money(offer / 12)}/mo</span>
+              <span className="ob-t" style={{ fontSize: 15, fontWeight: 600, color: 'rgba(0,0,0,0.35)', textDecoration: 'line-through' }}>{money(monthly(regular))}/mo</span>
+              <span style={{ display: 'flex', alignItems: 'baseline', gap: 1 }}>
+                <span className="ob-t" style={{ fontSize: 26, fontWeight: 800, color: 'var(--ob-teal)' }}>{money(monthly(offer))}</span>
+                <span className="ob-t" style={{ fontSize: 13, fontWeight: 700, color: 'var(--ob-teal)' }}>/mo</span>
+              </span>
+              <span className="ob-t" style={{ fontSize: 11, fontWeight: 600, color: 'rgba(0,0,0,0.5)' }}>Billed annually</span>
               <span className="ob-t" style={{ fontSize: 11, fontWeight: 800, color: '#fff', padding: '3px 10px', borderRadius: 999, background: 'var(--ob-coral)', marginTop: 2 }}>SAVE {pct}%</span>
             </div>
             <button type="button" className="ob-sys" onClick={onClaim} disabled={busy} style={{ width: '100%', height: 56, borderRadius: 16, background: 'var(--ob-teal)', color: '#fff', fontSize: 17, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
