@@ -215,7 +215,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       const key = saved.screen;
       const q = QUESTIONS.findIndex((x) => x.id === key);
       const e = EDU_KEYS.indexOf(key);
-      if (key === 'name_submitted') setWelcomeResume(saved.answers.name ? 'greet' : 'symptoms');
+      if (key === 'name_submitted') setWelcomeResume('symptoms'); // old saves: the name page is gone
       else if (key === 'symptoms' || key === 'goals') setWelcomeResume(key);
       else if (key === 'zen_handoff') setWelcomeResume('handoff');
       else if (e >= 0) { first = 'edu'; setEduStart(e); }
@@ -387,7 +387,6 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     try {
       const { checkout } = await import('./checkout');
       const result = await checkout(chosen, {
-        $displayName: answers.name.trim(),
         web_goals: answers.goals.join(','),
         web_symptoms: answers.symptoms.join(','),
         web_platform: platform,
@@ -430,7 +429,6 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   // ------------------------------------------------------------ returning users
 
   const storeUrl = platform === 'android' ? googlePlayUrl : appStoreUrl;
-  const signIn = () => { window.location.href = storeUrl; };
   const restore = () => {
     const bought = readPurchase();
     if (bought) { setPurchase(bought); setExitOpen(false); go('done', 'fade'); return; }
@@ -447,15 +445,12 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       case 'welcome':
         return (
           <Welcome
-            name={answers.name}
             symptoms={answers.symptoms}
             goals={answers.goals}
             update={update}
             resumeAt={welcomeResume}
             onScreen={onScreen}
             onDone={() => { setEduStart(0); void sweepTo('edu'); }}
-            onSignIn={signIn}
-            onRestore={restore}
           />
         );
       case 'edu':

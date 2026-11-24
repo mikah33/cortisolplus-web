@@ -8,6 +8,50 @@ import type { Platform } from './content';
 
 const first = (name: string) => name.trim().split(/\s+/)[0] ?? '';
 
+/** Mouse drag-to-scroll for a horizontal row (touch and trackpads already scroll natively). */
+function useDragScroll() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let startX = 0;
+    let startLeft = 0;
+    let down = false;
+    let moved = false;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; startX = e.clientX; startLeft = el.scrollLeft;
+      el.style.scrollSnapType = 'none';
+      el.style.cursor = 'grabbing';
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 3) moved = true;
+      el.scrollLeft = startLeft - dx;
+    };
+    const onUp = () => {
+      if (!down) return;
+      down = false;
+      el.style.cursor = '';
+      el.style.scrollSnapType = '';
+    };
+    // A drag is not a click on the card underneath.
+    const onClick = (e: MouseEvent) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } };
+    el.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    el.addEventListener('click', onClick, true);
+    return () => {
+      el.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      el.removeEventListener('click', onClick, true);
+    };
+  }, []);
+  return ref;
+}
+
 // ---------------------------------------------------------------- People Love Cortisol+
 
 export interface Review { title: string; body: string; author: string; rating: number }
@@ -251,6 +295,10 @@ export function PlanReveal({ name, onCommit }: { name: string; onCommit: () => v
   }
   const area = `${line} L${pts[3][0]} ${h} L${pts[0][0]} ${h} Z`;
   const motion = !reducedMotion();
+  const red = 'rgb(237,92,92)';
+  const habitsRow = useDragScroll();
+  // The labels land once the line has drawn in.
+  const labelIn = motion ? { animation: 'ob-fade-in 500ms 1450ms ease-out both' } : undefined;
   return (
     <Col className="ob-flex" style={{ opacity: shown ? 1 : 0, transition: 'opacity 400ms ease-out' }}>
       <div className="ob-flex" style={{ gap: 6, padding: '50px 26px 0' }}>
@@ -289,11 +337,21 @@ export function PlanReveal({ name, onCommit }: { name: string; onCommit: () => v
                     style={{ ['--len' as string]: 1, filter: 'drop-shadow(0 3px 4px rgba(51,184,140,0.25))', animation: motion ? 'ob-draw 1200ms 350ms ease-in-out both' : undefined }}
                   />
                   <g style={motion ? { animation: 'ob-fade-in 1200ms 350ms ease-in-out both' } : undefined}>
-                    <circle cx={pts[0][0]} cy={pts[0][1]} r="6" fill="rgb(237,92,92)" />
+                    <circle cx={pts[0][0]} cy={pts[0][1]} r="6" fill={red} />
                     <circle cx={pts[3][0]} cy={pts[3][1]} r="12" fill={green} />
                     <path d={`M${pts[3][0] - 4.5} ${pts[3][1] + 0.3} l3 3 l6 -6.2`} fill="none" stroke="#fff" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
                   </g>
                 </svg>
+                {/* Where stress starts, and which way it should go. */}
+                <span className="ob-t" style={{ position: 'absolute', left: pts[0][0] + 9, top: pts[0][1] - 23, fontSize: 11, fontWeight: 800, color: red, whiteSpace: 'nowrap', ...labelIn }}>
+                  High stress
+                </span>
+                <span
+                  className="ob-t"
+                  style={{ position: 'absolute', right: w - pts[3][0] - 10, top: pts[3][1] - 60, display: 'flex', alignItems: 'center', gap: 3, fontSize: 11.5, fontWeight: 800, color: '#fff', background: green, padding: '4px 9px 4px 7px', borderRadius: 999, whiteSpace: 'nowrap', boxShadow: '0 3px 8px rgba(51,184,140,0.3)', ...labelIn }}
+                >
+                  <Icon.arrowDown size={11} color="#fff" /> Lower stress
+                </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700 }}>
                 <span style={{ color: 'rgba(0,0,0,0.45)' }}>Now</span>
@@ -310,9 +368,9 @@ export function PlanReveal({ name, onCommit }: { name: string; onCommit: () => v
               <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(0,0,0,0.35)' }}>Swipe</span>
               <Icon.arrowRight size={11} color="rgba(0,0,0,0.35)" />
             </div>
-            <div className="ob-hscroll">
+            <div className="ob-hscroll" ref={habitsRow} style={{ cursor: 'grab' }}>
               {HABITS.map((hb) => (
-                <Glass key={hb.title} radius={20} className="ob-flex" style={{ width: 172, height: 168, padding: 14, gap: 12, boxShadow: '0 3px 16px rgba(0,0,0,0.05)' }}>
+                <Glass key={hb.title} radius={20} className="ob-flex" style={{ width: 150, height: 168, padding: 14, gap: 12, boxShadow: '0 3px 16px rgba(0,0,0,0.05)' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                     <div style={{ width: 44, height: 44, borderRadius: 14, display: 'grid', placeItems: 'center', background: `linear-gradient(135deg, rgba(${hb.color},0.24), rgba(${hb.color},0.10))` }}>
                       {hb.icon === 'companion'
