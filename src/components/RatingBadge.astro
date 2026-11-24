@@ -29,7 +29,7 @@ const linkProps = link ? { href: SITE.appStoreUrl, target: '_blank', rel: 'noope
 <Tag
   {...linkProps}
   class={`inline-flex items-center ${s.gap} ${s.pad} rounded-full bg-white/80 border border-white ${link ? 'hover:border-[color:var(--color-teal)]/40 transition' : ''}`}
-  title={`US App Store rating checked ${APP_RATING.lastChecked}`}
+  title={`App Store rating, all countries, checked ${APP_RATING.lastChecked}`}
   aria-label={`Rated ${APP_RATING.value} out of 5 stars on the App Store, from ${APP_RATING.count} ratings`}
 >
   <div class="flex items-center gap-0.5" aria-hidden="true">

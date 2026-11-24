@@ -22,16 +22,17 @@ export const SITE = {
 /**
  * Live App Store rating from Apple's iTunes lookup API.
  * Refresh manually by running: curl -s "https://itunes.apple.com/lookup?id=6759510126"
- * Last refreshed: 2026-11-04 (US storefront, via `asc reviews ratings --app 6759510126`).
+ * Last refreshed: 2026-11-24 — ALL storefronts combined (sum of userRatingCount over every
+ * country, average weighted by count; US 335, CA 44, GB 24, AU 15, 17 others 24).
  */
 export const APP_RATING = {
-  value: 4.5,           // averageUserRating (rounded 1dp)
-  precise: 4.45378,     // actual averageUserRating from Apple
-  count: 238,           // userRatingCount
+  value: 4.4,           // weighted averageUserRating, all storefronts (rounded 1dp)
+  precise: 4.36426,     // weighted average across storefronts
+  count: 442,           // userRatingCount summed across storefronts
   best: 5,
   worst: 1,
-  lastChecked: '2026-11-04',
-  country: 'US',
+  lastChecked: '2026-11-24',
+  country: 'ALL',
 } as const;
 
 export const PUBLISHER = {

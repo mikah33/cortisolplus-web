@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CHECKOUT_ENABLED, PLANS, type PlanId } from '../start/content';
 import { writePurchase } from '../start/purchase';
 import { mockReply } from './mock';
+import { monthly } from '../start/Paywall';
 
 const ENDPOINT = import.meta.env.PUBLIC_ZEN_WEB_URL as string | undefined;
 const DEMO = !ENDPOINT;
@@ -249,13 +250,13 @@ function PlanCard({ plan }: { plan: Offer }) {
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-extrabold">{plan === 'weekly' ? 'Weekly' : 'Yearly'}</span>
         <span className="tabular-nums">
-          {exit && <span className="mr-1.5 text-sm font-bold text-[color:var(--color-ink-muted)] line-through">{money(yearly)}</span>}
-          <span className="text-2xl font-extrabold">{money(price)}</span>
-          <span className="text-sm font-semibold">/{period === 'week' ? 'wk' : 'yr'}</span>
+          {exit && <span className="mr-1.5 text-sm font-bold text-[color:var(--color-ink-muted)] line-through">{money(monthly(yearly))}</span>}
+          <span className="text-2xl font-extrabold">{money(plan === 'weekly' ? price : monthly(price))}</span>
+          <span className="text-sm font-semibold">/{period === 'week' ? 'wk' : 'mo'}</span>
         </span>
       </div>
       {plan !== 'weekly' && (
-        <p className="text-xs font-semibold text-[color:var(--color-ink-muted)]">About {money(price / 52)} a week</p>
+        <p className="text-xs font-semibold text-[color:var(--color-ink-muted)]">Billed annually</p>
       )}
       <button type="button" onClick={() => void buy()} disabled={busy} className="app-btn mt-3 w-full">
         {busy ? 'Opening checkout…' : exit ? 'Claim this offer' : `Get ${plan === 'weekly' ? 'Weekly' : 'Yearly'}`}
