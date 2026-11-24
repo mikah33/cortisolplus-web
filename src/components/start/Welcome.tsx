@@ -1,7 +1,8 @@
-// NewWelcomeView (5.9): Zen's hello and the name field, the greeting, the
-// symptom and goal pages, and Zen's hand-off into the lesson.
+// NewWelcomeView (6.0): Zen's hello and "Let's go" (no name ask: the app dropped
+// it in 6.0, it was the biggest leak before the paywall), the symptom and goal
+// pages, and Zen's hand-off into the lesson. No account links on the web.
 
-import { useLayoutEffect, useRef, useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import {
   A,
   BlockButton,
@@ -11,7 +12,6 @@ import {
   TypedLine,
   Txt,
   ZenWave,
-  reducedMotion,
   sleep,
   typeInto,
   useRunner,
@@ -38,7 +38,6 @@ export const GOAL_OPTIONS = [
 ];
 
 interface Props {
-  name: string;
   symptoms: string[];
   goals: string[];
   update: (patch: { name?: string; symptoms?: string[]; goals?: string[] }) => void;
@@ -47,8 +46,6 @@ interface Props {
   onScreen: (key: string) => void;
   /** "Sounds Great!" — into the lesson. */
   onDone: () => void;
-  onSignIn: () => void;
-  onRestore: () => void;
 }
 
 type Phase = 'intro' | 'symptoms' | 'goals';
@@ -57,26 +54,21 @@ interface Line { text: string; full: string; faded: boolean }
 const nextFrame = () => new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
 const HANDOFF = 'Great! Now that I have a little insight, let me explain what I do.';
 
-export default function Welcome({ name: savedName, symptoms, goals, update, resumeAt, onScreen, onDone, onSignIn, onRestore }: Props) {
+export default function Welcome({ symptoms, goals, update, resumeAt, onScreen, onDone }: Props) {
   const st = useStage();
   const { w, h } = st;
   const run = useRunner();
 
-  const resumeName = resumeAt ? savedName : '';
-  const resumePhase: Phase = resumeAt === 'symptoms' ? 'symptoms' : resumeAt === 'goals' || resumeAt === 'handoff' ? 'goals' : 'intro';
-  const resumed = !!resumeAt && !(resumeAt === 'greet' && !resumeName);
+  // 'greet' is an old save from when the name was asked: resume on the symptoms.
+  const resumePhase: Phase = resumeAt === 'symptoms' || resumeAt === 'greet' ? 'symptoms' : resumeAt === 'goals' || resumeAt === 'handoff' ? 'goals' : 'intro';
+  const resumed = !!resumeAt;
 
   const [started, setStarted] = useState(resumed);
   const [zenDropped, setZenDropped] = useState(resumed);
   const [lines, setLines] = useState<Line[]>([]);
-  const [showSubtitle, setShowSubtitle] = useState(false);
-  const [showField, setShowField] = useState(false);
-  const [name, setName] = useState(resumeName);
-  const [submitted, setSubmitted] = useState(resumed);
   const [showGreeting, setShowGreeting] = useState(resumed);
   const [phase, setPhase] = useState<Phase>(resumed ? resumePhase : 'intro');
-  const [showLetsGo, setShowLetsGo] = useState(resumed && resumePhase === 'intro');
-  const [wave, setWave] = useState(0);
+  const [showLetsGo, setShowLetsGo] = useState(false);
   const [panel, setPanel] = useState<{ x: number; t: number } | null>(null);
   const [wipe, setWipe] = useState<{ p: number; t: number } | null>(resumeAt === 'handoff' ? { p: 1, t: 0 } : null);
   const [handoff, setHandoff] = useState(resumeAt === 'handoff');
@@ -84,12 +76,6 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
   const [selSymptoms, setSelSymptoms] = useState<string[]>(symptoms);
   const [selGoals, setSelGoals] = useState<string[]>(goals);
 
-  const input = useRef<HTMLInputElement>(null);
-  const staticName = useRef<HTMLSpanElement>(null);
-  const greetName = useRef<HTMLSpanElement>(null);
-  const glideFrom = useRef<DOMRect | null>(null);
-
-  const canContinue = name.trim().length > 0;
 
   // ------------------------------------------------------------ Zen's hello
 
@@ -100,7 +86,7 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
 
   useScript(async (signal) => {
     if (resumed) {
-      onScreen(resumeAt === 'greet' ? 'name_submitted' : resumeAt === 'handoff' ? 'zen_handoff' : resumeAt!);
+      onScreen(resumeAt === 'handoff' ? 'zen_handoff' : resumePhase);
       if (resumeAt === 'handoff') {
         await sleep(350, signal);
         await typeInto(setHandoffTyped, HANDOFF, signal, 40);
@@ -112,54 +98,13 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
     await sleep(80, signal);
     setZenDropped(true);
     await sleep(300, signal);
-    await typeLine("Hi, I'm Zen, your cortisol coach.", signal, 55);
+    // Two quick lines from Zen, then "Let's go" (the 6.0 app's hello).
+    await typeLine("Hi, I'm Zen, your stress coach.", signal, 55);
     await sleep(350, signal);
-    // askName
-    await typeLine('...and who are you?', signal);
-    setShowSubtitle(true);
-    await sleep(350, signal);
-    onScreen('name_entry');
-    setShowField(true);
-    await sleep(150, signal);
-    input.current?.focus({ preventScroll: true });
+    await typeLine("Let's find out what's driving your stress.", signal);
+    await sleep(250, signal);
+    setShowLetsGo(true);
   }, []);
-
-  const commit = () => {
-    if (!canContinue || submitted) return;
-    const finalName = name.trim();
-    setName(finalName);
-    update({ name: finalName });
-    onScreen('name_submitted');
-    input.current?.blur();
-    setSubmitted(true);
-    run(async (signal) => {
-      await sleep(320, signal);
-      glideFrom.current = staticName.current?.getBoundingClientRect() ?? null;
-      setShowGreeting(true);
-      setShowSubtitle(false);
-      setLines([]);
-      setWave((n) => n + 1);
-      await sleep(700, signal);
-      setShowLetsGo(true);
-    });
-  };
-
-  // The name glides from the field into the greeting (matchedGeometryEffect).
-  useLayoutEffect(() => {
-    const from = glideFrom.current;
-    const el = greetName.current;
-    if (!showGreeting || !from || !el) return;
-    glideFrom.current = null;
-    if (reducedMotion()) return;
-    const to = el.getBoundingClientRect();
-    const s = st.scale || 1;
-    el.style.transition = 'none';
-    el.style.transformOrigin = '0 0';
-    el.style.transform = `translate(${(from.left - to.left) / s}px, ${(from.top - to.top) / s}px) scale(${from.height / to.height})`;
-    void el.offsetWidth;
-    el.style.transition = 'transform 600ms cubic-bezier(0.3, 1.12, 0.45, 1)';
-    el.style.transform = 'none';
-  }, [showGreeting, st.scale]);
 
   // ------------------------------------------------------------ sweeps
 
@@ -180,18 +125,11 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
     });
   };
 
-  const skipName = () => {
-    setName('');
-    update({ name: '' });
-    input.current?.blur();
-    sweepTo('symptoms', () => {
-      setShowGreeting(true);
-      setShowSubtitle(false);
-      setShowField(false);
-      setSubmitted(true);
-      setLines([]);
-    });
-  };
+  /** "Let's go" under Zen's hello: sweep to the first question. */
+  const letsGo = () => sweepTo('symptoms', () => {
+    setShowGreeting(true);
+    setLines([]);
+  });
 
   const confirmSymptoms = () => {
     update({ symptoms: selSymptoms });
@@ -254,10 +192,9 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
   return (
     <>
       <Col>
-        {/* Zen, under his hello and the name field. */}
+        {/* Zen, under his hello. */}
         <ZenWave
           play={started}
-          replay={wave}
           style={{
             position: 'absolute',
             width: 281.6,
@@ -277,61 +214,6 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
                 {lines.map((l, i) => (
                   <TypedLine key={i} full={l.full} shown={l.text} size={25} color={l.faded ? 'rgba(0,0,0,0.26)' : '#000'} />
                 ))}
-                {showSubtitle && (
-                  <p className="ob-t" style={{ fontSize: 15, color: 'rgba(0,0,0,0.4)', animation: 'ob-fade-in 300ms ease-out' }}>
-                    Enter the name you would like to go by.
-                  </p>
-                )}
-                {showField && (
-                  <>
-                    <form
-                      onSubmit={(e: FormEvent) => { e.preventDefault(); commit(); }}
-                      style={{ display: 'flex', alignItems: 'center', gap: 10, paddingTop: 6, minHeight: 52, animation: 'ob-fade-in 400ms ease-out' }}
-                    >
-                      {submitted ? (
-                        <span ref={staticName} className="ob-t" style={{ fontSize: 34, fontWeight: 700, whiteSpace: 'nowrap' }}>{name}</span>
-                      ) : (
-                        <>
-                          <input
-                            ref={input}
-                            className="ob-name-input"
-                            type="text"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value.slice(0, 40))}
-                            autoComplete="given-name"
-                            autoCapitalize="words"
-                            enterKeyHint="done"
-                            aria-label="Your name"
-                          />
-                          {canContinue && (
-                            <button type="submit" className="ob-go" aria-label="Continue">
-                              <Icon.arrowRight size={18} />
-                            </button>
-                          )}
-                        </>
-                      )}
-                    </form>
-                    {!submitted && !canContinue && (
-                      <button
-                        type="button"
-                        onClick={skipName}
-                        className="ob-t"
-                        style={{ alignSelf: 'flex-start', fontSize: 16, fontWeight: 600, color: 'rgba(0,0,0,0.45)', padding: '6px 0' }}
-                      >
-                        Skip
-                      </button>
-                    )}
-                  </>
-                )}
-              </>
-            ) : phase === 'intro' ? (
-              <>
-                <p className="ob-typed" style={{ fontSize: 25, animation: 'ob-fade-in 450ms ease-out' }}>Let's get to know each</p>
-                <p className="ob-typed" style={{ fontSize: 25, display: 'flex' }}>
-                  <span style={{ animation: 'ob-fade-in 450ms ease-out', whiteSpace: 'pre' }}>other, </span>
-                  <span ref={greetName} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{name}!</span>
-                </p>
               </>
             ) : phase === 'symptoms' ? (
               <>
@@ -340,33 +222,21 @@ export default function Welcome({ name: savedName, symptoms, goals, update, resu
                   {SYMPTOM_OPTIONS.map((o) => option(o, selSymptoms.includes(o.id), () => toggle(selSymptoms, setSelSymptoms, o.id)))}
                 </div>
               </>
-            ) : (
+            ) : phase === 'goals' ? (
               <>
                 {questionTitle("What's your main goal?")}
                 <div className="ob-flex" style={{ gap: 12, paddingTop: 10 }}>
                   {GOAL_OPTIONS.map((o) => option(o, selGoals.includes(o.id), () => toggle(selGoals, setSelGoals, o.id)))}
                 </div>
               </>
-            )}
+            ) : null}
           </div>
         )}
 
-        {/* Returning users, under Zen until the name is in. */}
-        {started && !submitted && !showGreeting && (
-          <div
-            className="ob-center ob-t"
-            style={{ left: w / 2, top: h * 0.99, display: 'flex', gap: 10, whiteSpace: 'nowrap', fontSize: 15, fontWeight: 600, color: 'rgba(0,0,0,0.7)' }}
-          >
-            <button type="button" onClick={onSignIn}>I already have an account</button>
-            <span style={{ color: 'rgba(0,0,0,0.35)' }}>·</span>
-            <button type="button" onClick={onRestore}>Restore Purchases</button>
-          </div>
-        )}
-
-        {/* Greeting → "Let's go" */}
+        {/* Zen's hello → "Let's go" */}
         {showLetsGo && phase === 'intro' && (
           <div className="ob-center" style={{ left: w / 2, top: h * 0.93 }}>
-            <button type="button" className="ob-capsule" style={{ animation: 'ob-pop-in 420ms cubic-bezier(0.3, 1.3, 0.5, 1) both' }} onClick={() => sweepTo('symptoms')}>
+            <button type="button" className="ob-capsule" style={{ animation: 'ob-pop-in 420ms cubic-bezier(0.3, 1.3, 0.5, 1) both' }} onClick={letsGo}>
               Let's go
             </button>
           </div>
