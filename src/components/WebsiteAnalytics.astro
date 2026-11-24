@@ -123,5 +123,8 @@
     w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: referrerOrigin, transport_type: 'beacon' });
     if (adsAllowed(choice) && metaPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
   });
+  // /start/ (FunnelLayout) has no ClientRouter, so astro:page-load never fires
+  // there: run once now too. pageView() is idempotent for the same path.
+  pageView();
   document.addEventListener('astro:page-load', pageView);
 </script>
