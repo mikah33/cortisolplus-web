@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, marketingPage } from '../src/lib/acquisition.js';
+import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, marketingPage, metaPage } from '../src/lib/acquisition.js';
 
 test('acquisition identifies AI referral without retaining private URL details', () => {
   const context = acquisitionContext('https://cortisolplus.com/tools/?email=person@example.com&score=24#result', 'https://chatgpt.com/c/private-conversation');
@@ -16,6 +16,8 @@ test('arbitrary campaign strings and quiz data are discarded', () => {
 test('advertising events are restricted to product pages', () => {
   assert.equal(marketingPage('/features/hrv-stress-monitoring/'), true);
   for (const path of ['/tools/stress-score/', '/cortisol/symptoms/', '/blog/cortisol-anxiety-link/']) assert.equal(marketingPage(path), false);
+  for (const path of ['/', '/start/', '/start', '/download/']) assert.equal(metaPage(path), true);
+  for (const path of ['/starter/', '/tools/stress-score/', '/cortisol/symptoms/', '/quiz/stress-type/']) assert.equal(metaPage(path), false);
 });
 
 test('download links use the OneLink template and broad source without private parameters', () => {

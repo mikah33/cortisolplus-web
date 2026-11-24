@@ -1,5 +1,5 @@
 <aside id="privacy-choices" hidden aria-label="Website privacy choices" class="fixed bottom-3 left-3 right-3 md:left-auto md:max-w-md z-[100] rounded-xl border border-[color:var(--color-border)] bg-white p-5 shadow-xl">
-  <p class="text-sm mb-3"><span data-privacy-text="opt-in">Help us understand website visits and App Store clicks. Optional analytics and advertising cookies stay off until you choose.</span><span data-privacy-text="default" hidden>We use Google Analytics to understand website visits and App Store clicks. Advertising cookies stay off unless you allow them.</span> Quiz answers are never sent. <a class="underline" href="/privacy/#website-analytics">Details</a></p>
+  <p class="text-sm mb-3"><span data-privacy-text="opt-in">Help us understand website visits and App Store clicks. Optional analytics and advertising cookies stay off until you choose.</span><span data-privacy-text="default" hidden>We use Google Analytics and Meta Pixel to understand website visits, App Store clicks and sign-ups from our ads. You can turn either off.</span> Quiz answers are never sent. <a class="underline" href="/privacy/#website-analytics">Details</a></p>
   <div class="flex flex-wrap gap-2 text-sm">
     <button data-privacy-choice="necessary" class="rounded-lg border p-2">Necessary only</button>
     <button data-privacy-choice="analytics" class="rounded-lg border p-2">Allow analytics</button>
@@ -8,8 +8,10 @@
 </aside>
 
 <script>
-  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, marketingPage } from '../lib/acquisition.js';
+  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, metaPage } from '../lib/acquisition.js';
   const measurementId = 'G-MMJRJGZDE3';
+  // "c+" dataset in the c+ ads business (web-to-app ads land on /start/).
+  const metaPixelId = '2477485336109709';
   const preferenceKey = 'cortisol-website-privacy-v1';
   const production = location.protocol === 'https:' && location.hostname === 'cortisolplus.com';
   const context = acquisitionContext(location.href, document.referrer);
@@ -22,6 +24,9 @@
   try { timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch {}
   const analyticsByDefault = !(navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl && !/^(Europe|Atlantic\/(Reykjavik|Canary|Madeira|Azores|Faroe))\//.test(timeZone);
   const analyticsAllowed = (value: string) => value === 'analytics' || value === 'all' || (value === 'unset' && analyticsByDefault);
+  // Meta Pixel follows the same default (on outside Europe/UK and without GPC), but
+  // only on product pages and /start/, and "Allow analytics" alone keeps it off.
+  const adsAllowed = (value: string) => value === 'all' || (value === 'unset' && analyticsByDefault);
   // Only the origin of a recognised source, so GA4 attributes sessions without full referrers.
   const referrerOrigin = context.acquisition_source !== 'direct' && context.acquisition_source !== 'other-referral' ? `https://${context.acquisition_source}/` : '';
   let googleLoaded = false;
@@ -49,13 +54,13 @@
   }
 
   function loadMeta() {
-    if (!production || metaLoaded || !marketingPage(location.pathname)) return;
+    if (!production || metaLoaded || !metaPage(location.pathname)) return;
     metaLoaded = true;
     const fbq: any = function (...args: unknown[]) { fbq.callMethod ? fbq.callMethod(...args) : fbq.queue.push(args); };
     fbq.queue = []; fbq.loaded = true; fbq.version = '2.0';
     w.fbq = fbq;
-    fbq('set', 'autoConfig', false, '1318457513735358');
-    fbq('init', '1318457513735358');
+    fbq('set', 'autoConfig', false, metaPixelId);
+    fbq('init', metaPixelId);
     const script = document.createElement('script'); script.async = true;
     script.src = 'https://connect.facebook.net/en_US/fbevents.js'; document.head.append(script);
   }
@@ -76,7 +81,7 @@
     if (lastPage === path) return;
     lastPage = path;
     w.gtag?.('event', 'page_view', { ...context, page_location: `https://cortisolplus.com${path}`, page_referrer: referrerOrigin, page_title: document.title });
-    if (choice === 'all' && marketingPage(path)) { loadMeta(); w.fbq?.('track', 'PageView'); }
+    if (adsAllowed(choice) && metaPage(path)) { loadMeta(); w.fbq?.('track', 'PageView'); }
   }
 
   document.addEventListener('click', (event) => {
@@ -92,7 +97,7 @@
       choice = selected;
       try { localStorage.setItem(preferenceKey, choice); } catch {}
       // Unload already-running optional SDKs when consent is reduced.
-      if (production && ((previous === 'all' && choice !== 'all') || (analyticsAllowed(previous) && choice === 'necessary'))) {
+      if (production && ((adsAllowed(previous) && !adsAllowed(choice)) || (analyticsAllowed(previous) && choice === 'necessary'))) {
         w.fbq?.('consent', 'revoke');
         location.reload();
         return;
@@ -102,7 +107,7 @@
         w.fbq?.('consent', 'revoke');
       } else {
         w.gtag?.('consent', 'update', { analytics_storage: 'granted' });
-        w.fbq?.('consent', choice === 'all' ? 'grant' : 'revoke');
+        w.fbq?.('consent', adsAllowed(choice) ? 'grant' : 'revoke');
       }
       lastPage = '';
       pageView();
@@ -116,7 +121,7 @@
     if (campaignUrl && link.href !== campaignUrl) link.href = campaignUrl;
     // One delegated handler for all App Store links; client navigation cannot duplicate it.
     w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: referrerOrigin, transport_type: 'beacon' });
-    if (choice === 'all' && marketingPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
+    if (adsAllowed(choice) && metaPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
   });
   document.addEventListener('astro:page-load', pageView);
 </script>

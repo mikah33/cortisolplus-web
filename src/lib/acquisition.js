@@ -78,3 +78,6 @@ export function appStoreEvent(context, pathname) {
 }
 
 export const marketingPage = path => path === '/' || /^\/(download|features|how-it-works|about|press)(\/|$)/.test(path);
+// Meta Pixel pages: product pages plus the /start/ sign-up funnel that our
+// website ads land on. Never medical articles, tools or quizzes.
+export const metaPage = path => marketingPage(path) || /^\/start(\/|$)/.test(path);

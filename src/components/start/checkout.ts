@@ -7,6 +7,7 @@
 // "Cortisol+ Pro" entitlement.
 
 import type { PlanId } from './content';
+import { newEventId, trackMeta } from '../../lib/metaPixel';
 
 // Public client keys (safe to ship). The sandbox key is used off production
 // so test cards never touch live billing.
@@ -65,11 +66,18 @@ export async function checkout(plan: PlanId, attributes: Record<string, string>)
   const rcPackage = offering?.packagesById[PACKAGE_FOR_PLAN[plan]];
   if (!rcPackage) throw new Error(`Plan ${plan} isn't available in the "${RC_OFFERING}" offering.`);
 
+  // Meta Pixel (web-to-app ads): the price actually charged, nothing else.
+  const price = rcPackage.webBillingProduct.currentPrice;
+  const value = Math.round(price.amountMicros / 10_000) / 100;
+  trackMeta('InitiateCheckout', { value, currency: price.currency });
+
   try {
     const result = await purchases.purchase({
       rcPackage,
       metadata: { source: 'cortisolplus.com/start', plan },
     });
+    // Sandbox test cards (?sandbox) must never count as ad conversions.
+    if (!isSandbox()) trackMeta('Purchase', { value, currency: price.currency }, newEventId());
     // A completed payment always gets the unlock screen. For anonymous buyers
     // the entitlement may not be reported as active on the web customer yet;
     // it is granted to the app user when the redemption link is opened.

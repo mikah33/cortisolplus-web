@@ -78,12 +78,14 @@ test('opt-in visitors (GPC) keep links untagged without consent and send one att
   assert.equal(reloaded.scripts.length, 0);
 });
 
-test('analytics loads by default outside Europe, with origin-only referrer and no Meta', () => {
+test('analytics and Meta Pixel load by default outside Europe, with origin-only referrer', () => {
   const page = mount();
   page.dispatch('astro:page-load');
   page.click();
-  assert.equal(page.scripts.length, 1);
-  assert.equal(page.window.fbq, undefined);
+  assert.equal(page.scripts.length, 2);
+  const meta = page.window.fbq.queue.map(args => args.slice(0, 2).join(':'));
+  assert.deepEqual([...meta], ['set:autoConfig', 'init:2477485336109709', 'track:PageView', 'trackCustom:AppStoreClick']);
+  assert.ok(!JSON.stringify(page.window.fbq.queue).includes('private@example.com'));
   const config = page.window.dataLayer.find(args => args[0] === 'config');
   assert.equal(config[2].page_referrer, 'https://chatgpt.com/');
   const clicks = page.window.dataLayer.filter(args => args[0] === 'event' && args[1] === 'app_store_click');
@@ -126,4 +128,31 @@ test('late store buttons stay untagged when analytics is declined', () => {
   const late = { href: 'https://apps.apple.com/app/id6759510126' };
   page.click(late);
   assert.equal(late.href, 'https://apps.apple.com/app/id6759510126');
+});
+
+test('Meta Pixel stays off for analytics-only, in Europe, and on non-product pages', () => {
+  const analyticsOnly = mount('analytics');
+  analyticsOnly.dispatch('astro:page-load');
+  assert.equal(analyticsOnly.window.fbq, undefined);
+
+  const europe = mount(null, { timeZone: 'Europe/Paris' });
+  europe.dispatch('astro:page-load');
+  assert.equal(europe.window.fbq, undefined);
+
+  const article = mount();
+  article.location.pathname = '/blog/cortisol-anxiety-link/';
+  article.dispatch('astro:page-load');
+  assert.equal(article.window.fbq, undefined);
+});
+
+test('choosing Allow analytics after the default unloads the pixel', () => {
+  const page = mount();
+  page.dispatch('astro:page-load');
+  assert.ok(page.window.fbq);
+  page.consent('analytics');
+  assert.equal(page.location.reloaded, true);
+  const reloaded = mount(page.storage.get('cortisol-website-privacy-v1'));
+  reloaded.dispatch('astro:page-load');
+  assert.equal(reloaded.window.fbq, undefined);
+  assert.equal(reloaded.scripts.length, 1);
 });
