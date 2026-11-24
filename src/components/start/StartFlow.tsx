@@ -12,6 +12,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNo
 import './ob.css';
 import { CHECKOUT_ENABLED, type Platform, type PlanId } from './content';
 import { readPurchase, writePurchase, type Purchase } from './purchase';
+import { trackMeta } from '../../lib/metaPixel';
 import { A, Alert, BackButton, StageContext, reducedMotion, type Stage } from './ui';
 import Welcome, { type WelcomeResume } from './Welcome';
 import Education, { EDU_KEYS } from './Education';
@@ -298,6 +299,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       setReachedPaywall(true);
       reachedRef.current = true;
       persist({ reachedPaywall: true });
+      trackMeta('ViewContent'); // first time on the plans page (Meta Pixel)
     }
     if (step === 'paywall' || step === 'plan') void import('./checkout');
   }, [step, persist]);
