@@ -9,13 +9,13 @@ const component = fs.readFileSync(new URL('../src/components/WebsiteAnalytics.as
 const script = component.match(/<script>([\s\S]*?)<\/script>/)[1];
 const compiled = ts.transpileModule(script, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
 
-function mount(preference = null, { gpc = false, timeZone = 'America/New_York', referrer = 'https://chatgpt.com/c/private-conversation' } = {}) {
+function mount(preference = null, { gpc = false, timeZone = 'America/New_York', referrer = 'https://chatgpt.com/c/private-conversation', pathname = '/download/' } = {}) {
   const listeners = new Map();
   const scripts = [];
   const links = [{ href: 'https://apps.apple.com/app/id6759510126' }, { href: 'https://apps.apple.com/app/id123' }];
   const banner = { hidden: true };
   const storage = new Map(preference ? [['cortisol-website-privacy-v1', preference]] : []);
-  const location = { protocol: 'https:', hostname: 'cortisolplus.com', pathname: '/download/', href: 'https://cortisolplus.com/download/?utm_campaign=website-qa-private&email=private@example.com', reload() { this.reloaded = true; } };
+  const location = { protocol: 'https:', hostname: 'cortisolplus.com', pathname, href: `https://cortisolplus.com${pathname}?utm_campaign=website-qa-private&email=private@example.com`, reload() { this.reloaded = true; } };
   class Element {
     constructor(kind, value) { this.kind = kind; this.value = value; }
     closest(selector) {
@@ -139,8 +139,7 @@ test('Meta Pixel stays off for analytics-only, in Europe, and on non-product pag
   europe.dispatch('astro:page-load');
   assert.equal(europe.window.fbq, undefined);
 
-  const article = mount();
-  article.location.pathname = '/blog/cortisol-anxiety-link/';
+  const article = mount(null, { pathname: '/blog/cortisol-anxiety-link/' });
   article.dispatch('astro:page-load');
   assert.equal(article.window.fbq, undefined);
 });
@@ -155,4 +154,14 @@ test('choosing Allow analytics after the default unloads the pixel', () => {
   reloaded.dispatch('astro:page-load');
   assert.equal(reloaded.window.fbq, undefined);
   assert.equal(reloaded.scripts.length, 1);
+});
+
+test('/start/ (no ClientRouter, so no astro:page-load) still loads analytics and the pixel once', () => {
+  const page = mount(null, { pathname: '/start/' });
+  assert.equal(page.scripts.length, 2);
+  const views = () => page.window.fbq.queue.filter(args => args[0] === 'track' && args[1] === 'PageView').length;
+  assert.equal(views(), 1);
+  page.dispatch('astro:page-load');
+  assert.equal(views(), 1);
+  assert.equal(page.window.dataLayer.filter(args => args[0] === 'event' && args[1] === 'page_view').length, 1);
 });
