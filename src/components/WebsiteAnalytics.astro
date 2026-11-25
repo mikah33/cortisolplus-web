@@ -8,7 +8,7 @@
 </aside>
 
 <script>
-  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, metaPage } from '../lib/acquisition.js';
+  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, isPlayStoreLink, metaPage } from '../lib/acquisition.js';
   const measurementId = 'G-MMJRJGZDE3';
   // "c+" dataset in the c+ ads business (web-to-app ads land on /start/).
   const metaPixelId = '2477485336109709';
@@ -114,6 +114,11 @@
       return;
     }
     const link = target?.closest<HTMLAnchorElement>('a[href]');
+    if (production && link && isPlayStoreLink(link.href) && analyticsAllowed(choice)) {
+      w.gtag?.('event', 'play_store_click', { ...context, page_location: `https://cortisolplus.com${location.pathname}`, transport_type: 'beacon' });
+      if (adsAllowed(choice) && metaPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'GooglePlay' });
+      return;
+    }
     if (!production || !link || !isAppStoreLink(link.href) || !analyticsAllowed(choice)) return;
     // Quiz results and /start/ render their store buttons after load, past the
     // decoration above, so tag the link here, before the browser follows it.

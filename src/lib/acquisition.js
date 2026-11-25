@@ -24,11 +24,17 @@ const KNOWN_CAMPAIGNS = new Set([
   'website-organic', 'website-press', ...Object.values(SOURCE_CAMPAIGNS),
 ]);
 
+// The /get/ App Store landing page, for its own ad campaign (Nov 2026). Its
+// downloads get their own campaign (…-lp) and acquisition_page (website_lp), so
+// installs and in-app revenue can be compared with the /start/ web funnel.
+export const landingPage = path => /^\/get(\/|$)/.test(path || '');
+
 export function appStoreCampaign(context) {
   // Never forward arbitrary UTM text, health topics, page paths or user IDs to AppsFlyer.
   if (/^website-qa(?:-[a-z0-9-]+)?$/.test(context.campaign_name || '')) return 'website-qa';
   const campaign = SOURCE_CAMPAIGNS[context.acquisition_source] || 'website-organic';
-  return context.acquisition_medium === 'paid' ? `${campaign}-paid` : campaign;
+  const tagged = context.acquisition_medium === 'paid' ? `${campaign}-paid` : campaign;
+  return landingPage(context.landing_path) ? `${tagged}-lp` : tagged;
 }
 
 // AppsFlyer OneLink template that the app already handles (see the iOS repo's
@@ -48,7 +54,10 @@ export function isAppStoreLink(href) {
 export function appStoreCampaignUrl(href, context) {
   if (!isAppStoreLink(href)) return null;
   // A new URL ensures private or unrelated parameters cannot hitchhike.
-  return `${ONELINK}?pid=website&c=${appStoreCampaign(context)}&deep_link_value=website`;
+  // deep_link_value becomes the app's acquisition_page (GA4 user property and
+  // RevenueCat attribute), which arrives even without ATT consent.
+  const page = landingPage(context.landing_path) ? 'website_lp' : 'website';
+  return `${ONELINK}?pid=website&c=${appStoreCampaign(context)}&deep_link_value=${page}`;
 }
 
 export function acquisitionContext(location, referrer) {
@@ -80,4 +89,11 @@ export function appStoreEvent(context, pathname) {
 export const marketingPage = path => path === '/' || /^\/(download|features|how-it-works|about|press)(\/|$)/.test(path);
 // Meta Pixel pages: product pages plus the /start/ sign-up funnel that our
 // website ads land on. Never medical articles, tools or quizzes.
-export const metaPage = path => marketingPage(path) || /^\/start(\/|$)/.test(path);
+export const metaPage = path => marketingPage(path) || /^\/start(\/|$)/.test(path) || landingPage(path);
+
+export const isPlayStoreLink = href => {
+  try {
+    const url = new URL(href);
+    return url.protocol === 'https:' && url.hostname === 'play.google.com' && url.searchParams.get('id') === 'com.elevatedsystems.cortisolplus';
+  } catch { return false; }
+};
