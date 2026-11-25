@@ -75,11 +75,6 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
       <li class="only-android"><span aria-hidden="true">✓</span> Works with Health Connect</li>
     </ul>
 
-    <!-- Desktop: phones only download from a phone, so offer the QR code. -->
-    <div class="lp-qr">
-      <div class="lp-qr-code" set:html={qrSvg} />
-      <p><b>On your computer?</b><br />Scan with your iPhone camera to get Cortisol+.</p>
-    </div>
   </section>
 
   <!-- ─── Info strip ─── -->
@@ -233,6 +228,12 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
       </a>
     </section>
 
+    <!-- Desktop only: phones download from a phone, so offer the QR code. -->
+    <div class="lp-qr">
+      <div class="lp-qr-code" set:html={qrSvg} />
+      <p><b>On your computer?</b><br />Scan with your iPhone camera to get Cortisol+.</p>
+    </div>
+
     <footer class="lp-foot">
       <p>Cortisol+ estimates stress from your wearable's heart rate, HRV and sleep. It doesn't measure cortisol and isn't a medical device.</p>
       <p class="lp-foot-links">
@@ -368,9 +369,9 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
   .lp-qr { display: none; }
   @media (min-width: 1024px) and (hover: hover) {
     .lp-qr {
-      margin-top: 1.25rem; padding: 1rem;
+      margin: 1.25rem 1.25rem 0; padding: 1rem;
       display: flex; align-items: center; gap: 1rem;
-      border-radius: 1.25rem; background: rgba(255, 255, 255, 0.85);
+      border-radius: 1.25rem; background: #f2f3f7;
       font-size: 0.875rem; color: var(--color-ink-muted); line-height: 1.4;
     }
     .lp-qr b { color: var(--color-ink); }
