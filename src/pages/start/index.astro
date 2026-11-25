@@ -1,45 +1,636 @@
 ---
+// /start/ — where the web-to-app ads land (Nov 2026). The /get/ App Store style
+// page sits in the background (copied from src/pages/get/, which has its own
+// campaign), and an offer opens over it: save on the web. Accepting starts the
+// web onboarding at /start/plan/, which ends in the web checkout. Visitors who
+// already started or bought skip straight there.
 import FunnelLayout from '../../layouts/FunnelLayout.astro';
-import StartFlow from '../../components/start/StartFlow.tsx';
 import reviewsData from '../../data/reviews.json';
 import QRCode from 'qrcode';
-import { SITE, APP_RATING, appStoreCampaignLink } from '../../consts';
+import { SITE, APP_RATING, PUBLISHER, appStoreCampaignLink } from '../../consts';
+import { PLANS, APP_STORE_PRICES, WEB_SAVING_PCT } from '../../components/start/content';
 
-const qrSvg = await QRCode.toString(`${SITE.url}/download/`, { type: 'svg', margin: 0, color: { dark: '#121826', light: '#ffffff' } });
-const reviews = reviewsData.reviews.map(({ title, body, author, rating }) => ({ title, body, author, rating }));
+const qrSvg = await QRCode.toString(`${SITE.url}/start/`, { type: 'svg', margin: 0, color: { dark: '#121826', light: '#ffffff' } });
+
+// The live App Store screenshots, in listing order.
+const shots = [
+  { src: '/get/stress.webp', alt: 'Live stress levels: a stress dial with HRV and resting heart rate' },
+  { src: '/get/insights.webp', alt: 'Insights from your wearable: stress, sleep and recovery cards' },
+  { src: '/get/sleep.webp', alt: 'Sleep quality: duration, efficiency and sleep stages' },
+  { src: '/get/activities.webp', alt: 'Activities: readiness, cardio load, steps and workouts' },
+  { src: '/get/bio-age.webp', alt: 'Bio Age and pace of aging' },
+  { src: '/get/zen.webp', alt: 'Zen, the AI assistant, explaining what is driving your score' },
+];
+
+const highlights = [
+  { icon: 'pulse', tint: '#34c759', title: 'Live stress score', text: 'Read from your Apple Watch heart rate, HRV and sleep, all day.' },
+  { icon: 'compass', tint: '#007aff', title: "Today's call", text: 'One clear answer for the day: push, keep it steady, or recover.' },
+  { icon: 'moon', tint: '#5e5ce6', title: 'Full sleep analysis', text: 'Stages, a quality score and your overnight heart rate and HRV.' },
+  { icon: 'hourglass', tint: '#0b7a5f', title: 'Bio Age', text: 'See how fast your body is aging, from your recovery data.' },
+  { icon: 'chat', tint: '#ff9500', title: 'Zen, your AI coach', text: 'Ask about your day, or reset with 2‑minute guided breathing.' },
+  { icon: 'watch', tint: '#ff375f', title: 'Companions on your wrist', text: 'Glossy 3D characters that change color with your stress level.' },
+];
+
+const reviews = reviewsData.reviews.filter((r) => r.rating >= 4);
+const ratingPct = `${(APP_RATING.value / 5) * 100}%`;
+const ratingLabel = `Rated ${APP_RATING.value} out of 5 from ${APP_RATING.count} App Store ratings`;
+const money = (n: number) => `$${n.toFixed(2)}`;
+// A year ÷ 12, to the cent below (same as the web paywall's monthly()).
+const perMonth = (year: number) => Math.floor((year / 12) * 100 + 1e-6) / 100;
+// Declining the offer still goes to the App Store, credited to its own campaign.
+const storeUrl = appStoreCampaignLink('web2app-start-store');
+const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
 
 <FunnelLayout
-  title="Meet Zen — Build your Cortisol+ plan"
-  description="Answer a few questions and Zen builds your personal plan for calmer, lower-stress days."
+  title={`Cortisol+ — Save ${WEB_SAVING_PCT}% on the web`}
+  description="Your Apple Watch already senses your stress. Cortisol+ turns its heart rate, HRV and sleep into a real-time stress score."
+  bodyClass="lp-page"
+  mainClass="lp-main"
 >
-  <link rel="preload" as="image" href="/app-ui/ob/onboarding_sky.webp" />
-  <link rel="preload" as="video" href="/app-ui/ob/launch.mp4" type="video/mp4" />
-  <!-- Desktop only: a calm panel beside the phone-sized frame (ob.css) -->
-  <aside class="hidden lg:block fixed top-1/2 -translate-y-1/2 right-[calc(50%+2.25rem+3.5rem)] w-[19rem] xl:w-[21rem] text-[color:var(--color-ink)]" aria-label="About Cortisol+">
-    <div class="flex items-center gap-3">
-      <img src="/icon-192.png" alt="" width="192" height="192" class="w-14 h-14 rounded-[1rem] shadow-[0_8px_20px_-8px_rgba(40,96,140,0.55)]" />
-      <div>
-        <div class="text-xl font-extrabold tracking-tight leading-tight">Cortisol+</div>
-        <div class="text-sm font-bold leading-snug" aria-label={`Rated ${APP_RATING.value} out of 5 from ${APP_RATING.count} App Store ratings`}>
-          <span class="text-[#fbbf24]" aria-hidden="true">★</span> {APP_RATING.value}
-          <span class="font-semibold text-[color:var(--color-ink-muted)]">· {APP_RATING.count} App Store ratings</span>
+  <script is:inline>
+    // Already started the onboarding, or bought: go straight back to it.
+    try { if (localStorage.getItem('cp_start_purchase_v1') || localStorage.getItem('cp_start_v2')) location.replace('/start/plan/' + location.search + location.hash); } catch (e) {}
+  </script>
+
+<script>
+  import { trackStartEvent } from '../../lib/startAnalytics';
+  // The offer opens over the page, and again from any download button on it.
+  const back = document.getElementById('of-back')!;
+  let shown = false;
+  const open = () => {
+    if (!shown) { shown = true; trackStartEvent('offer'); }
+    back.hidden = false;
+    document.documentElement.classList.add('of-lock');
+    requestAnimationFrame(() => back.classList.add('on'));
+  };
+  window.setTimeout(open, 450);
+  document.querySelectorAll<HTMLAnchorElement>('[data-offer]').forEach((a) => {
+    a.addEventListener('click', (e) => { e.preventDefault(); open(); });
+  });
+  // Keep the ad's tags (utm, fbclid) for the onboarding's attribution.
+  const cta = document.getElementById('of-cta') as HTMLAnchorElement;
+  cta.href = `/start/plan/${location.search}`;
+  cta.addEventListener('click', (e) => {
+    e.preventDefault();
+    trackStartEvent('offer_accept', { transport_type: 'beacon' });
+    window.setTimeout(() => { location.href = cta.href; }, 150);
+  });
+  ['of-store', 'of-store-android'].forEach((id) => document.getElementById(id)?.addEventListener('click', () => trackStartEvent('offer_store', { transport_type: 'beacon' })));
+</script>
+
+  <link rel="prefetch" href="/start/plan/" />
+  <link rel="preload" as="image" href="/get/icon.webp" />
+  <link rel="preload" as="image" href="/get/stress.webp" />
+
+  <!-- ─── Header, like the App Store listing ─── -->
+  <section class="lp-hero">
+    <div class="lp-head">
+      <img class="lp-icon" src="/get/icon.webp" width="512" height="512" alt="Cortisol+ app icon" />
+      <div class="lp-titles">
+        <h1>Cortisol+</h1>
+        <p class="lp-sub">Stress Monitor &amp; HRV</p>
+        <div class="lp-getrow">
+          <a href="/start/plan/" data-offer class="lp-get only-ios" aria-label="Get Cortisol+ on the App Store">Get</a>
+          <a href="/start/plan/" data-offer class="lp-get only-android" aria-label="Get Cortisol+ on Google Play">Get</a>
+          <span class="lp-iap">In‑App<br />Purchases</span>
         </div>
       </div>
     </div>
-    <p class="mt-6 text-2xl font-extrabold tracking-tight leading-snug">Meet Zen and build your plan.</p>
-    <ul class="mt-5 space-y-3 text-[color:var(--color-ink-muted)] leading-snug">
-      <li class="flex gap-3"><span class="mt-1.5 h-2 w-2 flex-none rounded-full bg-[color:var(--color-teal)]" aria-hidden="true"></span>A personal plan built from your answers</li>
-      <li class="flex gap-3"><span class="mt-1.5 h-2 w-2 flex-none rounded-full bg-[color:var(--color-teal)]" aria-hidden="true"></span>A daily wellness score from your wearable's HRV, heart rate and sleep</li>
-      <li class="flex gap-3"><span class="mt-1.5 h-2 w-2 flex-none rounded-full bg-[color:var(--color-teal)]" aria-hidden="true"></span>Guided breathing with Zen when you need a reset</li>
+
+    <p class="lp-hook">Your Apple Watch already senses your stress. See it live, and calm it before it peaks.</p>
+
+    <a href="/start/plan/" data-offer class="lp-cta only-ios" id="lp-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="lp-cta-logo" aria-hidden="true"><path d="M17.5 12.5c0-2.6 2.1-3.8 2.2-3.9-1.2-1.7-3-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.4 1-4.3 2.6-1.8 3.2-.5 7.9 1.3 10.5.9 1.3 1.9 2.7 3.3 2.7 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.9 1.4 0 2.3-1.3 3.2-2.6 1-1.5 1.4-3 1.4-3.1-.1 0-2.7-1-2.7-4.1zM15 4.6c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.5-.7.8-1.2 2-1.1 3.2 1.1.1 2.3-.6 3-1.4z"/></svg>
+      <span class="lp-cta-text"><small>Download free on the</small>App Store</span>
+    </a>
+    <a href="/start/plan/" data-offer class="lp-cta only-android" id="lp-cta-android">
+      <svg viewBox="0 0 24 24" class="lp-cta-logo" aria-hidden="true"><path fill="#34a853" d="M3.6 1.8 13.4 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#fbbc04" d="m16.8 15.4-3.4-3.4 3.4-3.4 3.9 2.2c1.1.6 1.1 1.8 0 2.4z"/><path fill="#4285f4" d="M16.8 8.6 13.4 12 3.6 1.8c.3-.1.7-.1 1.1.1z"/><path fill="#ea4335" d="m16.8 15.4-12.1 6.7c-.4.2-.8.2-1.1.1L13.4 12z"/></svg>
+      <span class="lp-cta-text"><small>Get it free on</small>Google Play</span>
+    </a>
+    <ul class="lp-assure">
+      <li><span aria-hidden="true">✓</span> Free download</li>
+      <li class="only-ios"><span aria-hidden="true">✓</span> Works with Apple Watch</li>
+      <li class="only-android"><span aria-hidden="true">✓</span> Works with Health Connect</li>
     </ul>
-  </aside>
-  <StartFlow
-    client:load
-    reviews={reviews}
-    rating={{ value: APP_RATING.value, count: APP_RATING.count }}
-    appStoreUrl={appStoreCampaignLink('web2app-meta')}
-    googlePlayUrl={SITE.googlePlayUrl}
-    qrSvg={qrSvg}
-  />
+
+  </section>
+
+  <!-- ─── Info strip ─── -->
+  <div class="lp-sheet">
+    <ul class="lp-strip" aria-label="App information">
+      <li>
+        <span class="lp-strip-k">{APP_RATING.count} Ratings</span>
+        <span class="lp-strip-v">{APP_RATING.value}</span>
+        <span class="lp-stars lp-stars--sm" style={`--pct:${ratingPct}`} aria-label={ratingLabel}><span>★★★★★</span><span aria-hidden="true">★★★★★</span></span>
+      </li>
+      <li>
+        <span class="lp-strip-k">Ages</span>
+        <span class="lp-strip-v">12+</span>
+        <span class="lp-strip-s">Years</span>
+      </li>
+      <li>
+        <span class="lp-strip-k">Category</span>
+        <svg class="lp-strip-i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.5 1.1 4.4 2.4.9-1.3 2.3-2.4 4.4-2.4 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>
+        <span class="lp-strip-s">Health &amp; Fitness</span>
+      </li>
+      <li class="only-ios">
+        <span class="lp-strip-k">Works with</span>
+        <svg class="lp-strip-i" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 6.5 9.3 2h5.4l.8 4.5M8.5 17.5l.8 4.5h5.4l.8-4.5"/><rect x="5.5" y="6" width="13" height="12" rx="3.2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <span class="lp-strip-s">Apple Watch</span>
+      </li>
+      <li>
+        <span class="lp-strip-k">Language</span>
+        <span class="lp-strip-v">EN</span>
+        <span class="lp-strip-s">+ 10 More</span>
+      </li>
+      <li>
+        <span class="lp-strip-k">Developer</span>
+        <svg class="lp-strip-i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="lp-strip-s">Elevated Systems</span>
+      </li>
+    </ul>
+
+    <!-- ─── Screenshots ─── -->
+    <ul class="lp-shots" aria-label="Screenshots">
+      {shots.map((s, i) => (
+        <li>
+          <img src={s.src} alt={s.alt} width="860" height="1864" loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+        </li>
+      ))}
+    </ul>
+    <p class="lp-devices only-ios">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>iPhone
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6" width="11" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 6l.6-3h4.8l.6 3M9 18l.6 3h4.8l.6-3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Apple Watch
+    </p>
+
+    <!-- ─── Description ─── -->
+    <section class="lp-section">
+      <details class="lp-more">
+        <summary>
+          <span class="lp-desc">Your Apple Watch already senses your stress. Cortisol+ turns its heart rate, HRV, and sleep into a real-time stress score, so you can catch stress building and calm it before it peaks. No lab tests, no finger pricks. Just your watch and a clearer picture of your body.</span>
+          <span class="lp-more-btn">more</span>
+        </summary>
+        <p class="lp-desc">Every morning, Today's call tells you whether to push, keep it steady or recover, from your stress, sleep, HRV and resting heart rate. See how today compares with your own 30‑day normal, get a monthly recap of your highs and wins, and keep your walks, runs, rides and swims in one place.</p>
+        <p class="lp-desc">On your wrist, Pebble, Ripple and Bloom change color with your stress level. Add complications to any watch face, start guided breathing with gentle haptics, or just ask Siri: "What's my stress score in Cortisol Plus?"</p>
+      </details>
+    </section>
+
+    <!-- ─── Highlights ─── -->
+    <section class="lp-section">
+      <h2>What you get</h2>
+      <ul class="lp-list">
+        {highlights.map((h) => (
+          <li>
+            <span class="lp-tile" style={`--tint:${h.tint}`} aria-hidden="true">
+              {h.icon === 'pulse' && <svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-6 4 13 3-9 1.5 2H22" /></svg>}
+              {h.icon === 'compass' && <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5z" /></svg>}
+              {h.icon === 'moon' && <svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z" /></svg>}
+              {h.icon === 'hourglass' && <svg viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9" /></svg>}
+              {h.icon === 'chat' && <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" /></svg>}
+              {h.icon === 'watch' && <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="3.2" /><path d="m8.5 6 .8-3.5h5.4l.8 3.5M8.5 18l.8 3.5h5.4l.8-3.5" /></svg>}
+            </span>
+            <span>
+              <b>{h.title}</b>
+              <span class="lp-list-t">{h.text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ─── Ratings & Reviews ─── -->
+    <section class="lp-section">
+      <h2>Ratings &amp; Reviews</h2>
+      <div class="lp-score">
+        <div>
+          <span class="lp-score-n">{APP_RATING.value}</span>
+          <span class="lp-score-o">out of 5</span>
+        </div>
+        <div class="lp-score-r">
+          <span class="lp-stars lp-stars--lg" style={`--pct:${ratingPct}`} aria-label={ratingLabel}><span>★★★★★</span><span aria-hidden="true">★★★★★</span></span>
+          <span class="lp-score-c">{APP_RATING.count} Ratings on the App Store</span>
+        </div>
+      </div>
+      <ul class="lp-reviews">
+        {reviews.map((r) => (
+          <li>
+            <div class="lp-review-top">
+              <b>{r.title}</b>
+              <span class="lp-review-date">{formatDate(r.datePublished)}</span>
+            </div>
+            <div class="lp-review-meta">
+              <span class="lp-stars lp-stars--xs" style={`--pct:${(r.rating / 5) * 100}%`} aria-label={`${r.rating} out of 5 stars`}><span>★★★★★</span><span aria-hidden="true">★★★★★</span></span>
+              <span>{r.author}</span>
+            </div>
+            <p>{r.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ─── What's New ─── -->
+    <section class="lp-section">
+      <h2>What's New</h2>
+      <p class="lp-version">Version 6.0</p>
+      <ul class="lp-new">
+        <li>Holiday looks: your companion becomes a Christmas tree, a snowman, gingerbread or Santa as your stress changes.</li>
+        <li>Glossy 3D companions on your Apple Watch that blink, look around and react to a tap.</li>
+        <li>Walk to earn 20 outfits, from a baseball cap to a king's crown.</li>
+        <li>Zen has his own tab, with saved chats and quick calm.</li>
+      </ul>
+    </section>
+
+    <!-- ─── Information ─── -->
+    <section class="lp-section">
+      <h2>Information</h2>
+      <dl class="lp-info">
+        <div><dt>Provider</dt><dd>{PUBLISHER.name}</dd></div>
+        <div><dt>Compatibility</dt><dd class="only-ios">iPhone with iOS 17 or later, and Apple Watch</dd><dd class="only-android">Android with Health Connect</dd></div>
+        <div><dt>Price</dt><dd>Free, with in‑app purchases</dd></div>
+        <div><dt>Privacy</dt><dd>Score calculated on your phone</dd></div>
+      </dl>
+    </section>
+
+    <!-- ─── Last call ─── -->
+    <section class="lp-final" id="lp-final">
+      <img src="/get/icon.webp" width="512" height="512" alt="" class="lp-final-icon" loading="lazy" />
+      <h2>Catch stress before it peaks.</h2>
+      <p><span class="only-ios">Works with the Apple Watch you already have.</span><span class="only-android">Free on Google Play.</span></p>
+      <a href="/start/plan/" data-offer class="lp-cta only-ios">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="lp-cta-logo" aria-hidden="true"><path d="M17.5 12.5c0-2.6 2.1-3.8 2.2-3.9-1.2-1.7-3-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.4 1-4.3 2.6-1.8 3.2-.5 7.9 1.3 10.5.9 1.3 1.9 2.7 3.3 2.7 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.9 1.4 0 2.3-1.3 3.2-2.6 1-1.5 1.4-3 1.4-3.1-.1 0-2.7-1-2.7-4.1zM15 4.6c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.5-.7.8-1.2 2-1.1 3.2 1.1.1 2.3-.6 3-1.4z"/></svg>
+        <span class="lp-cta-text"><small>Download free on the</small>App Store</span>
+      </a>
+      <a href="/start/plan/" data-offer class="lp-cta only-android">
+        <svg viewBox="0 0 24 24" class="lp-cta-logo" aria-hidden="true"><path fill="#34a853" d="M3.6 1.8 13.4 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#fbbc04" d="m16.8 15.4-3.4-3.4 3.4-3.4 3.9 2.2c1.1.6 1.1 1.8 0 2.4z"/><path fill="#4285f4" d="M16.8 8.6 13.4 12 3.6 1.8c.3-.1.7-.1 1.1.1z"/><path fill="#ea4335" d="m16.8 15.4-12.1 6.7c-.4.2-.8.2-1.1.1L13.4 12z"/></svg>
+        <span class="lp-cta-text"><small>Get it free on</small>Google Play</span>
+      </a>
+    </section>
+
+    <!-- Desktop only: phones download from a phone, so offer the QR code. -->
+    <div class="lp-qr">
+      <div class="lp-qr-code" set:html={qrSvg} />
+      <p><b>On your computer?</b><br />Scan with your iPhone camera to get Cortisol+.</p>
+    </div>
+
+    <footer class="lp-foot">
+      <p>Cortisol+ estimates stress from your wearable's heart rate, HRV and sleep. It doesn't measure cortisol and isn't a medical device.</p>
+      <p class="lp-foot-links">
+        <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <button type="button" data-open-privacy>Privacy choices</button>
+      </p>
+      <p>© {new Date().getFullYear()} {PUBLISHER.name}</p>
+    </footer>
+  </div>
+
+  <!-- ─── Sticky download bar (after the header button scrolls away) ─── -->
+  <div class="lp-bar" id="lp-bar" aria-hidden="true">
+    <img src="/get/icon.webp" width="512" height="512" alt="" />
+    <div class="lp-bar-t">
+      <b>Cortisol+</b>
+      <span><span class="lp-bar-star">★</span> {APP_RATING.value} · Free</span>
+    </div>
+    <a href="/start/plan/" data-offer class="lp-bar-get only-ios" tabindex="-1">Download</a>
+    <a href="/start/plan/" data-offer class="lp-bar-get only-android" tabindex="-1">Download</a>
+  </div>
+
+  <!-- ─── The offer, over the page ─── -->
+  <div class="of-back" id="of-back" hidden>
+    <div class="of-card" role="dialog" aria-modal="true" aria-labelledby="of-title">
+      <img class="of-icon" src="/get/icon.webp" width="512" height="512" alt="" />
+      <span class="of-pill">Web-only price</span>
+      <h2 id="of-title">Save {WEB_SAVING_PCT}% if you join right now</h2>
+      <div class="of-prices" aria-label={`Yearly plan: ${money(perMonth(APP_STORE_PRICES.yearly))} a month in the App Store, ${money(perMonth(PLANS.yearly.price))} a month here, billed annually at ${money(PLANS.yearly.price)}`}>
+        <div class="of-row">
+          <div class="of-was"><span>App Store</span><s>{money(perMonth(APP_STORE_PRICES.yearly))}/mo</s></div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <div class="of-now"><span>Here</span><b>{money(perMonth(PLANS.yearly.price))}/mo</b></div>
+        </div>
+        <p class="of-billed">Billed annually</p>
+      </div>
+      <p class="of-text">Answer a few quick questions, Zen builds your plan, then you unlock it in the app.</p>
+      <a href="/start/plan/" class="of-cta" id="of-cta">Claim {WEB_SAVING_PCT}% off</a>
+      <a href={storeUrl} class="of-store only-ios-inline" id="of-store">Download from the App Store instead</a>
+      <a href={SITE.googlePlayUrl} class="of-store only-android-inline" id="of-store-android">Get it on Google Play instead</a>
+    </div>
+  </div>
 </FunnelLayout>
+
+<script>
+  // Show the sticky bar once the header button is off screen, and hide it
+  // again over the last call (which has its own button).
+  const bar = document.getElementById('lp-bar');
+  const final = document.getElementById('lp-final');
+  if (bar && 'IntersectionObserver' in window) {
+    let ctaVisible = true;
+    let finalVisible = false;
+    const update = () => {
+      const show = !ctaVisible && !finalVisible;
+      bar.classList.toggle('is-on', show);
+      bar.setAttribute('aria-hidden', String(!show));
+      bar.querySelectorAll('a').forEach((a) => a.tabIndex = show ? 0 : -1);
+    };
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.target === final) finalVisible = e.isIntersecting;
+        else ctaVisible = e.isIntersecting || e.boundingClientRect.top > 0;
+      }
+      update();
+    });
+    // Only the button for this visitor's platform (the other one is display: none).
+    document.querySelectorAll<HTMLElement>('.lp-hero .lp-cta').forEach((el) => { if (el.getClientRects().length) io.observe(el); });
+    if (final) io.observe(final);
+  }
+</script>
+
+<style is:global>
+  /* Platform: iPhone and desktop get the App Store, Android gets Google Play. */
+  html:not([data-platform='android']) .only-android,
+  html[data-platform='android'] .only-ios { display: none !important; }
+
+  .lp-page {
+    background:
+      url('/app-ui/sky.webp') top center / min(100%, 60rem) auto no-repeat,
+      linear-gradient(180deg, var(--color-sky-top) 0, var(--color-sky-mid) 22rem, var(--color-sky-bottom) 40rem) top / 100% 40rem no-repeat,
+      var(--color-sky-bottom);
+    min-height: 100dvh;
+  }
+  .lp-main {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 30rem;
+    min-height: 100dvh;
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
+</style>
+
+<style>
+  /* ---------- hero ---------- */
+  .lp-hero {
+    padding: calc(1.5rem + env(safe-area-inset-top)) 1.25rem 1.5rem;
+    animation: lp-rise 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .lp-head { display: flex; gap: 1rem; align-items: stretch; }
+  .lp-icon {
+    width: 7.25rem; height: 7.25rem; flex: none;
+    border-radius: 1.65rem;
+    box-shadow: 0 0 0 0.5px rgba(18, 24, 38, 0.08), 0 14px 30px -14px rgba(30, 80, 130, 0.6);
+  }
+  .lp-titles { display: flex; flex-direction: column; min-width: 0; padding-top: 0.15rem; }
+  .lp-titles h1 { font-size: 1.6rem; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
+  .lp-sub { margin-top: 0.15rem; color: rgba(18, 24, 38, 0.6); font-weight: 600; font-size: 1rem; }
+  .lp-getrow { margin-top: auto; display: flex; align-items: center; gap: 0.6rem; }
+  .lp-get {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 4.75rem; height: 2rem; padding: 0 1.1rem;
+    border-radius: 999px; background: #007aff; color: white;
+    font-weight: 800; font-size: 0.95rem; letter-spacing: 0.02em; text-transform: uppercase;
+    transition: transform 150ms ease;
+  }
+  .lp-get:active { transform: scale(0.94); }
+  .lp-iap { font-size: 0.625rem; line-height: 1.15; color: rgba(18, 24, 38, 0.5); font-weight: 600; }
+
+  .lp-hook {
+    margin-top: 1.25rem;
+    font-size: 1.3rem; line-height: 1.3; font-weight: 800; letter-spacing: -0.015em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  /* The big, obvious button */
+  .lp-cta {
+    position: relative; overflow: hidden;
+    margin-top: 1.1rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    width: 100%; min-height: 4rem; padding: 0 1.5rem;
+    border-radius: 1.25rem;
+    background: #0b0f17; color: white;
+    box-shadow: 0 18px 34px -16px rgba(11, 15, 23, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: transform 160ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lp-cta:active { transform: scale(0.97); }
+  .lp-cta::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.22) 50%, transparent 65%);
+    transform: translateX(-120%);
+    animation: lp-sheen 3.6s ease-in-out 1.2s infinite;
+  }
+  .lp-cta-logo { width: 1.9rem; height: 1.9rem; flex: none; margin-top: -0.2rem; }
+  .lp-cta-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 1.45rem; line-height: 1.05; font-weight: 700; letter-spacing: -0.01em; }
+  .lp-cta-text small { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.01em; opacity: 0.85; }
+
+  .lp-assure {
+    margin-top: 0.85rem;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem 1rem;
+    font-size: 0.8rem; font-weight: 700; color: rgba(18, 24, 38, 0.62);
+  }
+  .lp-assure span { color: var(--color-teal-dark); margin-right: 0.15rem; }
+
+  .lp-qr { display: none; }
+  @media (min-width: 1024px) and (hover: hover) {
+    .lp-qr {
+      margin: 1.25rem 1.25rem 0; padding: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+      border-radius: 1.25rem; background: #f2f3f7;
+      font-size: 0.875rem; color: var(--color-ink-muted); line-height: 1.4;
+    }
+    .lp-qr b { color: var(--color-ink); }
+    .lp-qr-code { width: 5.5rem; height: 5.5rem; flex: none; }
+    .lp-qr-code :global(svg) { width: 100%; height: 100%; }
+  }
+
+  /* ---------- white sheet ---------- */
+  .lp-sheet {
+    background: white;
+    border-radius: 1.75rem 1.75rem 0 0;
+    padding-top: 0.5rem;
+    box-shadow: 0 -10px 30px -22px rgba(30, 80, 130, 0.5);
+    animation: lp-rise 700ms 80ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  /* Info strip, App Store style */
+  .lp-strip {
+    display: flex; overflow-x: auto; scrollbar-width: none;
+    padding: 0.85rem 0.5rem 0.9rem;
+    border-bottom: 1px solid rgba(18, 24, 38, 0.08);
+  }
+  .lp-strip::-webkit-scrollbar { display: none; }
+  .lp-strip li {
+    flex: 0 0 auto; min-width: 6.4rem; padding: 0 0.75rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+    color: rgba(18, 24, 38, 0.5); text-align: center;
+  }
+  .lp-strip li + li { border-left: 1px solid rgba(18, 24, 38, 0.1); }
+  .lp-strip-k { font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+  .lp-strip-v { font-size: 1.3rem; line-height: 1.2; font-weight: 800; color: rgba(18, 24, 38, 0.62); }
+  .lp-strip-s { font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+  .lp-strip-i { width: 1.55rem; height: 1.55rem; margin: 0.1rem 0; color: rgba(18, 24, 38, 0.55); }
+
+  /* Stars with a partial fill (--pct) */
+  .lp-stars { position: relative; display: inline-block; line-height: 1; letter-spacing: 0.08em; white-space: nowrap; }
+  .lp-stars > span:first-child { color: rgba(18, 24, 38, 0.18); }
+  .lp-stars > span:last-child { position: absolute; inset: 0 auto 0 0; width: var(--pct); overflow: hidden; color: rgba(18, 24, 38, 0.55); }
+  .lp-stars--sm { font-size: 0.7rem; }
+  .lp-stars--lg { font-size: 1.15rem; }
+  .lp-stars--lg > span:last-child, .lp-stars--xs > span:last-child { color: #ff9500; }
+  .lp-stars--xs { font-size: 0.75rem; }
+
+  /* Screenshots */
+  .lp-shots {
+    display: flex; gap: 0.75rem;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding: 1.1rem 1.25rem 0.4rem; scroll-padding-inline: 1.25rem;
+  }
+  .lp-shots::-webkit-scrollbar { display: none; }
+  .lp-shots li { flex: 0 0 auto; width: min(62vw, 15.5rem); scroll-snap-align: start; }
+  .lp-shots img {
+    width: 100%; height: auto; aspect-ratio: 860 / 1864; object-fit: cover;
+    border-radius: 1.35rem;
+    box-shadow: 0 0 0 1px rgba(18, 24, 38, 0.06), 0 12px 26px -18px rgba(30, 80, 130, 0.55);
+  }
+  .lp-devices {
+    display: flex; align-items: center; gap: 0.35rem;
+    padding: 0.6rem 1.25rem 0; font-size: 0.8rem; font-weight: 700; color: rgba(18, 24, 38, 0.5);
+  }
+  .lp-devices svg { width: 1rem; height: 1rem; }
+  .lp-devices svg + svg, .lp-devices svg:nth-of-type(2) { margin-left: 0.6rem; }
+
+  /* Sections */
+  .lp-section { margin: 1.6rem 1.25rem 0; padding-top: 1.4rem; border-top: 1px solid rgba(18, 24, 38, 0.08); }
+  .lp-section:first-of-type { border-top: 0; padding-top: 0; }
+  .lp-section h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 0.75rem; }
+
+  .lp-desc { display: block; font-size: 1rem; line-height: 1.5; color: rgba(18, 24, 38, 0.82); }
+  .lp-desc + .lp-desc { margin-top: 0.75rem; }
+  .lp-more summary { list-style: none; cursor: pointer; position: relative; }
+  .lp-more summary::-webkit-details-marker { display: none; }
+  .lp-more:not([open]) summary .lp-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .lp-more-btn {
+    position: absolute; right: 0; bottom: 0;
+    padding-left: 2.5rem; font-weight: 700; color: #007aff;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), white 2rem);
+  }
+  .lp-more[open] .lp-more-btn { display: none; }
+  .lp-more[open] summary { margin-bottom: 0.75rem; }
+
+  .lp-list { display: grid; gap: 1rem; }
+  .lp-list li { display: flex; gap: 0.9rem; align-items: center; }
+  .lp-list b { display: block; font-size: 1rem; font-weight: 800; }
+  .lp-list-t { display: block; font-size: 0.9rem; line-height: 1.35; color: var(--color-ink-muted); }
+  .lp-tile {
+    width: 2.75rem; height: 2.75rem; flex: none; border-radius: 0.8rem;
+    display: grid; place-items: center;
+    background: var(--tint); color: white;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .lp-tile svg { width: 1.45rem; height: 1.45rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .lp-score { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  .lp-score-n { display: block; font-size: 3.6rem; line-height: 0.9; font-weight: 800; letter-spacing: -0.03em; color: rgba(18, 24, 38, 0.78); }
+  .lp-score-o { display: block; margin-top: 0.3rem; font-size: 0.85rem; font-weight: 700; color: rgba(18, 24, 38, 0.5); text-align: center; }
+  .lp-score-r { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; padding-bottom: 0.2rem; }
+  .lp-score-c { font-size: 0.85rem; font-weight: 600; color: rgba(18, 24, 38, 0.5); }
+
+  .lp-reviews {
+    margin: 1rem -1.25rem 0; padding: 0 1.25rem 0.25rem;
+    display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    scroll-padding-inline: 1.25rem;
+  }
+  .lp-reviews::-webkit-scrollbar { display: none; }
+  .lp-reviews li {
+    flex: 0 0 auto; width: min(82vw, 21rem); scroll-snap-align: start;
+    padding: 1rem 1.1rem 1.1rem; border-radius: 1.1rem; background: #f2f3f7;
+  }
+  .lp-review-top { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; }
+  .lp-review-top b { font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lp-review-date { flex: none; font-size: 0.8rem; color: rgba(18, 24, 38, 0.45); }
+  .lp-review-meta { margin-top: 0.2rem; display: flex; justify-content: space-between; gap: 0.75rem; font-size: 0.8rem; color: rgba(18, 24, 38, 0.45); }
+  .lp-reviews p { margin-top: 0.55rem; font-size: 0.92rem; line-height: 1.45; color: rgba(18, 24, 38, 0.82); display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+
+  .lp-version { margin-top: -0.4rem; margin-bottom: 0.6rem; font-size: 0.85rem; font-weight: 700; color: rgba(18, 24, 38, 0.5); }
+  .lp-new { display: grid; gap: 0.5rem; }
+  .lp-new li { position: relative; padding-left: 1rem; font-size: 0.95rem; line-height: 1.45; color: rgba(18, 24, 38, 0.82); }
+  .lp-new li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 0.35rem; height: 0.35rem; border-radius: 99px; background: var(--color-teal); }
+
+  .lp-info > div { display: flex; justify-content: space-between; gap: 1.5rem; padding: 0.7rem 0; border-top: 1px solid rgba(18, 24, 38, 0.07); font-size: 0.92rem; }
+  .lp-info > div:first-child { border-top: 0; padding-top: 0; }
+  .lp-info dt { color: rgba(18, 24, 38, 0.5); font-weight: 600; flex: none; }
+  .lp-info dd { text-align: right; font-weight: 600; }
+
+  .lp-final {
+    margin: 2rem 1.25rem 0; padding: 1.75rem 1.25rem 1.5rem;
+    border-radius: 1.75rem; text-align: center;
+    background:
+      url('/app-ui/sky.webp') top center / cover no-repeat,
+      linear-gradient(180deg, var(--color-sky-top), var(--color-sky-bottom));
+  }
+  .lp-final-icon { width: 4.25rem; height: 4.25rem; margin: 0 auto; border-radius: 1rem; box-shadow: 0 12px 24px -12px rgba(30, 80, 130, 0.6); }
+  .lp-final h2 { margin-top: 0.9rem; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+  .lp-final p { margin-top: 0.3rem; font-size: 0.95rem; color: rgba(18, 24, 38, 0.65); font-weight: 600; }
+  .lp-final .lp-cta { margin-top: 1.1rem; }
+
+  .lp-foot { margin: 1.75rem 1.25rem 0; text-align: center; font-size: 0.75rem; line-height: 1.5; color: rgba(18, 24, 38, 0.45); }
+  .lp-foot p + p { margin-top: 0.5rem; }
+  .lp-foot a, .lp-foot button { text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ---------- sticky bar ---------- */
+  .lp-bar {
+    position: fixed; left: 50%; bottom: 0; z-index: 50;
+    width: 100%; max-width: 30rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.86);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    backdrop-filter: blur(20px) saturate(1.6);
+    border-top: 1px solid rgba(18, 24, 38, 0.08);
+    transform: translate(-50%, 110%);
+    transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .lp-bar.is-on { transform: translate(-50%, 0); }
+  .lp-bar img { width: 2.75rem; height: 2.75rem; border-radius: 0.7rem; flex: none; box-shadow: 0 0 0 0.5px rgba(18, 24, 38, 0.1); }
+  .lp-bar-t { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+  .lp-bar-t b { font-weight: 800; }
+  .lp-bar-t > span { font-size: 0.8rem; font-weight: 600; color: rgba(18, 24, 38, 0.5); }
+  .lp-bar-star { color: #ff9500; }
+  .lp-bar-get {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 2.6rem; padding: 0 1.4rem; border-radius: 999px;
+    background: #007aff; color: white; font-weight: 800; font-size: 1rem;
+    box-shadow: 0 8px 18px -10px rgba(0, 122, 255, 0.9);
+  }
+  .lp-bar-get:active { transform: scale(0.95); }
+
+  @keyframes lp-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes lp-sheen { 0% { transform: translateX(-120%); } 45%, 100% { transform: translateX(120%); } }
+</style>
+
+<style>
+  /* The offer sheet: iOS-style card over a dimmed page. */
+  :global(html.of-lock), :global(html.of-lock body) { overflow: hidden; }
+  .of-back { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-end; justify-content: center; background: rgba(0, 0, 0, 0); transition: background-color 280ms ease; -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0); }
+  .of-back.on { background: rgba(0, 0, 0, 0.45); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .of-back[hidden] { display: none; }
+  .of-card { width: 100%; max-width: 30rem; box-sizing: border-box; background: #fff; border-radius: 26px 26px 0 0; padding: 26px 24px calc(18px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; text-align: center; transform: translateY(105%); transition: transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; color: #000; }
+  .of-back.on .of-card { transform: none; }
+  @media (min-width: 640px) { .of-back { align-items: center; } .of-card { border-radius: 26px; max-width: 26rem; } }
+  @media (prefers-reduced-motion: reduce) { .of-back, .of-card { transition: none; } }
+  .of-icon { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.35); }
+  .of-pill { margin-top: 14px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: #ff3b30; padding: 5px 12px; border-radius: 999px; }
+  .of-card h2 { margin: 10px 0 0; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+  .of-prices { margin-top: 16px; padding: 12px 18px 10px; border-radius: 16px; background: #f2f2f7; }
+  .of-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .of-billed { margin: 8px 0 0; font-size: 14px; font-weight: 600; color: rgba(60, 60, 67, 0.7); }
+  .of-prices svg { width: 20px; height: 20px; color: rgba(60, 60, 67, 0.45); }
+  .of-was, .of-now { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .of-was span, .of-now span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(60, 60, 67, 0.6); }
+  .of-was s { font-size: 17px; font-weight: 600; color: rgba(60, 60, 67, 0.6); }
+  .of-now b { font-size: 21px; font-weight: 800; color: #0a8f6a; }
+  .of-text { margin: 14px 4px 0; font-size: 15px; line-height: 1.35; color: rgba(60, 60, 67, 0.75); }
+  .of-cta { margin-top: 18px; width: 100%; height: 54px; border-radius: 14px; background: #007aff; color: #fff; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+  .of-cta:active { opacity: 0.85; }
+  .of-store { margin-top: 12px; font-size: 14px; color: rgba(60, 60, 67, 0.6); text-decoration: none; padding: 4px; }
+  /* Platform switch, like /get/'s only-ios / only-android but inline. */
+  .only-android-inline { display: none; }
+  :global(html[data-platform='android']) .only-android-inline { display: inline; }
+  :global(html[data-platform='android']) .only-ios-inline { display: none; }
+</style>

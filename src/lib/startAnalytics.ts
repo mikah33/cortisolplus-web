@@ -23,7 +23,10 @@ export type StartMoment =
   | 'checkout_cancel'
   | 'checkout_error'
   | 'purchase'
-  | 'unlock_click'; // "Unlock Pro in the app" tapped after buying
+  | 'unlock_click' // "Unlock Pro in the app" tapped after buying
+  | 'offer' // /start/'s save-on-the-web offer opened
+  | 'offer_accept' // …and accepted: on to the onboarding
+  | 'offer_store'; // …or declined for the App Store
 
 const WAIT_MS = 8000;
 const pending: Array<[string, Params]> = [];

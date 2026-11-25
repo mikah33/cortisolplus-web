@@ -118,6 +118,15 @@ export const PLANS = {
 } as const;
 export type PlanId = keyof typeof PLANS;
 
+// The same plans in the App Store (US, RevenueCat offering `default` / `exit`,
+// checked November 25, 2026): annual3, weekly3, annual. Update with any change.
+export const APP_STORE_PRICES = { weekly: 14.99, yearly: 83.99, yearlyExit: 59.99 } as const;
+
+// The yearly web saving shown on /start/ and the paywall. The exact figure is
+// 28.6% ($59.99 vs $83.99); it is shown rounded to 30% at the owner's request
+// (November 25, 2026). Re-check whenever either yearly price changes.
+export const WEB_SAVING_PCT = 30;
+
 // Real checkout through RevenueCat Web Billing (see checkout.ts). Set false to
 // fall back to the labeled sample screen.
 export const CHECKOUT_ENABLED = true;
