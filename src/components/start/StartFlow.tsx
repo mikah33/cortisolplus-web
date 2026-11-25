@@ -52,6 +52,15 @@ const STEP_KEYS: Partial<Record<StepId, string>> = {
 /** Screens earlier visitors may have saved that the web no longer has: resume on the reviews. */
 const RETIRED_KEYS = ['notifications', 'apple_health', 'connect'];
 
+/** Every screen in order, for GA4 (screen_index: 1 = meet_zen … paywall, done). */
+const SCREEN_ORDER = [
+  'meet_zen', 'symptoms', 'goals', 'zen_handoff',
+  ...EDU_KEYS,
+  ...QUESTIONS.map((q) => q.id),
+  'social_proof', 'building_plan', 'plan_reveal', 'paywall', 'done',
+];
+const trackScreen = (key: string) => trackStartScreen(key, { screen_index: SCREEN_ORDER.indexOf(key) + 1 });
+
 interface Saved {
   screen: string;
   answers: Answers;
@@ -205,6 +214,11 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       setLayers([{ id: ++layerId.current, step: (s === 'exit' ? 'paywall' : s) as StepId, cls: '' }]);
       return;
     }
+    trackStartEvent('open', {
+      platform: detectPlatform(),
+      in_app_browser: inAppBrowser(),
+      resume: bought ? 'purchased' : saved?.reachedPaywall ? 'paywall' : saved ? 'in_progress' : 'new',
+    });
     if (bought) {
       setPurchase(bought);
       first = 'done';
@@ -271,7 +285,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
     };
     if (patch.screen) {
       screen.current = patch.screen;
-      trackStartScreen(patch.screen); // GA4: where visitors stop
+      trackScreen(patch.screen); // GA4: where visitors stop
     }
     writeSaved(next);
   }, []);
@@ -305,7 +319,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       persist({ reachedPaywall: true });
       trackMeta('ViewContent'); // first time on the plans page (Meta Pixel)
     }
-    if (step === 'done') trackStartScreen('done');
+    if (step === 'done') trackScreen('done');
     if (step === 'paywall' || step === 'plan') void import('./checkout');
   }, [step, persist]);
 
@@ -367,7 +381,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   // ------------------------------------------------------------ paywall
 
   const openExitOffer = useCallback(() => {
-    trackStartEvent('exit_offer');
+    trackStartEvent('exit_offer', { first_time: !sawRef.current });
     setSawExitOffer(true);
     sawRef.current = true;
     persist({ sawExitOffer: true });
@@ -408,11 +422,15 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
         setPurchase(bought);
         setExitOpen(false);
         go('done');
-      } else if (chosen !== 'yearlyExit' && !sawRef.current) {
+        return;
+      }
+      trackStartEvent('checkout_cancel', { plan: chosen });
+      if (chosen !== 'yearlyExit' && !sawRef.current) {
         // Backed out of checkout → the one-time exit offer, like Apple's sheet in the app.
         openExitOffer();
       }
     } catch (err) {
+      trackStartEvent('checkout_error', { plan: chosen });
       setError(err instanceof Error ? err.message : 'Checkout failed. Please try again.');
     } finally {
       setBusy(false);

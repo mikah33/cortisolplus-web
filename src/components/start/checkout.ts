@@ -71,7 +71,9 @@ export async function checkout(plan: PlanId, attributes: Record<string, string>)
   const price = rcPackage.webBillingProduct.currentPrice;
   const value = Math.round(price.amountMicros / 10_000) / 100;
   trackMeta('InitiateCheckout', { value, currency: price.currency });
-  trackStartEvent('checkout');
+  // GA4 funnel. Sandbox test cards (?sandbox) are left out, as for Meta.
+  const funnel = { plan, value, currency: price.currency };
+  if (!isSandbox()) trackStartEvent('checkout', funnel);
 
   try {
     const result = await purchases.purchase({
@@ -81,7 +83,7 @@ export async function checkout(plan: PlanId, attributes: Record<string, string>)
     // Sandbox test cards (?sandbox) must never count as ad conversions.
     if (!isSandbox()) {
       trackMeta('Purchase', { value, currency: price.currency }, newEventId());
-      trackStartEvent('purchase');
+      trackStartEvent('purchase', funnel);
     }
     // A completed payment always gets the unlock screen. For anonymous buyers
     // the entitlement may not be reported as active on the web customer yet;
