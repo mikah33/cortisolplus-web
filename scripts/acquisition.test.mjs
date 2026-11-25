@@ -70,3 +70,16 @@ test('already-decorated OneLinks are recognised and rebuilt without extra parame
   assert.equal(isAppStoreLink(href), true);
   assert.equal(appStoreCampaignUrl(href, acquisitionContext('https://cortisolplus.com/?fbclid=x', '')), 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-meta&deep_link_value=website');
 });
+
+test('/get/ landing page (A/B store arm) downloads carry their own campaign and acquisition page', async () => {
+  const { landingPage, isPlayStoreLink } = await import('../src/lib/acquisition.js');
+  const lp = acquisitionContext('https://cortisolplus.com/get/?utm_source=meta&utm_medium=paid&utm_campaign=C%2B%20WEB2APP&fbclid=PRIVATE', 'https://cortisolplus.com/start/');
+  assert.equal(appStoreCampaignUrl('https://apps.apple.com/app/id6759510126', lp), 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-meta-paid-lp&deep_link_value=website_lp');
+  assert.equal(appStoreEvent(lp, '/get/').app_store_campaign, 'website-meta-paid-lp');
+  const web = acquisitionContext('https://cortisolplus.com/start/?utm_source=meta&utm_medium=paid&fbclid=PRIVATE', '');
+  assert.equal(appStoreCampaignUrl('https://apps.apple.com/app/id6759510126', web), 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-meta-paid&deep_link_value=website');
+  for (const path of ['/get/', '/get']) { assert.equal(landingPage(path), true); assert.equal(metaPage(path), true); }
+  for (const path of ['/getting-started/', '/start/', '/', undefined]) assert.equal(landingPage(path), false);
+  assert.equal(isPlayStoreLink('https://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus'), true);
+  for (const href of ['https://play.google.com/store/apps/details?id=other', 'http://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus', '/download/']) assert.equal(isPlayStoreLink(href), false);
+});

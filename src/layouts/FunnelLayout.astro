@@ -8,14 +8,19 @@ import WebsiteAnalytics from '../components/WebsiteAnalytics.astro';
 interface Props {
   title: string;
   description: string;
+  /** Body class: the sky backdrop by default; /get/ brings its own. */
+  bodyClass?: string;
+  /** Width of the page column. */
+  mainClass?: string;
 }
-const { title, description } = Astro.props;
+const { title, description, bodyClass = 'funnel-page', mainClass = 'mx-auto w-full max-w-[30rem] min-h-[100dvh]' } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <slot name="head" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#7ec0ee" />
     <SEO {title} {description} noindex={true} />
@@ -28,8 +33,8 @@ const { title, description } = Astro.props;
       })();
     </script>
   </head>
-  <body class="funnel-page">
-    <main class="mx-auto w-full max-w-[30rem] min-h-[100dvh]">
+  <body class={bodyClass}>
+    <main class={mainClass}>
       <slot />
     </main>
     <WebsiteAnalytics />
