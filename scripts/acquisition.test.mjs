@@ -83,3 +83,16 @@ test('/get/ landing page downloads carry their own campaign and acquisition page
   assert.equal(isPlayStoreLink('https://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus'), true);
   for (const href of ['https://play.google.com/store/apps/details?id=other', 'http://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus', '/download/']) assert.equal(isPlayStoreLink(href), false);
 });
+
+test('our App Store Connect campaign links keep their tokens; anything extra still goes through OneLink', () => {
+  const context = acquisitionContext('https://cortisolplus.com/start/?utm_source=meta&utm_medium=paid', '');
+  const own = 'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=web2app-meta&mt=8';
+  assert.equal(isAppStoreLink(own), true);
+  assert.equal(appStoreCampaignUrl(own, context), null);
+  for (const href of [
+    'https://apps.apple.com/app/apple-store/id6759510126?pt=999&ct=web2app-meta&mt=8',
+    'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=web2app-meta&mt=8&email=private@example.com',
+    'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=My%20Health&mt=8',
+    'https://apps.apple.com/app/apple-store/id6759510126?pt=128296964&ct=web2app-meta&mt=8#private',
+  ]) assert.equal(appStoreCampaignUrl(href, context), 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-meta-paid&deep_link_value=website');
+});

@@ -43,6 +43,15 @@ export function appStoreCampaign(context) {
 // redirects iPhones to the default App Store listing.
 export const ONELINK = 'https://cortisolplus.onelink.me/6thZ';
 
+// App Store Connect provider token (same as consts.ts SITE.appStoreProviderToken).
+const PROVIDER_TOKEN = '128296964';
+function isOwnCampaignLink(url) {
+  const keys = [...url.searchParams.keys()];
+  return url.hostname === 'apps.apple.com' && !url.hash
+    && url.searchParams.get('pt') === PROVIDER_TOKEN && /^[a-z0-9-]{1,30}$/.test(url.searchParams.get('ct') || '')
+    && keys.every(k => ['pt', 'ct', 'mt'].includes(k)) && new Set(keys).size === keys.length;
+}
+
 export function isAppStoreLink(href) {
   let url;
   try { url = new URL(href); } catch { return false; }
@@ -53,6 +62,10 @@ export function isAppStoreLink(href) {
 
 export function appStoreCampaignUrl(href, context) {
   if (!isAppStoreLink(href)) return null;
+  // Our own App Store Connect campaign link (consts.ts appStoreCampaignLink, e.g.
+  // /start/'s web2app-meta) is already credited by Apple, and the OneLink
+  // redirect would drop its tokens, so it stays. Only pt/ct/mt, nothing else.
+  if (isOwnCampaignLink(new URL(href))) return null;
   // A new URL ensures private or unrelated parameters cannot hitchhike.
   // deep_link_value becomes the app's acquisition_page (GA4 user property and
   // RevenueCat attribute), which arrives even without ATT consent.

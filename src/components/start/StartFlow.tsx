@@ -13,6 +13,7 @@ import './ob.css';
 import { CHECKOUT_ENABLED, type Platform, type PlanId } from './content';
 import { readPurchase, writePurchase, type Purchase } from './purchase';
 import { trackMeta } from '../../lib/metaPixel';
+import { trackStartScreen, trackStartEvent } from '../../lib/startAnalytics';
 import { A, Alert, BackButton, StageContext, reducedMotion, type Stage } from './ui';
 import Welcome, { type WelcomeResume } from './Welcome';
 import Education, { EDU_KEYS } from './Education';
@@ -268,7 +269,10 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       reachedPaywall: patch.reachedPaywall ?? reachedRef.current,
       sawExitOffer: patch.sawExitOffer ?? sawRef.current,
     };
-    if (patch.screen) screen.current = patch.screen;
+    if (patch.screen) {
+      screen.current = patch.screen;
+      trackStartScreen(patch.screen); // GA4: where visitors stop
+    }
     writeSaved(next);
   }, []);
   const answersRef = useRef(answers);
@@ -301,6 +305,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
       persist({ reachedPaywall: true });
       trackMeta('ViewContent'); // first time on the plans page (Meta Pixel)
     }
+    if (step === 'done') trackStartScreen('done');
     if (step === 'paywall' || step === 'plan') void import('./checkout');
   }, [step, persist]);
 
@@ -362,6 +367,7 @@ export default function StartFlow({ reviews, rating, appStoreUrl, googlePlayUrl,
   // ------------------------------------------------------------ paywall
 
   const openExitOffer = useCallback(() => {
+    trackStartEvent('exit_offer');
     setSawExitOffer(true);
     sawRef.current = true;
     persist({ sawExitOffer: true });
