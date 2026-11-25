@@ -35,6 +35,8 @@ const reviews = reviewsData.reviews.filter((r) => r.rating >= 4);
 const ratingPct = `${(APP_RATING.value / 5) * 100}%`;
 const ratingLabel = `Rated ${APP_RATING.value} out of 5 from ${APP_RATING.count} App Store ratings`;
 const money = (n: number) => `$${n.toFixed(2)}`;
+// A year ÷ 12, to the cent below (same as the web paywall's monthly()).
+const perMonth = (year: number) => Math.floor((year / 12) * 100 + 1e-6) / 100;
 // Declining the offer still goes to the App Store, credited to its own campaign.
 const storeUrl = appStoreCampaignLink('web2app-start-store');
 const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -297,10 +299,13 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
       <img class="of-icon" src="/get/icon.webp" width="512" height="512" alt="" />
       <span class="of-pill">Web-only price</span>
       <h2 id="of-title">Save {WEB_SAVING_PCT}% if you join right now</h2>
-      <div class="of-prices" aria-label={`Yearly: ${money(APP_STORE_PRICES.yearly)} in the App Store, ${money(PLANS.yearly.price)} here`}>
-        <div class="of-was"><span>App Store</span><s>{money(APP_STORE_PRICES.yearly)}/yr</s></div>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
-        <div class="of-now"><span>Here</span><b>{money(PLANS.yearly.price)}/yr</b></div>
+      <div class="of-prices" aria-label={`Yearly plan: ${money(perMonth(APP_STORE_PRICES.yearly))} a month in the App Store, ${money(perMonth(PLANS.yearly.price))} a month here, billed annually at ${money(PLANS.yearly.price)}`}>
+        <div class="of-row">
+          <div class="of-was"><span>App Store</span><s>{money(perMonth(APP_STORE_PRICES.yearly))}/mo</s></div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <div class="of-now"><span>Here</span><b>{money(perMonth(PLANS.yearly.price))}/mo</b></div>
+        </div>
+        <p class="of-billed">Billed annually · {money(PLANS.yearly.price)}/yr</p>
       </div>
       <p class="of-text">Answer a few quick questions, Zen builds your plan, then you unlock it in the app.</p>
       <a href="/start/plan/" class="of-cta" id="of-cta">Claim {WEB_SAVING_PCT}% off</a>
@@ -612,7 +617,9 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
   .of-icon { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.35); }
   .of-pill { margin-top: 14px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: #ff3b30; padding: 5px 12px; border-radius: 999px; }
   .of-card h2 { margin: 10px 0 0; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
-  .of-prices { margin-top: 16px; display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-radius: 16px; background: #f2f2f7; }
+  .of-prices { margin-top: 16px; padding: 12px 18px 10px; border-radius: 16px; background: #f2f2f7; }
+  .of-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .of-billed { margin: 8px 0 0; font-size: 12px; font-weight: 600; color: rgba(60, 60, 67, 0.6); }
   .of-prices svg { width: 20px; height: 20px; color: rgba(60, 60, 67, 0.45); }
   .of-was, .of-now { display: flex; flex-direction: column; align-items: center; gap: 2px; }
   .of-was span, .of-now span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(60, 60, 67, 0.6); }
