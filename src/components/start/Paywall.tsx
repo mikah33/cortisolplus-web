@@ -3,7 +3,7 @@
 
 import type { ReactNode } from 'react';
 import { A, BackButton, BlockButton, Col, CompanionFace, Glass, Icon, Laurel, Txt, useShown, useStage } from './ui';
-import { PLANS, type Platform } from './content';
+import { APP_STORE_PRICES, PLANS, WEB_SAVING_PCT, type Platform } from './content';
 import { trackStartEvent } from '../../lib/startAnalytics';
 
 const money = (n: number) => `$${n.toFixed(2)}`;
@@ -32,7 +32,6 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
   const cta = useShown(580);
   const weekly = PLANS.weekly.price;
   const yearly = PLANS.yearly.price;
-  const save = Math.round((1 - yearly / (weekly * 52)) * 100);
 
   // The header is the full-width rocket art (ignoring the top safe area). On
   // a screen shorter than the app's, it gives up sky from its top so the page
@@ -42,7 +41,8 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
   // status-bar-tall gap (47pt on a 16e) between the art and the stats.
   const natural = (st.w * 856) / 1200;
   const gap = Math.max(0, 47 - st.top);
-  const below = 500 + (inAppBrowser && platform === 'ios' ? 40 : 0);
+  // 500 for the page under the art, plus the web-vs-App-Store line (36).
+  const below = 536 + (inAppBrowser && platform === 'ios' ? 40 : 0);
   const boxH = Math.max(150 + gap, Math.min(natural + gap, st.h + st.top - below));
   const headerH = boxH - gap;
 
@@ -52,7 +52,7 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
     { icon: <img src={A('perk_sleep.webp')} alt="" style={{ width: 28, height: 28, objectFit: 'contain' }} />, text: 'Sleep, HRV & recovery insights' },
   ];
 
-  const tile = (id: PaywallPlan, title: string, price: number, period: string, note: string, badge: string) => {
+  const tile = (id: PaywallPlan, title: string, price: number, period: string, note: string, badge: string, was?: number) => {
     const on = plan === id;
     return (
       <button type="button" className="ob-plan-tile" role="radio" aria-checked={on} onClick={() => setPlan(id)}>
@@ -62,6 +62,9 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
         <Glass radius={16} className={`ob-plan-box ${on ? 'is-sel' : ''}`} style={{ opacity: on ? 1 : 0.75 }}>
           <span className="ob-t" style={{ fontSize: 15, fontWeight: 700 }}>{title}</span>
           <span style={{ display: 'flex', alignItems: 'baseline', gap: 1, whiteSpace: 'nowrap' }}>
+            {was !== undefined && (
+              <s aria-label={`App Store price ${money(was)}`} style={{ fontSize: 13, fontWeight: 600, color: 'rgba(0,0,0,0.38)', marginRight: 5 }}>{money(was)}</s>
+            )}
             <span style={{ fontSize: 22, fontWeight: 800, color: on ? 'var(--ob-teal)' : '#000', transition: 'color 300ms', lineHeight: 1.15 }}>{money(price)}</span>
             <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(0,0,0,0.45)' }}>{period}</span>
           </span>
@@ -121,9 +124,16 @@ export function Paywall({ plan, setPlan, rating, usersCount, busy, error, onBuy,
 
         <div className="ob-spacer" style={{ minHeight: 22 }} />
 
+        {/* Web only: Yearly costs less here than in the App Store (see content.ts). */}
+        <div className={`ob-fs ${plans ? 'on' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 14px', borderRadius: 999, background: 'rgba(255,99,71,0.12)', marginBottom: 10, flex: 'none' }}>
+          <Icon.tag size={13} color="var(--ob-coral)" />
+          <span className="ob-t" style={{ fontSize: 13, fontWeight: 800, color: 'var(--ob-coral)', whiteSpace: 'nowrap' }}>
+            Yearly is {WEB_SAVING_PCT}% cheaper here than in the app
+          </span>
+        </div>
         <div className={`ob-fs ${plans ? 'on' : ''}`} role="radiogroup" aria-label="Choose a plan" style={{ display: 'flex', alignItems: 'flex-end', gap: 12, alignSelf: 'stretch', padding: '0 24px' }}>
           {tile('weekly', 'Weekly', weekly, '/wk', 'Billed weekly', 'Popular')}
-          {tile('yearly', 'Yearly', monthly(yearly), '/mo', 'Billed annually', save > 0 ? `Save ${save}%` : 'Best value')}
+          {tile('yearly', 'Yearly', monthly(yearly), '/mo', 'Billed annually', `${WEB_SAVING_PCT}% off app price`, monthly(APP_STORE_PRICES.yearly))}
         </div>
         {error && <p className="ob-sys" role="alert" style={{ fontSize: 12, color: '#ff3b30', textAlign: 'center', padding: '4px 16px 0' }}>{error}</p>}
         {inAppBrowser && platform === 'ios' && (
