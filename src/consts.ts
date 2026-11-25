@@ -8,6 +8,8 @@ export const SITE = {
   appStoreUrl: 'https://apps.apple.com/app/id6759510126',
   googlePlayUrl: 'https://play.google.com/store/apps/details?id=com.elevatedsystems.cortisolplus',
   appStoreId: '6759510126',
+  /** App Store Connect provider token for campaign links (Analytics › Acquisition › Campaigns). */
+  appStoreProviderToken: '128296964',
   bundleId: 'com.elevatedsystems.cortisolplus',
   youtube: 'https://www.youtube.com/@CortisolPlus',
   twitter: '@cortisolplus',
@@ -18,6 +20,15 @@ export const SITE = {
   substackName: 'The Cortisol Brief',
   ogImage: '/og-default.png',
 } as const;
+
+/**
+ * An App Store link that App Store Connect credits to a campaign (Analytics ›
+ * Acquisition › Campaigns: downloads, sales, subscriptions). Apple attributes it
+ * from the link itself, whatever browser or app it is opened from, and shows a
+ * campaign once 5 people have downloaded through it. Token: up to 30 characters.
+ */
+export const appStoreCampaignLink = (campaign: string) =>
+  `https://apps.apple.com/app/apple-store/id${SITE.appStoreId}?pt=${SITE.appStoreProviderToken}&ct=${encodeURIComponent(campaign)}&mt=8`;
 
 /**
  * Live App Store rating from Apple's iTunes lookup API.

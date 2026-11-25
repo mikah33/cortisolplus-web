@@ -1,6 +1,8 @@
 ---
 // Full-screen layout for the web onboarding: no site nav or footer, just the
-// app's sky and one phone-width column, like the iOS onboarding.
+// app's sky and one phone-width column, like the iOS onboarding. No Smart App
+// Banner on these ad landing pages (/start/, /get/): taps on it reach the App
+// Store without passing our click tracking or campaign links.
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import WebsiteAnalytics from '../components/WebsiteAnalytics.astro';
@@ -22,7 +24,7 @@ const { title, description, bodyClass = 'funnel-page', mainClass = 'mx-auto w-fu
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#7ec0ee" />
-    <SEO {title} {description} noindex={true} />
+    <SEO {title} {description} noindex={true} appBanner={false} />
     <script is:inline>
       (function () {
         var ua = navigator.userAgent || '';

@@ -8,6 +8,7 @@
 
 import type { PlanId } from './content';
 import { newEventId, trackMeta } from '../../lib/metaPixel';
+import { trackStartEvent } from '../../lib/startAnalytics';
 
 // Public client keys (safe to ship). The sandbox key is used off production
 // so test cards never touch live billing.
@@ -70,6 +71,7 @@ export async function checkout(plan: PlanId, attributes: Record<string, string>)
   const price = rcPackage.webBillingProduct.currentPrice;
   const value = Math.round(price.amountMicros / 10_000) / 100;
   trackMeta('InitiateCheckout', { value, currency: price.currency });
+  trackStartEvent('checkout');
 
   try {
     const result = await purchases.purchase({
@@ -77,7 +79,10 @@ export async function checkout(plan: PlanId, attributes: Record<string, string>)
       metadata: { source: 'cortisolplus.com/start', plan },
     });
     // Sandbox test cards (?sandbox) must never count as ad conversions.
-    if (!isSandbox()) trackMeta('Purchase', { value, currency: price.currency }, newEventId());
+    if (!isSandbox()) {
+      trackMeta('Purchase', { value, currency: price.currency }, newEventId());
+      trackStartEvent('purchase');
+    }
     // A completed payment always gets the unlock screen. For anonymous buyers
     // the entitlement may not be reported as active on the web customer yet;
     // it is granted to the app user when the redemption link is opened.

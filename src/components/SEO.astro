@@ -6,6 +6,8 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  /** Safari's Smart App Banner. Off on the /start/ funnel, which ads land on. */
+  appBanner?: boolean;
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -14,6 +16,7 @@ const {
   description = SITE.description,
   image = SITE.ogImage,
   noindex = false,
+  appBanner = true,
   schema,
 } = Astro.props;
 
@@ -42,8 +45,12 @@ const fullTitle = title === SITE.title ? title : `${title} | ${SITE.name}`;
 
 <!-- Smart App Banner — Safari on iOS auto-renders a native banner at the top
      of the page with our icon, name, App Store rating, and Install / View
-     button that deep-links to the App Store. -->
-<meta name="apple-itunes-app" content="app-id=6759510126, app-argument=https://cortisolplus.com" />
+     button that deep-links to the App Store. Taps on it never reach our click
+     tracking, so it carries the App Store Connect campaign "website-banner"
+     (provider token + campaign token, as Apple asks for banners; affiliate-data
+     is the banner's parameter for them). Not on /start/: ad visitors stay in
+     the web onboarding there. -->
+{appBanner && <meta name="apple-itunes-app" content={`app-id=${SITE.appStoreId}, app-argument=https://cortisolplus.com, affiliate-data=pt=${SITE.appStoreProviderToken}&ct=website-banner`} />}
 
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
