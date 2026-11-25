@@ -41,12 +41,13 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
   bodyClass="lp-page"
   mainClass="lp-main"
 >
+  <link rel="preload" as="image" href="/get/icon.webp" />
   <link rel="preload" as="image" href="/get/stress.webp" />
 
   <!-- ─── Header, like the App Store listing ─── -->
   <section class="lp-hero">
     <div class="lp-head">
-      <img class="lp-icon" src="/icon-512.png" width="512" height="512" alt="Cortisol+ app icon" />
+      <img class="lp-icon" src="/get/icon.webp" width="512" height="512" alt="Cortisol+ app icon" />
       <div class="lp-titles">
         <h1>Cortisol+</h1>
         <p class="lp-sub">Stress Monitor &amp; HRV</p>
@@ -214,7 +215,7 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
 
     <!-- ─── Last call ─── -->
     <section class="lp-final" id="lp-final">
-      <img src="/icon-192.png" width="192" height="192" alt="" class="lp-final-icon" />
+      <img src="/get/icon.webp" width="512" height="512" alt="" class="lp-final-icon" loading="lazy" />
       <h2>Catch stress before it peaks.</h2>
       <p><span class="only-ios">Works with the Apple Watch you already have.</span><span class="only-android">Free on Google Play.</span></p>
       <a href={SITE.appStoreUrl} class="lp-cta only-ios">
@@ -244,7 +245,7 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
 
   <!-- ─── Sticky download bar (after the header button scrolls away) ─── -->
   <div class="lp-bar" id="lp-bar" aria-hidden="true">
-    <img src="/icon-192.png" width="192" height="192" alt="" />
+    <img src="/get/icon.webp" width="512" height="512" alt="" />
     <div class="lp-bar-t">
       <b>Cortisol+</b>
       <span><span class="lp-bar-star">★</span> {APP_RATING.value} · Free</span>
