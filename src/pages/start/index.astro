@@ -49,8 +49,10 @@ const formatDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateStr
   mainClass="lp-main"
 >
   <script is:inline>
-    // Already started the onboarding, or bought: go straight back to it.
-    try { if (localStorage.getItem('cp_start_purchase_v1') || localStorage.getItem('cp_start_v2')) location.replace('/start/plan/' + location.search + location.hash); } catch (e) {}
+    // Everyone lands on this page and its offer first, including people who
+    // started the onboarding before ("Claim" resumes their saved progress).
+    // Only buyers skip it, straight to their unlock screen.
+    try { if (localStorage.getItem('cp_start_purchase_v1')) location.replace('/start/plan/' + location.search + location.hash); } catch (e) {}
   </script>
 
 <script>
