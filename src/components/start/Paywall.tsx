@@ -4,6 +4,7 @@
 import type { ReactNode } from 'react';
 import { A, BackButton, BlockButton, Col, CompanionFace, Glass, Icon, Laurel, Txt, useShown, useStage } from './ui';
 import { PLANS, type Platform } from './content';
+import { trackStart } from '../../lib/startAnalytics';
 
 const money = (n: number) => `$${n.toFixed(2)}`;
 /** Web only (the App Store doesn't allow it): yearly plans show a year ÷ 12, to the cent below, billed annually. */
@@ -302,7 +303,7 @@ export function Done({ name, platform, purchased, unlockUrl, unlockQr, downloadQ
         <div className="ob-flex" style={{ gap: 10, padding: '8px 24px 16px' }}>
           {store(platform === 'android' ? 'android' : 'ios')}
           {unlockUrl ? (
-            <a href={unlockUrl} className="ob-block" style={{ textDecoration: 'none', background: '#fff', color: '#000', fontWeight: 700 }}>Unlock Pro in the app</a>
+            <a href={unlockUrl} onClick={() => trackStart('start_unlock_click', { platform, transport_type: 'beacon' })} className="ob-block" style={{ textDecoration: 'none', background: '#fff', color: '#000', fontWeight: 700 }}>Unlock Pro in the app</a>
           ) : (
             <a href={platform === 'android' ? appStoreUrl : googlePlayUrl} className="ob-t" style={{ textAlign: 'center', fontSize: 14, fontWeight: 600, color: 'rgba(0,0,0,0.55)' }}>
               {platform === 'android' ? 'On iPhone? Get it on the App Store' : 'On Android? Get it on Google Play'}
