@@ -13,40 +13,6 @@ const reviews = reviewsData.reviews.map(({ title, body, author, rating }) => ({ 
   title="Meet Zen — Build your Cortisol+ plan"
   description="Answer a few questions and Zen builds your personal plan for calmer, lower-stress days."
 >
-  <!--
-    A/B test (Nov 2026): web onboarding (this page) vs the /get/ App Store landing
-    page. Phone visitors from ads (utm_medium=paid or an fbclid) are split
-    STORE_SHARE / rest; the arm is kept in localStorage so a visitor always sees
-    the same one. Visitors with saved web progress or a web purchase, desktop and
-    organic visitors are left out of the test and stay here.
-    QA: ?lp=store or ?lp=web forces an arm for that visit without saving it.
-    To end the test, set STORE_SHARE to 0 (everyone new stays here) or 1.
-  -->
-  <script is:inline slot="head">
-    (function () {
-      var STORE_SHARE = 0.5;
-      var KEY = 'cp_lp_test_v1';
-      try {
-        var q = new URLSearchParams(location.search);
-        var forced = q.get('lp');
-        var arm = forced === 'store' || forced === 'web' ? forced : localStorage.getItem(KEY);
-        if (arm !== 'store' && arm !== 'web') {
-          var phone = /iPhone|iPod|Android/.test(navigator.userAgent || '');
-          var paid = /^(paid|cpc|ppc|paid_social|paid-social|paidsocial|ads|ad)$/i.test(q.get('utm_medium') || '') || q.has('fbclid');
-          var returning = localStorage.getItem('cp_start_v2') || localStorage.getItem('cp_start_purchase_v1') || q.has('step');
-          if (!phone || !paid || returning) return;
-          arm = Math.random() < STORE_SHARE ? 'store' : 'web';
-          localStorage.setItem(KEY, arm);
-          sessionStorage.setItem('cp_lp_assigned', '1');
-        }
-        if (arm === 'store') {
-          document.documentElement.dataset.lpRedirect = '1';
-          document.documentElement.style.visibility = 'hidden';
-          location.replace('/get/' + location.search + location.hash);
-        }
-      } catch (e) { /* storage blocked: stay on the web onboarding */ }
-    })();
-  </script>
   <link rel="preload" as="image" href="/app-ui/ob/onboarding_sky.webp" />
   <link rel="preload" as="video" href="/app-ui/ob/launch.mp4" type="video/mp4" />
   <!-- Desktop only: a calm panel beside the phone-sized frame (ob.css) -->

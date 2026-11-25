@@ -24,9 +24,9 @@ const KNOWN_CAMPAIGNS = new Set([
   'website-organic', 'website-press', ...Object.values(SOURCE_CAMPAIGNS),
 ]);
 
-// The /get/ App Store landing page: the "store" arm of the /start/ A/B test
-// (see pages/start/index.astro). Its downloads get their own campaign and
-// acquisition_page, so installs and in-app revenue can be split by arm.
+// The /get/ App Store landing page, for its own ad campaign (Nov 2026). Its
+// downloads get their own campaign (…-lp) and acquisition_page (website_lp), so
+// installs and in-app revenue can be compared with the /start/ web funnel.
 export const landingPage = path => /^\/get(\/|$)/.test(path || '');
 
 export function appStoreCampaign(context) {
@@ -97,13 +97,3 @@ export const isPlayStoreLink = href => {
     return url.protocol === 'https:' && url.hostname === 'play.google.com' && url.searchParams.get('id') === 'com.elevatedsystems.cortisolplus';
   } catch { return false; }
 };
-
-// /start/ A/B test arm ("web" or "store"), saved by the split script in
-// pages/start/index.astro. Visitors outside the test have none.
-export const LP_TEST_KEY = 'cp_lp_test_v1';
-export function lpTestArm() {
-  try {
-    const arm = localStorage.getItem(LP_TEST_KEY);
-    return arm === 'web' || arm === 'store' ? arm : '';
-  } catch { return ''; }
-}

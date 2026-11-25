@@ -71,7 +71,7 @@ test('already-decorated OneLinks are recognised and rebuilt without extra parame
   assert.equal(appStoreCampaignUrl(href, acquisitionContext('https://cortisolplus.com/?fbclid=x', '')), 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-meta&deep_link_value=website');
 });
 
-test('/get/ landing page (A/B store arm) downloads carry their own campaign and acquisition page', async () => {
+test('/get/ landing page downloads carry their own campaign and acquisition page', async () => {
   const { landingPage, isPlayStoreLink } = await import('../src/lib/acquisition.js');
   const lp = acquisitionContext('https://cortisolplus.com/get/?utm_source=meta&utm_medium=paid&utm_campaign=C%2B%20WEB2APP&fbclid=PRIVATE', 'https://cortisolplus.com/start/');
   assert.equal(appStoreCampaignUrl('https://apps.apple.com/app/id6759510126', lp), 'https://cortisolplus.onelink.me/6thZ?pid=website&c=website-meta-paid-lp&deep_link_value=website_lp');

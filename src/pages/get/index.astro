@@ -1,9 +1,8 @@
 ---
-// /get/ — the "store" arm of the /start/ A/B test (Nov 2026): an App Store
-// style product page for phones whose one job is the download button. Phone
-// ad visitors are split here by the script in pages/start/index.astro.
-// Downloads from this page carry their own campaign (…-lp) and
-// acquisition_page (website_lp): see lib/acquisition.js.
+// /get/ — App Store style product page for phones whose one job is the
+// download button. It has its own Meta campaign (Nov 2026), tested against the
+// /start/ web-purchase campaign. Downloads from this page carry their own
+// campaign (…-lp) and acquisition_page (website_lp): see lib/acquisition.js.
 import FunnelLayout from '../../layouts/FunnelLayout.astro';
 import reviewsData from '../../data/reviews.json';
 import QRCode from 'qrcode';

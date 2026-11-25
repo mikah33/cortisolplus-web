@@ -8,7 +8,7 @@
 </aside>
 
 <script>
-  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, isPlayStoreLink, lpTestArm, metaPage } from '../lib/acquisition.js';
+  import { acquisitionContext, appStoreEvent, appStoreCampaignUrl, isAppStoreLink, isPlayStoreLink, metaPage } from '../lib/acquisition.js';
   const measurementId = 'G-MMJRJGZDE3';
   // "c+" dataset in the c+ ads business (web-to-app ads land on /start/).
   const metaPixelId = '2477485336109709';
@@ -32,9 +32,6 @@
   let googleLoaded = false;
   let metaLoaded = false;
   let lastPage = '';
-  // /start/ A/B test arm ("web" | "store"), tagged on every GA4 event below.
-  const lpArm = lpTestArm();
-  const lpParams = lpArm ? { lp_test: lpArm } : {};
 
   function loadGoogle() {
     if (!production || googleLoaded) return;
@@ -69,14 +66,11 @@
   }
 
   function pageView() {
-    // The /start/ split script is sending this visitor to /get/: count them there.
-    if (document.documentElement?.dataset?.lpRedirect) return;
     const banner = document.getElementById('privacy-choices');
     if (banner) banner.hidden = choice !== 'unset';
     document.querySelectorAll<HTMLElement>('[data-privacy-text]').forEach(text => { text.hidden = (text.dataset.privacyText === 'default') !== analyticsByDefault; });
     if (!production || !analyticsAllowed(choice)) return;
     loadGoogle();
-    if (lpArm) w.gtag?.('set', 'user_properties', { lp_test: lpArm });
     // Consent applies to the AppsFlyer download link (RevenueCat attribution) as well as GA4.
     // Decorate actual hrefs so keyboard and new-tab navigation work normally.
     document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(link => {
@@ -86,11 +80,7 @@
     const path = location.pathname;
     if (lastPage === path) return;
     lastPage = path;
-    w.gtag?.('event', 'page_view', { ...context, ...lpParams, page_location: `https://cortisolplus.com${path}`, page_referrer: referrerOrigin, page_title: document.title });
-    // Once per visitor, on the first page after the split script picked their arm.
-    let assigned = '';
-    try { assigned = sessionStorage.getItem('cp_lp_assigned') || ''; sessionStorage.removeItem('cp_lp_assigned'); } catch {}
-    if (assigned && lpArm) w.gtag?.('event', 'lp_test_assign', { ...context, lp_test: lpArm });
+    w.gtag?.('event', 'page_view', { ...context, page_location: `https://cortisolplus.com${path}`, page_referrer: referrerOrigin, page_title: document.title });
     if (adsAllowed(choice) && metaPage(path)) { loadMeta(); w.fbq?.('track', 'PageView'); }
   }
 
@@ -125,7 +115,7 @@
     }
     const link = target?.closest<HTMLAnchorElement>('a[href]');
     if (production && link && isPlayStoreLink(link.href) && analyticsAllowed(choice)) {
-      w.gtag?.('event', 'play_store_click', { ...context, ...lpParams, page_location: `https://cortisolplus.com${location.pathname}`, transport_type: 'beacon' });
+      w.gtag?.('event', 'play_store_click', { ...context, page_location: `https://cortisolplus.com${location.pathname}`, transport_type: 'beacon' });
       if (adsAllowed(choice) && metaPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'GooglePlay' });
       return;
     }
@@ -135,7 +125,7 @@
     const campaignUrl = appStoreCampaignUrl(link.href, context);
     if (campaignUrl && link.href !== campaignUrl) link.href = campaignUrl;
     // One delegated handler for all App Store links; client navigation cannot duplicate it.
-    w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), ...lpParams, page_referrer: referrerOrigin, transport_type: 'beacon' });
+    w.gtag?.('event', 'app_store_click', { ...appStoreEvent(context, location.pathname), page_referrer: referrerOrigin, transport_type: 'beacon' });
     if (adsAllowed(choice) && metaPage(location.pathname)) w.fbq?.('trackCustom', 'AppStoreClick', { destination: 'AppStore' });
   });
   // /start/ (FunnelLayout) has no ClientRouter, so astro:page-load never fires
